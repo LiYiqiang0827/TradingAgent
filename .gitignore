@@ -37,11 +37,12 @@ Thumbs.db
 *~
 
 # ============================================
-# Symlinks(2026-09-16 docs/ 软链接不再跟踪)
+# Symlinks(2026-09-18 docs/ 实体化,不再用软链接)
 # ============================================
-# docs/ 是软链接指向 ~/LLM Wiki/TradingAgent/(该目录本身是 git 仓库)
-# 不需要也不能在主仓库跟踪
-
+# 之前 docs/ 是软链接指向 ~/LLM Wiki/TradingAgent/
+# 2026-09-18 改成实体目录:文档物理存放在 ~/TradingAgent/<module>/docs/
+# LLM Wiki/TradingAgent 改成软链接指向 ~/TradingAgent/
+# 这样只维护一个 git 仓库(TradingAgent),分发给他人没有软链问题
 
 # ============================================
 # 编辑器 / IDE
