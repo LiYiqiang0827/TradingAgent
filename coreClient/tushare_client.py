@@ -473,6 +473,13 @@ class TushareClient:
         """新闻(9 源之一)"""
         return self.call("news", **params)
 
+    def major_news(self, **params):
+        """头条新闻(重要新闻,跟普通 news 区分)
+
+        tushare 接口:major_news
+        """
+        return self.call("major_news", **params)
+
 
 # ==================== 测试 ====================
 if __name__ == "__main__":
