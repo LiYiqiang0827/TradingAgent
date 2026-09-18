@@ -46,7 +46,7 @@ def load_watchlist_pairs(watchlist_csv: str) -> list:
         csv_path = PROJECT_ROOT / "scripts" / watchlist_csv
     if not csv_path.exists():
         # 也允许 policyStudy 下的 watchlist(2026-09-17 新加,跨项目复用)
-        alt = Path("/Users/nickzhang/TradingAgent/policyStudy/policy/题材涨停研究/watchlist") / Path(watchlist_csv).name
+        alt = PROJECT_ROOT / "policyStudy" / "policy" / "题材涨停研究" / "watchlist" / Path(watchlist_csv).name
         if alt.exists():
             csv_path = alt
         else:

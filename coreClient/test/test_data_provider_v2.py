@@ -13,9 +13,24 @@ data_provider 新增 12 个接口的回归测试
   cd ~/TradingAgent
   PYTHONPATH=. python3 coreClient/test/test_data_provider_v2.py
 """
+import os
 import sys
-sys.path.insert(0, '/Users/nickzhang/TradingAgent/offlineDataManager/scripts')
-sys.path.insert(0, '/Users/nickzhang/TradingAgent')
+from pathlib import Path
+
+
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[2]
+
+
+ROOT = _resolve_root()
+sys.path.insert(0, str(ROOT / "offlineDataManager" / "scripts"))
+sys.path.insert(0, str(ROOT))
 
 import unittest.mock as mock
 import pandas as pd

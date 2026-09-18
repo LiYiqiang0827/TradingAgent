@@ -38,7 +38,7 @@ import pandas as pd
 
 # ====== 路径配置:加 offlineDataManager/scripts 到 sys.path ======
 SCRIPT_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = Path("/Users/nickzhang/TradingAgent")  # scripts/ 移动后用绝对路径
+PROJECT_ROOT = SCRIPT_DIR.parents[3]
 OFFLINE_SCRIPTS = PROJECT_ROOT / "offlineDataManager" / "scripts"
 if str(OFFLINE_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(OFFLINE_SCRIPTS))

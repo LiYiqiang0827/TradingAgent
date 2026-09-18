@@ -11,10 +11,25 @@ kpl 库(db_cn_kpl.db)读取接口演示 — 开盘啦数据
 ⚠️ kpl 库各表的断点(原 tbl_kpl_ctrl)已废弃,统一存到 db_cn_basic.db:tbl_basic_ctrl
    查询时用 get_ctrl_basic(key='cn_kpl_list' / 'cn_kpl_concept_cons' / 'cn_kpl_limit_performance')。
 
-运行:cd /Users/nickzhang/TradingAgent/offlineDataManager/scripts && python3 test/kpl_demo.py
+运行:cd ~/TradingAgent/offlineDataManager/scripts && python3 test/kpl_demo.py
 """
+import os
 import sys
-sys.path.insert(0, '/Users/nickzhang/TradingAgent/offlineDataManager/scripts')
+from pathlib import Path
+
+
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[3]
+
+
+ROOT = _resolve_root()
+sys.path.insert(0, str(ROOT / "offlineDataManager" / "scripts"))
 
 import pandas as pd
 pd.set_option('display.width', 250)

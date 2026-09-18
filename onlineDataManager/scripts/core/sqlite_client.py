@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import sqlite3
 from datetime import datetime
 from pathlib import Path
@@ -42,8 +43,19 @@ from typing import Any
 logger = logging.getLogger(__name__)
 
 
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[3]
+
+
 # 数据库根目录(2026-09-10 用户新设计)
-ONLINE_DATA_ROOT = Path("/Users/nickzhang/TradingAgent/onlineDataManager")
+ROOT = _resolve_root()
+ONLINE_DATA_ROOT = ROOT / "onlineDataManager"
 DATA_DIR = ONLINE_DATA_ROOT / "data"
 
 

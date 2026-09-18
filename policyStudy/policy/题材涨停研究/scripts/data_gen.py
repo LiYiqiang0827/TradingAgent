@@ -69,6 +69,7 @@ import sys
 import argparse
 import subprocess
 import tempfile
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import List, Set, Tuple
@@ -82,7 +83,17 @@ from typing import List, Set, Tuple
 #   - 原 `policyStudy/scripts/policy_db_client.py` 已删除,policy 接口并入 offlineDataManager
 #   - 所有 policy 接口走 `from core.offline_db_client import ...`(facade re-export 模式)
 #   - sys.path 不再需要 policyStudy/scripts
-ROOT = Path(__file__).resolve().parents[4]
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[4]
+
+
+ROOT = _resolve_root()
 sys.path.insert(0, str(ROOT / "coreClient"))
 sys.path.insert(0, str(ROOT / "offlineDataManager" / "scripts"))
 

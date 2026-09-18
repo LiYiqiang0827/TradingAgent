@@ -18,11 +18,24 @@ core/logger.py
 from __future__ import annotations
 
 import logging
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
 
-ONLINE_DATA_ROOT = Path("/Users/nickzhang/TradingAgent/onlineDataManager")
+
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[3]
+
+
+ROOT = _resolve_root()
+ONLINE_DATA_ROOT = ROOT / "onlineDataManager"
 LOG_DIR = ONLINE_DATA_ROOT / "logs"
 
 # 日期前缀(每天一个文件)

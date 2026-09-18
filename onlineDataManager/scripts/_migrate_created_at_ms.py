@@ -25,8 +25,20 @@ import sys
 import shutil
 import os
 from datetime import datetime
+from pathlib import Path
 
-DB = "/Users/nickzhang/TradingAgent/onlineDataManager/data/online_data_202609.db"
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[2]  # scripts/.parent = onlineDataManager, .parent = TradingAgent
+
+
+ROOT = _resolve_root()
+DB = str(ROOT / "onlineDataManager" / "data" / "online_data_202609.db")
 TRADE_DATE = "20260915"
 NEW_DEFAULT = "strftime('%Y-%m-%d %H:%M:%f','now','localtime')"
 

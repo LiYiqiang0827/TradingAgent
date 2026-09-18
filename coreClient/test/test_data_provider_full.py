@@ -17,14 +17,28 @@ data_provider 全量回归测试(18 接口)
   - db 模式:用 sqlite3 直接查 db,避免 pandas/tushare init
   - online 模式:全部 mock 掉 _get_tushare/_get_kpl/_get_tdx
 """
+import os
 import sys
-sys.path.insert(0, '/Users/nickzhang/TradingAgent/offlineDataManager/scripts')
-sys.path.insert(0, '/Users/nickzhang/TradingAgent')
+from pathlib import Path
+
+
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[2]
+
+
+ROOT = _resolve_root()
+sys.path.insert(0, str(ROOT / "offlineDataManager" / "scripts"))
+sys.path.insert(0, str(ROOT))
 
 import unittest.mock as mock
 import sqlite3
 import pandas as pd
-from pathlib import Path
 
 # ============= 准备 mock =============
 import coreClient.data_provider as dp

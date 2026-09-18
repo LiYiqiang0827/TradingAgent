@@ -7,7 +7,7 @@ KPLClient 在线 API 演示 — 开盘啦 HTTP 接口实时调用
   3. limit_up_performance(date, n)   — 涨停表现详情 (历史,自动 IP fallback)
 
 运行:
-  cd /Users/nickzhang && python3 TradingAgent/coreClient/test/kpl_live_demo.py
+  cd ~ && python3 TradingAgent/coreClient/test/kpl_live_demo.py
   或
   cd ~/TradingAgent/coreClient/test && python3 kpl_live_demo.py
 

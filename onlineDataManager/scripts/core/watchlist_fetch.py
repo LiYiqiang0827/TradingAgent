@@ -29,6 +29,7 @@ core/watchlist_fetch.py
 
 from __future__ import annotations
 
+import os
 import re
 import sqlite3
 import time
@@ -50,8 +51,19 @@ DEFAULT_REASON = "盘前最近涨停股"
 # offlineDataManager 目录是固定的;用户最新架构定义:
 # ~/TradingAgent/offlineDataManager/data/db_cn_kpl.db
 # 不依赖 common.py,也不依赖 cwd,纯路径推导
-ONLINE_DATA_ROOT = Path("/Users/nickzhang/TradingAgent/onlineDataManager")
-OFFLINE_DATA_ROOT = Path("/Users/nickzhang/TradingAgent/offlineDataManager")
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[3]
+
+
+ROOT = _resolve_root()
+ONLINE_DATA_ROOT = ROOT / "onlineDataManager"
+OFFLINE_DATA_ROOT = ROOT / "offlineDataManager"
 
 # 数据来源(offlineDataManager 的 kpl.db)
 DB_KPL = OFFLINE_DATA_ROOT / "data" / "db_cn_kpl.db"
@@ -311,7 +323,7 @@ def fetch_kpl_ctrl_max_dates() -> dict[str, str | None]:
     result = {"cn_kpl_list": None, "cn_kpl_limit_performance": None}
 
     # 1. 优先从 db_cn_basic.db:tbl_basic_ctrl 读(规范位置)
-    db_basic = Path("/Users/nickzhang/TradingAgent/offlineDataManager/data/db_cn_basic.db")
+    db_basic = OFFLINE_DATA_ROOT / "data" / "db_cn_basic.db"
     if db_basic.exists():
         try:
             with sqlite3.connect(str(db_basic), timeout=5) as conn:

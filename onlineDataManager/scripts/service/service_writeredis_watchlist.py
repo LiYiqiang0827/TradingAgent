@@ -40,13 +40,14 @@ from pathlib import Path
 
 SERVICE_DIR = Path(__file__).resolve().parent
 SCRIPTS_DIR = SERVICE_DIR.parent
+ROOT = SERVICE_DIR.parents[2]
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 from core.logger import setup_logger                                            # noqa: E402
 from core.redis_online import OnlineRedis                                       # noqa: E402
 from core.watchlist_fetch import generate_watchlist                             # noqa: E402
 
-DB_KPL = Path("/Users/nickzhang/TradingAgent/offlineDataManager/data/db_cn_kpl.db")
+DB_KPL = ROOT / "offlineDataManager" / "data" / "db_cn_kpl.db"
 
 
 def write_watchlist_to_redis(redis_client: OnlineRedis, log: logging.Logger) -> int:

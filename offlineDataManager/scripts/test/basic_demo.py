@@ -10,10 +10,25 @@ basic 库(db_cn_basic.db)读取接口演示
   get_adj_factor  — 复权因子
   get_ctrl_basic  — basic 库断点表
 
-运行:cd /Users/nickzhang/TradingAgent/offlineDataManager/scripts && python3 test/basic_demo.py
+运行:cd ~/TradingAgent/offlineDataManager/scripts && python3 test/basic_demo.py
 """
+import os
 import sys
-sys.path.insert(0, '/Users/nickzhang/TradingAgent/offlineDataManager/scripts')
+from pathlib import Path
+
+
+def _resolve_root() -> Path:
+    env = os.environ.get("TRADE_AGENT_ROOT_PATH")
+    if env:
+        p = Path(env).expanduser().resolve()
+        if not p.exists():
+            raise RuntimeError(f"TRADE_AGENT_ROOT_PATH={env} 不存在")
+        return p
+    return Path(__file__).resolve().parents[3]
+
+
+ROOT = _resolve_root()
+sys.path.insert(0, str(ROOT / "offlineDataManager" / "scripts"))
 
 import pandas as pd
 pd.set_option('display.width', 250)
