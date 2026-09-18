@@ -9,7 +9,7 @@ import sys
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import pandas as pd
 from loguru import logger
@@ -41,9 +41,18 @@ from core.offline_db_client import (
     snap_ts,
     upsert_df,
     replace_table,
+    clear_table,         # 2026-09-17 新加:DELETE 单表(offline_downloader show_status 用)
     get_ctrl,
     update_ctrl,
     get_table_min_max,
+    get_ctrl_basic,      # 2026-09-17 新加:读 basic 全部 ctrl 断点(show_status 用)
+    get_news_ctrl,       # 2026-09-17 新加:读 news 全部 ctrl 断点(show_status 用)
+    # 2026-09-17 policy 工具(原 sibling offline_db_client_policy 合并)
+    has_data,
+    mark_downloaded,
+    upsert_rows,
+    _ymd_compact_to_dash,
+    _ymd_dash_to_compact,
     _get_news_ctrl_value,
     _update_news_ctrl_value,
     show_status,
@@ -61,6 +70,18 @@ NEWS_SRC_LIST = [
 # scheduler 默认跳过以节省 API 配额;手动跑 update_news 时显式传 src_list 可恢复
 NEWS_SRC_DISABLED = {"yuncaijing", "fenghuang"}
 NEWS_LIMIT = 1500  # tushare 单次返回上限
+
+# 5 大盘指数(2026-09-17 加,从 sibling offline_db_client_policy 合并)
+# 用户指定:000001.SH / 399001.SZ / 399006.SZ / 000688.SH / 000016.SH
+# 全部走 pytdx get_history_minute_time_data(market, code, date),已实测都能拉 240 行/天
+# 区别于 tdx_config.INDEX_CODES(4 个,不含 000016.SH 上证50)
+INDEX_CODES_HERE: List[str] = [
+    "000001.SH",  # 上证指数
+    "399001.SZ",  # 深证成指
+    "399006.SZ",  # 创业板指
+    "000688.SH",  # 科创50
+    "000016.SH",  # 上证50
+]
 
 
 def get_active_news_srcs() -> list:
@@ -139,7 +160,7 @@ class CNDataDown:
             for status in ("L", "P"):
                 df = self.client.stock_basic(
                     list_status=status,
-                    fields="ts_code,symbol,name,industry,fullname,enname,cnspell,market,exchange,curr_type,list_status,list_date,delist_date,is_hs",
+                    fields="ts_code,symbol,name,industry,fullname,enname,cnspell,market,exchange,curr_type,list_status,list_date,delist_date,is_hs,act_ent_type,act_name,area",
                 )
                 if df is not None and len(df) > 0:
                     frames.append(df)
@@ -153,9 +174,8 @@ class CNDataDown:
             df["snap_ts"] = snap_ts()
             # 列表里的日期字段保持原样(ts_code 主键)
             if bFull:
-                # 强制全量:清表后写
-                self.conn_basic.execute(f"DELETE FROM {table}")
-                self.conn_basic.commit()
+                # 强制全量:清表后写(走 db_client 的 clear_table 工具)
+                clear_table(self.conn_basic, table)
             inserted = upsert_df(self.conn_basic, df, table, key_cols=["ts_code"])
 
             # 断点(basic 是无日期维度的全量表,记一次刷新的 snap_ts)
@@ -2318,21 +2338,173 @@ class CNDataDown:
         return df_agg
 
     # ====================================================
-    # 7. 状态查询
+    # 7. policy 业务 — tdx 数据下载(2026-09-17 从 sibling offline_db_client_policy 搬过来)
+    # ====================================================
+    # 与第 1-6 节(tushare 数据)的区别:
+    #   - 数据源不同:这里走 tdx_client(通达信),不是 tushare
+    #   - 调用方:caller 必须传 TdxClient 实例进来(类似 self.conn_basic / self.conn_news 的连接复用模式)
+    #   - 落库:全部经 db_client 的 has_data / upsert_rows / mark_downloaded,
+    #          本类不直接写 SQL(原则:下载器不碰 SQL,跟第 1-6 节一致)
+    #   - 索引列表:本类顶部常量 INDEX_CODES_HERE(5 指数,policy 研究用)
+    def update_minute(
+        self,
+        ts_code: str,
+        trade_date: str,
+        *,
+        client,  # TdxClient 实例(由 caller 创建并复用)
+        rate: float = 0.15,
+        force: bool = False,
+    ) -> int:
+        """单只单日个股分钟:has_data → 拉 tdx → upsert_rows → mark → 限速
+
+        流程:
+          1. force=False 时调 has_data('minute', ts_code, trade_date) 查 ctrl;
+             已下载则 return 0
+          2. 调 client.get_history_minute(ts_code, int(trade_date)) 拉数据
+             (失败/空 → return 0)
+          3. trade_date 统一 dash
+          4. 转 DataFrame → upsert_rows('minute', df)
+          5. mark_downloaded('minute', [(ts_code, trade_date)]) 兜底 mark
+        """
+        # 1) 幂等检查
+        if not force and has_data("minute", ts_code, trade_date):
+            return 0
+
+        # 2) 拉数据(client 必传)
+        date_int = int(_ymd_dash_to_compact(trade_date))
+        try:
+            rows = client.get_history_minute(ts_code, date_int)
+        except Exception as e:
+            print(f"      ⚠️ {ts_code} {trade_date} minute 拉取失败: {e}")
+            return 0
+        if not rows:
+            print(f"      ⚠️ {ts_code} {trade_date} minute 拉取为空")
+            return 0
+
+        # 3) trade_date 统一 dash
+        for r in rows:
+            if "trade_date" in r:
+                td = str(r["trade_date"])
+                if len(td) == 8 and td.isdigit():
+                    r["trade_date"] = _ymd_compact_to_dash(td)
+
+        # 4) 转 DF → 写入
+        minute_cols = ["ts_code", "trade_date", "datetime", "time_idx", "price", "vol"]
+        df = pd.DataFrame(rows)[minute_cols]
+        inserted = upsert_rows("minute", df)
+
+        # 5) 兜底 mark
+        mark_downloaded("minute", [(ts_code, trade_date)])
+
+        # 6) 限速
+        if rate > 0:
+            time.sleep(rate)
+
+        return inserted if inserted and inserted > 0 else 0
+
+    def update_minute_index(
+        self,
+        ts_code: str,
+        trade_date: str,
+        *,
+        client,
+        rate: float = 0.15,
+        force: bool = False,
+    ) -> int:
+        """大盘指数单日分钟:has_data → 拉 tdx → upsert_rows → mark → 限速
+
+        ts_code 必须是指数代码(如 000001.SH / 399001.SZ / ...),
+        pytdx get_history_minute_time_data 对指数也直接支持(已实测 5 指数都 240 行)。
+        落库到 minute_index kind(同 db 文件、不同表 + 不同 ctrl)。
+        """
+        if not force and has_data("minute_index", ts_code, trade_date):
+            return 0
+
+        date_int = int(_ymd_dash_to_compact(trade_date))
+        try:
+            rows = client.get_history_minute(ts_code, date_int)
+        except Exception as e:
+            print(f"      ⚠️ {ts_code} {trade_date} minute_index 拉取失败: {e}")
+            return 0
+        if not rows:
+            print(f"      ⚠️ {ts_code} {trade_date} minute_index 拉取为空")
+            return 0
+
+        for r in rows:
+            if "trade_date" in r:
+                td = str(r["trade_date"])
+                if len(td) == 8 and td.isdigit():
+                    r["trade_date"] = _ymd_compact_to_dash(td)
+
+        minute_cols = ["ts_code", "trade_date", "datetime", "time_idx", "price", "vol"]
+        df = pd.DataFrame(rows)[minute_cols]
+        inserted = upsert_rows("minute_index", df)
+
+        mark_downloaded("minute_index", [(ts_code, trade_date)])
+
+        if rate > 0:
+            time.sleep(rate)
+
+        return inserted if inserted and inserted > 0 else 0
+
+    def update_ticks(
+        self,
+        ts_code: str,
+        trade_date: str,
+        *,
+        client,
+        rate: float = 0.15,
+        force: bool = False,
+    ) -> int:
+        """单只单日个股分笔成交:has_data → 拉 tdx → upsert_rows → mark → 限速"""
+        if not force and has_data("ticks", ts_code, trade_date):
+            return 0
+
+        date_int = int(_ymd_dash_to_compact(trade_date))
+        try:
+            rows = client.get_history_ticks(ts_code, date_int)
+        except Exception as e:
+            print(f"      ⚠️ {ts_code} {trade_date} ticks 拉取失败: {e}")
+            return 0
+        if not rows:
+            print(f"      ⚠️ {ts_code} {trade_date} ticks 拉取为空")
+            return 0
+
+        for r in rows:
+            if "trade_date" in r:
+                td = str(r["trade_date"])
+                if len(td) == 8 and td.isdigit():
+                    r["trade_date"] = _ymd_compact_to_dash(td)
+
+        tick_cols = ["ts_code", "trade_date", "datetime", "time", "seqId", "price", "vol", "buyorsell"]
+        df = pd.DataFrame(rows)[tick_cols]
+        inserted = upsert_rows("ticks", df)
+
+        mark_downloaded("ticks", [(ts_code, trade_date)])
+
+        if rate > 0:
+            time.sleep(rate)
+
+        return inserted if inserted and inserted > 0 else 0
+
+    # ====================================================
+    # 8. 状态查询
     # ====================================================
     def show_status(self):
         """打印所有表的状态(行数 + 日期范围)"""
         show_status(DB_PATH)
-        # 顺便打 ctrl 断点
+        # 顺便打 ctrl 断点(走 db_client 工具,不再直接 SQL)
         try:
             print("-" * 60)
             print("Ctrl 断点(tbl_basic_ctrl,db_cn_basic.db):")
-            for row in self.conn_basic.execute("SELECT key, max_date FROM tbl_basic_ctrl ORDER BY key"):
-                print(f"  {row[0]:<32} max_date={row[1]}")
+            df_basic_ctrl = get_ctrl_basic()  # 走 db_client,全表按 key 升序
+            for _, r in df_basic_ctrl.iterrows():
+                print(f"  {r['key']:<32} max_date={r['max_date']}")
             print("-" * 60)
             print("新闻源断点(tbl_news_ctrl,db_cn_news.db):")
-            for row in self.conn_news.execute("SELECT src, max_date FROM tbl_news_ctrl ORDER BY src"):
-                print(f"  {row[0]:<20} max_date={row[1]}")
+            df_news_ctrl = get_news_ctrl()  # 走 db_client,全表按 src 升序
+            for _, r in df_news_ctrl.iterrows():
+                print(f"  {r['src']:<20} max_date={r['max_date']}")
             print()
         except Exception as e:
             logger.error(f"[show_status] 断点查询失败: {e}", exc_info=True)
