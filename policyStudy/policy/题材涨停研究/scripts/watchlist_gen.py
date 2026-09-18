@@ -113,13 +113,19 @@ def _validate_dates(args: argparse.Namespace) -> tuple[str, str]:
 
 
 def _fetch_kpl_data(start_date: str, end_date: str) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """调 offlineDataManager 的两个方法,返回 (df_list, df_lp)"""
+    """调 offlineDataManager 的两个方法,返回 (df_list, df_lp)
+
+    两个调用都加 tags='涨停' 过滤,排除炸板记录(炸板的 lu_desc / status 都为空,没研究价值)
+    """
     print(f"  拉 get_kpl_list (主源)({start_date} ~ {end_date})...", flush=True)
-    df_list = get_kpl_list(start_date=start_date, end_date=end_date)
+    df_list = get_kpl_list(start_date=start_date, end_date=end_date, tags="涨停")
     print(f"    → {len(df_list)} 行", flush=True)
 
     print(f"  拉 get_kpl_limit_performance (增量补充)({start_date} ~ {end_date})...", flush=True)
-    df_lp = get_kpl_limit_performance(start_date=start_date, end_date=end_date)
+    df_lp = get_kpl_limit_performance(
+        start_date=start_date, end_date=end_date,
+        only_broken=False,  # 排除曾炸板(is_break=1),只保留封死记录
+    )
     print(f"    → {len(df_lp)} 行", flush=True)
 
     return df_list, df_lp
