@@ -24,6 +24,16 @@ DB_PATH_NEWS = DATA_DIR / "db_cn_news.db"
 # db_cn_index.db:指数数据(2026-09-15 新增,用户要求单独数据库)
 DB_PATH_INDEX = DATA_DIR / "db_cn_index.db"
 
+# policyStudy 数据库(2026-09-17 从 policyStudy/data/ 搬到 offlineDataManager/data/)
+# - policy_minute.db: 涨停个股分钟 K + 大盘指数分钟 K(同 db 不同表)
+# - policy_ticks.db:  涨停个股分笔成交
+# 注:policy db 单表 + ctrl 表结构(KIND_SCHEMAS dict 驱动),
+#   schema 由 offline_db_client_policy.py 的 ensure_schema() 在运行时建,
+#   不在 settings.py 静态声明(跟其他 db 的 SCHEMA_SQL_* 风格不同,
+#   因为 policy 是横向切片 dict 驱动模式)
+DB_PATH_POLICY_MINUTE = DATA_DIR / "policy_minute.db"
+DB_PATH_POLICY_TICKS = DATA_DIR / "policy_ticks.db"
+
 # 兼容旧代码(DB_PATH → db_cn_basic.db)
 DB_PATH = DB_PATH_BASIC
 
@@ -47,6 +57,7 @@ LOG_LEVEL = "INFO"
 # 包含:股票基本信息、交易日历、日 K、周 K、月 K、复权因子、通用断点
 SCHEMA_SQL_BASIC = """
 -- 股票基本信息(全量,5560 行)
+-- 2026-09-17 加 3 列(act_ent_type / act_name / area)对齐 tushare 新版 stock_basic schema
 CREATE TABLE IF NOT EXISTS tbl_cn_basic (
     ts_code TEXT PRIMARY KEY,
     symbol TEXT,
@@ -62,6 +73,9 @@ CREATE TABLE IF NOT EXISTS tbl_cn_basic (
     list_date TEXT,
     delist_date TEXT,
     is_hs TEXT,
+    act_ent_type TEXT,
+    act_name TEXT,
+    area TEXT,
     snap_ts TEXT
 );
 

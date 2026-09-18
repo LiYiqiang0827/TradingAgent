@@ -7,10 +7,11 @@ SQLite 多数据库管理 + 通用 upsert/ctrl 断点
   - db_cn_news.db (新闻)
 """
 import sqlite3
+import argparse
 from datetime import date, datetime
 from pathlib import Path
 import re
-from typing import Iterable, List, Optional, Union
+from typing import Iterable, List, Optional, Set, Tuple, Union
 
 import pandas as pd
 from loguru import logger
@@ -18,9 +19,12 @@ from loguru import logger
 # 复用项目配置
 import sys
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+# core/ 的父 = scripts/ 的父 = offlineDataManager/
+OFFLINE_ROOT = PROJECT_ROOT
 sys.path.insert(0, str(PROJECT_ROOT))
 from config.settings import (
     DB_PATH_BASIC, DB_PATH_KPL, DB_PATH_NEWS, DB_PATH_INDEX, DB_PATH,
+    DB_PATH_POLICY_MINUTE, DB_PATH_POLICY_TICKS,   # 2026-09-17 加,policy db 路径
     SCHEMA_SQL_BASIC, SCHEMA_SQL_KPL, SCHEMA_SQL_NEWS, SCHEMA_SQL_INDEX,
 )
 
@@ -159,6 +163,26 @@ def replace_table(conn: sqlite3.Connection, df, table: str):
         conn.execute("ROLLBACK")
         raise
     return cur.rowcount
+
+
+def clear_table(conn: sqlite3.Connection, table: str) -> int:
+    """清空一张表的所有行(只 DELETE,不 INSERT)
+
+    与 replace_table 的区别:
+      - replace_table:DELETE + INSERT 打包事务(原子替换,用于周 K / 月 K 重算)
+      - clear_table:   只清空,数据由 caller 自己后续单独写
+        (例如 basic 全量下载时:clear_table → tushare 拉 → upsert_df)
+
+    Args:
+        conn:  sqlite3 连接
+        table: 表名
+
+    Returns:
+        被删除的行数(SQLite DELETE 通常返回 0,但有些驱动有 rowcount)
+    """
+    cur = conn.execute(f"DELETE FROM {table}")
+    conn.commit()
+    return cur.rowcount if cur.rowcount is not None else 0
 
 
 # ============================================================
@@ -553,6 +577,99 @@ def get_day(
 
 
 # ============================================================
+# 个股交易日历(2026-09-17 新增,服务 policyStudy minute/ticks 窗口扩展)
+# ============================================================
+def get_tscode_calendar(
+    ts_code: str,
+    start_date: Optional[Union[str, datetime]] = None,
+    end_date: Optional[Union[str, datetime]] = None,
+    *,
+    predays: int = 300,
+    fudays: int = 300,
+    conn: Optional[sqlite3.Connection] = None,
+) -> pd.DataFrame:
+    """读单只股票的交易日历(只返回 ts_code + trade_date 两列)
+
+    数据源:db_cn_basic.db / tbl_cn_day(不复权)
+    内部走 get_day(columns=["ts_code","trade_date"], qfq=False) 走轻量路径
+
+    Args:
+        ts_code:    单只股票,例 "000001.SZ"
+        start_date: 用户关心的起始日期(包含),YYYYMMDD / YYYY-MM-DD / datetime;
+                    可单独给一个(end_date 留 None),predays/fudays 仍生效
+        end_date:   用户关心的截止日期(包含),同上
+        predays:    在 start_date 之前额外拉取的天数(保险裕量,默认 300)
+                    仅当 start_date 不为 None 时生效
+        fudays:     在 end_date 之后额外拉取的天数(保险裕量,默认 300)
+                    仅当 end_date 不为 None 时生效
+        conn:       可选外部 sqlite3 连接,方便复用事务
+
+    Returns:
+        DataFrame,列 [ts_code, trade_date],trade_date 为 YYYYMMDD 紧凑格式,
+        按 trade_date 升序。空表返回空 DataFrame(列名仍正确)。
+
+    范围行为:
+        - start_date/end_date 都给 → 取 [start_date, end_date] 闭区间
+          同时按 predays/fudays 额外向前/向后拉宽(但返回行严格落在 [start_date, end_date])
+        - 只给 start_date → 锚点 = start_date,范围 = [start_date - predays, start_date + fudays]
+        - 只给 end_date → 锚点 = end_date,范围 = [end_date - predays, end_date + fudays]
+        - 都不给 → 锚点缺失,报错
+    """
+    # 1. 必传 ts_code
+    if not ts_code:
+        raise ValueError("ts_code 必传")
+
+    # 2. 算实际拉取范围(应用 predays/fudays 裕量)
+    if start_date is None and end_date is None:
+        raise ValueError("start_date / end_date 至少传一个")
+
+    # 把日期转成 YYYYMMDD 字符串以便 arithmetic
+    sd = _norm_date_yyyymmdd(start_date) if start_date is not None else None
+    ed = _norm_date_yyyymmdd(end_date) if end_date is not None else None
+
+    from datetime import datetime as _dt, timedelta as _td
+    def _shift(yyyymmdd: str, days: int) -> str:
+        return (_dt.strptime(yyyymmdd, "%Y%m%d") + _td(days=days)).strftime("%Y%m%d")
+
+    if sd is not None and ed is not None:
+        # 都给:两边都拉宽
+        actual_sd = _shift(sd, -predays)
+        actual_ed = _shift(ed, +fudays)
+        # 返回范围严格是用户给的 [sd, ed]
+        return_sd, return_ed = sd, ed
+    elif sd is not None:
+        # 只给 start_date:用 predays/fudays 拉宽
+        actual_sd = _shift(sd, -predays)
+        actual_ed = _shift(sd, +fudays)
+        return_sd, return_ed = actual_sd, actual_ed
+    elif ed is not None:
+        actual_sd = _shift(ed, -predays)
+        actual_ed = _shift(ed, +fudays)
+        return_sd, return_ed = actual_sd, actual_ed
+    else:
+        # 不可能到这里(上面已经 raise 过),但 Pyright 需要兜底
+        raise RuntimeError("unreachable")
+
+    # 3. 走 get_day 拉数据(只 trade_date 列,无复权)
+    df = get_day(
+        ts_code=ts_code,
+        start_date=actual_sd,
+        end_date=actual_ed,
+        qfq=False,
+        columns=["ts_code", "trade_date"],
+        conn=conn,
+    )
+
+    # 4. 截到用户真正想要的范围(只有 start+end 都给时需要)
+    if sd is not None and ed is not None and (actual_sd != return_sd or actual_ed != return_ed):
+        df = df[(df["trade_date"] >= return_sd) & (df["trade_date"] <= return_ed)]
+
+    # 5. 按 trade_date 升序(保险:get_day 已经 sort 过,这里再 sort 一次)
+    df = df.sort_values("trade_date").reset_index(drop=True)
+    return df
+
+
+# ============================================================
 # 周月 K 通用读取(week / month)
 # ============================================================
 WEEK_TABLE = "tbl_cn_week"
@@ -904,9 +1021,10 @@ def get_tradecal(
 # 股票基本信息读取
 # ============================================================
 BASIC_TABLE = "tbl_cn_basic"
+# 2026-09-17 加 3 列对齐 tushare 新版 stock_basic: act_ent_type / act_name / area
 BASIC_COLS = ["ts_code", "symbol", "name", "industry", "fullname", "enname",
               "cnspell", "market", "exchange", "curr_type", "list_status",
-              "list_date", "delist_date", "is_hs", "snap_ts"]
+              "list_date", "delist_date", "is_hs", "act_ent_type", "act_name", "area", "snap_ts"]
 BASIC_VALID_EXCHANGES = ("SSE", "SZSE", "BSE")
 BASIC_VALID_MARKETS = ("主板", "创业板", "科创板", "北交所")
 BASIC_VALID_LIST_STATUS = ("L", "P")  # 不包含 D(退市):DB 不存退市股票
@@ -1177,7 +1295,7 @@ def get_kpl_list(
     ts_codes: Optional[Union[str, Iterable[str]]] = None,
     themes: Optional[Union[str, Iterable[str]]] = None,
     lu_descs: Optional[Union[str, Iterable[str]]] = None,
-    tags: Optional[Union[str, Iterable[str]]] = None,
+    tags: Optional[Union[str, Iterable[str]]] = "涨停",
     status: Optional[Union[str, Iterable[str]]] = None,
     columns: Optional[List[str]] = None,
     conn: Optional[sqlite3.Connection] = None,
@@ -1201,8 +1319,10 @@ def get_kpl_list(
                     (因为 theme 是 '军工、低空经济' 这样的组合字符串)
       - lu_descs:   单值或列表;None = 全部;**模糊包含匹配** LIKE '%lu_desc%'
                     (涨停原因如 '印制电路板','新能源汽车' 等)
-      - tags:       单值(str, '涨停' 或 '炸板') 或 列表;None = 不筛选 tag(返回涨停+炸板所有)
-                    2026-09-15 加(用户要求支持按 tag 筛选:单独涨停 / 单独炸板 / 两者都有)
+      - tags:       单值(str, '涨停' 或 '炸板') 或 列表;**默认 '涨停'**(只读最终封板记录)
+                    传 None 或空列表等同 '涨停';传 ['涨停','炸板'] 才拿两者
+                    炸板记录的 lu_desc / status 在开盘啦里为空,通常没研究价值
+                    2026-09-16 默认值改 '涨停'(原来 None 不过滤)
       - status:     单值或列表;None = 全部;精确匹配
                     特殊关键字(自动展开成精确 status 值列表的 IN 查询):
                       - '非首板' = 排除 '首板' 的所有连板记录
@@ -1244,6 +1364,9 @@ def get_kpl_list(
         theme_list = _norm_to_list(themes, None, "themes")
         lu_desc_list = _norm_to_list(lu_descs, None, "lu_descs")
         tag_list = _norm_to_list(tags, None, "tags")
+        if not tag_list:
+            # tags=None / [] 都视为「默认只看涨停」
+            tag_list = ["涨停"]
         status_list = _norm_to_list(status, None, "status")
 
         # === status 展开特殊关键字 ===
@@ -3113,25 +3236,657 @@ def get_major_news(
 
 
 # ============================================================
+# policyStudy 数据库 — 涨停研究用(2026-09-17 从 sibling offline_db_client_policy 合并)
+# ============================================================
+# 历史:
+#   - 2026-09-14 v3:在 policyStudy/scripts/policy_db_client.py 创建,单表 + ctrl 表设计
+#   - 2026-09-16:删 day kind(day 走 offlineDataManager.get_day)
+#   - 2026-09-17 v3.5:加 minute_index kind(大盘指数分钟)
+#   - 2026-09-17 重构:db 物理文件搬到 offlineDataManager/data/,
+#     接口并入 offline_db_client.py(原 sibling 已删除)
+#
+# 数据库(~/TradingAgent/offlineDataManager/data/):
+#   - policy_minute.db
+#       tbl_minute           (PK: ts_code, trade_date, time_idx)
+#       tbl_minute_ctrl      (PK: ts_code, trade_date)
+#       tbl_minute_index     (PK: ts_code, trade_date, time_idx)  — 大盘指数
+#       tbl_minute_index_ctrl(PK: ts_code, trade_date)
+#   - policy_ticks.db
+#       tbl_tick         (PK: ts_code, trade_date, seqId)
+#       tbl_tick_ctrl    (PK: ts_code, trade_date)
+#
+# 注(2026-09-16):
+#   - day 数据**不存** policy 库,统一走 offlineDataManager 的日线库
+#     (offline_db_client.get_day)。
+#
+# 设计目的(2026-09-14 用户原话):
+#   - 两个 db(policy_minute.db + policy_ticks.db)都采用"单表 + ctrl 表"结构,
+#     横向切片(同一天所有股票)直接 `WHERE trade_date = ?` 即可,
+#     不需要 union 一堆 ticker_xxx 表
+#   - ctrl 表(ts_code, trade_date)快速判断"某只股票某一天有没有数据"
+#   - 各 kind 的 ctrl 表 INSERT OR IGNORE,幂等
+#
+# 交易日历源:本文件内的 get_tradecal(tbl_cn_tradecal / cal_date YYYYMMDD / is_open=1)
+#
+# forward / backward 语义(按用户原话):
+#   forward=N   → 往前(历史方向)找 N 个交易日
+#   backward=N  → 往后(未来方向)找 N 个交易日
+#   默认都是 0(就是 trade_date 当天)
+#
+# 使用示例:
+#   from offline_db_client import PolicyDBClient
+#   client = PolicyDBClient()
+#
+#   df = client.get_minute('000006.SZ', trade_date='20260911')
+#   df = client.get_minute_index('000001.SH', trade_date='20260828')
+#   ok = client.has_data('minute', '000006.SZ', '20260911')
+
+# 路径配置
+from config.settings import DB_PATH_POLICY_MINUTE, DB_PATH_POLICY_TICKS
+MINUTE_DB = DB_PATH_POLICY_MINUTE
+TICKS_DB = DB_PATH_POLICY_TICKS
+DATA_DIR = OFFLINE_ROOT / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+
+# 每个 kind 的 schema 元数据(字典驱动)
+KIND_SCHEMAS = {
+    "minute": {
+        "db_path": MINUTE_DB,
+        "data_table": "tbl_minute",
+        "ctrl_table": "tbl_minute_ctrl",
+        "data_columns": ["ts_code", "trade_date", "datetime", "time_idx", "price", "vol", "created_at"],
+        "pk_columns": ["ts_code", "trade_date", "time_idx"],
+        "insert_columns": ["ts_code", "trade_date", "datetime", "time_idx", "price", "vol"],
+    },
+    # 指数分钟(同 db 文件,独立表 + 独立 ctrl)
+    "minute_index": {
+        "db_path": MINUTE_DB,
+        "data_table": "tbl_minute_index",
+        "ctrl_table": "tbl_minute_index_ctrl",
+        "data_columns": ["ts_code", "trade_date", "datetime", "time_idx", "price", "vol", "created_at"],
+        "pk_columns": ["ts_code", "trade_date", "time_idx"],
+        "insert_columns": ["ts_code", "trade_date", "datetime", "time_idx", "price", "vol"],
+    },
+    "ticks": {
+        "db_path": TICKS_DB,
+        "data_table": "tbl_tick",
+        "ctrl_table": "tbl_tick_ctrl",
+        "data_columns": ["ts_code", "trade_date", "datetime", "time", "seqId", "price", "vol", "buyorsell", "created_at"],
+        "pk_columns": ["ts_code", "trade_date", "seqId"],
+        "insert_columns": ["ts_code", "trade_date", "datetime", "time", "seqId", "price", "vol", "buyorsell"],
+    },
+}
+
+# 兼容: db_kind 'ticks' ↔ 'tick'(单复数)
+DB_KIND_ALIAS = {
+    "minute": "minute",
+    "ticks": "ticks",
+    "tick": "ticks",
+    "minute_index": "minute_index",
+}
+
+
+def _resolve_kind(db_kind: str) -> str:
+    """db_kind 别名 → 标准名"""
+    if db_kind in KIND_SCHEMAS:
+        return db_kind
+    if db_kind in DB_KIND_ALIAS:
+        return DB_KIND_ALIAS[db_kind]
+    raise ValueError(
+        f"未知 db_kind {db_kind!r},可选: {list(KIND_SCHEMAS.keys())}"
+    )
+
+
+# 工具:日期格式
+def _ymd_compact_to_dash(d: str) -> str:
+    """'20260911' → '2026-09-11';已是 dash 格式则原样返回"""
+    if len(d) == 8 and d.isdigit():
+        return f"{d[:4]}-{d[4:6]}-{d[6:8]}"
+    return d
+
+
+def _ymd_dash_to_compact(d: str) -> str:
+    """'2026-09-11' → '20260911';已是 compact 格式则原样返回"""
+    if len(d) == 10 and d[4] == "-":
+        return d.replace("-", "")
+    return d
+
+
+def _norm_ts_codes(ts_codes: Optional[Union[str, Iterable[str]]]) -> Optional[List[str]]:
+    """统一 ts_codes 成 list[str] 或 None(代表'全部')"""
+    if ts_codes is None:
+        return None
+    if isinstance(ts_codes, str):
+        return [ts_codes]
+    return list(ts_codes)
+
+
+# 交易日历(2026-09-17 合并入此)
+def get_trading_calendar(
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    market: str = "SSE",
+) -> List[str]:
+    """从 tradecal 读交易日历(YYYYMMDD)
+
+    Args:
+        start_date / end_date: 可选过滤,接受 YYYYMMDD 或 YYYY-MM-DD
+        market: SSE(沪市,默认) / SZSE(深市) / None(全部)
+
+    Returns:
+        升序的交易日 YYYYMMDD 字符串列表
+    """
+    sd = _ymd_dash_to_compact(start_date) if start_date else None
+    ed = _ymd_dash_to_compact(end_date) if end_date else None
+    df = get_tradecal(start_date=sd, end_date=ed, market=market, is_open=True)
+    if df is None or len(df) == 0:
+        return []
+    return sorted(df["cal_date"].astype(str).tolist())
+
+
+def expand_trade_dates(
+    trade_date: str,
+    forward: int = 0,
+    backward: int = 0,
+    market: str = "SSE",
+) -> List[str]:
+    """围绕某天向**前**(forward) / 向**后**(backward)扩展 N 个交易日"""
+    if forward < 0 or backward < 0:
+        raise ValueError(f"forward/backward 必须 >= 0,当前 forward={forward}, backward={backward}")
+
+    td = _ymd_dash_to_compact(trade_date)
+
+    if forward > 0:
+        conn = get_conn("basic")
+        try:
+            market_filter = "AND exchange = ?" if market is not None else ""
+            params = [td]
+            if market is not None:
+                params.append(market)
+            sql = (
+                f"SELECT cal_date FROM tbl_cn_tradecal "
+                f"WHERE is_open=1 AND cal_date <= ? {market_filter} "
+                f"ORDER BY cal_date DESC LIMIT ?"
+            )
+            params.append(forward + 1)
+            cur = conn.execute(sql, params)
+            forward_dates = sorted([r[0] for r in cur.fetchall()])
+        finally:
+            conn.close()
+    else:
+        forward_dates = [td]
+
+    if backward > 0:
+        df = get_tradecal(trade_date=td, day_num=backward + 1, market=market, is_open=True)
+        if df is None or len(df) == 0:
+            backward_dates = [td]
+        else:
+            backward_dates = sorted(df["cal_date"].astype(str).tolist())
+    else:
+        backward_dates = [td]
+
+    if forward > 0:
+        result = forward_dates + [d for d in backward_dates if d > forward_dates[-1]]
+    else:
+        result = backward_dates
+
+    return result
+
+
+def _resolve_dates(
+    trade_date: Optional[str],
+    forward: int,
+    backward: int,
+    start_date: Optional[str],
+    end_date: Optional[str],
+) -> Optional[List[str]]:
+    """trade_date(+forward/backward) 与 start_date..end_date 互斥,解析为 dash 日期列表"""
+    if trade_date is not None:
+        if start_date is not None or end_date is not None:
+            raise ValueError("trade_date 模式与 start_date/end_date 互斥")
+        compact = expand_trade_dates(
+            trade_date, forward=forward, backward=backward, market="SSE"
+        )
+        return [_ymd_compact_to_dash(d) for d in compact]
+
+    if start_date is not None or end_date is not None:
+        compact = get_trading_calendar(start_date=start_date, end_date=end_date, market="SSE")
+        return [_ymd_compact_to_dash(d) for d in compact]
+
+    return None
+
+
+# DB 连接 + Schema 建表
+def _conn(db_kind: str) -> sqlite3.Connection:
+    kind = _resolve_kind(db_kind)
+    db_path = KIND_SCHEMAS[kind]["db_path"]
+    return sqlite3.connect(str(db_path))
+
+
+TEXT_COLS = ("ts_code", "trade_date", "datetime", "time")
+INT_COLS = ("time_idx", "seqId", "vol", "buyorsell")
+REAL_COLS = ("open", "high", "low", "close", "pre_close", "change", "pct_chg", "amount")
+
+
+def _create_table_sql(kind: str) -> str:
+    """生成 CREATE TABLE SQL(含索引)"""
+    schema = KIND_SCHEMAS[kind]
+    data_table = schema["data_table"]
+    data_cols = schema["data_columns"]
+
+    cols_def = []
+    for col in data_cols:
+        if col in TEXT_COLS:
+            cols_def.append(f"{col} TEXT NOT NULL")
+        elif col == "created_at":
+            cols_def.append(f"{col} TEXT NOT NULL")
+        elif col in INT_COLS:
+            cols_def.append(f"{col} INTEGER")
+        elif col in REAL_COLS:
+            cols_def.append(f"{col} REAL")
+        else:
+            cols_def.append(f"{col} REAL")
+
+    if kind in ("day", "day_nofuquan"):
+        cols_def = [c.replace("INTEGER", "REAL") if "vol INTEGER" in c else c for c in cols_def]
+
+    pk_cols = schema["pk_columns"]
+    pk_str = ", ".join(pk_cols)
+    cols_str = ",\n    ".join(cols_def)
+
+    return (
+        f"CREATE TABLE IF NOT EXISTS {data_table} (\n"
+        f"    {cols_str},\n"
+        f"    PRIMARY KEY ({pk_str})\n"
+        f");\n"
+        f"CREATE INDEX IF NOT EXISTS idx_{data_table}_date ON {data_table}(trade_date);\n"
+        f"CREATE INDEX IF NOT EXISTS idx_{data_table}_code ON {data_table}(ts_code);\n"
+    )
+
+
+def _create_ctrl_sql(kind: str) -> str:
+    schema = KIND_SCHEMAS[kind]
+    ctrl_table = schema["ctrl_table"]
+    return (
+        f"CREATE TABLE IF NOT EXISTS {ctrl_table} (\n"
+        f"    ts_code TEXT NOT NULL,\n"
+        f"    trade_date TEXT NOT NULL,\n"
+        f"    PRIMARY KEY (ts_code, trade_date)\n"
+        f");\n"
+    )
+
+
+def ensure_schema(db_kind: Optional[str] = None, verbose: bool = False) -> None:
+    """建数据表 + ctrl 表
+
+    db_kind: None=全部,或 'minute'/'minute_index'/'ticks'
+    """
+    if db_kind is None:
+        kinds = list(KIND_SCHEMAS.keys())
+    else:
+        kinds = [_resolve_kind(db_kind)]
+
+    for kind in kinds:
+        schema = KIND_SCHEMAS[kind]
+        db_path = schema["db_path"]
+        conn = sqlite3.connect(str(db_path))
+        try:
+            conn.executescript(_create_table_sql(kind))
+            conn.executescript(_create_ctrl_sql(kind))
+            conn.commit()
+            if verbose:
+                cur = conn.execute(f"SELECT COUNT(*) FROM {schema['data_table']}")
+                d_rows = cur.fetchone()[0]
+                cur = conn.execute(f"SELECT COUNT(*) FROM {schema['ctrl_table']}")
+                c_rows = cur.fetchone()[0]
+                print(f"  [{kind}] {db_path.name}: {schema['data_table']}={d_rows} 行 / {schema['ctrl_table']}={c_rows} 行")
+        finally:
+            conn.close()
+
+
+# ctrl CRUD
+def get_downloaded_pairs(db_kind: str) -> Set[Tuple[str, str]]:
+    """读 ctrl 表,返回已下载 (ts_code, trade_date) 的集合(dash 格式)"""
+    kind = _resolve_kind(db_kind)
+    ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
+    conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
+    try:
+        cur = conn.execute(f"SELECT ts_code, trade_date FROM {ctrl_table}")
+        return {(row[0], row[1]) for row in cur.fetchall()}
+    finally:
+        conn.close()
+
+
+def mark_downloaded(db_kind: str, pairs: Iterable[Tuple[str, str]]) -> int:
+    """把 (ts_code, trade_date) 对 INSERT OR IGNORE 到 ctrl 表"""
+    kind = _resolve_kind(db_kind)
+    ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
+    conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
+    try:
+        sql = f"INSERT OR IGNORE INTO {ctrl_table} (ts_code, trade_date) VALUES (?, ?)"
+        inserted = 0
+        for ts_code, trade_date in pairs:
+            td = _ymd_compact_to_dash(trade_date)
+            cur = conn.execute(sql, (ts_code, td))
+            inserted += cur.rowcount
+        conn.commit()
+        return inserted
+    finally:
+        conn.close()
+
+
+def filter_pending(db_kind: str, pairs: Iterable[Tuple[str, str]]) -> List[Tuple[str, str]]:
+    """过滤掉已下载的对,只返回未下载的"""
+    downloaded = get_downloaded_pairs(db_kind)
+    pending = []
+    for ts_code, trade_date in pairs:
+        td = _ymd_compact_to_dash(trade_date)
+        if (ts_code, td) not in downloaded:
+            pending.append((ts_code, trade_date))
+    return pending
+
+
+def has_data(db_kind: str, ts_code: str, trade_date: str) -> bool:
+    """快速判断某只股票某一天是否有数据(查 ctrl 表)"""
+    kind = _resolve_kind(db_kind)
+    ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
+    conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
+    try:
+        td = _ymd_compact_to_dash(trade_date)
+        cur = conn.execute(
+            f"SELECT 1 FROM {ctrl_table} WHERE ts_code=? AND trade_date=? LIMIT 1",
+            (ts_code, td),
+        )
+        return cur.fetchone() is not None
+    finally:
+        conn.close()
+
+
+# 数据写入(INSERT OR IGNORE)
+def _now_iso() -> str:
+    return datetime.now().isoformat(timespec="seconds")
+
+
+def upsert_rows(db_kind: str, df: pd.DataFrame) -> int:
+    """把 DataFrame 的行 INSERT OR IGNORE 进对应 db_kind 的数据表
+
+    df 必须包含 KIND_SCHEMAS[kind]['insert_columns'] 这些列
+    自动补 created_at
+    """
+    kind = _resolve_kind(db_kind)
+    schema = KIND_SCHEMAS[kind]
+    data_table = schema["data_table"]
+    ctrl_table = schema["ctrl_table"]
+    insert_cols = schema["insert_columns"]
+
+    if df is None or df.empty:
+        return 0
+
+    missing = [c for c in insert_cols if c not in df.columns]
+    if missing:
+        raise ValueError(f"df 缺少列 {missing},需要 {insert_cols}")
+
+    if "trade_date" in df.columns:
+        df = df.copy()
+        df["trade_date"] = df["trade_date"].astype(str).map(_ymd_compact_to_dash)
+
+    df = df.copy()
+    df["created_at"] = _now_iso()
+
+    conn = sqlite3.connect(str(schema["db_path"]))
+    try:
+        placeholders = ",".join(["?"] * (len(insert_cols) + 1))
+        all_cols = insert_cols + ["created_at"]
+        col_str = ", ".join(all_cols)
+        sql_data = f"INSERT OR IGNORE INTO {data_table} ({col_str}) VALUES ({placeholders})"
+        rows = [tuple(r) for r in df[all_cols].itertuples(index=False, name=None)]
+        cur = conn.executemany(sql_data, rows)
+        inserted = cur.rowcount if cur.rowcount >= 0 else 0
+        conn.commit()
+
+        if {"ts_code", "trade_date"}.issubset(df.columns):
+            ctrl_pairs = list(set(zip(df["ts_code"].astype(str), df["trade_date"].astype(str))))
+            sql_ctrl = f"INSERT OR IGNORE INTO {ctrl_table} (ts_code, trade_date) VALUES (?, ?)"
+            for pair in ctrl_pairs:
+                conn.execute(sql_ctrl, pair)
+            conn.commit()
+
+        return inserted
+    finally:
+        conn.close()
+
+
+# 通用读取
+def _read(
+    db_kind: str,
+    ts_codes: Optional[Union[str, Iterable[str]]],
+    trade_date: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    forward: int = 0,
+    backward: int = 0,
+    order_by: Optional[str] = None,
+) -> pd.DataFrame:
+    """通用读取(单表结构)"""
+    kind = _resolve_kind(db_kind)
+    schema = KIND_SCHEMAS[kind]
+    data_table = schema["data_table"]
+    ts_list = _norm_ts_codes(ts_codes)
+
+    dates = _resolve_dates(trade_date, forward, backward, start_date, end_date)
+    if dates is not None and len(dates) == 0:
+        return pd.DataFrame()
+
+    where_clauses = []
+    params: list = []
+    if ts_list is not None and len(ts_list) > 0:
+        placeholders = ",".join(["?"] * len(ts_list))
+        where_clauses.append(f"ts_code IN ({placeholders})")
+        params.extend(ts_list)
+    if dates is not None and len(dates) > 0:
+        placeholders = ",".join(["?"] * len(dates))
+        where_clauses.append(f"trade_date IN ({placeholders})")
+        params.extend(dates)
+
+    where_sql = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
+
+    if order_by is None:
+        pk_cols = schema["pk_columns"]
+        order_by = ", ".join(pk_cols) + " ASC"
+
+    sql = f"SELECT * FROM {data_table}{where_sql} ORDER BY {order_by}"
+
+    conn = sqlite3.connect(str(schema["db_path"]))
+    try:
+        return pd.read_sql_query(sql, conn, params=params)
+    finally:
+        conn.close()
+
+
+# 元信息
+def list_tickers(db_kind: str) -> List[str]:
+    """列出 db_kind db 里所有有数据的 ts_code(从 ctrl 表读)"""
+    kind = _resolve_kind(db_kind)
+    ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
+    conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
+    try:
+        cur = conn.execute(f"SELECT DISTINCT ts_code FROM {ctrl_table} ORDER BY ts_code ASC")
+        return [r[0] for r in cur.fetchall()]
+    finally:
+        conn.close()
+
+
+def list_ticker_dates(db_kind: str, ts_code: str) -> List[str]:
+    """列出某只股票在 db_kind db 里所有有数据的 trade_date(YYYY-MM-DD 升序,从 ctrl 表读)"""
+    kind = _resolve_kind(db_kind)
+    ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
+    conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
+    try:
+        cur = conn.execute(
+            f"SELECT DISTINCT trade_date FROM {ctrl_table} WHERE ts_code=? ORDER BY trade_date ASC",
+            (ts_code,),
+        )
+        return [r[0] for r in cur.fetchall()]
+    finally:
+        conn.close()
+
+
+def count_rows(db_kind: str) -> dict:
+    """统计 db_kind 的数据表 + ctrl 表行数"""
+    kind = _resolve_kind(db_kind)
+    schema = KIND_SCHEMAS[kind]
+    conn = sqlite3.connect(str(schema["db_path"]))
+    try:
+        d_count = conn.execute(f"SELECT COUNT(*) FROM {schema['data_table']}").fetchone()[0]
+        c_count = conn.execute(f"SELECT COUNT(*) FROM {schema['ctrl_table']}").fetchone()[0]
+        return {
+            "data_table": schema["data_table"],
+            "data_rows": d_count,
+            "ctrl_table": schema["ctrl_table"],
+            "ctrl_rows": c_count,
+        }
+    finally:
+        conn.close()
+
+
+# PolicyDBClient(类,高级 API)
+class PolicyDBClient:
+    """policyStudy 数据库客户端(v3,单表 + ctrl 表)"""
+
+    def get_minute(
+        self,
+        ts_codes: Optional[Union[str, Iterable[str]]] = None,
+        trade_date: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        forward: int = 0,
+        backward: int = 0,
+    ) -> pd.DataFrame:
+        return _read(
+            "minute", ts_codes,
+            trade_date=trade_date,
+            start_date=start_date, end_date=end_date,
+            forward=forward, backward=backward,
+            order_by="ts_code, trade_date, time_idx",
+        )
+
+    def get_minute_index(
+        self,
+        ts_codes: Optional[Union[str, Iterable[str]]] = None,
+        trade_date: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        forward: int = 0,
+        backward: int = 0,
+    ) -> pd.DataFrame:
+        """读指数 minute 数据(ts_code 传指数代码 000001.SH/399001.SZ/...)"""
+        return _read(
+            "minute_index", ts_codes,
+            trade_date=trade_date,
+            start_date=start_date, end_date=end_date,
+            forward=forward, backward=backward,
+            order_by="ts_code, trade_date, time_idx",
+        )
+
+    def get_ticks(
+        self,
+        ts_codes: Optional[Union[str, Iterable[str]]] = None,
+        trade_date: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        forward: int = 0,
+        backward: int = 0,
+    ) -> pd.DataFrame:
+        return _read(
+            "ticks", ts_codes,
+            trade_date=trade_date,
+            start_date=start_date, end_date=end_date,
+            forward=forward, backward=backward,
+            order_by="ts_code, trade_date, seqId",
+        )
+
+    def get_minute_one(self, ts_code: str, trade_date: str) -> pd.DataFrame:
+        return self.get_minute(ts_code, trade_date=trade_date)
+
+    def get_ticks_one(self, ts_code: str, trade_date: str) -> pd.DataFrame:
+        return self.get_ticks(ts_code, trade_date=trade_date)
+
+    def get_minute_on_date(self, trade_date: str) -> pd.DataFrame:
+        return self.get_minute(trade_date=trade_date)
+
+    def get_ticks_on_date(self, trade_date: str) -> pd.DataFrame:
+        return self.get_ticks(trade_date=trade_date)
+
+    def list_tickers(self, db_kind: str) -> List[str]:
+        return list_tickers(db_kind)
+
+    def list_ticker_dates(self, db_kind: str, ts_code: str) -> List[str]:
+        return list_ticker_dates(db_kind, ts_code)
+
+    def count_rows(self, db_kind: str) -> dict:
+        return count_rows(db_kind)
+
+    def has_data(self, db_kind: str, ts_code: str, trade_date: str) -> bool:
+        return has_data(db_kind, ts_code, trade_date)
+
+    def ensure_schema(self, db_kind: Optional[str] = None, verbose: bool = False):
+        return ensure_schema(db_kind=db_kind, verbose=verbose)
+
+    def get_downloaded(self, db_kind: str) -> Set[Tuple[str, str]]:
+        return get_downloaded_pairs(db_kind)
+
+    def mark_downloaded(self, db_kind: str, pairs: Iterable[Tuple[str, str]]) -> int:
+        return mark_downloaded(db_kind, pairs)
+
+    def filter_pending(self, db_kind: str, pairs: Iterable[Tuple[str, str]]) -> List[Tuple[str, str]]:
+        return filter_pending(db_kind, pairs)
+
+
+# policy CLI 入口(只做建表/统计,数据导入走 data_gen.py / CNDataDown.update_minute 等)
+def _policy_cli():
+    p = argparse.ArgumentParser(description="offline_db_client policy db - 建表/统计工具")
+    p.add_argument("--init", action="store_true", help="建表(tbl_*)")
+    p.add_argument("--count", action="store_true", help="统计各 db 行数")
+    p.add_argument("--kind", choices=list(KIND_SCHEMAS.keys()), help="指定 kind(默认全部)")
+    args = p.parse_args()
+
+    if args.init:
+        ensure_schema(db_kind=args.kind, verbose=True)
+    elif args.count:
+        kinds = [args.kind] if args.kind else list(KIND_SCHEMAS.keys())
+        for kind in kinds:
+            info = count_rows(kind)
+            print(f"  [{kind}] {info['data_table']}={info['data_rows']} 行 / {info['ctrl_table']}={info['ctrl_rows']} 行")
+    else:
+        p.print_help()
+
+
+# ============================================================
 # 测试
 # ============================================================
 if __name__ == "__main__":
-    print("=== 初始化 3 个 DB ===")
-    for db_name in ["basic", "kpl", "news"]:
-        init_db(db_name)
-    show_status()
+    import sys
+    # 区分 main 调用:带 --init/--count/--kind 走 policy,否则走原 basic/kpl/news 测试
+    if any(arg in ("--init", "--count", "--kind") for arg in sys.argv[1:]):
+        _policy_cli()
+    else:
+        print("=== 初始化 3 个 DB ===")
+        for db_name in ["basic", "kpl", "news"]:
+            init_db(db_name)
+        show_status()
 
-    print("\n=== get_day smoke test ===")
-    # 单只 + 单日 + qfq
-    d1 = get_day(ts_code="000001.SZ", trade_date="20240901")
-    print(f"1) 单股单日 qfq: {len(d1)} 行")
-    print(d1.head().to_string(index=False))
+        print("\n=== get_day smoke test ===")
+        # 单只 + 单日 + qfq
+        d1 = get_day(ts_code="000001.SZ", trade_date="20240901")
+        print(f"1) 单股单日 qfq: {len(d1)} 行")
+        print(d1.head().to_string(index=False))
 
-    # 单只 + 区间 + 不复权
-    d2 = get_day(ts_code="000001.SZ", start_date="20240901", end_date="20240910", qfq=False)
-    print(f"\n2) 单股区间不复权: {len(d2)} 行")
+        # 单只 + 区间 + 不复权
+        d2 = get_day(ts_code="000001.SZ", start_date="20240901", end_date="20240910", qfq=False)
+        print(f"\n2) 单股区间不复权: {len(d2)} 行")
 
-    # 多只 + 区间 + qfq
-    d3 = get_day(ts_codes=["000001.SZ", "600000.SH"], start_date="2024-09-01", end_date="2024-09-05")
-    print(f"\n3) 多股区间 qfq: {len(d3)} 行")
-    print(d3.head().to_string(index=False))
+        # 多只 + 区间 + qfq
+        d3 = get_day(ts_codes=["000001.SZ", "600000.SH"], start_date="2024-09-01", end_date="2024-09-05")
+        print(f"\n3) 多股区间 qfq: {len(d3)} 行")
+        print(d3.head().to_string(index=False))
