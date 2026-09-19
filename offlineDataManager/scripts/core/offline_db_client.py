@@ -3316,6 +3316,27 @@ KIND_SCHEMAS = {
         "pk_columns": ["ts_code", "trade_date", "seqId"],
         "insert_columns": ["ts_code", "trade_date", "datetime", "time", "seqId", "price", "vol", "buyorsell"],
     },
+    # 2026-09-19 新增:ticks_v2(详见 docs/落库方案_v2.md)
+    # - PK 改为 (ts_code, trade_date, time, seqId_in_minute) 解决 wrapper 自产 seqId 错位问题
+    # - fetch_seq / fetched_at / fetched_host / fetch_complete 4 个审计字段
+    # - 与 "ticks" 共存,迁移由 scripts/migrate_tbl_tick_v1_to_v2.py 手动执行
+    "ticks_v2": {
+        "db_path": TICKS_DB,
+        "data_table": "tbl_tick_v2",
+        "ctrl_table": "tbl_tick_v2_ctrl",
+        "data_columns": [
+            "ts_code", "trade_date", "time", "seqId_in_minute",
+            "datetime", "price", "vol", "buyorsell",
+            "fetch_seq", "fetched_at", "fetched_host", "fetch_complete",
+            "created_at",
+        ],
+        "pk_columns": ["ts_code", "trade_date", "time", "seqId_in_minute"],
+        "insert_columns": [
+            "ts_code", "trade_date", "time", "seqId_in_minute",
+            "datetime", "price", "vol", "buyorsell",
+            "fetch_seq", "fetched_at", "fetched_host", "fetch_complete",
+        ],
+    },
 }
 
 # 兼容: db_kind 'ticks' ↔ 'tick'(单复数)
@@ -3464,8 +3485,8 @@ def _conn(db_kind: str) -> sqlite3.Connection:
     return sqlite3.connect(str(db_path))
 
 
-TEXT_COLS = ("ts_code", "trade_date", "datetime", "time")
-INT_COLS = ("time_idx", "seqId", "vol", "buyorsell")
+TEXT_COLS = ("ts_code", "trade_date", "datetime", "time", "fetched_at", "fetched_host")
+INT_COLS = ("time_idx", "seqId", "seqId_in_minute", "vol", "buyorsell", "fetch_seq", "fetch_complete")
 REAL_COLS = ("open", "high", "low", "close", "pre_close", "change", "pct_chg", "amount")
 
 
@@ -3512,6 +3533,8 @@ def _create_ctrl_sql(kind: str) -> str:
         f"CREATE TABLE IF NOT EXISTS {ctrl_table} (\n"
         f"    ts_code TEXT NOT NULL,\n"
         f"    trade_date TEXT NOT NULL,\n"
+        f"    status TEXT DEFAULT 'downloaded',\n"
+        f"    created_at TEXT,\n"
         f"    PRIMARY KEY (ts_code, trade_date)\n"
         f");\n"
     )
@@ -3521,6 +3544,7 @@ def ensure_schema(db_kind: Optional[str] = None, verbose: bool = False) -> None:
     """建数据表 + ctrl 表
 
     db_kind: None=全部,或 'minute'/'minute_index'/'ticks'
+    2026-09-19:加 status 列(兼容旧库:ADD COLUMN,已有 status 则跳过)
     """
     if db_kind is None:
         kinds = list(KIND_SCHEMAS.keys())
@@ -3534,6 +3558,18 @@ def ensure_schema(db_kind: Optional[str] = None, verbose: bool = False) -> None:
         try:
             conn.executescript(_create_table_sql(kind))
             conn.executescript(_create_ctrl_sql(kind))
+            # 兼容老库:ADD status 列(已存在则忽略)
+            try:
+                conn.execute(
+                    f"ALTER TABLE {schema['ctrl_table']} "
+                    f"ADD COLUMN status TEXT DEFAULT 'downloaded'"
+                )
+                conn.execute(
+                    f"ALTER TABLE {schema['ctrl_table']} "
+                    f"ADD COLUMN created_at TEXT"
+                )
+            except Exception:
+                pass  # 列已存在,SQLite 不支持 IF NOT EXISTS
             conn.commit()
             if verbose:
                 cur = conn.execute(f"SELECT COUNT(*) FROM {schema['data_table']}")
@@ -3543,6 +3579,23 @@ def ensure_schema(db_kind: Optional[str] = None, verbose: bool = False) -> None:
                 print(f"  [{kind}] {db_path.name}: {schema['data_table']}={d_rows} 行 / {schema['ctrl_table']}={c_rows} 行")
         finally:
             conn.close()
+
+
+def table_exists(db_path, table_name: str) -> bool:
+    """判断 db_path 里是否存在名为 table_name 的表(2026-09-19 新增)
+
+    用于 offline_downloader 双写兼容:检测 tbl_tick_v2 是否已建。
+    接受 Path 或 str。
+    """
+    conn = sqlite3.connect(str(db_path))
+    try:
+        cur = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name=? LIMIT 1",
+            (table_name,),
+        )
+        return cur.fetchone() is not None
+    finally:
+        conn.close()
 
 
 # ctrl CRUD
@@ -3559,16 +3612,28 @@ def get_downloaded_pairs(db_kind: str) -> Set[Tuple[str, str]]:
 
 
 def mark_downloaded(db_kind: str, pairs: Iterable[Tuple[str, str]]) -> int:
-    """把 (ts_code, trade_date) 对 INSERT OR IGNORE 到 ctrl 表"""
+    """把 (ts_code, trade_date) 对 INSERT 到 ctrl 表,status='downloaded'"""
+    return mark_status(db_kind, "downloaded", pairs)
+
+
+def mark_status(db_kind: str, status: str, pairs: Iterable[Tuple[str, str]]) -> int:
+    """把 (ts_code, trade_date) 对标记为指定 status
+    status in {'downloaded', 'tdx_empty', 'no_calendar'}
+    2026-09-19 新增:用于 tdx 返回空时标 'tdx_empty',防止下次 data_gen 重跑重复拉空
+    """
     kind = _resolve_kind(db_kind)
     ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
     conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
     try:
-        sql = f"INSERT OR IGNORE INTO {ctrl_table} (ts_code, trade_date) VALUES (?, ?)"
         inserted = 0
         for ts_code, trade_date in pairs:
             td = _ymd_compact_to_dash(trade_date)
-            cur = conn.execute(sql, (ts_code, td))
+            cur = conn.execute(
+                f"INSERT INTO {ctrl_table} (ts_code, trade_date, status, created_at) "
+                f"VALUES (?, ?, ?, ?) "
+                f"ON CONFLICT(ts_code, trade_date) DO UPDATE SET status=excluded.status, created_at=excluded.created_at",
+                (ts_code, td, status, _now_iso()),
+            )
             inserted += cur.rowcount
         conn.commit()
         return inserted
@@ -3576,8 +3641,18 @@ def mark_downloaded(db_kind: str, pairs: Iterable[Tuple[str, str]]) -> int:
         conn.close()
 
 
-def filter_pending(db_kind: str, pairs: Iterable[Tuple[str, str]]) -> List[Tuple[str, str]]:
-    """过滤掉已下载的对,只返回未下载的"""
+def filter_pending(
+    db_kind: str,
+    pairs: Iterable[Tuple[str, str]],
+    include_failed: bool = False,
+) -> List[Tuple[str, str]]:
+    """过滤掉已下载的对,只返回未下载的
+
+    include_failed=False(默认): 跳过 status='downloaded' 的;tdx_empty/no_calendar 等失败状态的仍然返回(因为可能想重试)
+    include_failed=True: 完全忽略 ctrl,返回全部(老 --force 行为)
+    """
+    if include_failed:
+        return list(pairs)
     downloaded = get_downloaded_pairs(db_kind)
     pending = []
     for ts_code, trade_date in pairs:
@@ -3587,16 +3662,24 @@ def filter_pending(db_kind: str, pairs: Iterable[Tuple[str, str]]) -> List[Tuple
     return pending
 
 
-def has_data(db_kind: str, ts_code: str, trade_date: str) -> bool:
-    """快速判断某只股票某一天是否有数据(查 ctrl 表)"""
+def has_data(
+    db_kind: str,
+    ts_code: str,
+    trade_date: str,
+    status: str = "downloaded",
+) -> bool:
+    """快速判断某只股票某一天是否有数据(查 ctrl 表)
+
+    status 默认 'downloaded',可指定 'tdx_empty'/'no_calendar' 等
+    """
     kind = _resolve_kind(db_kind)
     ctrl_table = KIND_SCHEMAS[kind]["ctrl_table"]
     conn = sqlite3.connect(str(KIND_SCHEMAS[kind]["db_path"]))
     try:
         td = _ymd_compact_to_dash(trade_date)
         cur = conn.execute(
-            f"SELECT 1 FROM {ctrl_table} WHERE ts_code=? AND trade_date=? LIMIT 1",
-            (ts_code, td),
+            f"SELECT 1 FROM {ctrl_table} WHERE ts_code=? AND trade_date=? AND status=? LIMIT 1",
+            (ts_code, td, status),
         )
         return cur.fetchone() is not None
     finally:

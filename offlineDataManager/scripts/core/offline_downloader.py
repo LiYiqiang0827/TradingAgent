@@ -50,12 +50,15 @@ from core.offline_db_client import (
     # 2026-09-17 policy 工具(原 sibling offline_db_client_policy 合并)
     has_data,
     mark_downloaded,
+    mark_status,           # 2026-09-19 新增:tdx_empty 时用
     upsert_rows,
     _ymd_compact_to_dash,
     _ymd_dash_to_compact,
     _get_news_ctrl_value,
     _update_news_ctrl_value,
     show_status,
+    table_exists,        # 2026-09-19 新增:检测 tbl_tick_v2 是否已建(双写兼容用)
+    TICKS_DB,            # 2026-09-19 新增:table_exists 需要 db_path
 )
 
 # ==================== 常量 ====================
@@ -2361,7 +2364,7 @@ class CNDataDown:
           1. force=False 时调 has_data('minute', ts_code, trade_date) 查 ctrl;
              已下载则 return 0
           2. 调 client.get_history_minute(ts_code, int(trade_date)) 拉数据
-             (失败/空 → return 0)
+             (失败/空 → mark_status('tdx_empty') + return 0,2026-09-19 改)
           3. trade_date 统一 dash
           4. 转 DataFrame → upsert_rows('minute', df)
           5. mark_downloaded('minute', [(ts_code, trade_date)]) 兜底 mark
@@ -2376,9 +2379,11 @@ class CNDataDown:
             rows = client.get_history_minute(ts_code, date_int)
         except Exception as e:
             print(f"      ⚠️ {ts_code} {trade_date} minute 拉取失败: {e}")
+            mark_status("minute", "tdx_empty", [(ts_code, trade_date)])  # 2026-09-19:标 tdx_empty,防止下次重跑空拉
             return 0
         if not rows:
             print(f"      ⚠️ {ts_code} {trade_date} minute 拉取为空")
+            mark_status("minute", "tdx_empty", [(ts_code, trade_date)])  # 2026-09-19:同上
             return 0
 
         # 3) trade_date 统一 dash
@@ -2456,11 +2461,57 @@ class CNDataDown:
         rate: float = 0.15,
         force: bool = False,
     ) -> int:
-        """单只单日个股分笔成交:has_data → 拉 tdx → upsert_rows → mark → 限速"""
-        if not force and has_data("ticks", ts_code, trade_date):
+        """单只单日个股分笔成交:has_data → 拉 tdx → upsert_rows → mark → 限速
+
+        2026-09-19 双写兼容改造(详见 docs/落库方案_v2.md):
+        - 检测 tbl_tick_v2 是否存在 → 走新逻辑,使用新接口 fetch_history_ticks_with_meta
+          + 落库 gate is_safe_to_persist + 新字段 seqId_in_minute
+        - 否则 → 走旧逻辑(原有路径,不动)
+        - 默认不破坏生产 db
+        """
+        v2_exists = table_exists(TICKS_DB, "tbl_tick_v2")
+        if not force and has_data(db_kind="ticks_v2" if v2_exists else "ticks", ts_code=ts_code, trade_date=trade_date):
             return 0
 
         date_int = int(_ymd_dash_to_compact(trade_date))
+        if v2_exists:
+            # 新逻辑:fetch_history_ticks_with_meta + 落库 gate
+            from coreClient.tdx_ticks_meta import (
+                fetch_history_ticks_with_meta, is_safe_to_persist, IncompleteDataError,
+            )
+            try:
+                rows, meta = fetch_history_ticks_with_meta(client, ts_code, date_int)
+            except Exception as e:
+                print(f"      ⚠️ {ts_code} {trade_date} ticks 拉取失败: {e}")
+                return 0
+            if not is_safe_to_persist(meta):
+                # 抛错:不写库、不 mark、整批拒绝(避免重抓时覆盖好的旧数据)
+                raise IncompleteDataError(meta)
+            if not rows:
+                print(f"      ⚠️ {ts_code} {trade_date} ticks 拉取为空")
+                return 0
+            # 补充 4 个审计字段(详见 docs/落库方案_v2.md 3.3 / 3.4)
+            now_iso = datetime.now().isoformat(timespec="seconds")
+            fetched_host = client.ip
+            fetch_complete = 1 if meta.pagination_complete else 0
+            for r in rows:
+                r["fetch_seq"] = 1  # 第一次写入默认 1;后续 INSERT OR REPLACE 时覆盖
+                r["fetched_at"] = now_iso
+                r["fetched_host"] = fetched_host
+                r["fetch_complete"] = fetch_complete
+            tick_cols = [
+                "ts_code", "trade_date", "time", "seqId_in_minute",
+                "datetime", "price", "vol", "buyorsell",
+                "fetch_seq", "fetched_at", "fetched_host", "fetch_complete",
+            ]
+            df = pd.DataFrame(rows)[tick_cols]
+            inserted = upsert_rows("ticks_v2", df)
+            mark_downloaded("ticks_v2", [(ts_code, trade_date)])
+            if rate > 0:
+                time.sleep(rate)
+            return inserted if inserted and inserted > 0 else 0
+
+        # 旧逻辑(原代码路径,完全不变)
         try:
             rows = client.get_history_ticks(ts_code, date_int)
         except Exception as e:

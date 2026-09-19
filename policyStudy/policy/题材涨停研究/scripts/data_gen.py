@@ -123,6 +123,119 @@ from core.offline_db_client import (
 #   - 指数列表见 INDEX_CODES_HERE 常量;日期范围来自 watchlist
 #   - 接口契约与 fetch_and_write_minute 完全一致,只是 db_kind='minute_index'
 
+# ============================================================================
+# 退市过滤(2026-09-19 新增,响应 v1 复验报告)
+# ============================================================================
+def _get_delist_info(ts_codes: List[str]) -> dict:
+    """查 ts_code -> (delist_date_dash, last_trade_date_dash)
+
+    优先用 tbl_cn_basic.delist_date;缺失时 fallback 到 tbl_cn_day MAX(trade_date)
+    返回的 key 是 ts_code;value 是 dict(delist_date, last_trade_date)
+    """
+    import sqlite3
+    db_path = str(ROOT / "offlineDataManager" / "data" / "db_cn_basic.db")
+    conn = sqlite3.connect(db_path)
+    result = {}
+    for ts in set(ts_codes):
+        row = conn.execute(
+            "SELECT delist_date FROM tbl_cn_basic WHERE ts_code=?",
+            (ts,),
+        ).fetchone()
+        delist_date = row[0] if row and row[0] else None
+        last_row = conn.execute(
+            "SELECT MAX(trade_date) FROM tbl_cn_day WHERE ts_code=?",
+            (ts,),
+        ).fetchone()
+        last_trade = last_row[0] if last_row and last_row[0] else None
+        result[ts] = {
+            "delist_date": delist_date,
+            "last_trade_date": last_trade,
+        }
+    conn.close()
+    return result
+
+
+def filter_watchlist_by_delist(
+    df: pd.DataFrame,
+    verbose: bool = True,
+) -> tuple:
+    """过滤掉 watchlist 中 "涨停日 > 退市日 或 > 最后交易日" 的行
+
+    Args:
+        df: watchlist df (含 ts_code, trade_date 列,dash 格式)
+        verbose: 是否打印被排除的行统计
+
+    Returns:
+        (filtered_df, excluded_df)
+        - filtered_df: 过滤后的 df
+        - excluded_df: 被剔除的行(含 delist_date, last_trade_date, reason 列)
+    """
+    if df is None or len(df) == 0:
+        return df, pd.DataFrame()
+
+    codes = df["ts_code"].unique().tolist()
+    info = _get_delist_info(codes)
+
+    keep_idx = []
+    excluded_rows = []
+
+    for idx, row in df.iterrows():
+        ts = row["ts_code"]
+        td = row["trade_date"]  # dash format YYYY-MM-DD
+        meta = info.get(ts, {})
+
+        # 权威信号:delist_date
+        if meta.get("delist_date"):
+            delist_dash = _ymd_compact_to_dash(meta["delist_date"])
+            if td > delist_dash:
+                row_dict = row.to_dict()
+                row_dict["delist_date"] = meta["delist_date"]
+                row_dict["last_trade_date"] = meta.get("last_trade_date", "") or ""
+                row_dict["reason"] = "trade_date > delist_date (tbl_cn_basic)"
+                excluded_rows.append(row_dict)
+                continue
+
+        # 兜底信号:last_trade_date from tbl_cn_day
+        #   涨停日 > 最后交易日 + 90 天 → 判定为退市后涨停,样本无效
+        #   (单纯晚一天可能是节假日/数据缺口,90 天阈值避免误判)
+        from datetime import datetime, timedelta
+        last_trade = meta.get("last_trade_date")
+        if last_trade:
+            last_trade_dash = _ymd_compact_to_dash(last_trade)
+            # 涨停日 - 最后交易日 > 90 天
+            try:
+                td_dt = datetime.strptime(td, "%Y-%m-%d")
+                last_dt = datetime.strptime(last_trade_dash, "%Y-%m-%d")
+                if (td_dt - last_dt).days > 90:
+                    row_dict = row.to_dict()
+                    row_dict["delist_date"] = meta.get("delist_date") or ""
+                    row_dict["last_trade_date"] = last_trade
+                    row_dict["reason"] = (
+                        f"trade_date 比 last_trade_date 晚 {(td_dt-last_dt).days} 天 > 90 (tbl_cn_day 兜底)"
+                    )
+                    excluded_rows.append(row_dict)
+                    continue
+            except ValueError:
+                pass
+
+        keep_idx.append(idx)
+
+    filtered = df.loc[keep_idx].reset_index(drop=True)
+    excluded_df = pd.DataFrame(excluded_rows)
+
+    if verbose:
+        print(f"  退市过滤: 排除 {len(excluded_df)} 对, 剩 {len(filtered)} 对", flush=True)
+        if len(excluded_df) > 0:
+            by_ts = excluded_df.groupby("ts_code").size().sort_values(ascending=False)
+            print(f"  按 ts_code (Top 10):", flush=True)
+            for ts, n in by_ts.head(10).items():
+                last_td = excluded_df[excluded_df["ts_code"] == ts]["last_trade_date"].iloc[0]
+                print(f"    {ts}  {n} 对  (最后交易日: {last_td})", flush=True)
+            if len(by_ts) > 10:
+                print(f"    ... 还有 {len(by_ts)-10} 只", flush=True)
+
+    return filtered, excluded_df
+
 
 # ============================================================================
 # 路径
@@ -456,6 +569,8 @@ def main():
                         help="每只股票间隔秒数(pytdx ~70 req/s,默认 0.15s),会传给 service")
     parser.add_argument("--dry-run", action="store_true",
                         help="dry-run:只算窗口 + ctrl 过滤,不调 service")
+    parser.add_argument("--include-delisted", action="store_true",
+                        help="不过滤退市股(默认过滤 watchlist 中 trade_date > 退市日/最后交易日的行)")
     args = parser.parse_args()
 
     if not args.watchlist:
@@ -493,8 +608,22 @@ def main():
     df = df.drop_duplicates(subset=["ts_code", "trade_date"]).reset_index(drop=True)
     # 统一日期格式到 YYYY-MM-DD
     df["trade_date"] = df["trade_date"].astype(str).map(_ymd_compact_to_dash)
+    print(f"[1/5] watchlist (raw): {len(df)} 个 (ts_code, trade_date) 对(去重后)")
+
+    # 1.5) 退市过滤:默认剔除 trade_date > delist_date 或 > 最后交易日 的行
+    if not args.include_delisted:
+        print(f"[1.5] 退市过滤 (--include-delisted={'YES' if args.include_delisted else 'NO'})...")
+        df, excluded_df = filter_watchlist_by_delist(df, verbose=True)
+        # 写 excluded_pairs.csv 给 02 复验用
+        if len(excluded_df) > 0:
+            import time as _time
+            excluded_path = Path(args.watchlist_dir) / f"excluded_by_delist_{_time.strftime('%Y%m%d_%H%M%S')}.csv"
+            excluded_df.to_csv(excluded_path, index=False, encoding="utf-8-sig")
+            print(f"[1.5] 被排除的行已写到: {excluded_path}")
+    else:
+        print(f"[1.5] 退市过滤: SKIPPED (--include-delisted)")
     pairs = list(zip(df["ts_code"].tolist(), df["trade_date"].tolist()))
-    print(f"[1/5] watchlist: {len(pairs)} 个 (ts_code, trade_date) 对(去重后)")
+    print(f"[1.5] watchlist (退市过滤后): {len(pairs)} 个 (ts_code, trade_date) 对")
 
     # 2) ctrl 过滤 + 窗口扩展(只算 pending 不拉数据)
     # ---- minute(涨停日前 1 后 2 共 4 天,合并多连板)----
