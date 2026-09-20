@@ -6,13 +6,14 @@
 
 建议阅读顺序：
 
-1. `PLAIN_LANGUAGE_RESULTS_REPORT.md`：面向普通读者的结果报告，直接说明测了什么、没测什么、平均收益、胜率、盈亏比和当前结论。
-2. `SELF_REVIEW_AND_CORRECTION.md`：主Codex对本轮研究偏差的反省、完整策略漏斗与后续纠偏标准。
-3. `MATERIAL_AUDIT_AND_GAPS.md`：审计本包能复核什么、不能复核什么，以及完整交接仍缺的材料。
-4. `METHODOLOGY_AND_REPRODUCTION.md`：完整研究设计、数据日期、公式、时序和验收流程。
-5. `EXPERIMENT_AND_RESULT_LEDGER.md`：每项工作的状态、实际样本、主要结果和局限。
-6. `SOURCE_MANIFEST.md`：随包 Python 源码与测试的 SHA-256。
-7. `code/` 与 `tests/`：本轮已运行计算的核心纯函数及相应测试快照。
+1. `ORCHESTRATION_INCIDENT_POSTMORTEM_20260920.md`：供第三方接管者阅读的事故复盘，说明 Token 消耗、编排失误、用户持续加入研究灵感时的变更管理缺陷、定期唤醒问题，以及下一版强制架构。
+2. `PLAIN_LANGUAGE_RESULTS_REPORT.md`：面向普通读者的结果报告，直接说明测了什么、没测什么、平均收益、胜率、盈亏比和当前结论。
+3. `SELF_REVIEW_AND_CORRECTION.md`：主Codex对本轮研究偏差的反省、完整策略漏斗与后续纠偏标准。
+4. `MATERIAL_AUDIT_AND_GAPS.md`：审计本包能复核什么、不能复核什么，以及完整交接仍缺的材料。
+5. `METHODOLOGY_AND_REPRODUCTION.md`：完整研究设计、数据日期、公式、时序和验收流程。
+6. `EXPERIMENT_AND_RESULT_LEDGER.md`：每项工作的状态、实际样本、主要结果和局限。
+7. `SOURCE_MANIFEST.md`：随包 Python 源码与测试的 SHA-256。
+8. `code/` 与 `tests/`：本轮已运行计算的核心纯函数及相应测试快照。
 
 状态定义：
 

@@ -19,7 +19,7 @@
     "MATERIAL_AUDIT_AND_GAPS.md": "68de779729695d4bca7fc35287ca79047a8453ee25f85e043d44575e0902b015",
     "METHODOLOGY_AND_REPRODUCTION.md": "6451ec03a9ee6f0466efd4ba9e398031acc677e01c67df37aea40805599daf4e",
     "PLAIN_LANGUAGE_RESULTS_REPORT.md": "861004e5b3efa549c5816d1396ba7a03efb525e6a7d1bf7cb400365e8a53aada",
-    "README.md": "998aa86b5274c27bdf6bea5ede526f02f71b07b2020aa53c9688957a894b2d00",
+    "README.md": "adaca3c80bb4cb48e456b58eac7a5bd834694b1bf10bd4d67e31159f076ce041",
     "requirements.txt": "d66b46bdf6835f3338f2fe061a1d41c2154ae43475cfc41e57407a7fb35cd10b",
     "run_tests.py": "d736fb44850beb0f1249e124120ae29e2133f48fe278a2e1ec94e8531b0c5c59",
     "SELF_REVIEW_AND_CORRECTION.md": "7c6122f6e40517b4716d359cc1cb0dc71d2242e68e858c020f021a1498c82116",
@@ -31,6 +31,7 @@
     "tests/test_market_activity_overlay_core.py": "857f95843edcccd8bb8b6fd614614c05bab6a27283c6e5702818dd3808ed12ab",
     "tests/test_news_context_helpers.py": "d8901eca22136f1c45f72fbaeaf6bf3878add5cbe61b192cae6734a99dc7411e",
     "tests/test_rebound_state_machine.py": "a56cf26e083d6e3c0ec63ce5bcfdd2eb7855f9e2a99430af705506bca7ed090f",
-    "verify_package.py": "bbd80095ad9c627eafb3807a73070ad7f2a9470e469acdfc0301ad61d3de18af"
+    "verify_package.py": "bbd80095ad9c627eafb3807a73070ad7f2a9470e469acdfc0301ad61d3de18af",
+    "ORCHESTRATION_INCIDENT_POSTMORTEM_20260920.md": "8b8632c6635dbf18b69055f3498ca70b4e160601303a05a1b76d5f1518f4a21c"
   }
 }
