@@ -6,10 +6,11 @@
 
 建议阅读顺序：
 
-1. `METHODOLOGY_AND_REPRODUCTION.md`：完整研究设计、数据日期、公式、时序和验收流程。
-2. `EXPERIMENT_AND_RESULT_LEDGER.md`：每项工作的状态、实际样本、主要结果和局限。
-3. `SOURCE_MANIFEST.md`：随包 Python 源码与测试的 SHA-256。
-4. `code/` 与 `tests/`：本轮已运行计算的核心纯函数及相应测试快照。
+1. `PLAIN_LANGUAGE_RESULTS_REPORT.md`：面向普通读者的结果报告，直接说明测了什么、没测什么、平均收益、胜率、盈亏比和当前结论。
+2. `METHODOLOGY_AND_REPRODUCTION.md`：完整研究设计、数据日期、公式、时序和验收流程。
+3. `EXPERIMENT_AND_RESULT_LEDGER.md`：每项工作的状态、实际样本、主要结果和局限。
+4. `SOURCE_MANIFEST.md`：随包 Python 源码与测试的 SHA-256。
+5. `code/` 与 `tests/`：本轮已运行计算的核心纯函数及相应测试快照。
 
 状态定义：
 
