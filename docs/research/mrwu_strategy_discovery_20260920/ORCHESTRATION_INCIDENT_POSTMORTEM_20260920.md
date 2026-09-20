@@ -340,7 +340,7 @@ The corrective action is not simply to “use more agents.” It is to use fewer
 - No research-specific process or research automation remains active.
 - Hermes API and the approval bridge remain preserved on loopback interfaces.
 - Existing data, source code, evidence, reports, backups, and GitHub materials remain intact.
-- Codex-side Kimi, MiniMax, and Qwen access is to be archived rather than deleted.
+- Codex-side Kimi, MiniMax, and Qwen access has been archived rather than deleted: the AgentPool MCP is disabled in user-level Codex configuration, five residual AgentPool MCP processes were stopped, and source code plus credential files remain intact.
 - No research should resume until a new task is explicitly defined and the Hermes-hosted worker architecture passes the architecture gate.
 
 This postmortem is intended to be the baseline for that redesign.
