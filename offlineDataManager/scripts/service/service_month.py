@@ -9,7 +9,7 @@ service_month.py - A 股月 K 线更新(从日 K 前复权数据聚合,覆盖更
   - 每次运行会先清空原表,再重新插入(覆盖更新)
   - **强依赖**:tbl_cn_day 和 tbl_cn_adj_factor 必须已更新完毕
   - 启动时会校验 tbl_ctrl 里 cn_daily 和 cn_adj_factor 的日期是否一致
-    且都是今天,否则中止(避免用过期的 day/adj_factor 算前复权)
+    且都是最近已收盘交易日,否则中止(避免用过期的 day/adj_factor 算前复权)
 """
 import sys
 import time

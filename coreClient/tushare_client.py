@@ -82,7 +82,7 @@ class TushareClient:
         import tushare as ts
         self.pro = ts.pro_api()
         self.rate_limiter = RateLimiter(TUSHARE_RATE_LIMIT_PER_MIN)
-        logger.info(f"TushareClient 初始化完成(token: {TUSHARE_TOKEN[:10]}...)")
+        logger.info("TushareClient 初始化完成")
 
     @with_retry
     def call(self, api_func_name: str, **params):

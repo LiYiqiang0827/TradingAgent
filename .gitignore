@@ -25,6 +25,8 @@ __pycache__/
 dist/
 build/
 .pytest_cache/
+.venv/
+.runtime/
 
 # ============================================
 # 系统文件

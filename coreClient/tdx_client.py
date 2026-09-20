@@ -443,7 +443,7 @@ class TdxClient:
             for r in chunk:
                 if not isinstance(r, dict):
                     r = dict(r)
-                key = (r.get("time", ""), r.get("price", 0), r.get("vol", 0))
+                key = (r.get("time", ""), r.get("price", 0), r.get("vol", 0), r.get("buyorsell", 0))
                 if key in seen:
                     continue
                 seen.add(key)
@@ -461,6 +461,10 @@ class TdxClient:
                 )
 
         return _enrich_ticks(_reverse_concat_and_sort(pages, seen), ts_code, date)
+
+    # 2026-09-18 新增:如果调用方需要分页元信息(完整性/去重数量/buyorsell 集合),
+    # 用 tdx_ticks_meta.fetch_history_ticks_with_meta(client, ts_code, date) 而不是本方法。
+    # 本方法保留旧签名以兼容现有调用方;不抛异常(单页失败静默返回已拉部分,无法区分完整性)。
 
 
 def _stamp_data_timestamp(items: list, *, field: str = "orderbook_timestamp") -> list:
@@ -518,23 +522,28 @@ def _reverse_concat_and_sort(pages: list[list[dict]], _seen_unused: set = None) 
 
 
 def _enrich_ticks(ticks: list, ts_code: str, date: int) -> list[dict]:
-    """2026-09-12 新增:给 ticks 列表自动补 ts_code / trade_date / datetime / seqId
+    """2026-09-12 新增:给 ticks 列表自动补 ts_code / trade_date / datetime / seqId_in_minute
 
     字段说明:
-        - ts_code     str    "000006.SZ"(直接用入参,所有 tick 一致)
-        - trade_date  str    "2026-05-12"
-        - datetime    str    "2026-05-12 10:31:00"(time 字段补 ":00")
-        - seqId       int    从 0 开始累加(0, 1, 2, ...)
+        - ts_code              str    "000006.SZ"(直接用入参,所有 tick 一致)
+        - trade_date           str    "2026-05-12"
+        - datetime             str    "2026-05-12 10:31:00"(time 字段补 ":00")
+        - seqId_in_minute      int    同 (ts_code, trade_date, time) 分钟内自增(0, 1, 2, ...)
 
-    入参 ticks 是 client 内部 list(可能含已去重),出参是新 list(不修改入参)。
+    入参 ticks 必须是按 time 字段升序的 list;调用方负责排序。
+    出参是新 list(不修改入参)。
 
     不在这里打 data_timestamp(get_orderbook / get_minute_kline 有,get_history_ticks 暂不加)。
+
+    2026-09-19 变更:seqId → seqId_in_minute,含义从"全局当日序号"改为"同分钟内单股序号",
+    详见 docs/落库方案_v2.md。旧"全局序号"调用方请用 enumerate 或 DB 自增字段补回。
     """
     if not ticks:
         return []
     trade_date_str = _date_int_to_str(date)
     out = []
-    for i, r in enumerate(ticks):
+    counters: dict[str, int] = {}  # key = time 字符串,值 = 当前分钟内自增序号
+    for r in ticks:
         if not isinstance(r, dict):
             r = dict(r)
         # 字段补全(不覆盖原有)
@@ -543,7 +552,11 @@ def _enrich_ticks(ticks: list, ts_code: str, date: int) -> list[dict]:
         time_str = r.get("time", "")
         if time_str:
             r["datetime"] = _ticks_time_to_datetime(time_str, date)
-        r["seqId"] = i
+        # seqId_in_minute:同 time 字段内自增
+        r["seqId_in_minute"] = counters.get(time_str, 0)
+        counters[time_str] = counters.get(time_str, 0) + 1
+        # 删除旧 seqId(避免双字段混淆,2026-09-19 决策)
+        r.pop("seqId", None)
         out.append(r)
     return out
 

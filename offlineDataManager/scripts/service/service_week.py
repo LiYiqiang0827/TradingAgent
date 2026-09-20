@@ -9,11 +9,10 @@ service_week.py - A 股周 K 线更新(从日 K 前复权数据聚合,覆盖更�
   - 每次运行会先清空原表,再重新插入(覆盖更新)
   - **强依赖**:tbl_cn_day 和 tbl_cn_adj_factor 必须已更新完毕
   - 启动时会校验 tbl_ctrl 里 cn_daily 和 cn_adj_factor 的日期是否一致
-    且都是今天,否则中止(避免用过期的 day/adj_factor 算前复权)
+    且都是最近已收盘交易日,否则中止(避免用过期的 day/adj_factor 算前复权)
 """
 import sys
 import time
-from datetime import datetime
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
@@ -21,6 +20,7 @@ sys.path.insert(0, str(PROJECT_ROOT / 'scripts'))
 
 from core.offline_downloader import CNDataDown
 from core.offline_db_client import get_ctrl
+from service.common import latest_completed_trade_date
 from loguru import logger
 
 
@@ -30,13 +30,13 @@ def check_daily_adj_consistency(down: CNDataDown) -> bool:
     规则:
       - 两者都必须存在
       - 两者的日期字符串必须完全相等(YYYYMMDD 格式)
-      - 必须 ≥ 今天(确保数据已经包含今天的最新数据)
+      - 必须 ≥ 最近已收盘交易日
 
     Returns:
         True=一致且最新,可以安全算周月 K
         False=不一致或过期,中止周月 K 计算
     """
-    today = datetime.now().strftime("%Y%m%d")
+    today = latest_completed_trade_date(down.conn_basic)
     ctrl_daily = get_ctrl(down.conn_basic, "cn_daily")
     ctrl_adj = get_ctrl(down.conn_basic, "cn_adj_factor")
 

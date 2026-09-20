@@ -167,7 +167,7 @@ def spawn_service(service_name: str, extra_args: list = None,
     - 默认 timeout=1800s(30 分钟)
     - 不抛异常,只返回 rc(由调用方决定是否中止)
     """
-    cmd = ["/opt/anaconda3/bin/python3", "-m", f"service.{service_name}"]
+    cmd = [sys.executable, "-m", f"service.{service_name}"]
     if extra_args:
         cmd.extend(extra_args)
 

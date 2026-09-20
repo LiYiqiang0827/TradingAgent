@@ -4,13 +4,28 @@ service 通用工具:日期范围解析(根据 MyATM 思路)+ watchlist / 指数
 """
 import argparse
 import sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / 'scripts'))
 
 from loguru import logger
+
+
+def latest_completed_trade_date(conn, now: datetime | None = None) -> str:
+    """Return the latest SSE trading day whose post-close data may be available."""
+    now = now or datetime.now()
+    cutoff = now.date() if (now.hour, now.minute) >= (16, 30) else (now - timedelta(days=1)).date()
+    cutoff_text = cutoff.strftime("%Y%m%d")
+    row = conn.execute(
+        "SELECT MAX(cal_date) FROM tbl_cn_tradecal "
+        "WHERE exchange = 'SSE' AND is_open = 1 AND cal_date <= ?",
+        (cutoff_text,),
+    ).fetchone()
+    if not row or not row[0]:
+        raise RuntimeError(f"本地 SSE 交易日历无 {cutoff_text} 及之前的开市日")
+    return str(row[0])
 
 
 # ============================================================================

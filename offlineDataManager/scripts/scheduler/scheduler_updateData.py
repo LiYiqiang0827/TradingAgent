@@ -22,7 +22,8 @@ from loguru import logger
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from core.offline_db_client import show_status
+from core.offline_db_client import get_conn, get_ctrl, show_status
+from service.common import latest_completed_trade_date
 
 
 # ============================================================
@@ -49,11 +50,9 @@ NEWS_INTERVAL_MIN = 10  # 每 10 分钟
 # 工具函数
 # ============================================================
 def get_target_date() -> str:
-    """获取目标日期(收盘后用今天,否则用昨天)"""
-    today = datetime.now()
-    if today.hour >= 17 or (today.hour == 16 and today.minute >= 30):
-        return today.strftime("%Y%m%d")
-    return (today - timedelta(days=1)).strftime("%Y%m%d")
+    """获取最近已收盘的交易日。"""
+    with get_conn("basic") as conn:
+        return latest_completed_trade_date(conn)
 
 
 def is_news_window() -> bool:
@@ -79,7 +78,7 @@ def spawn_service(service_name: str, extra_args: list = None, sync: bool = False
         RuntimeError: 子进程 rc != 0 且 abort_on_failure=True
             (rc=1 = 异常退出,rc=2 = 业务中止/校验失败)
     """
-    cmd = ["/opt/anaconda3/bin/python3", "-m", f"service.{service_name}"]
+    cmd = [sys.executable, "-m", f"service.{service_name}"]
     if extra_args:
         cmd.extend(extra_args)
 
@@ -147,6 +146,15 @@ def task_full_update():
       - rc!=0 && rc!=2:异常退出
     """
     target = get_target_date()
+    # 周末、节假日及盘前可能只需确认上一个交易日已完成。
+    # 避免在没有新交易日时重复执行周月全量聚合与大量历史 API 调用。
+    if target < datetime.now().strftime("%Y%m%d"):
+        with get_conn("basic") as conn:
+            daily_ctrl = get_ctrl(conn, "cn_daily")
+            adj_ctrl = get_ctrl(conn, "cn_adj_factor")
+            if daily_ctrl and adj_ctrl and daily_ctrl >= target and adj_ctrl >= target:
+                logger.info(f"[完整更新] 最近交易日 {target} 已完成日线与复权，跳过非交易时段重复更新")
+                return
     logger.info("=" * 60)
     logger.info(f"[完整更新] 目标日期 {target}")
     logger.info("=" * 60)

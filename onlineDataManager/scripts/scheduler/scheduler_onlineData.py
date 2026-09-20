@@ -343,7 +343,7 @@ def spawn_service(name: str, args: list[str], *, log: logging.Logger, timeout_se
     - 非 --once 时:异步 Popen,**立即返回 0**,子进程自己 while True 跑
     """
     cmd = [
-        "/opt/anaconda3/bin/python3",
+        sys.executable,
         "-u",  # unbuffered
         "-m",
         f"service.{name}",

@@ -1,6 +1,7 @@
 # tdx_client.md
 
-> **版本**:v1.0(2026-09-15 新增)
+> **版本**:v1.1(2026-09-19 更新:buyorsell 字段权威定义 + seqId 字段语义变更)
+> **v1.0**(2026-09-15 新增)
 > **文件路径**:`~/TradingAgent/coreClient/tdx_client.py`
 > **配置**:`~/TradingAgent/coreClient/tdx_config.py`
 > **目的**:通达信 pytdx 客户端封装 + 批量 + IP 池 failover,跨业务复用
@@ -232,15 +233,22 @@ data_timestamp str   "2026-09-13T01:25:15.847" (毫秒,2026-09-15 改造)
 
 **字段自动补全**:
 ```
-ts_code     str    "000006.SZ"
-trade_date  str    "2026-05-12"
-datetime    str    "2026-05-12 10:31:00"(time 字段补 ":00")
-seqId       int    从 0 开始累加(0, 1, 2, ...)
-time        str    pytdx 原始 "HH:MM"
-price       float
-vol         int
-buyorsell   int    0/1/2
+ts_code              str    "000006.SZ"
+trade_date           str    "2026-05-12"
+datetime             str    "2026-05-12 10:31:00"(time 字段补 ":00")
+seqId_in_minute      int    同 (ts_code, trade_date, time) 分钟内自增(0, 1, 2, ...)
+time                 str    pytdx 原始 "HH:MM"
+price                float
+vol                  int
+buyorsell            int    0=买盘 / 1=卖盘 / 2=中性或撮合 / 5=未知(待挖掘) / 8=集合竞价
 ```
+
+> **字段语义变更**:
+> - `seqId` → `seqId_in_minute`(2026-09-19):含义从"全局当日序号"改为"同 (ts_code, trade_date, time) 分钟内单股序号"。
+>   旧调用方若需要"当日全局序号",请用 `enumerate(ticks)` 或 DB 端 `ROWID`。
+>   详细背景见 `docs/落库方案_v2.md`。
+>
+> - `buyorsell` 取值集合(2026-09-19 更新):0/1/2/8 来自 pytdx 生态一手文档;5 至今未找到一手来源,标记为"未知,待挖掘"(详见 § 9)。
 
 | 参数 | 类型 | 默认 | 说明 |
 |---|---|---|---|
@@ -393,6 +401,68 @@ elif is_broken_seal(quote):
 3. **时间戳字段命名**:每种数据有自己的字段(`orderbook_timestamp` / `minute_timestamp`),`_stamp_data_timestamp` 支持自定义
 4. **批量自动分页**:`get_orderbook_batched` 处理 > 80 只的情况,调用方不用关心
 6. **2026-09-13 v4 实时分时去 date**:实时分时不需要传 trade date(用户原话)
+
+---
+
+## 9. `buyorsell` 字段权威定义(2026-09-19 新增)
+
+### 9.1 背景
+
+`ticks` 接口返回的每条记录带一个 `buyorsell` 整数,原 doc 仅写"0/1/2"三个值。
+2026-09-19 矩阵验收实测发现:服务端**实际还会返回 `5` 和 `8`**(详见 `docs/落库方案_v2.md` / `scripts/tdx_matrix_validation_v1.json`)。
+之前的文档不完整,本节给出**有据可查**的权威定义。
+
+### 9.2 取值含义(权威)
+
+| 值 | 含义 | 来源等级 |
+|---|---|---|
+| `0` | 买盘(主动买入) | 一手文档:`xmtdx` + `easy_tdx` README |
+| `1` | 卖盘(主动卖出) | 一手文档:`xmtdx` + `easy_tdx` README |
+| `2` | 中性 / 撮合(同价位同方向合并显示) | 一手文档:`xmtdx` + `easy_tdx` README |
+| `8` | 集合竞价(开盘或收盘前撮合) | 一手文档:`xmtdx` + `easy_tdx` README |
+| `5` | **未知,待挖掘**(本项目实测:盘后 15:00 后出现 20 条,vol>0,疑似收盘后协议场成交,但**无一手文档背书**) | 推断 |
+
+**一手来源**:
+- [`xmtdx` PyPI README](https://pypi.org/project/xmtdx/)(pytdx 的 Rust 重写版,字段定义同 pytdx)
+- [`easy_tdx` GitHub examples](https://github.com/handsomejustin/easy_tdx/blob/main/examples/05_transaction/transaction_data.py)
+
+**为什么一手来源可信**:
+- `xmtdx` 是 pytdx 协议的"兼容性逆向实现",基于"抓包和真实服务器交叉验证"(其 README 原话)
+- `easy_tdx` 是 pytdx 的 Python 衍生库,直接引用 pytdx 协议语义
+- 两个独立项目给出**完全一致**的 4 个值(0/1/2/8)
+
+### 9.3 服务端分组差异(2026-09-19 实测)
+
+**TDX 后端有两套服务器,行为不同**:
+
+| 组 | 服务器 | buyorsell 返回 |
+|---|---|---|
+| **A 组**(原样给) | `180.153.18.170`、`60.12.136.250`、`115.238.56.198` | `{0, 1, 2, 5, 8}`(5 个值全给) |
+| **B 组**(清洗后给) | `123.125.108.14`、`218.6.170.47`、`123.125.108.90` | `{0, 1, 2, 5}`(**过滤 8**)+ 盘前盘后零量条目一并过滤 |
+
+**含义**:
+- B 组维护者认为 `8` 是"集合竞价条目"(开盘前零量),不该进正常成交统计
+- B 组也过滤了**盘前零量**(vol=0, time < 09:30)— 同样视为"非主成交"
+- **两组的累计成交量(只看 vol>0)完全一致**,所以业务策略如只关心"主成交",走 B 组更省清洗
+- A 组保留了**所有**服务端原始条目,适合需要审计/回放的场景
+
+### 9.4 当前 wrapper 行为
+
+- **不映射、不删除**任何 `buyorsell` 值 — 原样透传
+- 落库侧由 `tbl_tick_v2` 的 PK `(ts_code, trade_date, time, seqId_in_minute)` 保证幂等,不同 `buyorsell` 的同分钟成交不会被合并
+- 旧 `tbl_tick` 表因 PK 包含 wrapper 自产 `seqId`,有"重抓错位"风险,详见 `docs/落库方案_v2.md`
+
+### 9.5 `buyorsell=5` 待挖掘事项(TODO)
+
+| 事项 | 状态 |
+|---|---|
+| 找一手文档(通达信官方 / pytdx 源码注释 / 通达信客户端反编译) | **未做** |
+| 在 pytdx 1.72 源码搜 `buyorsell` 上下文 | **未做** |
+| 跨交易日/跨股票验证 5 的出现规律(全是盘后?大宗交易?) | 部分:本机 2026-08-27 / 2026-09-17 × 000001.SZ / 000006.SZ × 6 主机矩阵显示 5 全在 time > 15:00,且 vol>0 — 但样本太小不能下结论 |
+| 给 buyorsell=5 加标注字段 `buyorsell_note='unknown_5'` | **不做**(保持现状 = 原样透传) |
+| 像 B 组那样直接过滤 buyorsell=5 | **不做**(未确认语义前擅自过滤可能误删) |
+
+**挖掘原则**: 找到一手文档前,**不擅自映射、不擅自删除、不擅自标注**。
 
 ---
 

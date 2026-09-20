@@ -1,0 +1,1141 @@
+{
+  "record_version": "tdx-matrix-validation-v1",
+  "matrix": [
+    [
+      "000001.SZ",
+      20260827
+    ],
+    [
+      "000001.SZ",
+      20260917
+    ],
+    [
+      "000006.SZ",
+      20260827
+    ],
+    [
+      "000006.SZ",
+      20260917
+    ]
+  ],
+  "ip_pool": [
+    [
+      "180.153.18.170",
+      7709
+    ],
+    [
+      "60.12.136.250",
+      7709
+    ],
+    [
+      "115.238.56.198",
+      7709
+    ],
+    [
+      "123.125.108.14",
+      7709
+    ],
+    [
+      "218.6.170.47",
+      7709
+    ],
+    [
+      "123.125.108.90",
+      7709
+    ]
+  ],
+  "cells": [
+    {
+      "host": "180.153.18.170",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 4419,
+        "vol_zero_count": 18,
+        "pre_open_count": 14,
+        "post_close_count": 20,
+        "total_vol": 972624,
+        "meta": {
+          "host": "180.153.18.170",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4614,
+          "returned_rows": 4419,
+          "rows_removed_by_seen": 195,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 11.75,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.59,
+            "vol": 5,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "180.153.18.170",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 3911,
+        "vol_zero_count": 20,
+        "pre_open_count": 13,
+        "post_close_count": 4,
+        "total_vol": 687863,
+        "meta": {
+          "host": "180.153.18.170",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4179,
+          "returned_rows": 3911,
+          "rows_removed_by_seen": 268,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 11.68,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.61,
+            "vol": 10,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "180.153.18.170",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 2276,
+        "vol_zero_count": 13,
+        "pre_open_count": 11,
+        "post_close_count": 5,
+        "total_vol": 238498,
+        "meta": {
+          "host": "180.153.18.170",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 2,
+          "pages_succeeded": 2,
+          "pages_failed": 0,
+          "raw_rows": 2445,
+          "returned_rows": 2276,
+          "rows_removed_by_seen": 169,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 7.13,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:18",
+            "price": 7.34,
+            "vol": 30,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "180.153.18.170",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 1698,
+        "vol_zero_count": 18,
+        "pre_open_count": 14,
+        "post_close_count": 1,
+        "total_vol": 130128,
+        "meta": {
+          "host": "180.153.18.170",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 1,
+          "pages_succeeded": 1,
+          "pages_failed": 0,
+          "raw_rows": 1871,
+          "returned_rows": 1698,
+          "rows_removed_by_seen": 173,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 6.74,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:14",
+            "price": 6.87,
+            "vol": 36,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "60.12.136.250",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 4419,
+        "vol_zero_count": 18,
+        "pre_open_count": 14,
+        "post_close_count": 20,
+        "total_vol": 972624,
+        "meta": {
+          "host": "60.12.136.250",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4614,
+          "returned_rows": 4419,
+          "rows_removed_by_seen": 195,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 11.75,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.59,
+            "vol": 5,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "60.12.136.250",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 3911,
+        "vol_zero_count": 20,
+        "pre_open_count": 13,
+        "post_close_count": 4,
+        "total_vol": 687863,
+        "meta": {
+          "host": "60.12.136.250",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4179,
+          "returned_rows": 3911,
+          "rows_removed_by_seen": 268,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 11.68,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.61,
+            "vol": 10,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "60.12.136.250",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 2276,
+        "vol_zero_count": 13,
+        "pre_open_count": 11,
+        "post_close_count": 5,
+        "total_vol": 238498,
+        "meta": {
+          "host": "60.12.136.250",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 2,
+          "pages_succeeded": 2,
+          "pages_failed": 0,
+          "raw_rows": 2445,
+          "returned_rows": 2276,
+          "rows_removed_by_seen": 169,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 7.13,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:18",
+            "price": 7.34,
+            "vol": 30,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "60.12.136.250",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 1698,
+        "vol_zero_count": 18,
+        "pre_open_count": 14,
+        "post_close_count": 1,
+        "total_vol": 130128,
+        "meta": {
+          "host": "60.12.136.250",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 1,
+          "pages_succeeded": 1,
+          "pages_failed": 0,
+          "raw_rows": 1871,
+          "returned_rows": 1698,
+          "rows_removed_by_seen": 173,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 6.74,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:14",
+            "price": 6.87,
+            "vol": 36,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "115.238.56.198",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 4419,
+        "vol_zero_count": 18,
+        "pre_open_count": 14,
+        "post_close_count": 20,
+        "total_vol": 972624,
+        "meta": {
+          "host": "115.238.56.198",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4614,
+          "returned_rows": 4419,
+          "rows_removed_by_seen": 195,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 11.75,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.59,
+            "vol": 5,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "115.238.56.198",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 3911,
+        "vol_zero_count": 20,
+        "pre_open_count": 13,
+        "post_close_count": 4,
+        "total_vol": 687863,
+        "meta": {
+          "host": "115.238.56.198",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4179,
+          "returned_rows": 3911,
+          "rows_removed_by_seen": 268,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 11.68,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.61,
+            "vol": 10,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "115.238.56.198",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 2276,
+        "vol_zero_count": 13,
+        "pre_open_count": 11,
+        "post_close_count": 5,
+        "total_vol": 238498,
+        "meta": {
+          "host": "115.238.56.198",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 2,
+          "pages_succeeded": 2,
+          "pages_failed": 0,
+          "raw_rows": 2445,
+          "returned_rows": 2276,
+          "rows_removed_by_seen": 169,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 7.13,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:18",
+            "price": 7.34,
+            "vol": 30,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "115.238.56.198",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 1698,
+        "vol_zero_count": 18,
+        "pre_open_count": 14,
+        "post_close_count": 1,
+        "total_vol": 130128,
+        "meta": {
+          "host": "115.238.56.198",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 1,
+          "pages_succeeded": 1,
+          "pages_failed": 0,
+          "raw_rows": 1871,
+          "returned_rows": 1698,
+          "rows_removed_by_seen": 173,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5,
+            8
+          ],
+          "first_tick": {
+            "time": "09:15",
+            "price": 6.74,
+            "vol": 0,
+            "buyorsell": 8
+          },
+          "last_tick": {
+            "time": "15:14",
+            "price": 6.87,
+            "vol": 36,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.14",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 4401,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 20,
+        "total_vol": 972624,
+        "meta": {
+          "host": "123.125.108.14",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4538,
+          "returned_rows": 4401,
+          "rows_removed_by_seen": 137,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 11.7,
+            "vol": 4142,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.59,
+            "vol": 5,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.14",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 3892,
+        "vol_zero_count": 1,
+        "pre_open_count": 1,
+        "post_close_count": 4,
+        "total_vol": 687863,
+        "meta": {
+          "host": "123.125.108.14",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4099,
+          "returned_rows": 3892,
+          "rows_removed_by_seen": 207,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 11.68,
+            "vol": 3624,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.61,
+            "vol": 10,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.14",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 2263,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 5,
+        "total_vol": 238498,
+        "meta": {
+          "host": "123.125.108.14",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 2,
+          "pages_succeeded": 2,
+          "pages_failed": 0,
+          "raw_rows": 2404,
+          "returned_rows": 2263,
+          "rows_removed_by_seen": 141,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 7.07,
+            "vol": 714,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:18",
+            "price": 7.34,
+            "vol": 30,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.14",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 1680,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 1,
+        "total_vol": 130128,
+        "meta": {
+          "host": "123.125.108.14",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 1,
+          "pages_succeeded": 1,
+          "pages_failed": 0,
+          "raw_rows": 1821,
+          "returned_rows": 1680,
+          "rows_removed_by_seen": 141,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 6.68,
+            "vol": 309,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:14",
+            "price": 6.87,
+            "vol": 36,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "218.6.170.47",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 4401,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 20,
+        "total_vol": 972624,
+        "meta": {
+          "host": "218.6.170.47",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4538,
+          "returned_rows": 4401,
+          "rows_removed_by_seen": 137,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 11.7,
+            "vol": 4142,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.59,
+            "vol": 5,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "218.6.170.47",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 3892,
+        "vol_zero_count": 1,
+        "pre_open_count": 1,
+        "post_close_count": 4,
+        "total_vol": 687863,
+        "meta": {
+          "host": "218.6.170.47",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4099,
+          "returned_rows": 3892,
+          "rows_removed_by_seen": 207,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 11.68,
+            "vol": 3624,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.61,
+            "vol": 10,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "218.6.170.47",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 2263,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 5,
+        "total_vol": 238498,
+        "meta": {
+          "host": "218.6.170.47",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 2,
+          "pages_succeeded": 2,
+          "pages_failed": 0,
+          "raw_rows": 2404,
+          "returned_rows": 2263,
+          "rows_removed_by_seen": 141,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 7.07,
+            "vol": 714,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:18",
+            "price": 7.34,
+            "vol": 30,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "218.6.170.47",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 1680,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 1,
+        "total_vol": 130128,
+        "meta": {
+          "host": "218.6.170.47",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 1,
+          "pages_succeeded": 1,
+          "pages_failed": 0,
+          "raw_rows": 1821,
+          "returned_rows": 1680,
+          "rows_removed_by_seen": 141,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 6.68,
+            "vol": 309,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:14",
+            "price": 6.87,
+            "vol": 36,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.90",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 4401,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 20,
+        "total_vol": 972624,
+        "meta": {
+          "host": "123.125.108.90",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4538,
+          "returned_rows": 4401,
+          "rows_removed_by_seen": 137,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 11.7,
+            "vol": 4142,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.59,
+            "vol": 5,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.90",
+      "port": 7709,
+      "ts_code": "000001.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 3892,
+        "vol_zero_count": 1,
+        "pre_open_count": 1,
+        "post_close_count": 4,
+        "total_vol": 687863,
+        "meta": {
+          "host": "123.125.108.90",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 3,
+          "pages_succeeded": 3,
+          "pages_failed": 0,
+          "raw_rows": 4099,
+          "returned_rows": 3892,
+          "rows_removed_by_seen": 207,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 11.68,
+            "vol": 3624,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:30",
+            "price": 11.61,
+            "vol": 10,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.90",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260827,
+      "result": {
+        "status": "ok",
+        "ticks_count": 2263,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 5,
+        "total_vol": 238498,
+        "meta": {
+          "host": "123.125.108.90",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 2,
+          "pages_succeeded": 2,
+          "pages_failed": 0,
+          "raw_rows": 2404,
+          "returned_rows": 2263,
+          "rows_removed_by_seen": 141,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 7.07,
+            "vol": 714,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:18",
+            "price": 7.34,
+            "vol": 30,
+            "buyorsell": 5
+          }
+        }
+      }
+    },
+    {
+      "host": "123.125.108.90",
+      "port": 7709,
+      "ts_code": "000006.SZ",
+      "trade_date": 20260917,
+      "result": {
+        "status": "ok",
+        "ticks_count": 1680,
+        "vol_zero_count": 0,
+        "pre_open_count": 1,
+        "post_close_count": 1,
+        "total_vol": 130128,
+        "meta": {
+          "host": "123.125.108.90",
+          "port": 7709,
+          "page_size": 2000,
+          "pages_requested": 1,
+          "pages_succeeded": 1,
+          "pages_failed": 0,
+          "raw_rows": 1821,
+          "returned_rows": 1680,
+          "rows_removed_by_seen": 141,
+          "termination": "last_page_short",
+          "pagination_complete": true,
+          "buyorsell_values": [
+            0,
+            1,
+            2,
+            5
+          ],
+          "first_tick": {
+            "time": "09:25",
+            "price": 6.68,
+            "vol": 309,
+            "buyorsell": 2
+          },
+          "last_tick": {
+            "time": "15:14",
+            "price": 6.87,
+            "vol": 36,
+            "buyorsell": 5
+          }
+        }
+      }
+    }
+  ]
+}
