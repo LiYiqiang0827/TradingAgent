@@ -1,0 +1,115 @@
+{
+  "spec_id": "theme-lifecycle-dragon-continuity-v0.2-20260921",
+  "status": "FROZEN_BEFORE_NEW_OUTCOME_INSPECTION",
+  "parent_spec": "RESEARCH_SPEC_v0.1.json",
+  "scope": "Extend the accepted descriptive study with recurrent-theme dragon continuity, single-wave multi-day dragon paths, and study-window price-path metrics. No news, prediction, strategy, orders, or profitability claim.",
+  "display_language": {
+    "Leader1": "龙1（龙头）",
+    "Leader2": "龙2",
+    "Leader3": "龙3",
+    "ActiveRear": "后排"
+  },
+  "frozen_dragon_ranking": {
+    "as_of_date": "role_freeze_date, the first date the episode enters the displayed daily theme set",
+    "candidate_assignment": "Use exact primary_theme; allow fallback_theme only for broken-board rows exactly as in the accepted stage-3 role assignment.",
+    "sort_order": [
+      "parsed board_count descending; missing board_count last",
+      "closed limit-up before broken board",
+      "limit-up time ascending; missing time last",
+      "bid_amount descending; missing value last",
+      "amount descending; missing value last",
+      "ts_code ascending as deterministic tie-break"
+    ],
+    "role_assignment": "Ranks 1, 2 and 3 are Leader1, Leader2 and Leader3. Other candidates are ActiveRear.",
+    "information_boundary": "Use only same-day information available through role_freeze_date. Do not replace these roles with hindsight realized leaders."
+  },
+  "realized_leader_definition": {
+    "scope": "Hindsight descriptive label for one completed episode",
+    "order": [
+      "highest board_count attained during the episode",
+      "highest episode peak return",
+      "earliest date attaining that highest board_count",
+      "earliest valid limit-up time on that attainment date; missing time last",
+      "ts_code ascending deterministic tie-break"
+    ],
+    "prohibition": "Never use this label as a frozen initial role or as a live tradable signal."
+  },
+  "capacity_core_selection": {
+    "membership": "Exact raw KPL theme match in tbl_cn_kpl_concept_cons on role_freeze_date; never use a future snapshot.",
+    "eligible_markets": "SH and SZ, excluding dated ST-prefix members and non-SH/SZ codes.",
+    "candidate_filter": "Complete circ_mv, amount and pct_chg; within-theme circ_mv percentile at least 0.80 and amount percentile at least 0.70.",
+    "score": "0.55*circ_mv_percentile + 0.35*amount_percentile + 0.10*return_percentile",
+    "selection": "Keep the highest score and runner-up; tie-break by circ_mv descending, amount descending, pct_chg descending, code ascending.",
+    "coverage_warning": "Only exact raw-label mappings can produce a clear core, so core-existence comparisons remain confounded by mapping coverage."
+  },
+  "recurrent_theme_dragon_analysis": {
+    "universe": "All themes with lifecycle_class=recurrent_union in accepted THEME_PROFILE.csv.",
+    "episode_order": "All accepted episodes sorted chronologically by start_date and episode_id.",
+    "segment_start_dragons": "Rank KPL candidates on each episode start_date with the accepted deterministic stock ranking. This segment-start role exists independently of whether the theme entered the displayed top-five set.",
+    "frozen_role_comparison": "Retain accepted frozen Leader1/2/3 in separate fields when role_freeze_date exists. Never silently equate segment-start and frozen roles when their dates differ.",
+    "persistent_dragon": "A stock code appearing in segment-start top three in at least two distinct episodes of the same raw theme.",
+    "later_slot_denominator": "All nonblank segment-start top-three assignments in the second and later episodes of the same theme.",
+    "ever_continuity_rate": "Share of later-slot assignments whose stock code appeared in the segment-start top three of any earlier episode.",
+    "adjacent_continuity_rate": "Share of later-slot assignments whose stock code appeared in the immediately preceding episode's segment-start top three.",
+    "new_dragon_rate": "One minus ever_continuity_rate on the same denominator.",
+    "role_path": "Chronological role sequence for each persistent stock, preserving moves among 龙1, 龙2 and 龙3.",
+    "prior_dragon_later_performance": {
+      "unit": "Each segment-start Dragon1/2/3 in an episode paired with the next chronological episode of the same raw theme.",
+      "later_window": "Next episode start_date through end_date inclusive.",
+      "return": "Compound tbl_cn_day pct_chg across the later window for the prior dragon stock; report n, median, quartiles and positive share by prior role.",
+      "path": "Also report maximum cumulative return and maximum drawdown inside the later window.",
+      "role_outcomes": "Using the later episode's segment-start roles, flag retained in later top three, retained as the same role, promoted/demoted, and becomes later Dragon1.",
+      "coverage": "Price-performance denominators and later-role denominators are separate and explicit."
+    },
+    "deck_table": "Show the first three chronological episodes and segment-start dragons, frozen-role dates when available, continuity rates and persistent-stock role paths. The complete 80-theme table remains a companion CSV."
+  },
+  "single_wave_multiday_analysis": {
+    "universe": "All themes with lifecycle_class=single_wave_multiday in accepted THEME_PROFILE.csv.",
+    "primary_comparison_subset": "All ten single-wave multi-day themes; preserve missing Dragon2/3 slots when an active day has fewer than three candidates.",
+    "relative_time": "T is episode start_date, the first active day. Primary tau_trade counts market trading sessions from T using the accepted 205-date calendar; secondary tau_active counts only dates with is_active=1.",
+    "daily_ranking": "On every market trading date from episode start through end, rank that day's assigned KPL candidates using the same deterministic stock sort as frozen dragon ranking and retain that date's is_active flag.",
+    "initial_dragon1_stays_dragon1": "T-day Dragon1 equals current daily Dragon1.",
+    "initial_dragon1_stays_top3": "T-day Dragon1 remains anywhere in current daily top three.",
+    "dragon23_retained": "Count of T-day Dragon2 and Dragon3 still in current daily top three, from zero to two.",
+    "dragon23_promoted": "Either T-day Dragon2 or Dragon3 becomes current daily Dragon1.",
+    "new_top3_count": "Number of current daily top-three codes absent from the T-day top three.",
+    "aggregate_denominator": "At each tau_trade, only episodes whose accepted start/end span reaches that trading-session index; also expose tau_active summaries separately.",
+    "case_listing": "List every single-wave multi-day theme and stock role paths; do not select cases by outcome. Also show the accepted frozen-role date when one exists so the two clocks remain distinguishable."
+  },
+  "study_window_price_path_metrics": {
+    "universe": "All 678 stocks in accepted LEADER_YTD_2026.csv.",
+    "window": "2025-10-30 through 2026-08-31, bounded by each stock's available tbl_cn_day rows.",
+    "period_return_pct": "100*(product(1+pct_chg/100)-1) over valid rows in the study window.",
+    "adjusted_ohlc_index": "Build a cumulative close return index from pct_chg; adjusted high equals close index times high/close and adjusted low equals close index times low/close.",
+    "ideal_low_to_later_high_pct": "Maximum 100*(adjusted_high_t/min adjusted_low_s - 1) over s<=t. Same-day ordering is idealized and not observable from daily bars.",
+    "worst_high_to_later_low_pct": "Minimum 100*(adjusted_low_t/max adjusted_high_s - 1) over s<=t. Same-day ordering is idealized and not observable from daily bars.",
+    "quality_fields": [
+      "observation_start",
+      "observation_end",
+      "valid_day_count",
+      "missing_ohlc_day_count",
+      "partial_study_window"
+    ],
+    "interpretation": "These are descriptive path extremes, not achievable backtest returns."
+  },
+  "required_outputs": [
+    "RECURRENT_THEME_DRAGON_DETAIL.csv",
+    "RECURRENT_THEME_DRAGON_SUMMARY.csv",
+    "RECURRENT_PRIOR_DRAGON_LATER_PERFORMANCE.csv",
+    "RECURRENT_PRIOR_DRAGON_LATER_SUMMARY.csv",
+    "SINGLE_WAVE_MULTIDAY_DRAGON_DAILY.csv",
+    "SINGLE_WAVE_MULTIDAY_DRAGON_AGGREGATE.csv",
+    "SINGLE_WAVE_MULTIDAY_DRAGON_CASES.csv",
+    "LEADER_RETURNS_EXTENDED.csv",
+    "SUMMARY_V02.json",
+    "DATA_QUALITY_V02.json"
+  ],
+  "quality_gates": [
+    "Read accepted CSV inputs without mutation and open SQLite in read-only query-only mode.",
+    "Preserve raw KPL theme labels without alias merging.",
+    "Every denominator, exclusion and missing dragon slot is explicit.",
+    "Frozen roles and daily descriptive roles are visibly distinguished.",
+    "All outputs are deterministically sorted and byte-stable on rerun.",
+    "No news, network, prediction, strategy rule, trade recommendation or order action."
+  ]
+}

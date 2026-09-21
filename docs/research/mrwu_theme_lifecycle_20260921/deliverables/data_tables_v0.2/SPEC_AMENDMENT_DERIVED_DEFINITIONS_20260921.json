@@ -1,0 +1,60 @@
+{
+  "amendment_id": "theme-lifecycle-derived-definitions-20260921-02",
+  "status": "FROZEN_BEFORE_REALIZED_LEADER_OR_CAPACITY_OUTCOME_ANALYSIS",
+  "reason": "The primary specification names several descriptive constructs but leaves deterministic tie-breaks and state thresholds implicit. These definitions are frozen before calculating those outcomes.",
+  "realized_episode_leader": {
+    "eligible_stocks": "Stocks with at least one closed limit-up assigned to the exact raw primary_theme between episode_start and episode_end inclusive.",
+    "primary_order": "Maximum attained parsed board_count descending.",
+    "peak_return_tiebreak": "Maximum compounded tbl_cn_day pct_chg path from episode_start through any episode trading date, with missing stock dates treated as flat zero and baseline equity 1.",
+    "remaining_tiebreaks": [
+      "date maximum board_count was first attained ascending",
+      "earliest valid limit-up time on that attainment date ascending",
+      "ts_code ascending"
+    ],
+    "label": "hindsight descriptive; never substituted for frozen initial roles"
+  },
+  "daily_realized_leader": {
+    "eligible_stocks": "Closed limit-ups assigned to the exact raw primary_theme on an active episode date.",
+    "order": [
+      "board_count descending",
+      "valid limit-up time ascending with missing last",
+      "bid_amount descending with missing last",
+      "amount descending with missing last",
+      "ts_code ascending"
+    ],
+    "within_episode_switch": "Daily realized leader ts_code changes between consecutive active dates of the same episode.",
+    "after_fade_switch": "Hindsight realized episode leader differs between consecutive episodes of the same raw primary_theme."
+  },
+  "capacity_core": {
+    "schema_mapping": "Use SPEC_AMENDMENT_SCHEMA_20260921.json: primary_theme equals tbl_cn_kpl_concept_cons.name; member code/name are con_code/con_name.",
+    "membership": "Freeze exact concept membership on role_freeze_date and carry that same member set through the episode; never use later membership snapshots.",
+    "universe_filter": "SH/SZ member codes only; exclude member names beginning ST or *ST on the freeze snapshot.",
+    "percentile": "Deterministic ascending average-tie rank divided by n; one member receives 1.0.",
+    "candidate_filter": "circ_mv percentile >=0.80 and amount percentile >=0.70 on role_freeze_date, with non-missing pct_chg.",
+    "score": "0.55*circ_mv_percentile + 0.35*amount_percentile + 0.10*return_percentile.",
+    "clear_core": "At least one candidate passes the filter; retain top one as primary and second as runner-up when present.",
+    "theme_return": "Equal-weight daily pct_chg across the frozen eligible SH/SZ membership with available returns; expose daily member denominator.",
+    "relative_return": "Core daily pct_chg minus theme equal-weight pct_chg, in percentage points.",
+    "rolling3_relative": "Three-trading-day compounded core return minus compounded theme equal-weight return, in percentage points; use available episode days and flag windows shorter than three.",
+    "state_precedence": [
+      "weak if rolling3_relative <= -2.0pp, or daily_relative <= -1.0pp and rolling3_relative < 0",
+      "strong if rolling3_relative >= +2.0pp, or daily_relative >= +1.0pp and rolling3_relative > 0",
+      "holding otherwise"
+    ],
+    "episode_duration": "active_day_count from THEME_EPISODES.csv.",
+    "episode_recurrence_outcome": "Whether the same raw primary_theme has a later episode after the current episode.",
+    "continuation_outcomes_next_trading_day": [
+      "same theme is_active",
+      "frozen Leader1 pct_chg > 0",
+      "frozen Leader1 is a closed limit-up assigned to the same raw theme"
+    ],
+    "weak_signal_lag": "Trading-day distance from first primary-core weak state to episode_end; blank when no weak state."
+  },
+  "unchanged": [
+    "study window and news exclusion",
+    "raw-label no-alias policy",
+    "initial role freeze and ranking",
+    "episode/fade/recurrence rules",
+    "capacity score weights and candidate percentile cutoffs"
+  ]
+}

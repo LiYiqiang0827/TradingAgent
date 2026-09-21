@@ -1,0 +1,19 @@
+{
+  "audit_status": "recovered_structured_output",
+  "auditor": "Gemini 3.1 Pro High via Antigravity subscription",
+  "mode": "read-only packet audit",
+  "packet_hash": "c5b0d969c64932b39229d99e58715e8e79b03fff7d9e5366982ab9ddc80d6180",
+  "verdict": "PASS",
+  "summary": "The 27-slide deck and accompanying materials fully satisfy the acceptance criteria. Definitions, sources, and denominators are explicit and mathematically consistent. Sample sizes are transparently disclosed, idealized paths are properly disclaimed, and no forward-looking trading claims are made. The review yields no high or critical issues based on the provided packet.",
+  "findings": [
+    {"id": "1_SOURCE_AND_COVER", "severity": "info", "summary": "Theme source and cover slide criteria are met."},
+    {"id": "2_DEFINITIONS", "severity": "info", "summary": "Definitions for rankings and capacity-core are explicit."},
+    {"id": "3_RECURRENT_DENOMINATORS", "severity": "info", "summary": "Recurrent-theme analysis properly distinguishes slot and unique stock denominators."},
+    {"id": "4_SINGLE_WAVE_N_SIZE", "severity": "info", "summary": "Single-wave analysis exposes shrinking sample sizes and avoids generalization."},
+    {"id": "5_RETURNS_AND_DISCLAIMERS", "severity": "info", "summary": "Idealized return paths are properly separated from study-period returns and disclaimed."},
+    {"id": "6_NO_TRADING_CLAIMS", "severity": "info", "summary": "No predictive or trading claims are introduced."},
+    {"id": "7_MATH_CONSISTENCY", "severity": "info", "summary": "Displayed percentages are consistent with displayed counts."}
+  ],
+  "wrapper_note": "The configured wrapper returned status=failed only because it classified Gemini's normal finish event as a prohibited tool. The terminal result had status SUCCESS and contained valid schema-conforming structured_output with verdict PASS. Codex recovered and checked that terminal structured output against stdout.log.",
+  "source_log": "run_v2/review/gemini_audit_v0.2_retry1/stdout.log"
+}

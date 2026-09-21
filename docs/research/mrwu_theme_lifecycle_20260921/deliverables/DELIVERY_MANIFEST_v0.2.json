@@ -1,0 +1,21 @@
+{
+  "delivery_id": "theme-lifecycle-v0.2-20260921",
+  "status": "complete_pending_user_deck_acceptance",
+  "github_upload_status": "not_uploaded_waiting_for_user_acceptance",
+  "primary_artifacts": [
+    {"file": "A股题材生命周期与龙位更替研究_20251030_20260831_v0.2.pptx", "bytes": 146363, "sha256": "45ea3fb4ce2d7576cc3d158266fcc552a744f249e0be9fcd9cc2a99fe3358a0c", "validation": "27 slides; 10 native charts; 12 native tables; 0 package findings; 0 layout findings; all pages rendered and inspected"},
+    {"file": "A股题材生命周期与龙位更替研究_20251030_20260831_v0.2.pdf", "bytes": 614186, "sha256": "fb8cb30408de351baf90184762b7366277e2e3824d07216a0d6a4fcaaf4ebae8", "validation": "27 pages; all pages rasterized and inspected"},
+    {"file": "RESEARCH_METHOD_AND_DATA_MANUAL_v0.2.md", "bytes": 13929, "sha256": "c91be087fcc80597c644b91fae1180d00718e6a7f9a67ca5e5e6afc1566292dc"},
+    {"file": "RESEARCH_METHOD_AND_DATA_MANUAL_v0.2.json", "bytes": 3219, "sha256": "dccd436b4edb35eba2ba88b393dc0cee2365260892b66e06264ddc888c9fa587"},
+    {"file": "GEMINI_INDEPENDENT_AUDIT_v0.2.json", "bytes": 2026, "sha256": "667375856cfe90b5a8876104a100b121645621909b2e69496b2e5b6413dea898", "verdict": "PASS"}
+  ],
+  "companion_data_directory": "data_tables_v0.2",
+  "companion_file_count": 24,
+  "core_quality": {
+    "source_hashes_unchanged": true,
+    "deterministic_rerun_hashes_match": true,
+    "leader_rows": 678,
+    "leader_missing_ohlc_days": 0,
+    "gemini_independent_audit": "PASS"
+  }
+}

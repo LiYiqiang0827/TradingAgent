@@ -1,0 +1,72 @@
+{
+  "manual_id": "theme-lifecycle-dragon-change-v0.2-20260921",
+  "status": "descriptive_research_complete_pending_user_acceptance",
+  "theme_source": "KPL/opening-la lu_desc raw labels",
+  "not_theme_source": "Tonghuashun",
+  "study_window": {"start": "2025-10-30", "end": "2026-08-31", "trading_days": 205},
+  "scope_exclusions": ["news", "prediction", "strategy", "orders", "position_sizing", "30min_execution_rules"],
+  "universe": {
+    "eligible_kpl_rows": 19716,
+    "active_raw_themes": 137,
+    "episodes": 793,
+    "recurrent_themes": 80,
+    "recurrent_episodes": 736,
+    "single_wave_multiday_themes": 10,
+    "leader_stocks": 678
+  },
+  "role_clocks": {
+    "frozen": "role_freeze_date; first displayed date; forward performance",
+    "segment_start": "episode start_date; cross-episode continuity",
+    "daily": "each trading date; within-episode t-T path"
+  },
+  "dragon_sort": [
+    "board_count desc missing last",
+    "closed limit-up before broken board",
+    "limit-up time asc missing last",
+    "bid_amount desc missing last",
+    "amount desc missing last",
+    "ts_code asc"
+  ],
+  "recurrent_results": {
+    "later_top3_slot_denominator": 1854,
+    "adjacent_continuity_rate": 0.15156418554476808,
+    "ever_continuity_rate": 0.3220064724919094,
+    "new_dragon_rate": 0.6779935275080906,
+    "unique_theme_stock_units": 1480,
+    "persistent_theme_stock_units": 375,
+    "persistent_stock_rate": 0.2533783783783784,
+    "persistent_always_dragon1": 64,
+    "persistent_ever_dragon1_moved": 181,
+    "persistent_only_dragon23": 130
+  },
+  "single_wave_t_plus_1": {
+    "episode_n": 10,
+    "initial_dragon1_stays_dragon1_rate": 0.4,
+    "initial_dragon1_stays_top3_rate": 0.6,
+    "initial_dragon23_retained_rate": 0.210526315789,
+    "initial_dragon23_promoted_episode_rate": 0.1,
+    "new_daily_top3_share": 0.6
+  },
+  "extended_returns_pct": {
+    "period_compounded_return": {"n": 678, "median": 7.100758255683804, "mean": 30.74548530826843, "p25": -13.96919688744957, "p75": 48.04444660443254, "positive_share": 0.5855457227138643},
+    "ideal_low_to_later_high": {"n": 678, "median": 97.55886853006675, "mean": 141.9931691125436, "p25": 61.13736338826675, "p75": 163.20637038976005},
+    "worst_high_to_later_low": {"n": 678, "median": -53.40015147028731, "mean": -52.627261703019855, "p25": -59.78838171494603, "p75": -46.25942270357276}
+  },
+  "quality": {
+    "source_hashes_unchanged": true,
+    "deterministic_rerun_hashes_match": true,
+    "leader_missing_ohlc_days": 0,
+    "leader_rows_without_observation": 0,
+    "database_sha256": "c7630959cccffd6271f182267d0d91d6f942e82e567b724dc4b97c18bfc45cbc",
+    "v02_spec_sha256": "60e477b9a0690cc6ebf768c2d677db64e1ab23aaf55e0984c58596919d8e1fa7"
+  },
+  "primary_files": [
+    "data_tables_v0.2/SUMMARY_V02.json",
+    "data_tables_v0.2/DATA_QUALITY_V02.json",
+    "data_tables_v0.2/RECURRENT_THEME_DRAGON_DETAIL.csv",
+    "data_tables_v0.2/RECURRENT_THEME_DRAGON_SUMMARY.csv",
+    "data_tables_v0.2/SINGLE_WAVE_MULTIDAY_DRAGON_DAILY.csv",
+    "data_tables_v0.2/LEADER_RETURNS_EXTENDED.csv"
+  ],
+  "interpretation_boundary": "All findings are descriptive. New trading rules require a separately frozen specification and validation."
+}
