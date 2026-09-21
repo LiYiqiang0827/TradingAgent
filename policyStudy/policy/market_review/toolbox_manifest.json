@@ -1,0 +1,54 @@
+{
+  "name": "a_share_market_review_toolbox",
+  "version": "1.0.0",
+  "language": "zh-CN",
+  "scope": "A股收盘后日复盘；周复盘需聚合多个已验收的日包",
+  "reading_order": [
+    "toolbox_manifest.json",
+    "AI_CONTRACT.md",
+    "REPORT_CONTRACT.md",
+    "TOOLBOX.md",
+    "HANDOFF.md",
+    "README.md"
+  ],
+  "entrypoints": {
+    "build_fact_packet": "python -m policyStudy.policy.market_review.build_review_packet",
+    "build_agent_packet": "python -m policyStudy.policy.market_review.build_agent_packet",
+    "finalize": "python -m policyStudy.policy.market_review.finalize_review_run",
+    "export_research_watchlist": "python -m policyStudy.policy.market_review.export_research_watchlist",
+    "tests": "python -m unittest policyStudy.policy.market_review.test_market_review -v"
+  },
+  "artifacts": {
+    "market_packet": "MR_PACKET.json",
+    "data_quality": "DATA_QUALITY.json",
+    "packet_validation": "PACKET_VALIDATION.json",
+    "agent_packet": "AGENT_PACKET.json",
+    "catalysts": "CATALYSTS.json",
+    "worker_validation": "GLM_VALIDATION.json",
+    "acceptance": "RUN_ACCEPTANCE.json"
+  },
+  "roles": {
+    "deterministic_core": "计算、复核、压缩、校验",
+    "glm_worker": "受限初稿，不得搜索行情，不具最终事实权",
+    "gpt_codex": "冲突解决、主线和资金迁移判断、候选取舍、来源抽查、最终验收",
+    "user": "真实交易和仓位的最终决定"
+  },
+  "hard_invariants": [
+    "排除北交所、ST、退市整理和无交易股票",
+    "连续板与N天M板分开",
+    "收盘涨停、盘中触板、炸板未回封分开",
+    "首次触板不得冒充最终回封",
+    "不得把主力净流入当作权威资金迁移",
+    "候选允许为空",
+    "日常流程不使用Gemini审核",
+    "所有模型输出在GPT/Codex接受前均未验证"
+  ],
+  "optional_integration": {
+    "project": "policyStudy/policy/题材涨停研究",
+    "contract": "通过export_research_watchlist.py导出兼容CSV；两项目无运行时强依赖"
+  },
+  "schemas": {
+    "catalysts": "schemas/catalysts.schema.json",
+    "glm_validation": "schemas/glm_validation.schema.json"
+  }
+}

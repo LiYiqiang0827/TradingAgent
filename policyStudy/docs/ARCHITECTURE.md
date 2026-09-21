@@ -142,6 +142,19 @@ df = get_kpl_list(trade_date='2026-09-17', source='online')    # online
 
 ## 3. 目录结构
 
+除历史样本项目 `policy/题材涨停研究/` 外，`policy/market_review/` 提供独立的收盘复盘工具箱。它直接通过 `coreClient.data_provider` 生成事实包，不依赖题材研究的历史 watchlist；只有在需要继续研究候选的分钟线或逐笔数据时，才通过兼容 watchlist 做可选桥接。
+
+```text
+policy/market_review/
+├── build_review_packet.py          # 确定性事实包
+├── build_agent_packet.py           # 压缩后的受限写作输入
+├── export_research_watchlist.py    # 可选桥接题材涨停研究
+├── finalize_review_run.py          # GPT/Codex最终验收
+├── TOOLBOX.md                      # 架构与运行说明
+├── REPORT_CONTRACT.md              # 复盘方法
+└── AI_CONTRACT.md                  # Agent/GPT职责
+```
+
 ### 3.1 完整目录树
 
 ```

@@ -24,6 +24,11 @@
   - `scripts/data_gen.py` — 批量数据生成
   - `scripts/watchlist_gen.py` — watchlist 生成器
 
+- **A股复盘工具箱**:
+  - `policy/market_review/` — 收盘后全市场事实包、Agent写作包与最终验收
+  - 复盘主轴:高标晋级、板块资金迁移、过去主线追踪、首板后首次回调再启
+  - 可选导出候选到“题材涨停研究”继续做分钟/逐笔样本研究
+
 ### 待完成部分
 - 通用因子库(尚未抽象)
 - 标准化回测框架(尚未实现)
@@ -127,6 +132,13 @@ cd ~/TradingAgent/policyStudy/policy/题材涨停研究
 python3 scripts/data_gen.py watchlist_题材涨停研究_20260908_20260911
 ```
 
+**跑“A股复盘工具箱”**:
+```bash
+cd ~/TradingAgent
+python -m policyStudy.policy.market_review.build_review_packet \
+  --trade-date 20260921 --output-dir /path/to/review_runs/20260921
+```
+
 ---
 
 ## 注意事项
@@ -154,6 +166,7 @@ python3 scripts/data_gen.py watchlist_题材涨停研究_20260908_20260911
   - `scripts/build_policy_db.py` — 数据导入
   - `scripts/policy_db_client.py` — DB 客户端
 - **第一个研究项目**:`policy/题材涨停研究/`
+- **复盘工具箱**:`policy/market_review/README.md`
 
 ---
 

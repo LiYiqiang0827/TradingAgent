@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tradingagent.local/schemas/market-review-glm-validation-v1.json",
+  "title": "Bounded GLM draft validation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["validator", "status", "errors"],
+  "properties": {
+    "validator": {"const": "market-review-draft-v1"},
+    "status": {"enum": ["PASS", "FAIL"]},
+    "errors": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "warnings": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "worker": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}
