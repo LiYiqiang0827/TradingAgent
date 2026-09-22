@@ -1,54 +1,54 @@
 # 复盘工具箱交接说明
 
-这套工具用于收盘后的A股日复盘；多个已验收日包可以作为周复盘输入，但当前没有内建周聚合器。工具不负责自动下单，也不替用户决定真实仓位。
+这套工具用于收盘后的 A 股日复盘；周复盘聚合多个已验收日包。工具不下单，也不替用户决定仓位。
 
-## 每天需要提供什么
+## 每日输入
 
-1. 交易日，例如 `20260921`。
-2. 本机已经配置好的 TradingAgent 数据环境与凭证；仓库不包含任何密钥。
-3. 少量与当天主线相关的政策、公告或产业事件，写入 `CATALYSTS.json`。
-4. 如使用GLM初稿，保存符合 schema 的 `GLM_VALIDATION.json`。
+1. 交易日，例如 `20260922`。
+2. 本机配置好的 TradingAgent 数据环境；仓库不包含密钥。
+3. 少量政策、公告或产业事件，写入 `CATALYSTS.json`。
 
-## 每天会得到什么
+## 每日输出
 
-- 市场环境、成交额与宽度；
-- 连续板梯队和N天M板；
-- 昨日高标的晋级、断板和亏钱效应；
-- 主要题材的宽度、梯队、核心和最早触板代表；
+- 市场环境、成交与宽度；
+- 连续板梯队和 N 天 M 板；
+- 昨日高标晋级、断板和亏钱效应；
+- 主要题材宽度、梯队、核心和可得的触板时间；
 - 过去三周主线追踪；
-- 首板后首次回调观察池、已完成再启样本和连续板接力池；
-- 可供AI写作的压缩事实包；
-- 最终报告的验收记录和哈希。
+- 四类候选池；
+- 压缩的 `CONTEXT_PACKET.json`；
+- 已验收 Markdown、固定版式 PDF 和 `RUN_ACCEPTANCE.json`。
 
 ## 最短操作顺序
 
 1. 运行 `build_review_packet.py`。
-2. 确认 `PACKET_VALIDATION.json` 为 `PASS`，并阅读 `DATA_QUALITY.json`。
-3. 补充 `CATALYSTS.json`，运行 `build_agent_packet.py`。
-4. 让GLM生成初稿，或由GPT/Codex直接写作。
-5. GPT/Codex按 `AI_CONTRACT.md` 实质复核。
-6. 运行 `finalize_review_run.py --codex-reviewed` 留档。
+2. 确认 `PACKET_VALIDATION.json` 为 `PASS`，阅读 `DATA_QUALITY.json`。
+3. 只搜索催化和最终候选背景，生成 `CATALYSTS.json`。
+4. 运行 `build_context_packet.py`。
+5. GPT/Codex 直接分析和写作，不启动日常写作 Agent。
+6. 运行 `finalize_review_run.py --codex-reviewed`。
+7. 验收通过后，把内容填入 `latex/market_review_template.tex`，用 MiKTeX/XeLaTeX 编译并检查页面。
 
-## 出错时先看哪里
+## 故障定位
 
-- 涨停数量或万科A一类状态异常：看 `limit_state_reconciliation`。
-- 连续板/N天M板异常：看 `board_classification` 与逐日涨停历史。
-- 最终回封时间缺失：不得用首次触板时间代替。
-- 14:30后炸板缺失：说明分钟验证没有完成，不写成0。
-- Agent写出数据包外的新数字：删除或提供独立证据。
-- 没有合格候选：报告应明确空仓，不降低标准凑名单。
-
-## 与题材涨停研究联动
-
-如果要进一步研究某批候选的分钟走势或逐笔成交，先运行 `export_research_watchlist.py`。输出CSV兼容 `policyStudy/policy/题材涨停研究/scripts/data_gen.py`。
-
-联动是可选的。日复盘不会自动触发大规模历史下载，历史研究结果也不能替代当日收盘事实包。
+- 涨停/炸板状态异常：看 `limit_state_reconciliation` 与收盘价/涨跌停价。
+- 连续板或 N 天 M 板异常：看 `board_classification` 与逐日涨停历史。
+- 最终回封时间缺失：写不可用，不得用首次触板替代。
+- 14:30 后炸板缺失：分钟验证未完成，不写 0。
+- 题材未入领先表：不等于零涨停或零成交。
+- 没有合格候选：明确空仓，不降低标准凑名单。
+- PDF 首次编译慢：通常是 MiKTeX 首次安装宏包；后续编译应明显加快。
+- PDF 日志出现 `Overfull` 或 `Missing character`：修复模板/文本后重新生成，不交付。
 
 ## 已知边界
 
-- 部分股票开板后的最终回封时间可能不可得；
-- 尾盘炸板需要分钟数据单独验证；
-- active free float 只在最终少量候选上补查；
-- 题材主线、资金迁移和可交易性仍需要GPT/Codex判断；
-- 周复盘需要汇总一周内多个已验收的 `MR_PACKET.json`，当前未内建自动聚合器；
+- 部分股票的最终回封时间、开板次数和尾盘炸板可能不可得。
+- active free float 只在最终少量候选上补查。
+- 题材主线、资金迁移和可交易性必须由 GPT/Codex 判断。
+- 周复盘自动聚合器尚未内建。
+- 精确 token 节省需要上游逐调用 usage 数据；文件字节数只能作为代理。
 - 所有真实交易由用户决定。
+
+## 历史兼容
+
+`build_agent_packet.py` 与 GLM schema/示例没有删除，便于读取旧运行，但新运行使用 `build_context_packet.py` 和 `CONTEXT_PACKET.json`。除非符合 `AI_CONTRACT.md` 的例外条件，不创建外部模型任务。

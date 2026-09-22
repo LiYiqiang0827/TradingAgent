@@ -19,11 +19,23 @@ def digest(path: Path) -> str:
     return value.hexdigest()
 
 
+def artifact_record(path: Path) -> dict[str, Any]:
+    return {
+        "path": str(path.resolve()),
+        "sha256": digest(path),
+        "size_bytes": path.stat().st_size,
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Finalize a deterministically validated, Codex-reviewed market-review run")
     parser.add_argument("--run-dir", required=True, type=Path)
     parser.add_argument("--report", required=True, type=Path)
-    parser.add_argument("--glm-validation", type=Path, help="Optional when a bounded GLM draft was used")
+    parser.add_argument(
+        "--glm-validation",
+        type=Path,
+        help="Legacy optional input for historical runs; routine runs are Codex-direct",
+    )
     parser.add_argument("--codex-reviewed", action="store_true")
     args = parser.parse_args()
     if not args.codex_reviewed:
@@ -67,12 +79,15 @@ def main() -> int:
             errors.append("report does not identify the packet trade date")
 
     artifacts = {
-        "report": {"path": str(args.report.resolve()), "sha256": digest(args.report)},
-        "market_packet": {"path": str((args.run_dir / "MR_PACKET.json").resolve()), "sha256": digest(args.run_dir / "MR_PACKET.json")},
+        "report": artifact_record(args.report),
+        "market_packet": artifact_record(args.run_dir / "MR_PACKET.json"),
     }
+    context_packet = args.run_dir / "CONTEXT_PACKET.json"
+    if context_packet.is_file():
+        artifacts["context_packet"] = artifact_record(context_packet)
     agent_packet = args.run_dir / "AGENT_PACKET.json"
     if agent_packet.is_file():
-        artifacts["agent_packet"] = {"path": str(agent_packet.resolve()), "sha256": digest(agent_packet)}
+        artifacts["legacy_agent_packet"] = artifact_record(agent_packet)
     external_workers = {}
     if glm_validation:
         worker = glm_validation.get("worker") or {}
@@ -87,10 +102,15 @@ def main() -> int:
         "status": "PASS" if not errors else "FAIL",
         "trade_date": trade_date,
         "codex_substantive_review": True,
+        "workflow_mode": "legacy_external_draft" if glm_validation else "codex_direct",
         "acceptance_policy": "deterministic market-data validation plus Codex substantive review",
         "errors": errors,
         "warnings": packet_validation.get("warnings", []),
         "artifacts": artifacts,
+        "usage_accounting": {
+            "exact_model_tokens_recorded": False,
+            "note": "Artifact byte sizes are recorded for compression comparison; they are not token usage.",
+        },
         "external_workers": external_workers,
         "accepted_at": datetime.now().astimezone().isoformat(),
     }

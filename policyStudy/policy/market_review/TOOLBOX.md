@@ -1,150 +1,126 @@
-# A股每日复盘工具箱
+# A 股每日复盘工具箱
 
-## 1. 工具箱解决什么问题
+## 1. 目标
 
-本工具箱把每日复盘拆成两类工作：
+工具箱把复盘拆成确定性事实与判断性结论：程序读取收盘行情、复核涨跌停状态、重建梯队、计算题材宽度和候选池；GPT/Codex 解释高标晋级、板块资金迁移、题材阶段、次日验证重点和是否空仓。
 
-1. 确定性工作：读取收盘行情、复算涨跌停状态、生成连板梯队、题材宽度、晋级与候选池。
-2. 判断性工作：解释高标晋级、板块资金迁移、题材阶段、次日验证重点，以及是否应当空仓。
+接口和压缩层负责省 token；GPT/Codex 直接写作负责避免“外部模型写一遍、主模型再重做一遍”的返工。
 
-目标不是让模型重新搜索全市场，而是让程序先生成可审计的事实包，再让模型处理必须推理的部分。
-
-## 2. 总体流程
+## 2. 默认架构
 
 ```text
 coreClient.data_provider
         |
         v
 build_review_packet.py
+        +-- raw/*.csv
+        +-- MR_PACKET.json
+        +-- DATA_QUALITY.json
+        +-- PACKET_VALIDATION.json
         |
-        +-- MR_PACKET.json            完整事实包
-        +-- DATA_QUALITY.json          数据来源、缺失与修正
-        +-- PACKET_VALIDATION.json     确定性校验结果
-        |
+        +-- CATALYSTS.json（仅政策/公告/产业事件）
         v
-CATALYSTS.json                         少量政策/公告/产业催化
-        |
+build_context_packet.py
+        +-- CONTEXT_PACKET.json
         v
-build_agent_packet.py
-        |
-        +-- AGENT_PACKET.json         压缩后的写作输入
-        |
+GPT/Codex 直接分析与写作
+        +-- MR_YYYYMMDD.md
         v
-受限写作 Agent（GLM，可选）
-        |
-        +-- 未验证初稿
-        |
-        v
-GPT/Codex 实质复核与最终写作
-        |
-        +-- 每日复盘 Markdown / PDF
+finalize_review_run.py --codex-reviewed
         +-- RUN_ACCEPTANCE.json
+        v
+MiKTeX / XeLaTeX + latex/market_review_template.tex
+        +-- 固定版式 PDF（运行产物不入库）
 ```
 
-日常流程不使用 Gemini 独立审核。外部独立审核只保留给策略规则变化、真实重大交易决策或无法消解的数据冲突。
+默认流程没有 GLM、Hermes 或 Gemini。例外审核条件见 `AI_CONTRACT.md`。
 
-## 3. 最小运行方式
-
-在 TradingAgent 仓库根目录执行：
+## 3. 命令
 
 ```powershell
 $env:TRADING_AGENT_FROZEN = '0'
 \.venv\Scripts\python.exe -m policyStudy.policy.market_review.build_review_packet `
-  --trade-date 20260921 `
-  --output-dir "C:\review_runs\20260921"
-```
+  --trade-date 20260922 `
+  --output-dir "C:\review_runs\20260922"
 
-准备少量催化事实后压缩模型输入：
+\.venv\Scripts\python.exe -m policyStudy.policy.market_review.build_context_packet `
+  --packet "C:\review_runs\20260922\MR_PACKET.json" `
+  --catalysts "C:\review_runs\20260922\CATALYSTS.json" `
+  --output "C:\review_runs\20260922\CONTEXT_PACKET.json"
 
-```powershell
-\.venv\Scripts\python.exe -m policyStudy.policy.market_review.build_agent_packet `
-  --packet "C:\review_runs\20260921\MR_PACKET.json" `
-  --catalysts "C:\review_runs\20260921\CATALYSTS.json" `
-  --output "C:\review_runs\20260921\AGENT_PACKET.json"
-```
-
-完成写作和 GPT/Codex 实质复核后记录验收：
-
-```powershell
 \.venv\Scripts\python.exe -m policyStudy.policy.market_review.finalize_review_run `
-  --run-dir "C:\review_runs\20260921" `
-  --report "C:\review_runs\20260921\MR_20260921.md" `
-  --glm-validation "C:\review_runs\20260921\GLM_VALIDATION.json" `
+  --run-dir "C:\review_runs\20260922" `
+  --report "C:\review_runs\20260922\MR_20260922.md" `
   --codex-reviewed
+
+xelatex --enable-installer -interaction=nonstopmode -halt-on-error market_review.tex
 ```
+
+已有快照默认复用；只有明确传入 `--refresh` 才重新请求。
 
 ## 4. 固定数据口径
 
-- 股票池：沪深A股，排除北交所、ST、*ST、PT、退市整理、无交易股票。
-- 题材归属：开盘啦标签；同一股票可以在多个题材重复计数。
-- 连续板与N天M板分开，N天M板不进入连续梯队。
-- 一字板保留，但必须提示不可交易或难成交风险。
-- 板块收盘封板率：板块内收盘涨停数 / 板块合格成员数。
-- 触板封住率：收盘涨停数 /（收盘涨停数 + 触板未封数）。
-- 14:30后炸板只有在分钟数据完成验证时才报告，否则写不可用。
-- 不把“主力净流入”当作资金迁移的权威答案。
-- active free float 不由核心程序批量估算，只允许在最终少量候选上补查。
+- 沪深 A 股；排除北交所、ST、*ST、PT、退市整理和无交易股票。
+- 开盘啦题材标签；一股多题材可重复计数。
+- 连续板与 N 天 M 板分账。
+- 一字板保留并标记难成交。
+- 板块收盘封板率与触板封住率分别计算，不混用。
+- 14:30 后炸板只有分钟数据完成验证时才报告。
+- missing / not-ranked / zero 三种状态不互换。
+- 不把“主力净流入”当作权威答案。
+- active free float 仅对最终少量候选补查。
 
 ## 5. 可靠性闸门
 
-### 5.1 涨跌停状态复核
+### 5.1 涨跌停状态
 
-涨停列表的 `U/Z/D` 不是最终权威。程序会用收盘价与每日涨跌停价复核。优先使用官方 `stk_limit` 数据；缺失时，使用明确标注的前收盘价和板块涨跌幅规则后备计算。
+来源列表的 `U/Z/D` 不是最终权威。程序用收盘价与每日涨跌停价复核，优先使用 `stk_limit`，缺失时才使用明确标注的后备计算。冲突必须留在 `DATA_QUALITY.json`。
 
 ### 5.2 连板重建
 
-当开盘啦 `status` 缺失时，不允许把数字字段直接当作连续板。程序会根据逐日涨停历史重建连续板，并把非连续再板放入N天M板列表。
+标签缺失时，根据逐日涨停历史重建连续板；非连续再板进入 N 天 M 板。不得把数字回退字段直接解释为连续板。
 
-### 5.3 候选模式分账
+### 5.3 候选模式
 
-候选被拆成四个池：
+- `first_pullback_in_progress`：首次回调仍在进行。
+- `restart_completed_samples`：当日已完成再启，只作样本或延续观察。
+- `continuous_board_relay`：连续板接力。
+- `new_launches_for_future_tracking`：今日新启动，等待未来回调。
 
-- `first_pullback_in_progress`：首板后首次回调仍在进行，可作为前置观察池。
-- `restart_completed_samples`：当日已经完成再启，只能作为形态样本或延续观察。
-- `continuous_board_relay`：连续涨停接力，不冒充首次回调再启。
-- `new_launches_for_future_tracking`：今日新启动，留待未来回调跟踪。
+### 5.4 时间和缺失值
 
-### 5.4 时间字段
+首次触板、最终回封、开板次数和尾盘炸板分别取证。最终回封缺失时不得拿首次触板替代；数据不可得时不得写零。
 
-首次触板时间、是否开板、最终回封时间必须分开。最终回封时间缺失时不得用首次触板时间代替。
+### 5.5 point-in-time
 
-## 6. 输出文件
+每次运行冻结接口快照。后来更新的题材标签、公告或成员关系不能改写历史交易日。
 
-| 文件 | 作用 | 是否给模型 |
+## 6. 产物
+
+| 文件 | 作用 | GPT/Codex 使用方式 |
 |---|---|---|
-| `raw/*.csv` | 冻结接口快照 | 否 |
-| `MR_PACKET.json` | 完整复盘事实包 | GPT按需读取 |
-| `DATA_QUALITY.json` | 来源、缺失、修正、历史覆盖 | GPT必须检查 |
-| `PACKET_VALIDATION.json` | 确定性校验结论 | 必须为PASS |
-| `CATALYSTS.json` | 目标化催化研究 | 是 |
-| `AGENT_PACKET.json` | 压缩的受限写作输入 | 给写作Agent |
-| `GLM_VALIDATION.json` | 写作Worker的格式验证 | 给最终验收器 |
-| `RUN_ACCEPTANCE.json` | 最终验收记录与哈希 | 留档 |
+| `raw/*.csv` | 冻结接口快照 | 冲突时回查 |
+| `MR_PACKET.json` | 完整事实包 | 按需深读 |
+| `DATA_QUALITY.json` | 来源、缺失和修正 | 必须检查 |
+| `PACKET_VALIDATION.json` | 确定性校验 | 必须 PASS |
+| `CATALYSTS.json` | 定向催化研究 | 只补数据包外信息 |
+| `CONTEXT_PACKET.json` | 压缩事实上下文 | 默认写作输入 |
+| `RUN_ACCEPTANCE.json` | 最终哈希、字节数和验收结果 | 留档 |
+| `MR_YYYYMMDD.md` | 已验收报告 | PDF 唯一文字源 |
+| `*.pdf` | 固定版式交付 | 页面渲染后交付 |
 
-`raw/` 和每次运行目录不应提交到 Git；仓库只保存代码、规则、示例和 schema。
+旧 `AGENT_PACKET.json`、`GLM_VALIDATION.json` 和相应 schema 仅用于读取历史运行。
 
-## 7. 与“题材涨停研究”的关系
+## 7. 联网搜索边界
 
-`market_review` 与 `policyStudy/policy/题材涨停研究` 是相邻工具，不是强依赖：
+允许：政策、会议、产业事件、公司公告、澄清与风险、最终候选的数据包外背景。
 
-- `market_review` 负责单日/单周的全市场收盘复盘与候选筛选。
-- `题材涨停研究` 负责历史样本、分钟K线和逐笔数据的进一步研究。
-- 两者共享开盘啦题材与涨停语义，但日复盘不能直接把历史 watchlist 当作当日 point-in-time 事实。
+禁止重复搜索：已经验证的指数、成交额、涨停数量、连板梯队、晋级率、题材统计、个股当日价量。若确定性来源发生无法解释的冲突，先记录冲突，再作一次有目标的例外核验。
 
-如需继续研究候选，可用 `export_research_watchlist.py` 把 `MR_PACKET.json` 中的候选导出为兼容 watchlist，再交给：
+## 8. PDF 版式
 
-```powershell
-python policyStudy/policy/题材涨停研究/scripts/data_gen.py <watchlist.csv> --only minute
-```
+`latex/market_review_template.tex` 定义 A4、字体、颜色、页眉页脚、标题层级、表格和引用框。使用 MiKTeX 的 XeLaTeX 编译。仓库不保存 LaTeX 软件、宏包或生成 PDF；排版阶段不能改写事实。
 
-默认不会自动触发大规模分钟或逐笔下载，避免日常复盘和历史研究互相拖慢。
+## 9. 与题材涨停研究的关系
 
-## 8. AI接手时的阅读顺序
-
-1. `toolbox_manifest.json`
-2. `AI_CONTRACT.md`
-3. `REPORT_CONTRACT.md`
-4. `README.md`
-5. 当次运行目录中的 `PACKET_VALIDATION.json`、`DATA_QUALITY.json`、`AGENT_PACKET.json`
-
-AI不得把文档中的示例日期、股票或数字当作当前行情。
+`market_review` 负责当日/当周全市场结构；`policyStudy/policy/题材涨停研究` 负责历史样本、分钟 K 线和逐笔研究。通过 `export_research_watchlist.py` 传递候选 CSV，无运行时强依赖。历史研究结果不能替代当日事实包。

@@ -107,6 +107,7 @@ def compact_packet(packet: dict[str, Any], catalysts: list[dict[str, Any]]) -> d
                 "Candidate output is a watchlist, not an order instruction; an empty list is allowed.",
                 "Only first_pullback_in_progress may be described as a pending first-pullback opportunity; restart_completed_samples are hindsight samples and must not be relabelled as pre-restart entries.",
                 "Late broken boards are unavailable unless minute validation says otherwise.",
+                "Missing data, an absent leading-table row, and numeric zero are distinct states.",
                 "Never invent facts, links, announcements, shareholder structure, or active free float.",
             ],
             "narrative_contract": [
@@ -152,7 +153,9 @@ def compact_packet(packet: dict[str, Any], catalysts: list[dict[str, Any]]) -> d
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Compress MR_PACKET for a bounded external writing worker")
+    parser = argparse.ArgumentParser(
+        description="Legacy compatibility alias; prefer build_context_packet for Codex-direct writing"
+    )
     parser.add_argument("--packet", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--catalysts", type=Path)
