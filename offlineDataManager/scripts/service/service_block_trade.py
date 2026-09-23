@@ -30,7 +30,9 @@ def main():
     t0 = time.time()
     try:
         down = CNDataDown()
-        sd, ed, desc = resolve_date_range(down.conn_basic, CTRL_KEY, args)
+        sd, ed, desc = resolve_date_range(
+            down.conn_kpl, CTRL_KEY, args, ctrl_store="kpl"
+        )
         n = down.update_block_trade(start_date=sd, end_date=ed)
         logger.info(f"[service_block_trade] 完成({desc}): +{n:,} 行, 用时 {time.time()-t0:.1f}s")
         return 0

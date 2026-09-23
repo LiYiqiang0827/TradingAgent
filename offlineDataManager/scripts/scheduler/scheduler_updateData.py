@@ -145,6 +145,16 @@ def task_full_update():
       - rc=2:业务中止(校验失败,数据未就绪)
       - rc!=0 && rc!=2:异常退出
     """
+    # 先刷新今天的交易日历，再判断最近已收盘交易日。
+    # 如果先读本地日历，日历断点停在前一交易日时会把今天误判为
+    # “无新交易日”，导致完整更新在进入 tradecal service 前就被跳过。
+    today = datetime.now().strftime("%Y%m%d")
+    try:
+        spawn_service("service_tradecal", ["--trade-date", today], sync=True)
+    except RuntimeError as e:
+        logger.error(f"[完整更新] 交易日历刷新失败,中止: {e}")
+        return
+
     target = get_target_date()
     # 周末、节假日及盘前可能只需确认上一个交易日已完成。
     # 避免在没有新交易日时重复执行周月全量聚合与大量历史 API 调用。
@@ -164,7 +174,6 @@ def task_full_update():
     # === 第 1 阶段:基础数据 ===
     try:
         spawn_service("service_basic", [], sync=True)
-        spawn_service("service_tradecal", ["--trade-date", target], sync=True)
     except RuntimeError as e:
         logger.error(f"[完整更新] 基础数据失败,中止: {e}")
         return

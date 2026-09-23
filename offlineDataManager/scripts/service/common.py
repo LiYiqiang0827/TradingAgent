@@ -300,7 +300,13 @@ def add_market_args(parser: argparse.ArgumentParser, default_rate: float = 0.15)
     parser.add_argument("--force", action="store_true", help="强制重拉(忽略 ctrl)")
 
 
-def resolve_date_range(conn, ctrl_key: str, args, default_start: str = "20150101") -> tuple:
+def resolve_date_range(
+    conn,
+    ctrl_key: str,
+    args,
+    default_start: str = "20150101",
+    ctrl_store: str = "basic",
+) -> tuple:
     """根据 args + ctrl 决定实际拉取日期范围
 
     优先级:
@@ -311,15 +317,16 @@ def resolve_date_range(conn, ctrl_key: str, args, default_start: str = "20150101
     start_date 必须 ≥ tbl_ctrl 里的日期 + 1(避免重拉已有数据)
 
     Args:
-        conn: SQLite 连接(用来读 tbl_ctrl)
+        conn: SQLite 连接(用来读对应数据库的 ctrl 表)
         ctrl_key: tbl_ctrl 里对应的 key
         args: argparse 参数,需要含 trade_date / start_date / end_date
         default_start: 默认 start_date(YYYYMMDD)
+        ctrl_store: 断点所在数据库，支持 basic / kpl
 
     Returns:
         (start_date, end_date, desc) 三元组
     """
-    from core.offline_db_client import get_ctrl
+    from core.offline_db_client import get_ctrl, get_ctrl_kpl
 
     today = datetime.now().strftime("%Y%m%d")
 
@@ -338,7 +345,12 @@ def resolve_date_range(conn, ctrl_key: str, args, default_start: str = "20150101
           today)
 
     # 3. start_date 必须 ≥ ctrl(允许 ctrl 当天重拉,主键去重保证幂等)
-    last_ctrl = get_ctrl(conn, ctrl_key)
+    if ctrl_store == "basic":
+        last_ctrl = get_ctrl(conn, ctrl_key)
+    elif ctrl_store == "kpl":
+        last_ctrl = get_ctrl_kpl(ctrl_key, conn=conn)
+    else:
+        raise ValueError(f"未知 ctrl_store: {ctrl_store!r},只支持 'basic' / 'kpl'")
     if last_ctrl:
         # 用户最新规则:start_date < ctrl_day → 用 ctrl_day 替代(而不是 ctrl_day + 1)
         # 考虑 ctrl 可能不全,重跑 ctrl_day 一次更安全

@@ -40,7 +40,9 @@ def main():
     try:
         down = CNDataDown()
         # 断点表在 db_cn_basic.db:tbl_basic_ctrl(与 kpl_list / kpl_concept_cons 统一管理)
-        sd, ed, desc = resolve_date_range(down.conn_basic, CTRL_KEY, args)
+        sd, ed, desc = resolve_date_range(
+            down.conn_kpl, CTRL_KEY, args, ctrl_store="kpl"
+        )
         n = down.update_kpl_limit_performance(start_date=sd, end_date=ed)
         logger.info(f"[service_kpl_limit_performance] 完成({desc}): +{n:,} 行, 用时 {time.time()-t0:.1f}s")
         return 0
