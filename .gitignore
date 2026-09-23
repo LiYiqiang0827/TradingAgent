@@ -71,3 +71,6 @@ Thumbs.db
 *.swp
 .tmp/
 .bak/
+
+# Market review runtime artifacts (snapshots, reports, acceptance files)
+review_runs/

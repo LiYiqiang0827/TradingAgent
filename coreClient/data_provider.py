@@ -1122,21 +1122,38 @@ def get_kpl_concept_cons(
         # online 必传日期
         _validate_online_date(trade_date, start_date, end_date, "get_kpl_concept_cons")
 
-        # 没有 ts_code 限制时直接调
+        # kpl_concept_cons 单次最多返回 3000 行；一个交易日的完整题材成员
+        # 通常超过一万行。必须分页，否则按接口默认值得到的前 3000 行会
+        # 系统性漏掉后续题材，进而低估题材成员数和封板率分母。
+        def _fetch_all() -> pd.DataFrame:
+            page_size = 3000
+            frames = []
+            base_params = {
+                "trade_date": _to_yyyymmdd(trade_date) if trade_date else None,
+                "start_date": _to_yyyymmdd(start_date) if start_date else None,
+                "end_date": _to_yyyymmdd(end_date) if end_date else None,
+            }
+            for page in range(50):
+                df = _get_tushare().kpl_concept_cons(
+                    **base_params,
+                    limit=page_size,
+                    offset=page * page_size,
+                )
+                if df is None or df.empty:
+                    break
+                frames.append(df)
+                if len(df) < page_size:
+                    break
+            if not frames:
+                return pd.DataFrame()
+            return pd.concat(frames, ignore_index=True).drop_duplicates().reset_index(drop=True)
+
+        # 没有 ts_code 限制时返回完整分页结果
         if not ts_code and not ts_codes:
-            df = _get_tushare().kpl_concept_cons(
-                trade_date=_to_yyyymmdd(trade_date) if trade_date else None,
-                start_date=_to_yyyymmdd(start_date) if start_date else None,
-                end_date=_to_yyyymmdd(end_date) if end_date else None,
-            )
-            return df.reset_index(drop=True) if df is not None else pd.DataFrame()
+            return _fetch_all()
         # 有 ts_code 限制 → tushare.kpl_concept_cons 不支持 ts_code 参数,
         # 必须先拉所有再 client-side 过滤(浪费一点,trade_date 通常 1-2 天数据量小)
-        df = _get_tushare().kpl_concept_cons(
-            trade_date=_to_yyyymmdd(trade_date) if trade_date else None,
-            start_date=_to_yyyymmdd(start_date) if start_date else None,
-            end_date=_to_yyyymmdd(end_date) if end_date else None,
-        )
+        df = _fetch_all()
         if df is None or df.empty:
             return pd.DataFrame()
         if ts_code:
