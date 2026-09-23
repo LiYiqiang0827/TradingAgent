@@ -1,0 +1,11 @@
+﻿section,group,n,share,denom_next_theme_active,share_next_theme_active,denom_next_leader1_positive,share_next_leader1_positive,denom_next_leader1_limitup,share_next_leader1_limitup,mean,median,p25,p75,later_episode_share,confounded_by_exact_mapping,interpretation_scope
+coverage_group,no_freeze_date,386,0.4867591425,,,,,,,,,,,0.787565,1,"coverage, not existence; exact mapping perfectly confounded with clear_core"
+coverage_group,no_exact_mapping,337,0.4249684741,,,,,,,,,,,0.866469,1,"coverage, not existence; exact mapping perfectly confounded with clear_core"
+coverage_group,clear_core,70,0.0882723834,,,,,,,,,,,0.857143,1,"coverage, not existence; exact mapping perfectly confounded with clear_core"
+state_day,primary:strong,110,,109,0.605505,109,0.587156,109,0.275229,,,,,,0,70 exact-mapped clear-core episodes only; descriptive non-causal
+state_day,primary:holding,50,,50,0.52,50,0.58,50,0.36,,,,,,0,70 exact-mapped clear-core episodes only; descriptive non-causal
+state_day,primary:weak,84,,84,0.678571,84,0.547619,84,0.285714,,,,,,0,70 exact-mapped clear-core episodes only; descriptive non-causal
+state_day,runner_up:strong,101,,101,0.663366,101,0.544554,101,0.336634,,,,,,0,70 exact-mapped clear-core episodes only; descriptive non-causal
+state_day,runner_up:holding,64,,64,0.546875,64,0.5625,64,0.21875,,,,,,0,70 exact-mapped clear-core episodes only; descriptive non-causal
+state_day,runner_up:weak,79,,78,0.602564,78,0.615385,78,0.307692,,,,,,0,70 exact-mapped clear-core episodes only; descriptive non-causal
+first_primary_core_weak_lag,episodes_with_weak_state,32,0.4571428571,,,,,,,3.25,2.0,1.0,4.0,,0,trading-day lag to episode end; 70 exact-mapped clear-core episodes only

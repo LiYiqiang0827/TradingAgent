@@ -1,0 +1,10 @@
+numpy>=2.0,<3
+pandas>=2.2,<3
+pyarrow>=19,<24
+scipy>=1.14,<2
+psutil>=6,<8
+httpx>=0.27,<1
+mcp>=1.26,<2
+pytdx==1.72
+cupy-cuda13x[ctk]>=14,<15
+

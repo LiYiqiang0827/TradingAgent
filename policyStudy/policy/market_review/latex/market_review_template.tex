@@ -1,0 +1,109 @@
+% Fixed A-share market-review layout.
+% Software: MiKTeX; engine: XeLaTeX.
+% Replace %%PDF_TITLE%%, %%DISPLAY_TITLE%%, %%HEADER_LEFT%%,
+% %%TRADE_DATE%%, and %%BODY%% before compiling.
+% Command: xelatex --enable-installer -interaction=nonstopmode -halt-on-error market_review.tex
+\documentclass[10pt,a4paper,UTF8]{ctexart}
+
+\usepackage[a4paper,left=18mm,right=18mm,top=19mm,bottom=19mm]{geometry}
+\usepackage[table]{xcolor}
+\usepackage{fontspec}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{hyperref}
+
+\setmainfont{Arial}
+\setCJKmainfont{Microsoft YaHei}[BoldFont=Microsoft YaHei Bold]
+
+\definecolor{ReviewNavy}{HTML}{17324D}
+\definecolor{ReviewBlue}{HTML}{2A668F}
+\definecolor{ReviewGold}{HTML}{C58B2A}
+\definecolor{ReviewInk}{HTML}{1E2933}
+\definecolor{ReviewMuted}{HTML}{667481}
+\definecolor{ReviewPale}{HTML}{F2F6F8}
+\definecolor{ReviewPaleBlue}{HTML}{EAF2F7}
+\definecolor{ReviewGrid}{HTML}{CED9E0}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ReviewBlue,
+  urlcolor=ReviewBlue,
+  pdfauthor={Codex},
+  pdftitle={%%PDF_TITLE%%},
+  pdfsubject={高标晋级与板块资金迁移}
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.35}
+\setlength{\tabcolsep}{4.5pt}
+\color{ReviewInk}
+
+\titleformat{\section}
+  {\color{ReviewNavy}\bfseries\fontsize{15}{20}\selectfont}
+  {}{0pt}{}
+\titlespacing*{\section}{0pt}{15pt}{7pt}
+\titleformat{\subsection}
+  {\color{ReviewBlue}\bfseries\fontsize{11.5}{16}\selectfont}
+  {}{0pt}{}
+\titlespacing*{\subsection}{0pt}{11pt}{4pt}
+
+\setlist[itemize]{leftmargin=1.7em,itemsep=3pt,topsep=3pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=2.0em,itemsep=5pt,topsep=3pt,parsep=0pt,label=\arabic*.}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\color{ReviewMuted}\fontsize{7.5}{9}\selectfont %%HEADER_LEFT%%}
+\fancyhead[R]{\color{ReviewMuted}\fontsize{7.5}{9}\selectfont 高标晋级 · 板块资金迁移}
+\fancyfoot[L]{\color{ReviewMuted}\fontsize{7.2}{9}\selectfont A股短线复盘｜仅供研究，不构成投资建议}
+\fancyfoot[R]{\color{ReviewMuted}\fontsize{7.2}{9}\selectfont 第 \thepage\ 页}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0.35pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{ReviewGrid}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{ReviewGrid}\leaders\hrule height \footrulewidth\hfill}}
+\setlength{\headheight}{13.6pt}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\ReviewRule}{%
+  \par\vspace{2pt}\noindent{\color{ReviewGold}\rule{\linewidth}{0.7pt}}\par\vspace{1pt}%
+}
+
+\newcommand{\ReviewQuote}[1]{%
+  \par\vspace{2pt}\noindent
+  \begin{tabularx}{\linewidth}{!{\color{ReviewGold}\vrule width 3pt}Y}
+    \rowcolor{ReviewPaleBlue}\color{ReviewNavy}\bfseries #1
+  \end{tabularx}
+  \par\vspace{4pt}%
+}
+
+\begin{document}
+\thispagestyle{fancy}
+
+\vspace*{7mm}
+{\color{ReviewNavy}\bfseries\fontsize{24}{30}\selectfont %%DISPLAY_TITLE%%\par}
+\vspace{5mm}
+{\color{ReviewGold}\rule{46mm}{2.2pt}\par}
+\vspace{3mm}
+{\color{ReviewMuted}\fontsize{9.5}{13}\selectfont 高标晋级 · 板块资金迁移 · 首次回调观察\par}
+\vspace{4mm}
+
+{\small
+\begin{tabularx}{\linewidth}{>{\columncolor{ReviewNavy}\color{white}\bfseries\centering\arraybackslash}L{28mm} >{\columncolor{ReviewPale}}Y}
+复盘口径 & 收盘后数据｜沪深A股｜排除ST、退市整理与北交所 \\
+交易日 & %%TRADE_DATE%% \\
+分析框架 & 高标晋级、板块资金迁移与首次回调观察 \\
+\end{tabularx}
+}
+
+\vspace{4mm}
+%%BODY%%
+
+\end{document}

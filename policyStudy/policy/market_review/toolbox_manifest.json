@@ -1,0 +1,72 @@
+{
+  "name": "a_share_market_review_toolbox",
+  "version": "1.1.0",
+  "language": "zh-CN",
+  "scope": "A股收盘后日复盘；周复盘聚合多个已验收日包",
+  "default_workflow": "codex_direct_no_external_agent",
+  "reading_order": [
+    "toolbox_manifest.json",
+    "NO_AGENT_HANDOFF.md",
+    "AI_CONTRACT.md",
+    "REPORT_CONTRACT.md",
+    "TOOLBOX.md",
+    "HANDOFF.md",
+    "README.md"
+  ],
+  "entrypoints": {
+    "build_fact_packet": "python -m policyStudy.policy.market_review.build_review_packet",
+    "build_context_packet": "python -m policyStudy.policy.market_review.build_context_packet",
+    "finalize": "python -m policyStudy.policy.market_review.finalize_review_run",
+    "export_research_watchlist": "python -m policyStudy.policy.market_review.export_research_watchlist",
+    "tests": "python -m unittest policyStudy.policy.market_review.test_market_review -v"
+  },
+  "artifacts": {
+    "market_packet": "MR_PACKET.json",
+    "data_quality": "DATA_QUALITY.json",
+    "packet_validation": "PACKET_VALIDATION.json",
+    "context_packet": "CONTEXT_PACKET.json",
+    "catalysts": "CATALYSTS.json",
+    "report": "MR_YYYYMMDD.md",
+    "acceptance": "RUN_ACCEPTANCE.json",
+    "latex_template": "latex/market_review_template.tex"
+  },
+  "roles": {
+    "deterministic_core": "计算、复核、压缩、校验、哈希和字节数记录",
+    "gpt_codex": "定向研究、冲突解决、主线和资金迁移判断、候选取舍、直接写作、最终验收",
+    "user": "真实交易和仓位的最终决定",
+    "external_model_exception": "仅限重大策略/风控/真实交易、未解数据冲突或明确低置信度；输出始终未验证"
+  },
+  "hard_invariants": [
+    "日常流程不调用GLM、Hermes、Gemini或其他外部写作/审核Agent",
+    "排除北交所、ST、退市整理和无交易股票",
+    "连续板与N天M板分开",
+    "收盘涨停、盘中触板、炸板未回封分开",
+    "首次触板不得冒充最终回封",
+    "缺失、未入榜和零不得互换",
+    "不得把主力净流入当作权威资金迁移",
+    "候选允许为空",
+    "不得重复联网搜索已验证行情事实",
+    "PDF只能从已验收Markdown生成",
+    "用户保留真实交易最终决定权"
+  ],
+  "web_research_allowlist": [
+    "政策与会议",
+    "公司公告与澄清",
+    "产业事件",
+    "最终候选的数据包外业务背景",
+    "确定性证据无法解决的数据源冲突"
+  ],
+  "legacy_compatibility": {
+    "entrypoint": "python -m policyStudy.policy.market_review.build_agent_packet",
+    "artifacts": ["AGENT_PACKET.json", "GLM_VALIDATION.json"],
+    "schema": "schemas/glm_validation.schema.json",
+    "default_enabled": false
+  },
+  "optional_integration": {
+    "project": "policyStudy/policy/题材涨停研究",
+    "contract": "通过export_research_watchlist.py导出兼容CSV；两项目无运行时强依赖"
+  },
+  "schemas": {
+    "catalysts": "schemas/catalysts.schema.json"
+  }
+}

@@ -1,0 +1,45 @@
+﻿section,group,ts_code,name,themes,episode_ids,n,positive_share,mean,median,p25,p75,min,max,partial_year_n,return,rank,label
+group_summary,all,,,,,678,0.5,0.2151153396,0.0009147627,-0.1870724864,0.3835703258,-0.6413589742,5.4220771881,3,,,descriptive 2026 YTD through 2026-08-31
+group_summary,initial_Leader1,,,,,319,0.5360501567,0.251478495,0.0452717238,-0.1857971369,0.4739679756,-0.6413589742,3.8210519261,0,,,descriptive 2026 YTD through 2026-08-31
+group_summary,realized_episode_leader,,,,,577,0.4974003466,0.214425973,-0.0004976863,-0.1868435966,0.3726655361,-0.6413589742,5.4220771881,3,,,descriptive 2026 YTD through 2026-08-31
+group_summary,both,,,,,218,0.5458715596,0.2665010371,0.072586469,-0.1732074229,0.4784259866,-0.6413589742,3.8210519261,0,,,descriptive 2026 YTD through 2026-08-31
+bottom20,,002163.SZ,海南发展,海南,EP000132;EP000159;EP000178,,,,,,,,,,-0.6413589742,1,hindsight descriptive; not an investment ranking
+bottom20,,002759.SZ,天际股份,锂电池,EP000165,,,,,,,,,,-0.6284733950,2,hindsight descriptive; not an investment ranking
+bottom20,,600343.SH,航天动力,商业航天,EP000086;EP000683,,,,,,,,,,-0.6250775873,3,hindsight descriptive; not an investment ranking
+bottom20,,600734.SH,实达集团,算力,EP000082,,,,,,,,,,-0.6239115359,4,hindsight descriptive; not an investment ranking
+bottom20,,000078.SZ,海王生物,医药,EP000102;EP000112,,,,,,,,,,-0.5809237794,5,hindsight descriptive; not an investment ranking
+bottom20,,000547.SZ,航天发展,军工,EP000075;EP000084,,,,,,,,,,-0.5692208470,6,hindsight descriptive; not an investment ranking
+bottom20,,000592.SZ,平潭发展,海峡两岸;福建,EP000003;EP000114;EP000378;EP000387,,,,,,,,,,-0.5649347793,7,hindsight descriptive; not an investment ranking
+bottom20,,000572.SZ,海马汽车,海南,EP000011,,,,,,,,,,-0.5281881548,8,hindsight descriptive; not an investment ranking
+bottom20,,600113.SH,浙江东日,零售,EP000615,,,,,,,,,,-0.5228053783,9,hindsight descriptive; not an investment ranking
+bottom20,,603216.SH,梦天家居,地产链,EP000079;EP000097,,,,,,,,,,-0.5137237496,10,hindsight descriptive; not an investment ranking
+bottom20,,603131.SH,上海沪工,商业航天,EP000036;EP000050,,,,,,,,,,-0.5110758144,11,hindsight descriptive; not an investment ranking
+bottom20,,603122.SH,合富中国,医药;海峡两岸,EP000007;EP000021;EP000039;EP000063,,,,,,,,,,-0.5090166869,12,hindsight descriptive; not an investment ranking
+bottom20,,603185.SH,弘元绿能,光伏,EP000035,,,,,,,,,,-0.5048259092,13,hindsight descriptive; not an investment ranking
+bottom20,,600340.SH,华夏幸福,地产链,EP000060,,,,,,,,,,-0.4977173585,14,hindsight descriptive; not an investment ranking
+bottom20,,002691.SZ,冀凯股份,新型工业化,EP000052,,,,,,,,,,-0.4917160981,15,hindsight descriptive; not an investment ranking
+bottom20,,688311.SH,盟升电子,商业航天,EP000635,,,,,,,,,,-0.4850885255,16,hindsight descriptive; not an investment ranking
+bottom20,,002501.SZ,利源股份,金属铝,EP000389,,,,,,,,,,-0.4819228450,17,hindsight descriptive; not an investment ranking
+bottom20,,300427.SZ,红相股份,军工,EP000066,,,,,,,,,,-0.4759184035,18,hindsight descriptive; not an investment ranking
+bottom20,,600693.SH,东百集团,零售,EP000043;EP000128;EP000706,,,,,,,,,,-0.4750445348,19,hindsight descriptive; not an investment ranking
+bottom20,,002788.SZ,鹭燕医药,医药,EP000153,,,,,,,,,,-0.4712892552,20,hindsight descriptive; not an investment ranking
+top20,,603629.SH,利通电子,算力,EP000712,,,,,,,,,,5.4220771881,1,hindsight descriptive; not an investment ranking
+top20,,603580.SH,艾艾精工,实控人变更,EP000654;EP000757,,,,,,,,,,4.2799949311,2,hindsight descriptive; not an investment ranking
+top20,,600396.SH,华电辽能,电力;绿色电力;风电,EP000346;EP000357;EP000460;EP000464,,,,,,,,,,3.8210519261,3,hindsight descriptive; not an investment ranking
+top20,,002980.SZ,华盛昌,并购重组;通信,EP000323;EP000447;EP000506,,,,,,,,,,3.8077831344,4,hindsight descriptive; not an investment ranking
+top20,,002636.SZ,金安国纪,年报增长;通信,EP000041;EP000230,,,,,,,,,,3.5444043716,5,hindsight descriptive; not an investment ranking
+top20,,301526.SZ,国际复材,通信,EP000695,,,,,,,,,,3.4304716027,6,hindsight descriptive; not an investment ranking
+top20,,603823.SH,百合花,化工,EP000010,,,,,,,,,,3.3678492895,7,hindsight descriptive; not an investment ranking
+top20,,603618.SH,杭电股份,通信,EP000260;EP000282,,,,,,,,,,3.3411663277,8,hindsight descriptive; not an investment ranking
+top20,,603407.SH,长裕集团,非金属材料,EP000588,,,,,,,,,,3.1407058717,9,hindsight descriptive; not an investment ranking
+top20,,603115.SH,海星股份,元器件;电阻电容,EP000508;EP000582,,,,,,,,,,3.0793327727,10,hindsight descriptive; not an investment ranking
+top20,,301396.SZ,宏景科技,算力,EP000218,,,,,,,,,,2.8909518350,11,hindsight descriptive; not an investment ranking
+top20,,003036.SZ,泰坦股份,通信,EP000465,,,,,,,,,,2.8545643093,12,hindsight descriptive; not an investment ranking
+top20,,301362.SZ,民爆光电,并购重组,EP000270,,,,,,,,,,2.8390653941,13,hindsight descriptive; not an investment ranking
+top20,,002491.SZ,通鼎互联,通信,EP000375;EP000465,,,,,,,,,,2.7033267701,14,hindsight descriptive; not an investment ranking
+top20,,603186.SH,华正新材,通信,EP000520,,,,,,,,,,2.6839769551,15,hindsight descriptive; not an investment ranking
+top20,,688432.SH,有研硅,硅片,EP000612,,,,,,,,,,2.6513625266,16,hindsight descriptive; not an investment ranking
+top20,,601869.SH,长飞光纤,通信,EP000147;EP000375,,,,,,,,,,2.6001371087,17,hindsight descriptive; not an investment ranking
+top20,,000636.SZ,风华高科,元器件,EP000701,,,,,,,,,,2.4377375656,18,hindsight descriptive; not an investment ranking
+top20,,003018.SZ,金富科技,包装印刷;算力;通信,EP000055;EP000091;EP000778,,,,,,,,,,2.4076919233,19,hindsight descriptive; not an investment ranking
+top20,,603435.SH,嘉德利,元器件,EP000672,,,,,,,,,,2.3090083586,20,hindsight descriptive; not an investment ranking

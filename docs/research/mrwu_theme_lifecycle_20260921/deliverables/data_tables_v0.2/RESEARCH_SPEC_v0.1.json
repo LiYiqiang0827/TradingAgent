@@ -1,0 +1,142 @@
+{
+  "spec_id": "theme-lifecycle-leader-capacity-v0.1-20260921",
+  "status": "FROZEN_BEFORE_OUTCOME_INSPECTION",
+  "objective": "Enumerate the daily active-theme timeline, recurrent theme episodes, leader hierarchy, leader changes, rear-stock outcomes, and capacity-core relationships for the fixed study window. This is descriptive/explanatory research, not a trading strategy or profitability backtest.",
+  "study_window": {
+    "start": "2025-10-30",
+    "end": "2026-08-31",
+    "markets": ["SH", "SZ"],
+    "exclude_bj": true,
+    "exclude_dated_st_name_prefix": true,
+    "news_in_scope": false
+  },
+  "source_policy": {
+    "read_only": true,
+    "basic_db": "C:\\Project Rocket\\Trading Agent Database\\db_cn_basic.db",
+    "kpl_db": "C:\\Project Rocket\\Trading Agent Database\\db_cn_kpl.db",
+    "existing_a3_dir": "C:\\Project Rocket\\02 Strategy Analysis\\overnight_volume_price_20260921\\run_v1\\A3_real_output_debug2_limitup_quiet",
+    "reference_methodology": "C:\\Project Rocket\\02 Strategy Analysis\\交易与心性_A股复盘方法论与案例汇编_2026-07末至09.md",
+    "no_download": true,
+    "no_source_mutation": true
+  },
+  "primary_kpl_fields": {
+    "table": "tbl_cn_kpl_list",
+    "fields": [
+      "trade_date", "ts_code", "name", "tag", "status", "theme", "lu_desc",
+      "lu_time", "open_time", "last_time", "bid_amount", "limit_order",
+      "amount", "turnover_rate", "free_float"
+    ],
+    "primary_theme_label": "Use trimmed lu_desc when non-empty. For rows without lu_desc, retain a separately flagged first-token theme fallback for broken-board diagnostics only. Preserve all raw labels and never silently merge aliases.",
+    "status_parse": {
+      "首板": {"board_days": 1, "board_count": 1},
+      "N连板": {"board_days": "N", "board_count": "N"},
+      "N天M板": {"board_days": "N", "board_count": "M"},
+      "unparsed": "retain raw status, flag parse failure, never impute"
+    }
+  },
+  "daily_theme_metrics": [
+    "limit_up_count", "broken_board_count", "first_board_count", "second_board_count",
+    "third_board_count", "four_plus_board_count", "high_board_count_ge2",
+    "max_board_count", "distinct_board_levels", "ladder_completeness",
+    "middle_ladder_count_2_to_3", "broken_board_rate", "median_limit_up_time",
+    "sum_bid_amount", "sum_amount", "median_turnover_rate"
+  ],
+  "theme_activity_rules": {
+    "active_day": "A theme is active when it has at least 3 closed limit-ups, or at least 2 closed limit-ups with at least one board_count >= 2. A day with >=10 closed limit-ups is always active.",
+    "extreme_gap_day": "limit_up_count <= 2, first_board_count == 0, middle_ladder_count_2_to_3 == 0, and all surviving limit-ups are board_count >= 4",
+    "fade_day": "zero closed limit-ups OR extreme_gap_day",
+    "research_universe_theme": "A theme enters the headline universe if it ranks in the daily top five on at least one date or has >=10 closed limit-ups on at least one date.",
+    "broad_appendix_theme": "Any non-empty primary theme with at least one closed limit-up in the study window."
+  },
+  "ranking_policy": {
+    "principle": "Produce visible component scores and a deterministic combined rank. Do not let one isolated high board outrank a broad, viable theme solely because of height.",
+    "components": {
+      "breadth": "within-date percentile of limit_up_count",
+      "height_depth": "within-date percentile of sum over closed limit-ups of min(board_count, 5)",
+      "ladder": "within-date percentile of ladder_completeness multiplied by log1p(distinct_board_levels)",
+      "quality": "within-date percentile of inverse broken_board_rate, using missing when no closed or broken boards"
+    },
+    "combined_score": "0.40*breadth + 0.30*height_depth + 0.20*ladder + 0.10*quality",
+    "extreme_gap_cap": "An extreme-gap theme cannot rank above an otherwise active non-gap theme. Preserve its uncapped score for audit.",
+    "daily_display": "Top five active themes, plus every additional active theme with >=10 closed limit-ups.",
+    "roles": ["Leader", "Secondary", "Emerging", "OtherActive"],
+    "sensitivity": "Also produce ranks for breadth-first and ladder-first lexicographic alternatives and report top-five agreement."
+  },
+  "episode_policy": {
+    "episode_start": "First active day after at least one fade day or before any earlier observation in the window.",
+    "episode_end": "Last active day before the next fade day.",
+    "strict_recurrence": "Same raw primary theme begins a later episode after at least one zero-limit-up trading day.",
+    "gap_recurrence": "Same raw primary theme begins a later episode after at least one extreme-gap day.",
+    "recurrent_union": "strict_recurrence OR gap_recurrence",
+    "do_not_merge": "Do not merge different raw labels without an explicit alias mapping table and evidence. Report raw-label recurrence as primary."
+  },
+  "stock_role_policy": {
+    "role_freeze_date": "First date an episode appears in the daily displayed set. Use only information available through that date.",
+    "initial_ranking": [
+      "board_count descending",
+      "closed limit-up before broken board",
+      "limit-up time ascending when available",
+      "bid_amount descending when available",
+      "amount descending",
+      "ts_code ascending as deterministic final tie-break"
+    ],
+    "roles": {
+      "Leader1": "rank 1 on role_freeze_date",
+      "Leader2": "rank 2 on role_freeze_date",
+      "Leader3": "rank 3 on role_freeze_date",
+      "ActiveRear": "other KPL stocks assigned to the theme on role_freeze_date"
+    },
+    "realized_leader": "Separately record the descriptive episode stock with the highest attained board_count, then peak return, then earliest attainment. Never substitute this hindsight label into initial-role comparisons.",
+    "leader_switch_within_episode": "Daily realized leader ts_code changes while the same episode remains active.",
+    "leader_switch_after_fade": "Representative realized leader differs between recurrent episodes of the same raw theme."
+  },
+  "return_policy": {
+    "source": "tbl_cn_day daily pct_chg compounded; do not use raw-price ratios across corporate actions when pct_chg is available",
+    "episode_reference": "Compound from role_freeze_date through episode_end inclusive. Also report maximum cumulative return and maximum drawdown over that interval.",
+    "post_fade": "For each role, report best rebound and worst drawdown over the next 5 trading days when available.",
+    "group_outputs": ["mean", "median", "p25", "p75", "positive_share", "n"],
+    "ytd_2026": "Compound 2026 daily pct_chg through 2026-08-31. For stocks first listed in 2026, start at the first valid pct_chg and flag partial_year."
+  },
+  "capacity_core_policy": {
+    "membership_source": "Use tbl_cn_kpl_concept_cons only when raw primary theme exactly matches concept_name on the role_freeze_date snapshot. Never use a future snapshot.",
+    "stock_fields": ["circ_mv", "amount", "pct_chg", "turnover_rate"],
+    "candidate_filter": "Member must be in the top 20 percent of theme circ_mv and top 30 percent of theme amount on role_freeze_date, with non-missing daily return.",
+    "capacity_score": "0.55 within-theme circ_mv percentile + 0.35 amount percentile + 0.10 return percentile",
+    "selection": "Keep the top one and runner-up when eligible. Flag themes with no exact concept mapping or no eligible candidate.",
+    "state": "For each episode day classify core as strong, holding, or weak using relative return versus theme equal-weight return and rolling 3-day cumulative relative return. Keep the raw values and thresholds in outputs.",
+    "comparisons": [
+      "episode duration with versus without a clear core",
+      "leader continuation after core strong/holding/weak",
+      "lag in days from first core weak signal to episode end",
+      "recurrence rate with versus without a clear core"
+    ]
+  },
+  "required_outputs": [
+    "SUMMARY.json",
+    "DATA_QUALITY.json",
+    "DAILY_THEME_ALL.csv",
+    "DAILY_THEME_TOP5.csv",
+    "THEME_EPISODES.csv",
+    "THEME_RECURRENCE.csv",
+    "THEME_RANK_TRANSITIONS.csv",
+    "EPISODE_STOCK_ROLES.csv",
+    "LEADER_ROLE_PERFORMANCE.csv",
+    "LEADER_SWITCHES.csv",
+    "CAPACITY_CORES.csv",
+    "CAPACITY_LINKAGE.csv",
+    "LEADER_YTD_2026.csv",
+    "ANALYSIS_REPORT.md"
+  ],
+  "quality_gates": [
+    "All source SQLite connections use read-only URI mode and PRAGMA query_only=ON.",
+    "Every study trading date is explicit; dates missing from a theme are treated as zero theme limit-ups, not as missing market dates.",
+    "No news data are read.",
+    "Raw KPL theme labels and statuses are preserved.",
+    "Initial leader roles use no post-freeze information.",
+    "Hindsight representative leaders are visibly labeled descriptive.",
+    "No theme with an unparsed status silently enters a height metric.",
+    "All denominators and mapping coverage counts appear in DATA_QUALITY.json.",
+    "Outputs are deterministic and byte-stable for unchanged inputs.",
+    "Conclusions remain descriptive and do not recommend trades."
+  ]
+}

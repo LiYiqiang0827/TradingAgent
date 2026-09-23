@@ -1,0 +1,113 @@
+{
+  "capacity": {
+    "confounded_by_exact_mapping": 1,
+    "coverage": {
+      "clear_core": 70,
+      "no_exact_mapping": 337,
+      "no_freeze_date": 386
+    },
+    "first_weak_episode_count": 32,
+    "first_weak_median_lag": 2.0,
+    "primary_state": {
+      "holding": {
+        "n": 50,
+        "next_leader1_limitup": 0.36,
+        "next_leader1_positive": 0.58,
+        "next_theme_active": 0.52
+      },
+      "strong": {
+        "n": 110,
+        "next_leader1_limitup": 0.275229,
+        "next_leader1_positive": 0.587156,
+        "next_theme_active": 0.605505
+      },
+      "weak": {
+        "n": 84,
+        "next_leader1_limitup": 0.285714,
+        "next_leader1_positive": 0.547619,
+        "next_theme_active": 0.678571
+      }
+    }
+  },
+  "leader_forward": {
+    "ActiveRear": {
+      "median_max_drawdown": -0.041027,
+      "median_terminal": 0.020144,
+      "n": 1251,
+      "positive_share": 0.5827338129
+    },
+    "Leader1": {
+      "median_max_drawdown": -0.017241,
+      "median_terminal": 0.0979056302,
+      "n": 224,
+      "positive_share": 0.7276785714
+    },
+    "Leader2": {
+      "median_max_drawdown": -0.0252728127,
+      "median_terminal": 0.0534605297,
+      "n": 224,
+      "positive_share": 0.6830357143
+    },
+    "Leader3": {
+      "median_max_drawdown": -0.0223275,
+      "median_terminal": 0.0560394395,
+      "n": 220,
+      "positive_share": 0.7545454545
+    }
+  },
+  "limitations": [
+    "raw KPL theme labels are not alias-merged or grouped into higher-level catalysts",
+    "study window is ten months, not a full market cycle",
+    "news is excluded and may only be added later as evidence",
+    "realized leaders and YTD rankings are hindsight descriptive",
+    "inclusive episode returns contain the freeze-day limit-up; pure-forward metrics are primary",
+    "capacity existence comparison is confounded because all exact mappings yielded clear cores",
+    "no strategy, causality, or profit claim is made"
+  ],
+  "realized_leader": {
+    "after_fade_comparisons": 656,
+    "after_fade_switch_rate": 0.8826219512,
+    "after_fade_switches": 579,
+    "freeze_active_rear": 43,
+    "freeze_episodes": 407,
+    "freeze_equals_leader1": 229,
+    "freeze_not_on_list": 62,
+    "freeze_within_top3": 302,
+    "within_comparisons": 1128,
+    "within_switch_rate": 0.6276595745,
+    "within_switches": 708
+  },
+  "rotation": {
+    "adjacent_day_pairs": 204,
+    "current_top1_origin": {
+      "outside_prev_top5": 0.3529411765,
+      "prev_rank1": 0.2696078431,
+      "prev_rank2_to_5": 0.3774509804
+    },
+    "prior_top1_fate": {
+      "exit_top5": 0.318627451,
+      "rank1_hold": 0.2696078431,
+      "remain_top5_lower": 0.4117647059
+    }
+  },
+  "study_window": {
+    "end": "2026-08-31",
+    "start": "2025-10-30",
+    "trading_days": 205
+  },
+  "theme_counts": {
+    "active_raw_themes": 137,
+    "episodes": 793,
+    "headline_raw_themes": 90,
+    "recurrent_raw_themes": 80,
+    "single_wave_multiday": 10,
+    "single_wave_one_day": 47
+  },
+  "ytd": {
+    "mean_return": 0.2151153396,
+    "median_return": 0.0009147627,
+    "partial_year_n": 3,
+    "positive_share": 0.5,
+    "stocks": 678
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "validator": "market-review-draft-v1",
+  "status": "PASS",
+  "errors": [],
+  "warnings": [
+    "示例文件；运行时应由受限Worker或确定性校验器生成。"
+  ],
+  "worker": {
+    "role": "bounded draft",
+    "content_was_unverified": true
+  }
+}

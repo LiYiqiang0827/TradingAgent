@@ -1,0 +1,11 @@
+[
+  {
+    "theme": "示例题材",
+    "fact": "示例政策在交易日前一日正式发布；使用时必须替换为真实事实。",
+    "source_title": "示例来源（不可用于实际复盘）",
+    "source_url": "https://example.com/replace-with-real-source",
+    "confidence": "low",
+    "published_at": "YYYY-MM-DD HH:MM",
+    "notes": "示例文件中的事实不得作为真实行情证据。"
+  }
+]
