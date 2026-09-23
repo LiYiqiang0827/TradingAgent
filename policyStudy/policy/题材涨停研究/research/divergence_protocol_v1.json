@@ -1,0 +1,21 @@
+{
+  "mode": "retrospective exploratory research; January-August already inspected; not blind testing",
+  "event_selection": "Keep all 338 previously defined events: P theme width>=5, D width<=60% of P, same-theme events spaced at least 3 sessions; two future sessions available.",
+  "frozen_pool": "P is the session immediately before divergence D. Freeze ALL P primary-theme limit-ups, including those absent from D's limit list. Never replace them with future winners.",
+  "core_pool": "P maximum consecutive-board candidates of at least 2 boards, separately within 10% and 20% limit regimes; retain ties. No 2-board candidate means no height core, not every first board is a core.",
+  "clocks": "D market and daily prices available after D; T=D+1 snapshots at 09:31,09:45,10:30,14:00,15:00. Final KPL D is assumed available T06:00. No true auction/orderbook snapshots.",
+  "outcomes": {
+    "width_repair": "Existing proxy: max(width T,width T+1)>=80% of P width. Preserve as width-only outcome.",
+    "old_pool_rebound": "Fixed P pool's median T return relative to T reference pre-close >0.",
+    "old_pool_restored": "Only consider D median<0; by T or T+1 close, median compounded close/reference-preclose return since P close >=0. Report full coverage denominator and missing cases.",
+    "remaining_session": "For each snapshot, median close_T/price_snapshot-1 over the same fixed P stocks, so the already realized morning gain is excluded. This is a price-path measure, not executable P&L."
+  },
+  "diagnostics_to_compare": [
+    "core-only: all frozen height-core quotes present and their median T return >0",
+    "core+group: core-only plus full fixed-pool coverage and more than half its stocks positive vs T reference pre-close",
+    "core+group+restored: above plus fixed-pool median return since P close >=0"
+  ],
+  "threshold_policy": "These fixed descriptive cutoffs are recorded before calculating this round's diagnostics. No threshold search or accuracy claim. Core set is a role proxy, not genuine leader truth.",
+  "case_selection": "After full-cohort audit, choose readable same-theme repair/non-repair contrasts using date, prior width, loss depth and market state, with selection explained; post-outcome case selection remains hindsight learning.",
+  "reporting": "Separate index/market repair, old-pool rebound, old-pool restoration, broad-label width repair and core survival. Missing data stays in total denominator; conditional rates show coverage. Preserve v1 forecasts."
+}

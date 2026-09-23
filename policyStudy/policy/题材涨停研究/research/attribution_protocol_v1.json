@@ -1,0 +1,13 @@
+{
+  "mode": "Retrospective semantic reconstruction of previously inspected dates; not independent blind validation.",
+  "scope": "Four P-day KPL primary-label pools: 20260514 semiconductor, 20260520 semiconductor, 20260616 robot, 20260623 robot. Exactly 52 stock-date observations. No hindsight winners added or weak stocks removed.",
+  "decision_clock": "P final KPL assumed available next trading day 06:00. News evidence must have source datetime no later than this cutoff. Historical first-publication availability is unverified.",
+  "axes": [
+    "Market attention: what narrative and price role was visible? Price commentary describes attention, not business facts or causes.",
+    "Economic exposure: issuer versus subsidiary, direct business versus equity association, realized revenue versus development/intentions; preserve the exact subject of a denial.",
+    "Leadership role: height, early seal, traded capacity, and thematic representation are separate. High factual purity is not automatically a short-term leader."
+  ],
+  "branch_rules": "Branches are reviewed hypotheses, not an automatic industry truth. Distinguish evidence-backed news interpretation, label-only hypotheses, competing narratives, and unresolved attribution. Preserve raw source labels and unknown members in counts. If using a primary branch for tabulation, do not sum multi-label counts as unique market width.",
+  "evidence_rules": "News IDs and source datetime required for reviewed claims. KPL list, KPL limit-performance and KPL concept rows share source lineage and do not count as three independent confirmations. Concept descriptions lacking historical first-publication proof are auxiliary and may be stale. No news in a bounded exact-name query means retrieval gap, not absence of a business.",
+  "reporting": "Report all 52 rows, branch counts by evidence tier, five original height-candidate roles and explicit abstentions. Compare resulting interpretation and candidate roles, not achieved accuracy. Do not modify v1 forecasts or source records."
+}

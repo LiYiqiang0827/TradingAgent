@@ -398,13 +398,17 @@ def _online_loop_tdx(
 # source 路由核心逻辑
 # ============================================================================
 def _route(source: str, db_func, online_func, *args, **kwargs) -> pd.DataFrame:
-    """source="database" 走 db;空就 fallback online
+    """source="database_only" 只读 db;空表不联网，异常原样抛出。
+    source="database" 走 db;空就 fallback online
     source="online" 直接走 online
 
     注意:source="database" 模式 caller 可能不传日期参数(让 db 返回全表),
     这种情况下 db 模式返回 0 行也属于正常业务(可能是 db 真的没数据),
     不应该 fallback 到 online 并要求日期。
     """
+    if source == "database_only":
+        df = db_func(*args, **kwargs)
+        return df if df is not None else pd.DataFrame()
     if source == "online":
         return online_func(*args, **kwargs)
     elif source == "database":
@@ -424,7 +428,7 @@ def _route(source: str, db_func, online_func, *args, **kwargs) -> pd.DataFrame:
                 )
             raise
     else:
-        raise ValueError(f"未知 source: {source!r},只支持 'database' / 'online'")
+        raise ValueError(f"未知 source: {source!r},只支持 'database_only' / 'database' / 'online'")
 
 
 # ============================================================================
@@ -1232,6 +1236,11 @@ def get_news(
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
     source: str = "database",
+    *,
+    start_datetime: Optional[str] = None,
+    end_datetime: Optional[str] = None,
+    limit: Optional[int] = 5000,
+    offset: int = 0,
 ) -> pd.DataFrame:
     """新闻(多源聚合,默认全部 9 个活跃源)
 
@@ -1242,9 +1251,13 @@ def get_news(
     from offlineDataManager.scripts.core.offline_db_client import get_news as _db_get_news
 
     def _db():
-        return _db_get_news(src=src, start_date=start_date, end_date=end_date)
+        return _db_get_news(src=src, start_date=start_date, end_date=end_date,
+                            start_datetime=start_datetime, end_datetime=end_datetime,
+                            limit=limit, offset=offset)
 
     def _online():
+        if start_datetime is not None or end_datetime is not None or limit != 5000 or offset:
+            raise ValueError("精确新闻时间窗口/分页仅支持本地读取，请使用 source='database_only'")
         # online 必传日期(tushare.news 不支持无日期)
         _validate_online_date(None, start_date, end_date, "get_news")
         # 注:get_news 只有 start_date/end_date 没有 trade_date,

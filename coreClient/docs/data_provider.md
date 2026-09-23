@@ -46,6 +46,10 @@ df = get_day(ts_code="000006.SZ", start_date="2026-09-01", end_date="2026-09-18"
 
 ### 2.2 source 参数语义
 
+**2026-09-20 实现核验补充**：历史回放请使用 `source="database_only"`，只读本地、缺数返回空表，不联网。现有 `database` 实际会在空表时 fallback online；`auto` 当前实现会报错。以下旧表中的 database/auto 说明不能作为严格离线保证。所有模式均不保证字段在历史时点已发布，研究侧还需约束可见时间。
+
+新闻本地读取新增 keyword-only 参数 `start_datetime`、`end_datetime`、`limit`（默认5000，None表示不限）、`offset`，透传底层已有能力。精确时间/分页参数用于 `database_only`；如进入 online 路径会明确拒绝，防止时间窗口被忽略。普通 `start_date/end_date` 仍表示整日，不能把含时分秒的值传入它们来期待截断。查询结果刚好5000条时不可假定完整；应分页或在有界日期窗口用 `limit=None`。
+
 | 取值 | 含义 | 适用场景 |
 |---|---|---|
 | `"database"` (默认) | 走本地 SQLite(`offline_db_client`) | 历史研究 / 离线分析 |

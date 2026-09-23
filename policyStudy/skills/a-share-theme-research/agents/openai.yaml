@@ -1,0 +1,4 @@
+interface:
+  display_name: "A股情绪与题材研究"
+  short_description: "用逐日无未来信息回放研究A股情绪、题材生命周期与龙头候选"
+  default_prompt: "使用 $a-share-theme-research，按指定历史时点分析情绪、题材主线和龙头候选，给出证据与失效条件。"

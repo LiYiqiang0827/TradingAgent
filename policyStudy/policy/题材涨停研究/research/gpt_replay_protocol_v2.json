@@ -1,0 +1,22 @@
+{
+  "version":"gpt_replay_v2",
+  "scope":"2026-01-05 to 2026-08-31; all 160 sessions; pre-open semantic LLM replay",
+  "status":"freeze before any new GPT predictions or score reads",
+  "contamination":"The root researcher and method development have seen January-August. Fresh judges receive no conversation history or outcomes. This is point-in-time input replay, not untouched out-of-sample validation.",
+  "decision":"P final KPL and P daily data; source-timestamped news through next trading day 06:00, capped at August 31 23:59:59 for the last unscored packet. First-publication versions are not archived; historical availability remains an assumption.",
+  "inputs":"All P eligible KPL theme and stock candidates, causal prior structure, raw P labels/times/amounts, P daily technical features; multilingual-source news fetched database_only; same-window keyword retrieval and historical company-headline archive. No prior model scores, decisions, answers or semantic case annotations.",
+  "judges":"Fresh sub-agents without inherited conversation; chronological one-packet gate within each disjoint block. Judges may read only gate-provided evidence and four generic references. All decisions are append-only before next packet opens. Logical tool/access protocol is not a separate OS security boundary.",
+  "method":"Actual LLM chooses emotion, top1/top3 theme and leader from supplied evidence. Do not substitute a rule algorithm, fit a model, rewrite a frozen decision, or select dates according to results.",
+  "scoring":{
+    "theme_top1":"Frozen v1 proxy: largest sum of theme KPL breadth over next three sessions, ties allowed; all future themes participate. Null is a miss.",
+    "theme_top3":"Any of max3 distinct forecast themes hits the same truth; never report as top1.",
+    "leader_in_selected_theme":"Frozen v1 proxy: highest compound benchmark-excess over next two sessions among P known up-limit members of forecast theme, require at least2 candidates; this does not require correct theme selection.",
+    "leader_after_correct_theme":"Same stock proxy, restricted to theme top1 correct and at least2 stock candidates. Report denominator explicitly.",
+    "end_to_end":"Theme and stock both hit, denominator all dates with mature next3 theme and next2 stock horizon; unscorable price truth reported separately and strict version counted as not hit.",
+    "emotion":"Frozen next-session basket tradability proxy cold/neutral/hot, not contemporaneous human sentiment labels.",
+    "height_secondary":"Existing future2 height-winner proxy inside original pool, reported separately; ties and absence explicit, not a causal-leader truth.",
+    "period_end":"No September outcomes; last1/2/3 sessions respectively immature for emotion/stock/theme. Do not silently call them wrong or extend the sample.",
+    "comparison":"Contemporaneous breadth for theme and fixed height/early/capacity heuristics for stock are baselines only. Same horizons and candidate restrictions.",
+    "report":"Overall, each month, numerator/denominator, abstentions, coverage, singleton counts, confusion matrix, strict end-to-end and label limitations. No retuning after results."
+  }
+}
