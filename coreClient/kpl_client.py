@@ -497,11 +497,11 @@ class KPLClient:
             >>> df = client.get_daily_limit_performance('2026-09-11')
             >>> df[['ts_code','name','board_count','lu_time','theme']].head(5)
                     ts_code      name  board_count   lu_time  theme
-                002790.SZ      瑞尔特           4  01:25:00  地产链
-                000993.SZ     闽东电力           3  01:25:00  绿色电力
-                603421.SH     鼎信通讯           3  02:20:33  电气设备
-                002912.SZ     中新赛克           2  01:25:00  AI应用
-                600876.SH     凯盛新能           2  01:31:30    光伏
+                002790.SZ      瑞尔特           4  09:25:00  地产链
+                000993.SZ     闽东电力           3  09:25:00  绿色电力
+                603421.SH     鼎信通讯           3  10:20:33  电气设备
+                002912.SZ     中新赛克           2  09:25:00  AI应用
+                600876.SH     凯盛新能           2  09:31:30    光伏
 
             >>> # 不排序,保留原序
             >>> df = client.get_daily_limit_performance('2026-09-11', sort_by=None)
@@ -524,8 +524,14 @@ class KPLClient:
 
         df = pd.concat(all_dfs, ignore_index=True)
 
-        # lu_time unix timestamp → 北京时间字符串 "HH:MM:SS"
-        df["lu_time"] = pd.to_datetime(df["lu_time"], unit="s").dt.strftime("%H:%M:%S")
+        # lu_time 是 Unix epoch（UTC 基准）；必须显式转到北京时间。
+        # 直接 pd.to_datetime(...).strftime 会按无时区 UTC 格式化，
+        # 将 09:31 错写成 01:31，破坏涨停先后顺序和一字板判断。
+        df["lu_time"] = (
+            pd.to_datetime(df["lu_time"], unit="s", utc=True)
+            .dt.tz_convert("Asia/Shanghai")
+            .dt.strftime("%H:%M:%S")
+        )
 
         # ts_code 补全交易所后缀(默认开)
         if add_suffix:
