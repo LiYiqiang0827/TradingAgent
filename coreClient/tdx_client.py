@@ -51,6 +51,9 @@ from coreClient.tdx_config import (
     TDX_TIMEOUT,
     TDX_QUOTE_BATCH_MAX,
     TDX_MINUTE_BATCH_MAX,
+    TDX_HISTORY_BAR_IP_POOL,
+    TDX_KLINE_PAGE_SIZE,
+    TDX_15MIN_BAR_TIMES,
     # 2026-09-12 新增:历史数据相关
     TDX_TICKS_PAGE_SIZE,
     TDX_TICKS_MAX_PAGES,
@@ -341,6 +344,329 @@ class TdxClient:
             row["time_idx"] = i
             out.append(row)
         return out
+
+    def download_one_minute(
+        self,
+        ts_code: str,
+        trade_date: int | str | None = None,
+        start_date: int | str | None = None,
+        end_date: int | str | None = None,
+        max_pages: int = 40,
+    ) -> list[dict]:
+        """下载通达信原生1分钟OHLCV。
+
+        使用 ``get_security_bars(KLINE_TYPE_1MIN)``，返回09:31—11:30、
+        13:01—15:00共240根标准A股连续竞价分钟K线。与分时接口不同，本接口
+        包含完整 open/high/low/close/vol/amount。服务器历史深度没有协议保证，
+        调用方必须检查实际返回区间。
+        """
+        from pytdx.params import TDXParams
+
+        if trade_date is not None and (start_date is not None or end_date is not None):
+            raise ValueError("trade_date 与 start_date/end_date 互斥")
+        if max_pages < 1:
+            raise ValueError("max_pages 必须大于0")
+
+        def normalize(value: int | str | None) -> int | None:
+            if value is None:
+                return None
+            digits = str(value).strip().replace("-", "").replace("/", "")
+            if len(digits) != 8 or not digits.isdigit():
+                raise ValueError(f"日期必须是YYYYMMDD或YYYY-MM-DD: {value}")
+            datetime.strptime(digits, "%Y%m%d")
+            return int(digits)
+
+        if trade_date is not None:
+            start_int = end_int = normalize(trade_date)
+        else:
+            start_int, end_int = normalize(start_date), normalize(end_date)
+        if start_int is not None and end_int is None:
+            end_int = start_int
+        if end_int is not None and start_int is None:
+            start_int = end_int
+        if start_int is not None and end_int is not None and start_int > end_int:
+            raise ValueError(f"start_date不能晚于end_date: {start_int}>{end_int}")
+
+        market = market_of(ts_code)
+        code = code_of(ts_code)
+        selected: dict[str, dict] = {}
+        reached_history_end = False
+
+        for page_idx in range(max_pages):
+            offset = page_idx * TDX_KLINE_PAGE_SIZE
+            chunk = self._get_security_bars_page(
+                TDXParams.KLINE_TYPE_1MIN,
+                market,
+                code,
+                offset,
+                TDX_KLINE_PAGE_SIZE,
+                failover_on_empty=(page_idx == 0),
+            )
+            if not chunk:
+                reached_history_end = True
+                break
+
+            page_dates: list[int] = []
+            for row in chunk:
+                try:
+                    row_date = int(
+                        f"{int(row['year']):04d}{int(row['month']):02d}{int(row['day']):02d}"
+                    )
+                    hour, minute = int(row["hour"]), int(row["minute"])
+                except (KeyError, TypeError, ValueError):
+                    continue
+                page_dates.append(row_date)
+                if start_int is not None and row_date < start_int:
+                    continue
+                if end_int is not None and row_date > end_int:
+                    continue
+                is_morning = (hour == 9 and minute >= 31) or hour == 10 or (
+                    hour == 11 and minute <= 30
+                )
+                is_afternoon = (hour == 13 and minute >= 1) or hour == 14 or (
+                    hour == 15 and minute == 0
+                )
+                if not (is_morning or is_afternoon):
+                    continue
+                if is_morning:
+                    time_idx = hour * 60 + minute - (9 * 60 + 31)
+                else:
+                    time_idx = 120 + hour * 60 + minute - (13 * 60 + 1)
+                label = f"{hour:02d}:{minute:02d}"
+                dt_key = f"{row_date:08d} {label}"
+                selected[dt_key] = {
+                    "ts_code": ts_code,
+                    "trade_date": _date_int_to_str(row_date),
+                    "datetime": (
+                        f"{row_date // 10000:04d}-{row_date // 100 % 100:02d}-"
+                        f"{row_date % 100:02d} {label}:00"
+                    ),
+                    "time_idx": time_idx,
+                    "open": float(row["open"]),
+                    "high": float(row["high"]),
+                    "low": float(row["low"]),
+                    "close": float(row["close"]),
+                    "vol": float(row["vol"]),
+                    "amount": float(row["amount"]),
+                }
+
+            if not page_dates:
+                break
+            # 一页可能从请求起始日的盘中开始；只有翻到更早日期后才能确认
+            # 起始日240根已经全部收齐。
+            if start_int is not None and min(page_dates) < start_int:
+                break
+            if len(chunk) < TDX_KLINE_PAGE_SIZE:
+                reached_history_end = True
+                break
+            if start_int is None and end_int is None:
+                break
+
+        if (
+            start_int is not None
+            and not reached_history_end
+            and page_idx == max_pages - 1
+            and (not selected or min(int(key[:8]) for key in selected) > start_int)
+        ):
+            logger.warning(
+                "download_one_minute %s 达到 max_pages=%s，可能未覆盖请求起点%s",
+                ts_code, max_pages, start_int,
+            )
+        return [selected[key] for key in sorted(selected)]
+
+    # ============ 历史15分钟OHLC ============
+
+    def _get_security_bars_page(
+        self,
+        category: int,
+        market: int,
+        code: str,
+        start: int,
+        count: int,
+        *,
+        failover_on_empty: bool = False,
+    ) -> list[dict]:
+        """读取一页K线；第一页为空时切到已验证的历史K线服务器。"""
+        try:
+            rows = self.api.get_security_bars(category, market, code, start, count) or []
+        except Exception as exc:
+            logger.warning(
+                "get_security_bars %s page=%s server=%s:%s 异常 %s: %s",
+                code, start, self.ip, self.port, type(exc).__name__, exc,
+            )
+            rows = []
+        if rows or not failover_on_empty:
+            return [dict(row) for row in rows]
+
+        current = (self.ip, self.port)
+        for host, port in TDX_HISTORY_BAR_IP_POOL:
+            if (host, port) == current:
+                continue
+            try:
+                self.api.disconnect()
+            except Exception:
+                pass
+            try:
+                connected = self.api.connect(host, port, time_out=min(TDX_TIMEOUT, 5))
+                if not connected:
+                    continue
+                self.ip, self.port = host, port
+                rows = self.api.get_security_bars(category, market, code, start, count) or []
+                if rows:
+                    return [dict(row) for row in rows]
+            except Exception as exc:
+                logger.warning(
+                    "历史K线服务器 %s:%s 失败 %s: %s",
+                    host, port, type(exc).__name__, exc,
+                )
+        return []
+
+    def get_history_15min(
+        self,
+        ts_code: str,
+        trade_date: int | str | None = None,
+        start_date: int | str | None = None,
+        end_date: int | str | None = None,
+        max_pages: int = 20,
+    ) -> list[dict]:
+        """拉取原生历史15分钟OHLC，价格为不复权口径。
+
+        ``trade_date`` 与 ``start_date/end_date`` 互斥。传单日时返回该日16根；
+        传日期范围时按800根一页向历史翻页。三个日期参数都不传时返回服务器
+        最近一页（最多800根）。服务端实际保存深度并无协议保证，应由调用方
+        检查返回结果是否覆盖请求起点。
+
+        返回字段：ts_code、trade_date、datetime、time_idx、open、high、low、
+        close、vol、amount。vol为股，amount为元；09:45第一根包含集合竞价。
+        """
+        from pytdx.params import TDXParams
+
+        if trade_date is not None and (start_date is not None or end_date is not None):
+            raise ValueError("trade_date 与 start_date/end_date 互斥")
+        if max_pages < 1:
+            raise ValueError("max_pages 必须大于0")
+
+        def normalize(value: int | str | None) -> int | None:
+            if value is None:
+                return None
+            digits = str(value).strip().replace("-", "")
+            if len(digits) != 8 or not digits.isdigit():
+                raise ValueError(f"日期必须是YYYYMMDD或YYYY-MM-DD: {value}")
+            datetime.strptime(digits, "%Y%m%d")
+            return int(digits)
+
+        if trade_date is not None:
+            start_int = end_int = normalize(trade_date)
+        else:
+            start_int, end_int = normalize(start_date), normalize(end_date)
+        if start_int is not None and end_int is None:
+            end_int = start_int
+        if end_int is not None and start_int is None:
+            start_int = end_int
+        if start_int is not None and end_int is not None and start_int > end_int:
+            raise ValueError(f"start_date不能晚于end_date: {start_int}>{end_int}")
+
+        market = market_of(ts_code)
+        code = code_of(ts_code)
+        selected: dict[str, dict] = {}
+        reached_history_end = False
+
+        for page_idx in range(max_pages):
+            offset = page_idx * TDX_KLINE_PAGE_SIZE
+            chunk = self._get_security_bars_page(
+                TDXParams.KLINE_TYPE_15MIN,
+                market,
+                code,
+                offset,
+                TDX_KLINE_PAGE_SIZE,
+                failover_on_empty=(page_idx == 0),
+            )
+            if not chunk:
+                reached_history_end = True
+                break
+
+            page_dates: list[int] = []
+            for row in chunk:
+                try:
+                    row_date = int(
+                        f"{int(row['year']):04d}{int(row['month']):02d}{int(row['day']):02d}"
+                    )
+                except (KeyError, TypeError, ValueError):
+                    continue
+                page_dates.append(row_date)
+                if start_int is not None and row_date < start_int:
+                    continue
+                if end_int is not None and row_date > end_int:
+                    continue
+                label = f"{int(row['hour']):02d}:{int(row['minute']):02d}"
+                if label not in TDX_15MIN_BAR_TIMES:
+                    continue
+                dt = f"{row_date:08d} {label}"
+                normalized = {
+                    "ts_code": ts_code,
+                    "trade_date": _date_int_to_str(row_date),
+                    "datetime": (
+                        f"{row_date // 10000:04d}-{row_date // 100 % 100:02d}-"
+                        f"{row_date % 100:02d} {label}:00"
+                    ),
+                    "open": float(row["open"]),
+                    "high": float(row["high"]),
+                    "low": float(row["low"]),
+                    "close": float(row["close"]),
+                    "vol": float(row["vol"]),
+                    "amount": float(row["amount"]),
+                }
+                selected[dt] = normalized
+
+            if not page_dates:
+                break
+            if start_int is not None and min(page_dates) <= start_int:
+                break
+            if len(chunk) < TDX_KLINE_PAGE_SIZE:
+                reached_history_end = True
+                break
+            if start_int is None and end_int is None:
+                break
+
+        if (
+            start_int is not None
+            and not reached_history_end
+            and page_idx == max_pages - 1
+            and (not selected or min(int(k[:8]) for k in selected) > start_int)
+        ):
+            logger.warning(
+                "get_history_15min %s 达到 max_pages=%s，可能未覆盖请求起点%s",
+                ts_code, max_pages, start_int,
+            )
+
+        rows = [selected[key] for key in sorted(selected)]
+        counters: dict[str, int] = {}
+        for row in rows:
+            day = row["trade_date"]
+            row["time_idx"] = counters.get(day, 0)
+            counters[day] = row["time_idx"] + 1
+        return rows
+
+    def download_fifteen_minute(
+        self,
+        ts_code: str,
+        trade_date: int | str | None = None,
+        start_date: int | str | None = None,
+        end_date: int | str | None = None,
+        max_pages: int = 20,
+    ) -> list[dict]:
+        """下载TDX原生15分钟K线。
+
+        这是供offlineDataManager使用的明确下载入口；返回字段和边界规则与
+        :meth:`get_history_15min`完全相同。保留后者用于兼容已有研究代码。
+        """
+        return self.get_history_15min(
+            ts_code,
+            trade_date=trade_date,
+            start_date=start_date,
+            end_date=end_date,
+            max_pages=max_pages,
+        )
 
     # ============ 指数 ============
 

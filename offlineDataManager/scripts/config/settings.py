@@ -2,6 +2,7 @@
 ~/TradingAgent/offlineDataManager/config/settings.py
 项目配置:数据库路径 + schema (Tushare token 已移到 ~/TradingAgent/coreClient/tushare_config.py)
 """
+import os
 from pathlib import Path
 
 # ==================== 路径 ====================
@@ -18,6 +19,21 @@ DB_PATH_BASIC = DATA_DIR / "db_cn_basic.db"
 # db_cn_kpl.db:开盘啦数据
 DB_PATH_KPL = DATA_DIR / "db_cn_kpl.db"
 
+# 开盘啦题材时序知识库（DuckDB）。事实仍以 db_cn_kpl.db 为源；这个库保存
+# 可追溯的题材、涨停股、每日归因、热度和炒作周期等派生结构。
+THEME_GRAPH_DB_PATH = Path(
+    os.environ.get("TRADING_AGENT_THEME_GRAPH_DB_PATH", str(DATA_DIR / "db_theme_graph.duckdb"))
+)
+
+# Obsidian 仅是知识库的人类可读投影，DuckDB 才是事实主库。允许在服务器或
+# 测试环境中通过环境变量改到其他目录；导入 settings 时不会创建该目录。
+THEME_VAULT_ROOT = Path(
+    os.environ.get(
+        "TRADING_AGENT_THEME_VAULT_ROOT",
+        str(Path.home() / "Documents" / "Obsidian Vault" / "A股题材知识库"),
+    )
+)
+
 # db_cn_news.db:新闻数据
 DB_PATH_NEWS = DATA_DIR / "db_cn_news.db"
 
@@ -33,6 +49,56 @@ DB_PATH_INDEX = DATA_DIR / "db_cn_index.db"
 #   因为 policy 是横向切片 dict 驱动模式)
 DB_PATH_POLICY_MINUTE = DATA_DIR / "policy_minute.db"
 DB_PATH_POLICY_TICKS = DATA_DIR / "policy_ticks.db"
+
+# 全市场1分钟OHLC数据。主数据使用外置盘上的按交易日分区Parquet；
+# 不与 policy_minute.db 混用。环境变量便于测试和迁移到其他磁盘。
+# 注意：这里只声明路径，不在 import settings 时自动创建外置盘目录，
+# 避免硬盘未挂载时误在 /Volumes 下创建同名本地目录。
+ONE_MIN_CSV_ROOT = Path(
+    os.environ.get("TRADING_AGENT_ONE_MIN_CSV_ROOT", "/Volumes/My Passport/分钟数据/1min")
+)
+ONE_MIN_DATA_DIR = Path(
+    os.environ.get("TRADING_AGENT_ONE_MIN_DATA_DIR", str(DATA_DIR / "oneMinute"))
+)
+ONE_MIN_PARQUET_ROOT = Path(
+    os.environ.get(
+        "TRADING_AGENT_ONE_MIN_PARQUET_ROOT",
+        str(ONE_MIN_DATA_DIR / "parquet" / "schema_v2"),
+    )
+)
+ONE_MIN_CATALOG_PATH = Path(
+    os.environ.get(
+        "TRADING_AGENT_ONE_MIN_CATALOG_PATH",
+        str(ONE_MIN_DATA_DIR / "catalog.duckdb"),
+    )
+)
+
+# 全市场15分钟OHLC数据。
+#
+# 新主库使用 TDX 原生15分钟K线，DuckDB文件按业务名称命名为
+# ``db_fifteenMinute.db``。DuckDB不依赖文件扩展名，``.db``不会使它变成
+# SQLite。旧淘宝CSV转换库只作为历史留档，不再由data_provider读取。
+FIFTEEN_MIN_CSV_ROOT = Path(
+    os.environ.get("TRADING_AGENT_FIFTEEN_MIN_CSV_ROOT", "/Volumes/My Passport/分钟数据/15min")
+)
+FIFTEEN_MIN_DATA_DIR = Path(
+    os.environ.get("TRADING_AGENT_FIFTEEN_MIN_DATA_DIR", str(DATA_DIR / "fifteenMinute"))
+)
+# TDX 15分钟主库（DuckDB）。
+FIFTEEN_MIN_DB_PATH = Path(
+    os.environ.get(
+        "TRADING_AGENT_FIFTEEN_MIN_DB_PATH",
+        str(DATA_DIR / "db_fifteenMinute.db"),
+    )
+)
+
+# 已弃用的淘宝CSV转换库。保留独立路径，避免旧csv_client误写TDX主库。
+FIFTEEN_MIN_LEGACY_DB_PATH = Path(
+    os.environ.get(
+        "TRADING_AGENT_FIFTEEN_MIN_LEGACY_DB_PATH",
+        str(FIFTEEN_MIN_DATA_DIR / "fifteen_min.duckdb"),
+    )
+)
 
 # 兼容旧代码(DB_PATH → db_cn_basic.db)
 DB_PATH = DB_PATH_BASIC
@@ -131,6 +197,24 @@ CREATE TABLE IF NOT EXISTS tbl_cn_week (
 );
 CREATE INDEX IF NOT EXISTS idx_week_date ON tbl_cn_week(trade_date);
 
+-- 周 K 原始不复权(从 tbl_cn_day 直接聚合,覆盖更新)
+CREATE TABLE IF NOT EXISTS tbl_cn_week_origin (
+    ts_code    TEXT NOT NULL,
+    trade_date TEXT NOT NULL,    -- 周内最后交易日 (YYYYMMDD)
+    open       REAL,
+    high       REAL,
+    low        REAL,
+    close      REAL,
+    pre_close  REAL,
+    change     REAL,
+    pct_chg    REAL,
+    vol        REAL,
+    amount     REAL,
+    snap_ts    TEXT,
+    PRIMARY KEY (ts_code, trade_date)
+);
+CREATE INDEX IF NOT EXISTS idx_week_origin_date ON tbl_cn_week_origin(trade_date);
+
 -- 月 K(从日 K 前复权数据聚合,覆盖更新)
 CREATE TABLE IF NOT EXISTS tbl_cn_month (
     ts_code    TEXT NOT NULL,
@@ -148,6 +232,24 @@ CREATE TABLE IF NOT EXISTS tbl_cn_month (
     PRIMARY KEY (ts_code, trade_date)
 );
 CREATE INDEX IF NOT EXISTS idx_month_date ON tbl_cn_month(trade_date);
+
+-- 月 K 原始不复权(从 tbl_cn_day 直接聚合,覆盖更新)
+CREATE TABLE IF NOT EXISTS tbl_cn_month_origin (
+    ts_code    TEXT NOT NULL,
+    trade_date TEXT NOT NULL,    -- 月内最后交易日 (YYYYMMDD)
+    open       REAL,
+    high       REAL,
+    low        REAL,
+    close      REAL,
+    pre_close  REAL,
+    change     REAL,
+    pct_chg    REAL,
+    vol        REAL,
+    amount     REAL,
+    snap_ts    TEXT,
+    PRIMARY KEY (ts_code, trade_date)
+);
+CREATE INDEX IF NOT EXISTS idx_month_origin_date ON tbl_cn_month_origin(trade_date);
 
 -- 通用断点表(每张表一个 key,管理 basic 库各表的断点)
 CREATE TABLE IF NOT EXISTS tbl_basic_ctrl (
@@ -626,4 +728,3 @@ CREATE TABLE IF NOT EXISTS tbl_index_ctrl (
 
 # 兼容旧代码(SCHEMA_SQL 是 basic schema,db.py init_db 默认建这个)
 SCHEMA_SQL = SCHEMA_SQL_BASIC
-

@@ -1,12 +1,12 @@
 # 代码详细设计/service_week.md
 
-`scripts/service/service_week.py` — A 股周 K 重算 service(**派生表,全量覆盖**)。
+`scripts/service/service_week.py` — A 股周 K 重算 service，同时生成前复权和原始不复权表。
 
 ## 职责
 
 1. **强校验**:`cn_daily` 和 `cn_adj_factor` 的 ctrl 必须一致且 ≥ 今天
 2. 实例化 `CNDataDown`
-3. 调 `down.update_week()`(无日期参数,全量重算)
+3. 调 `down.update_week()`，原子覆盖 `tbl_cn_week` 和 `tbl_cn_week_origin`
 4. 写日志到 `logs/service_week.log`
 
 ## 入口
@@ -88,20 +88,22 @@ down.update_week()
   ↓
 读 tbl_cn_day + tbl_cn_adj_factor 全表
   ↓
-merge + qfq 计算(价 × adj_factor, vol / adj_factor)
+未复权日线直接聚合 → tbl_cn_week_origin
+同时 merge + qfq 计算
   ↓
 过滤 open>0 & close>0(新股预占位)
   ↓
 _aggregate_daily_to_freq(df_day, freq="weekly")
   ↓
-replace_table(conn_basic, df_week, "tbl_cn_week")  # DELETE + INSERT 事务
+replace_tables(conn_basic, [("tbl_cn_week", df_week),
+                            ("tbl_cn_week_origin", df_week_origin)])
   ↓
 return inserted 行数
 ```
 
 ## 注意事项
 
-- **`update_week` 走 `replace_table`**(覆盖更新,事务化),**会清空原表**
+- 前复权表和 origin 表使用同一个事务，全成功或全回滚
 - **scheduler 串行调** `service_week` / `service_month`(代码无 mutex,但 scheduler 第 3 阶段顺序调用保证不并发)
 - **`check_daily_adj_consistency` 是 service 间的契约**:必须先有 daily + adj_factor 才能算 week
 - **校验失败返回 rc=2**(不是 rc=1),scheduler 知道这是"业务中止"而非异常

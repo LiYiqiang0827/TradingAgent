@@ -41,6 +41,7 @@ from core.offline_db_client import (
     snap_ts,
     upsert_df,
     replace_table,
+    replace_tables,
     clear_table,         # 2026-09-17 新加:DELETE 单表(offline_downloader show_status 用)
     get_ctrl,
     update_ctrl,
@@ -1117,15 +1118,15 @@ class CNDataDown:
         return total_inserted
 
     # ====================================================
-    # 6b. 周 K 线(从日 K 前复权数据聚合,覆盖更新)
+    # 6b. 周 K 线(同时生成前复权和原始不复权表,覆盖更新)
     # ====================================================
     def update_week(self, start_date: str = None, end_date: str = None) -> int:
-        """周 K 线 - 从本地 tbl_cn_day + tbl_cn_adj_factor 聚合(覆盖更新)
+        """周 K 线 - 同时生成前复权和原始不复权结果(覆盖更新)
 
         数据流:
         1. 从 db_cn_basic.db 的 tbl_cn_day 读日 K(不复权)
-        2. 用 tbl_cn_adj_factor 计算前复权价(价 × adj_factor,量 ÷ adj_factor)
-        3. 按 ISO 周聚合(open=first, high=max, low=min, close=last, vol/amount=sum)
+        2. 日 K 直接按 ISO 周聚合,写 tbl_cn_week_origin
+        3. 用 tbl_cn_adj_factor 计算前复权后按 ISO 周聚合,写 tbl_cn_week
 
         完全照搬 MyATM __aggregate_daily_to_freq__ 逻辑:
         - open: 周内第一日 open(头一天)
@@ -1139,13 +1140,14 @@ class CNDataDown:
         - change: close - pre_close
         - pct_chg: (close - pre_close) / pre_close * 100
 
-        写入 db_cn_basic.db (覆盖更新,每次先 DELETE 全表)
+        两张表在同一个事务中覆盖更新。
 
         Args:
             start_date: YYYYMMDD,默认 None(读全表 min)
             end_date: YYYYMMDD,默认 None(读全表 max)
         """
         table = "tbl_cn_week"
+        origin_table = "tbl_cn_week_origin"
         t0 = time.time()
 
         # 从本地 db 读日 K + adj_factor
@@ -1166,16 +1168,27 @@ class CNDataDown:
             logger.warning("[周K] tbl_cn_day 为空,跳过")
             return 0
 
+        # 原始表直接从未复权日线聚合。先显式排序,不依赖 SQLite 返回顺序。
+        df_day = df_day.sort_values(["ts_code", "trade_date"]).reset_index(drop=True)
+        n_before = len(df_day)
+        df_day = df_day[(df_day["open"] > 0) & (df_day["close"] > 0)].copy()
+        n_zero = n_before - len(df_day)
+        if n_zero > 0:
+            logger.info(f"[周K] 过滤 0 价格预占位 {n_zero} 行")
+        df_week_origin = self._aggregate_daily_to_freq(df_day, freq="weekly")
+        logger.info(f"[周K-origin] 聚合后 {len(df_week_origin):,} 行")
+
         df_adj = pd.read_sql_query(
             "SELECT ts_code, trade_date, adj_factor FROM tbl_cn_adj_factor",
             self.conn_basic
         )
+        df_adj = df_adj.sort_values(["ts_code", "trade_date"]).reset_index(drop=True)
         logger.info(f"[周K] 读 {len(df_day):,} 行日线 + {len(df_adj):,} 行复权因子")
 
         # 前复权:价 × adj_factor,量 ÷ adj_factor(参考 MyATM 官方算法)
         # MyATM 通过 Tushare 直接拿 qfq 数据,这里我们手工算(基于 adj_factor)
         # qfq: 前复权(以最新价为基准,回溯调整历史价格)
-        # 等价于: 拉最新 adj_factor 作为基准,所有价 × (adj_factor / 该日 adj_factor)
+        # 等价于:以最新 adj_factor 为基准,所有价格 × (当日 adj_factor / 最新 adj_factor)
         # 取每个 ts_code 的最新 adj_factor 作为基准
         latest_adj = df_adj.groupby("ts_code")["adj_factor"].last().reset_index()
         latest_adj.columns = ["ts_code", "adj_factor_latest"]
@@ -1195,34 +1208,35 @@ class CNDataDown:
         # amount 不变(成交额不受复权影响)
         df_day = df_day.drop(columns=["adj_factor", "adj_factor_latest", "qfq_factor"])
 
-        # 过滤 0 价格行(新股预占位)
-        n_before = len(df_day)
-        df_day = df_day[(df_day['open'] > 0) & (df_day['close'] > 0)]
-        n_zero = n_before - len(df_day)
-        if n_zero > 0:
-            logger.info(f"[周K] 过滤 0 价格预占位 {n_zero} 行")
-
         # 按周聚合(ISO 周)
         df_week = self._aggregate_daily_to_freq(df_day, freq="weekly")
         logger.info(f"[周K] 聚合后 {len(df_week):,} 行")
 
-        # 覆盖更新
-        inserted = replace_table(self.conn_basic, df_week, table)
+        # 前复权和原始表成对原子覆盖,避免只更新其中一张。
+        inserted_counts = replace_tables(
+            self.conn_basic,
+            [(table, df_week), (origin_table, df_week_origin)],
+        )
+        inserted = inserted_counts[table]
         elapsed = time.time() - t0
-        logger.info(f"[完成] {table:<28} +{inserted:>12,} 行  耗时 {elapsed:.1f}s")
+        logger.info(
+            f"[完成] {table} +{inserted_counts[table]:,} 行; "
+            f"{origin_table} +{inserted_counts[origin_table]:,} 行; 耗时 {elapsed:.1f}s"
+        )
         return inserted
 
     # ====================================================
-    # 6c. 月 K 线(从日 K 前复权数据聚合,覆盖更新)
+    # 6c. 月 K 线(同时生成前复权和原始不复权表,覆盖更新)
     # ====================================================
     def update_month(self, start_date: str = None, end_date: str = None) -> int:
-        """月 K 线 - 从本地 tbl_cn_day + tbl_cn_adj_factor 聚合(覆盖更新)
+        """月 K 线 - 同时生成前复权和原始不复权结果(覆盖更新)
 
-        实现方式同 update_week,只是按月聚合
+        实现方式同 update_week,只是按自然月聚合。
 
-        写入 db_cn_basic.db (覆盖更新,每次先 DELETE 全表)
+        写入 tbl_cn_month 和 tbl_cn_month_origin,两张表原子覆盖。
         """
         table = "tbl_cn_month"
+        origin_table = "tbl_cn_month_origin"
         t0 = time.time()
 
         # 从本地 db 读日 K + adj_factor
@@ -1243,10 +1257,21 @@ class CNDataDown:
             logger.warning("[月K] tbl_cn_day 为空,跳过")
             return 0
 
+        # 原始表直接从未复权日线聚合。先显式排序,不依赖 SQLite 返回顺序。
+        df_day = df_day.sort_values(["ts_code", "trade_date"]).reset_index(drop=True)
+        n_before = len(df_day)
+        df_day = df_day[(df_day["open"] > 0) & (df_day["close"] > 0)].copy()
+        n_zero = n_before - len(df_day)
+        if n_zero > 0:
+            logger.info(f"[月K] 过滤 0 价格预占位 {n_zero} 行")
+        df_month_origin = self._aggregate_daily_to_freq(df_day, freq="monthly")
+        logger.info(f"[月K-origin] 聚合后 {len(df_month_origin):,} 行")
+
         df_adj = pd.read_sql_query(
             "SELECT ts_code, trade_date, adj_factor FROM tbl_cn_adj_factor",
             self.conn_basic
         )
+        df_adj = df_adj.sort_values(["ts_code", "trade_date"]).reset_index(drop=True)
         logger.info(f"[月K] 读 {len(df_day):,} 行日线 + {len(df_adj):,} 行复权因子")
 
         # 前复权计算
@@ -1264,21 +1289,21 @@ class CNDataDown:
         df_day["vol"] = df_day["vol"] / df_day["qfq_factor"]
         df_day = df_day.drop(columns=["adj_factor", "adj_factor_latest", "qfq_factor"])
 
-        # 过滤 0 价格行
-        n_before = len(df_day)
-        df_day = df_day[(df_day['open'] > 0) & (df_day['close'] > 0)]
-        n_zero = n_before - len(df_day)
-        if n_zero > 0:
-            logger.info(f"[月K] 过滤 0 价格预占位 {n_zero} 行")
-
         # 按月聚合
         df_month = self._aggregate_daily_to_freq(df_day, freq="monthly")
         logger.info(f"[月K] 聚合后 {len(df_month):,} 行")
 
-        # 覆盖更新
-        inserted = replace_table(self.conn_basic, df_month, table)
+        # 前复权和原始表成对原子覆盖,避免只更新其中一张。
+        inserted_counts = replace_tables(
+            self.conn_basic,
+            [(table, df_month), (origin_table, df_month_origin)],
+        )
+        inserted = inserted_counts[table]
         elapsed = time.time() - t0
-        logger.info(f"[完成] {table:<28} +{inserted:>12,} 行  耗时 {elapsed:.1f}s")
+        logger.info(
+            f"[完成] {table} +{inserted_counts[table]:,} 行; "
+            f"{origin_table} +{inserted_counts[origin_table]:,} 行; 耗时 {elapsed:.1f}s"
+        )
         return inserted
 
     # ====================================================
@@ -2287,7 +2312,8 @@ class CNDataDown:
             df_day: 日线 DataFrame(必须含 ts_code, trade_date, open, high, low, close, vol, amount)
             freq: 'weekly' (ISO 周) / 'monthly' (自然月)
         """
-        df = df_day.copy()
+        # first/last 必须建立在明确的交易日顺序上。
+        df = df_day.sort_values(["ts_code", "trade_date"]).reset_index(drop=True).copy()
 
         # 标记分组键
         if freq == "monthly":

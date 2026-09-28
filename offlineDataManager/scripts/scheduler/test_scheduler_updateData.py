@@ -31,5 +31,40 @@ def test_full_update_refreshes_trade_calendar_before_reading_target(monkeypatch)
             "service_tradecal",
             ["--trade-date", scheduler.datetime.now().strftime("%Y%m%d")],
             True,
-        )
+        ),
+        ("service_fifteenMinute", [], True),
+        ("service_oneMinute", [], True),
+    ]
+
+
+def test_full_update_runs_daily_adj_week_month_in_dependency_order(monkeypatch):
+    calls = []
+
+    def fake_spawn(service_name, extra_args=None, sync=False, abort_on_failure=True):
+        calls.append(service_name)
+        return 0
+
+    monkeypatch.setattr(scheduler, "spawn_service", fake_spawn)
+    monkeypatch.setattr(
+        scheduler,
+        "get_target_date",
+        lambda: scheduler.datetime.now().strftime("%Y%m%d"),
+    )
+
+    scheduler.task_full_update()
+
+    dependency_chain = [
+        service
+        for service in calls
+        if service in {
+            "service_daily", "service_adj_factor", "service_oneMinute",
+            "service_week", "service_month",
+        }
+    ]
+    assert dependency_chain == [
+        "service_daily",
+        "service_adj_factor",
+        "service_oneMinute",
+        "service_week",
+        "service_month",
     ]

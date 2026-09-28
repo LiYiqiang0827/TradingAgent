@@ -1,11 +1,11 @@
 # 代码详细设计/service_month.md
 
-`scripts/service/service_month.py` — A 股月 K 重算 service(**派生表,全量覆盖**)。
+`scripts/service/service_month.py` — A 股月 K 重算 service，同时生成前复权和原始不复权表。
 
 ## 职责
 
 1. **强校验**(复用 `service_week.check_daily_adj_consistency`)
-2. 调 `down.update_month()`(无日期参数,全量重算)
+2. 调 `down.update_month()`，原子覆盖 `tbl_cn_month` 和 `tbl_cn_month_origin`
 3. 写日志到 `logs/service_month.log`
 
 ## 入口
@@ -67,14 +67,16 @@ down.update_month()
   ↓
 读 tbl_cn_day + tbl_cn_adj_factor 全表
   ↓
-merge + qfq 计算
+未复权日线直接聚合 → tbl_cn_month_origin
+同时 merge + qfq 计算
   ↓
 过滤 open>0 & close>0
   ↓
 _aggregate_daily_to_freq(df_day, freq="monthly")
   _group = trade_date[:6]  # YYYYMM
   ↓
-replace_table(conn_basic, df_month, "tbl_cn_month")
+replace_tables(conn_basic, [("tbl_cn_month", df_month),
+                            ("tbl_cn_month_origin", df_month_origin)])
   ↓
 return inserted
 ```
@@ -82,6 +84,7 @@ return inserted
 ## 注意事项
 
 - **`update_month` 跟 `update_week` 区别只在 `freq="monthly"` vs `freq="weekly"`**
+- 前复权表和 origin 表使用同一个事务，全成功或全回滚
 - **聚合粒度**:monthly 按 YYYYMM 自然月,weekly 按 ISO year-week
 - **trade_date**:monthly 是月内最后交易日,weekly 是周内最后交易日
 - **`check_daily_adj_consistency` 不能并行调用**:`service_week` / `service_month` 必须串行(已在 scheduler 第 3 阶段顺序)

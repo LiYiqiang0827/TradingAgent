@@ -95,6 +95,7 @@ STAGES = [
         [
             ("service_daily", ["--trade-date", "20260915"]),    # 日 K(单日)
             ("service_adj_factor", ["--end-date", "20260915"]), # 复权因子(增量)
+            ("service_oneMinute", []),                           # TDX 1分钟(依赖日线股票集和复权因子)
             ("service_week", []),                               # 周 K(从 ctrl + adj_factor 派生)
             ("service_month", []),                              # 月 K
         ],
@@ -103,6 +104,7 @@ STAGES = [
         "阶段 2 — 衍生数据(需要日 K)",
         [
             ("service_daily_basic", []),    # 每日指标
+            ("service_fifteenMinute", []),  # TDX → 本机全市场15分钟DuckDB
             ("service_moneyflow", []),      # 资金流向
             ("service_stk_limit", []),      # 涨跌停价格
             ("service_suspend", []),        # 停复牌

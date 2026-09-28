@@ -1,0 +1,4 @@
+interface:
+  display_name: "A股K线结构分析"
+  short_description: "多周期静态阅读并用五套理论推演A股未来条件路径"
+  default_prompt: "使用 $a-share-kline-structure-analysis 分析指定A股截至某日的月周日K线结构，画出支撑压力，并推演五条未来K线与均线路径、周期、权重和失效条件。"

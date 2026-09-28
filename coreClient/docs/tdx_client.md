@@ -1,6 +1,7 @@
 # tdx_client.md
 
-> **版本**:v1.1(2026-09-19 更新:buyorsell 字段权威定义 + seqId 字段语义变更)
+> **版本**:v1.2(2026-09-26 新增:原生历史15分钟OHLC + 专用服务器failover)
+> **v1.1**(2026-09-19 更新:buyorsell 字段权威定义 + seqId 字段语义变更)
 > **v1.0**(2026-09-15 新增)
 > **文件路径**:`~/TradingAgent/coreClient/tdx_client.py`
 > **配置**:`~/TradingAgent/coreClient/tdx_config.py`
@@ -30,6 +31,7 @@
 |---|---|---|
 | `get_security_quotes`(5档盘口) | **最多 80 只/次**(超限截断) | 80 只 = 15-25ms |
 | `get_minute_time_data`(1分钟K) | **1 只/次**(无批量) | 1 只 = 13ms(~70 票/秒串行) |
+| `get_security_bars`(历史15分钟OHLC) | **800 根/页、1只/次** | 约50个交易日/页 |
 | 指数 5档 | **80 只/次** | 4 指数 = 20ms |
 | `get_history_transaction_data`(分笔) | 2000 笔/页 | 自动分页(逆序拼接 + 保险排序) |
 
@@ -213,7 +215,49 @@ data_timestamp str   "2026-09-13T01:25:15.847" (毫秒,2026-09-15 改造)
 
 ---
 
-### 3.5 历史分笔成交(ticks)
+#### `download_one_minute(ts_code, trade_date=None, start_date=None, end_date=None, max_pages=40) -> list[dict]`
+
+离线完整OHLC数据库专用入口。调用
+`get_security_bars(KLINE_TYPE_1MIN, ...)`按800根分页，返回：
+
+`ts_code / trade_date / datetime / time_idx / open / high / low / close / vol / amount`
+
+标准时段为09:31—11:30、13:01—15:00，共240根，`time_idx=0..239`；
+价格不复权，成交量单位为股，成交额单位为元。服务端历史深度没有协议保证，
+2026-09-26在三台历史服务器实测最近约24,000根，即100个交易日。
+
+该接口不同于`get_history_minute()`：后者只有每分钟价格和成交量，不能提供完整
+OHLC；完整1分钟Parquet的TDX替换和日更必须使用`download_one_minute()`。
+
+---
+
+### 3.5 历史15分钟OHLC
+
+离线数据库下载入口使用`download_fifteen_minute()`；它与
+`get_history_15min()`返回相同字段和时间口径，仅用于明确区分“联网下载”与
+“数据库查询”。
+
+#### `get_history_15min(ts_code, trade_date=None, start_date=None, end_date=None, max_pages=20) -> list[dict]`
+
+调用 pytdx 原生 `get_security_bars(KLINE_TYPE_15MIN, ...)`，按800根一页向历史
+翻页。`trade_date` 与日期范围互斥；不传日期时返回最近一页。
+
+```python
+client = TdxClient()
+rows = client.get_history_15min("000001.SZ", trade_date=20260924)
+# 16根：09:45、10:00……11:30、13:15……15:00
+```
+
+返回字段：`ts_code / trade_date / datetime / time_idx / open / high / low /
+close / vol / amount`。价格是不复权口径，`vol`单位为股，`amount`单位为元。
+09:45第一根包含09:30集合竞价。
+
+旧行情IP可能能连接但返回空K线。第一页为空时，客户端会自动切换到
+`TDX_HISTORY_BAR_IP_POOL`中经过实测的历史K线服务器。服务端保留深度没有协议
+保证；2026-09-26对平安银行实测最早到2024-09-04，调用方必须检查是否覆盖请求
+起点。
+
+### 3.6 历史分笔成交(ticks)
 
 #### `get_history_ticks(ts_code: str, date: int, max_pages=TDX_TICKS_MAX_PAGES) -> list[dict]`
 
@@ -260,7 +304,7 @@ buyorsell            int    0=买盘 / 1=卖盘 / 2=中性或撮合 / 5=未知(�
 
 ---
 
-### 3.6 涨停/炸板判断
+### 3.7 涨停/炸板判断
 
 #### `is_sealed(quote: dict) -> bool`
 
@@ -284,7 +328,7 @@ if is_broken_seal(quote):
 
 ---
 
-### 3.7 数据时间戳打:`_stamp_data_timestamp(items, *, field="orderbook_timestamp") -> list`
+### 3.8 数据时间戳打:`_stamp_data_timestamp(items, *, field="orderbook_timestamp") -> list`
 
 给 pytdx 返回的每条数据打上数据时间戳(unix 秒 float + ISO 字符串)。
 
@@ -327,7 +371,19 @@ bars = client.get_minute_kline("000006.SZ")
 print(f"已走 {len(bars)} 分钟,最新一根: {bars[-1]['datetime']} price={bars[-1]['price']}")
 ```
 
-### 4.4 历史 ticks(分笔成交)
+### 4.4 历史15分钟OHLC
+
+```python
+from coreClient.tdx_client import TdxClient
+
+client = TdxClient()
+bars = client.get_history_15min(
+    "000001.SZ", start_date="2026-09-01", end_date="2026-09-24"
+)
+client.disconnect()
+```
+
+### 4.5 历史 ticks(分笔成交)
 
 ```python
 ticks = client.get_history_ticks("000006.SZ", date=20260512)
@@ -336,7 +392,7 @@ print(f"首笔: {ticks[0]['datetime']} {ticks[0]['price']}")
 print(f"末笔: {ticks[-1]['datetime']} {ticks[-1]['price']}")
 ```
 
-### 4.5 4 大指数 5档
+### 4.6 4 大指数 5档
 
 ```python
 from coreClient.tdx_client import INDEX_CODES
@@ -345,7 +401,7 @@ for q in quotes:
     print(q["code"], q["price"], q["vol"])
 ```
 
-### 4.6 涨停/炸板判断
+### 4.7 涨停/炸板判断
 
 ```python
 quote = client.get_orderbook([(0, "000006")])[0]

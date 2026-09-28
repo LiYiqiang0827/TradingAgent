@@ -1,12 +1,12 @@
 """
-service_month.py - A 股月 K 线更新(从日 K 前复权数据聚合,覆盖更新)
+service_month.py - A 股月 K 线更新(同时生成前复权与原始表)
 
 用法:
-  python3 service_month.py  # 默认从本地 tbl_cn_day + tbl_cn_adj_factor 一次性生成全部月 K
+  python3 service_month.py  # 全量生成 tbl_cn_month + tbl_cn_month_origin
 
 注意:
   - 周月 K 是派生数据,不需要日期参数
-  - 每次运行会先清空原表,再重新插入(覆盖更新)
+  - 每次运行会原子覆盖前复权表和原始不复权表
   - **强依赖**:tbl_cn_day 和 tbl_cn_adj_factor 必须已更新完毕
   - 启动时会校验 tbl_ctrl 里 cn_daily 和 cn_adj_factor 的日期是否一致
     且都是最近已收盘交易日,否则中止(避免用过期的 day/adj_factor 算前复权)
@@ -40,7 +40,7 @@ def main():
 
         # 月 K 不传日期参数,一次性全量生成(覆盖更新)
         n = down.update_month()
-        logger.info(f"[service_month] 完成(全量): +{n:,} 行, 用时 {time.time()-t0:.1f}s")
+        logger.info(f"[service_month] 完成(前复权+原始全量): 各 +{n:,} 行, 用时 {time.time()-t0:.1f}s")
         return 0
     except Exception as e:
         logger.error(f"[service_month] 失败: {e}", exc_info=True)

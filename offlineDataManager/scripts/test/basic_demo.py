@@ -96,6 +96,10 @@ print(df.to_string(index=False))
 df = get_week(ts_code='002579.SZ', start_date='20240901', end_date='20241031')
 print(f"\n2.2 2024/9-10 区间:rows={len(df)}")
 
+# 2.3 原始不复权周 K
+df = get_week(ts_code='002579.SZ', start_date='20240901', end_date='20241031', qfq=False)
+print(f"\n2.3 原始不复权周K:rows={len(df)}")
+
 
 # ============================================================================
 # 3. get_month:月 K (已前复权,trade_date 是该月最后交易日)
@@ -108,6 +112,9 @@ print(df.to_string(index=False))
 
 df = get_month(ts_code='002579.SZ', start_date='20240101', end_date='20240630')
 print(f"\n3.2 2024 H1 区间:rows={len(df)}")
+
+df = get_month(ts_code='002579.SZ', start_date='20240101', end_date='20240630', qfq=False)
+print(f"\n3.3 原始不复权月K:rows={len(df)}")
 
 
 # ============================================================================

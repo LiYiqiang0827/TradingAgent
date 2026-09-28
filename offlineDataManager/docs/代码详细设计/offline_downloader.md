@@ -64,8 +64,8 @@ INDEX_CODES_HERE: List[str] = [
 | 8 | `update_cctv_news(start_date)` | tbl_cctv_news | tushare pro.cctv_news | 按日期循环,每天一次 | upsert(无 md5 字段) | `tbl_news_ctrl[cctv_news]` | tbl_news_ctrl |
 | 9 | `update_daily(start_date, end_date)` | tbl_cn_day | tushare pro.daily | 按日期循环,每天 OFFSET 分页 | upsert | `cn_daily` | tbl_basic_ctrl |
 | 10 | `update_adj_factor(start_date, end_date)` | tbl_cn_adj_factor | tushare pro.adj_factor | 按日期循环,每天 OFFSET 分页 | upsert | `cn_adj_factor` | tbl_basic_ctrl |
-| 11 | `update_week(start_date, end_date)` | tbl_cn_week | **本地派生**(day × adj_factor) | 一次性全量 | **replace_table**(事务) | 无(全量覆盖) | — |
-| 12 | `update_month(start_date, end_date)` | tbl_cn_month | **本地派生**(day × adj_factor) | 一次性全量 | **replace_table**(事务) | 无(全量覆盖) | — |
+| 11 | `update_week(start_date, end_date)` | tbl_cn_week + tbl_cn_week_origin | **本地派生**(day及day × adj_factor) | 一次性全量 | **replace_tables**(成对原子覆盖) | 无(全量覆盖) | — |
+| 12 | `update_month(start_date, end_date)` | tbl_cn_month + tbl_cn_month_origin | **本地派生**(day及day × adj_factor) | 一次性全量 | **replace_tables**(成对原子覆盖) | 无(全量覆盖) | — |
 | 13 | `update_stk_limit(start_date, end_date)` | tbl_cn_stk_limit | tushare pro.stk_limit | 按日期循环,每天 1 次 | upsert(主键 trade_date+ts_code) | `cn_stk_limit` | tbl_basic_ctrl |
 | 14 | `update_suspend(start_date, end_date)` | tbl_cn_suspend | tushare pro.suspend_d | 按月循环(实测范围参数有效) | upsert(主键 trade_date+ts_code) | `cn_suspend` | tbl_basic_ctrl |
 | 16 | `update_top_list(start_date, end_date)` | tbl_cn_top_list | tushare pro.top_list | 按日循环(必填 trade_date) | upsert(主键 trade_date+ts_code) | `cn_top_list` | tbl_basic_ctrl |
@@ -151,11 +151,11 @@ def _aggregate_daily_to_freq(self, df_day, freq="weekly"):
 ### 1. 不复权写入(写入侧),前复权计算(读取侧)
 - `update_daily` 写入的是 tushare pro.daily 返回的原始 OHLCV
 - tushare pro.daily 接口**不支持复权参数**(官方明确"未复权行情")
-- 前复权只在 `update_week` / `update_month` 派生时计算(也不写入日表)
+- `update_week` / `update_month` 同时生成前复权表和原始不复权 origin 表
 - 好处:原始数据可追溯,任意时刻根据 adj_factor 重算
 
 ### 2. 派生表覆盖更新
-`update_week` / `update_month` 走 `replace_table`(DELETE + INSERT 事务化),**覆盖整张表**。
+`update_week` / `update_month` 走 `replace_tables`,同一频率的前复权表和 origin 表在一个事务中成对覆盖。
 
 ### 3. 断点推进规则
 - 必须在 `if inserted > 0:` 之后才 `update_ctrl` 或 `last_success_date = td`

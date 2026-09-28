@@ -155,6 +155,13 @@ def task_full_update():
         logger.error(f"[完整更新] 交易日历刷新失败,中止: {e}")
         return
 
+    # 15分钟不依赖当日复权因子即可先下载；1分钟在daily/adj_factor完成后执行，
+    # 以便TDX原始OHLC落盘时同时写入当日准确复权因子。
+    try:
+        spawn_service("service_fifteenMinute", [], sync=True)
+    except RuntimeError as e:
+        logger.error(f"[完整更新] fifteenMin增量失败(继续其他更新): {e}")
+
     target = get_target_date()
     # 周末、节假日及盘前可能只需确认上一个交易日已完成。
     # 避免在没有新交易日时重复执行周月全量聚合与大量历史 API 调用。
@@ -163,6 +170,10 @@ def task_full_update():
             daily_ctrl = get_ctrl(conn, "cn_daily")
             adj_ctrl = get_ctrl(conn, "cn_adj_factor")
             if daily_ctrl and adj_ctrl and daily_ctrl >= target and adj_ctrl >= target:
+                try:
+                    spawn_service("service_oneMinute", [], sync=True)
+                except RuntimeError as e:
+                    logger.error(f"[完整更新] oneMin补跑失败(继续跳过其他重复更新): {e}")
                 logger.info(f"[完整更新] 最近交易日 {target} 已完成日线与复权，跳过非交易时段重复更新")
                 return
     logger.info("=" * 60)
@@ -186,6 +197,11 @@ def task_full_update():
         logger.error(f"[完整更新] daily/adj_factor 失败,中止: {e}")
         return
 
+    try:
+        spawn_service("service_oneMinute", [], sync=True)
+    except RuntimeError as e:
+        logger.error(f"[完整更新] oneMin增量失败(继续其他更新): {e}")
+
     # === 第 3 阶段:周月 K ===
     # service_week / service_month 内部会校验 ctrl 一致性,失败时 rc=2 返回
     try:
@@ -195,11 +211,23 @@ def task_full_update():
         logger.error(f"[完整更新] 周月 K 失败: {e}")
         return
 
-    # === 第 4 阶段:kpl 数据和 news(独立) ===
+    # === 第 4 阶段:先完成 KPL 主事实，再增量刷新题材知识库 ===
     for svc, args in [
         ("service_kpl_list", ["--trade-date", target]),
         ("service_kpl_concept_cons", ["--trade-date", target]),
         ("service_kpl_limit_performance", ["--trade-date", target]),  # 兜底补 kpl_list 滞后
+    ]:
+        try:
+            spawn_service(svc, args, sync=True)
+        except RuntimeError as e:
+            logger.error(f"[完整更新] {svc} 失败(继续下一项): {e}")
+    try:
+        spawn_service("service_theme_graph", ["--mode", "incremental"], sync=True)
+    except RuntimeError as e:
+        logger.error(f"[完整更新] 题材知识库增量失败(继续其他更新): {e}")
+
+    # 其他相互独立的数据服务不会阻塞题材图谱刷新。
+    for svc, args in [
         ("service_stk_limit", []),  # 涨跌停价,跟 kpl_list 一样需要早上更新
         ("service_suspend", []),  # 停复牌,断点增量(按月批量,2026-09-15 新增)
         ("service_top_list", []),  # 龙虎榜每日活跃(2026-09-15 新增,按日循环 ~1400 次)
@@ -255,6 +283,13 @@ def task_morning_update():
         except RuntimeError as e:
             logger.error(f"[早上更新] {svc} 失败,中止: {e}")
             return
+
+    # 晚间 KPL 如有修订，内容哈希会触发对应日期替换；无变化时本步骤
+    # 只扫描七天回看窗口并直接跳过。
+    try:
+        spawn_service("service_theme_graph", ["--mode", "incremental"], sync=True)
+    except RuntimeError as e:
+        logger.error(f"[早上更新] 题材知识库增量失败(继续): {e}")
 
     logger.info(f"[早上更新] 全部完成,总用时 {time.time()-t0:.1f}s")
 

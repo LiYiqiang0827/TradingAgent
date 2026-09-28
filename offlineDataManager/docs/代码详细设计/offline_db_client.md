@@ -8,7 +8,7 @@
 
 1. **多 DB 管理**:`init_db` / `get_conn`(`DB_PATHS` 字典 + `SCHEMA_SQLS` 字典映射)
 2. **通用 upsert**:`upsert_df(conn, df, table, key_cols)`
-3. **覆盖更新(事务化)**:`replace_table(conn, df, table)`(DELETE + INSERT 在 BEGIN/COMMIT 里)
+3. **覆盖更新(事务化)**:`replace_table` 单表覆盖；`replace_tables` 多表原子覆盖
 4. **基础工具**:`snap_ts()` / `_norm_date_yyyymmdd` / `_norm_datetime_string` / `_norm_to_list`
 5. **ctrl 断点 helper**:`get_ctrl` / `update_ctrl` / `_get_news_ctrl_value` / `_update_news_ctrl_value`
 6. **状态查询**:`show_status` / `_show_status_one`(遍历 3 DB 各表)
@@ -75,7 +75,7 @@ def get_ctrl(conn, key) -> Optional[str]:
     """读 db_cn_basic.db:tbl_basic_ctrl 的 max_date"""
 
 def update_ctrl(conn, key, max_date):
-    """INSERT OR REPLACE 推进断点"""
+    """INSERT OR REPLACE 推进断点，只前进不后退"""
 
 def _get_news_ctrl_value(conn, src) -> Optional[str]:
     """读 db_cn_news.db:tbl_news_ctrl 的 max_date"""
@@ -105,8 +105,8 @@ def _show_status_one(db_path, db_name=None): ...  # 单 DB
 | 函数 | 表 | 默认 | 主要参数 |
 |---|---|---|---|
 | `get_day` | `tbl_cn_day` | `qfq=True` | ts_code/ts_codes, start_date, end_date, trade_date, qfq, columns, conn |
-| `get_week` | `tbl_cn_week` | — | 同上,无 qfq(已前复权) |
-| `get_month` | `tbl_cn_month` | — | 同上 |
+| `get_week` | `tbl_cn_week` / `tbl_cn_week_origin` | `qfq=True` | ts_code/ts_codes,日期,qfq,columns,conn |
+| `get_month` | `tbl_cn_month` / `tbl_cn_month_origin` | `qfq=True` | 同上 |
 | `get_tradecal` | `tbl_cn_tradecal` | `market='SSE'`, `is_open=True` | start_date, end_date, trade_date, day_num, market, is_open, columns, conn |
 | `get_basic` | `tbl_cn_basic` | 全 None | exchange, market, list_status(白名单校验), columns, conn |
 | `get_adj_factor` | `tbl_cn_adj_factor` | — | ts_code/ts_codes, start_date, end_date, trade_date, columns, conn |

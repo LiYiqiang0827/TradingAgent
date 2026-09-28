@@ -5,7 +5,7 @@ data_provider.py — 统一数据接入层(2026-09-17 新增)
   - AI agent(尤其 policyStudy 研究代码)只需要懂这一套接口
   - source="database"(默认):本地 db,缺失自动 fallback 到 online
   - source="online":强制走实时 api
-  - 16 个接口,1:1 镜像 offline_db_client 签名,只加 source 参数
+  - 统一提供本地数据库、Parquet和在线数据接口
 
 用法:
   from coreClient.data_provider import get_minute, get_day, get_kpl_limit_performance
@@ -17,12 +17,13 @@ data_provider.py — 统一数据接入层(2026-09-17 新增)
   # db 有 → 读前复权日 K;db 没有 → 自动 tushare 拉
 
 接口清单:
-  分钟 / 分笔:  get_minute / get_minute_index / get_ticks
-  日线:        get_day (qfq 默认 True) / get_week / get_month
+  分钟 / 分笔:  get_oneMin / get_fifteenMin(全市场完整OHLC) / get_minute(旧分时价) / get_minute_index / get_ticks
+  日线:        get_day / get_week / get_month (qfq 默认 True)
   基础:        get_basic / get_adj_factor / get_stk_limit / get_daily_basic / get_moneyflow
   指数:        get_index_basic / get_index_daily
   日历:        get_tradecal
   KPL:         get_kpl_list / get_kpl_concept_cons / get_kpl_limit_performance
+  题材知识库:  get_theme_profile / get_theme_members / get_theme_daily / get_theme_analyses / get_theme_taxonomy / get_stock_theme_history
   新闻:        get_news
 """
 from __future__ import annotations
@@ -434,6 +435,66 @@ def _route(source: str, db_func, online_func, *args, **kwargs) -> pd.DataFrame:
 # ============================================================================
 # 分钟 / 分笔 / 指数分钟(都走 tdx)
 # ============================================================================
+def get_fifteenMin(
+    ts_code: Optional[str] = None,
+    ts_codes: Optional[list] = None,
+    trade_date: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    columns: Optional[list] = None,
+    data_root: Optional[Union[str, Path]] = None,
+) -> pd.DataFrame:
+    """读取TDX原生全市场15分钟OHLC DuckDB数据。
+
+    主库为 ``offlineDataManager/data/db_fifteenMinute.db``。该接口不再读取
+    原淘宝CSV转换库，也不在线回退；下载和增量更新由
+    ``service_fifteenMinute.py``负责。
+    """
+    from offlineDataManager.scripts.core.offline_db_client import get_fifteen_min
+
+    return get_fifteen_min(
+        ts_code=ts_code,
+        ts_codes=ts_codes,
+        trade_date=trade_date,
+        start_date=start_date,
+        end_date=end_date,
+        columns=columns,
+        data_root=data_root,
+    )
+
+
+def get_oneMin(
+    ts_code: Optional[str] = None,
+    ts_codes: Optional[list] = None,
+    trade_date: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    columns: Optional[list] = None,
+    data_root: Optional[Union[str, Path]] = None,
+) -> pd.DataFrame:
+    """读取全市场完整1分钟OHLC Parquet数据。
+
+    这是独立于 ``get_minute`` / ``policy_minute.db`` 的接口，不读取旧SQLite，
+    也不进行在线回退。支持全市场单日、单股/多股单日和股票日期范围查询。
+
+    返回字段默认包括::
+
+        ts_code, name, trade_date, datetime, time_idx,
+        open, high, low, close, vol, amount, adj_factor
+    """
+    from offlineDataManager.scripts.core.one_min_store import get_one_min
+
+    return get_one_min(
+        ts_code=ts_code,
+        ts_codes=ts_codes,
+        trade_date=trade_date,
+        start_date=start_date,
+        end_date=end_date,
+        columns=columns,
+        root=data_root,
+    )
+
+
 def get_minute(
     ts_code: Optional[str] = None,
     ts_codes: Optional[list] = None,
@@ -643,9 +704,10 @@ def get_week(
     ts_codes: Optional[list] = None,
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
+    qfq: bool = True,
     source: str = "database",
 ) -> pd.DataFrame:
-    """周 K
+    """周 K；qfq=True 读前复权表，False 读原始不复权表。
 
     ⚠️ online 模式不支持(tushare.weekly 需高积分,本项目未启用)
        - source='online' → 直接返回空 DataFrame
@@ -654,7 +716,13 @@ def get_week(
     from offlineDataManager.scripts.core.offline_db_client import get_week as _db_get_week
 
     def _db():
-        return _db_get_week(ts_code=ts_code, ts_codes=ts_codes, start_date=start_date, end_date=end_date)
+        return _db_get_week(
+            ts_code=ts_code,
+            ts_codes=ts_codes,
+            start_date=start_date,
+            end_date=end_date,
+            qfq=qfq,
+        )
 
     def _online():
         # online 模式不支持(用户明确要求)
@@ -669,9 +737,10 @@ def get_month(
     ts_codes: Optional[list] = None,
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
+    qfq: bool = True,
     source: str = "database",
 ) -> pd.DataFrame:
-    """月 K
+    """月 K；qfq=True 读前复权表，False 读原始不复权表。
 
     ⚠️ online 模式不支持(tushare.monthly 需高积分,本项目未启用)
        - source='online' → 直接返回空 DataFrame
@@ -680,7 +749,13 @@ def get_month(
     from offlineDataManager.scripts.core.offline_db_client import get_month as _db_get_month
 
     def _db():
-        return _db_get_month(ts_code=ts_code, ts_codes=ts_codes, start_date=start_date, end_date=end_date)
+        return _db_get_month(
+            ts_code=ts_code,
+            ts_codes=ts_codes,
+            start_date=start_date,
+            end_date=end_date,
+            qfq=qfq,
+        )
 
     def _online():
         # online 模式不支持(用户明确要求)
@@ -1918,3 +1993,69 @@ def get_cctv_news(
         return pd.DataFrame()
 
     return _route(source, _db, _online)
+
+
+# ============================================================================
+# 题材时序知识库（DuckDB 派生层；事实源仍为 KPL）
+# ============================================================================
+def _theme_store():
+    from core.theme_graph_store import ThemeGraphStore
+    return ThemeGraphStore()
+
+
+def get_theme_profile(
+    theme_id: Optional[str] = None,
+    name: Optional[str] = None,
+    as_of: Optional[str] = None,
+) -> dict:
+    """返回题材身份、截至 ``as_of`` 的最近热度与历史周期。
+
+    ``name`` 会经题材别名表解析为稳定 ``theme_id``；历史查询不会读取
+    ``as_of`` 之后的每日热度记录。
+    """
+    return _theme_store().query_theme_profile(theme_id=theme_id, name=name, as_of=as_of)
+
+
+def get_theme_members(
+    theme_id: str,
+    as_of: Optional[str] = None,
+    historical: bool = False,
+) -> pd.DataFrame:
+    """查询题材截至指定时点的实际主归因涨停股；historical 返回逐次事件。"""
+    return _theme_store().query_theme_members(theme_id=theme_id, as_of=as_of, historical=historical)
+
+
+def get_theme_daily(
+    theme_id: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+) -> pd.DataFrame:
+    """查询程序化题材日度宽度、高度、热度与生命周期候选状态。"""
+    return _theme_store().query_theme_daily(theme_id=theme_id, start_date=start_date, end_date=end_date)
+
+
+def get_stock_theme_history(ts_code: str) -> pd.DataFrame:
+    """返回个股历史涨停事件与当日主/辅题材归因。"""
+    return _theme_store().query_stock_theme_history(ts_code=ts_code)
+
+
+def get_theme_analyses(
+    theme_id: Optional[str] = None,
+    name: Optional[str] = None,
+    episode_id: Optional[str] = None,
+    latest: bool = True,
+) -> pd.DataFrame:
+    """返回已沉淀的题材周期归因、证据、审计状态和模型版本。
+
+    后续研究应先调用此接口复用已有成果；只有新周期、数据修订或已有
+    ``unresolved`` 明确指出证据缺口时才重新检索新闻。默认每个周期、
+    每类分析只返回最新版本。
+    """
+    return _theme_store().query_theme_analyses(
+        theme_id=theme_id, name=name, episode_id=episode_id, latest=latest,
+    )
+
+
+def get_theme_taxonomy(level1_name: Optional[str] = None) -> pd.DataFrame:
+    """返回一级/二级题材映射；可按一级题材名称筛选。"""
+    return _theme_store().query_theme_taxonomy(level1_name=level1_name)

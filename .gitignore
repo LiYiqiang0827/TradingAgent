@@ -11,6 +11,12 @@
 # ============================================
 **/data/
 **/logs/
+*.db
+*.duckdb
+*.sqlite
+*.sqlite3
+*.jpg
+*.jpeg
 
 # ============================================
 # Python 缓存
@@ -27,6 +33,7 @@ build/
 .pytest_cache/
 .venv/
 .runtime/
+node_modules/
 
 # ============================================
 # 系统文件
@@ -74,3 +81,16 @@ Thumbs.db
 
 # Market review runtime artifacts (snapshots, reports, acceptance files)
 review_runs/
+
+# Plot runtime artifacts
+plot/tmp_savepic/*
+!plot/tmp_savepic/.gitkeep
+policyStudy/policy/题材涨停研究/savepic/*
+!policyStudy/policy/题材涨停研究/savepic/.gitkeep
+
+# Local generated research and build artifacts
+/outputs/
+/.codex-*/
+policyStudy/policy/题材涨停研究/research/
+policyStudy/policy/题材涨停研究/presentations/
+policyStudy/policy/题材涨停研究/watchlist/*.csv

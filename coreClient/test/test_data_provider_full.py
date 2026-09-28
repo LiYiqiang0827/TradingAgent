@@ -131,8 +131,8 @@ EXPECTED_INTERFACES = {
     'get_minute_index':          ['ts_code', 'ts_codes', 'trade_date', 'start_date', 'end_date', 'source'],
     'get_ticks':                 ['ts_code', 'ts_codes', 'trade_date', 'start_date', 'end_date', 'source'],
     'get_day':                   ['ts_code', 'ts_codes', 'start_date', 'end_date', 'trade_date', 'qfq', 'source'],
-    'get_week':                  ['ts_code', 'ts_codes', 'start_date', 'end_date', 'source'],
-    'get_month':                 ['ts_code', 'ts_codes', 'start_date', 'end_date', 'source'],
+    'get_week':                  ['ts_code', 'ts_codes', 'start_date', 'end_date', 'qfq', 'source'],
+    'get_month':                 ['ts_code', 'ts_codes', 'start_date', 'end_date', 'qfq', 'source'],
     'get_basic':                 ['exchange', 'market', 'list_status', 'source'],
     'get_adj_factor':            ['ts_code', 'ts_codes', 'start_date', 'end_date', 'source'],
     'get_stk_limit':             ['ts_code', 'ts_codes', 'trade_date', 'start_date', 'end_date', 'source'],
@@ -144,7 +144,8 @@ EXPECTED_INTERFACES = {
     'get_kpl_list':              ['trade_date', 'start_date', 'end_date', 'tags', 'source'],
     'get_kpl_concept_cons':      ['trade_date', 'start_date', 'end_date', 'ts_code', 'ts_codes', 'source'],
     'get_kpl_limit_performance': ['trade_date', 'start_date', 'end_date', 'sort_by', 'source'],
-    'get_news':                  ['src', 'start_date', 'end_date', 'source'],
+    'get_news':                  ['src', 'start_date', 'end_date',
+                                  'start_datetime', 'end_datetime', 'limit', 'offset', 'source'],
 }
 
 import inspect

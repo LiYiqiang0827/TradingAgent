@@ -165,6 +165,63 @@ def replace_table(conn: sqlite3.Connection, df, table: str):
     return cur.rowcount
 
 
+def replace_tables(conn: sqlite3.Connection, table_frames) -> dict:
+    """Atomically replace several tables with their respective DataFrames.
+
+    This is used by paired derived tables such as adjusted/original weekly and
+    monthly K-lines.  Either every table is replaced, or the transaction rolls
+    back all of them.
+
+    Args:
+        conn: SQLite connection.
+        table_frames: Ordered iterable of ``(table_name, dataframe)`` pairs.
+
+    Returns:
+        ``{table_name: inserted_row_count}``.
+
+    Raises:
+        ValueError: A DataFrame is empty or has no columns matching the table.
+    """
+    prepared = []
+    for table, df in table_frames:
+        if df is None or len(df) == 0:
+            raise ValueError(f"replace_tables 不允许空数据: {table}")
+        table_cols = {
+            row[1] for row in conn.execute(f"PRAGMA table_info({table})").fetchall()
+        }
+        if not table_cols:
+            raise ValueError(f"replace_tables 目标表不存在: {table}")
+        valid_cols = [column for column in df.columns if column in table_cols]
+        if not valid_cols:
+            raise ValueError(f"replace_tables 没有可写列: {table}")
+        prepared.append((table, df[valid_cols], valid_cols))
+
+    inserted_counts = {}
+    try:
+        conn.execute("BEGIN")
+        for table, df, valid_cols in prepared:
+            conn.execute(f"DELETE FROM {table}")
+            placeholders = ",".join(["?"] * len(valid_cols))
+            col_list = ",".join(f"`{column}`" for column in valid_cols)
+            sql = f"INSERT INTO {table} ({col_list}) VALUES ({placeholders})"
+            rows = [
+                tuple(
+                    "" if value is None else
+                    (value.isoformat() if hasattr(value, "isoformat") else value)
+                    for value in row
+                )
+                for row in df.itertuples(index=False, name=None)
+            ]
+            cursor = conn.executemany(sql, rows)
+            inserted_counts[table] = cursor.rowcount
+            del rows
+        conn.execute("COMMIT")
+    except Exception:
+        conn.execute("ROLLBACK")
+        raise
+    return inserted_counts
+
+
 def clear_table(conn: sqlite3.Connection, table: str) -> int:
     """清空一张表的所有行(只 DELETE,不 INSERT)
 
@@ -197,10 +254,17 @@ def get_ctrl(conn: sqlite3.Connection, key: str) -> Optional[str]:
 
 
 def update_ctrl(conn: sqlite3.Connection, key: str, max_date: str):
-    """更新断点(已拉到 max_date)"""
+    """更新断点(只前进不后退)。
+
+    历史缺口修复会调用单日下载服务；如果直接覆盖，可能把已经更新到今天的
+    ctrl 倒退到历史日期，进而阻断周/月线生成。因此保留现有值与候选值中
+    字典序较大的一个。项目使用 YYYYMMDD 或 ISO 时间戳，两者都可按字符串排序。
+    """
+    current = get_ctrl(conn, key)
+    effective_max = max(str(current), str(max_date)) if current else str(max_date)
     conn.execute(
         "INSERT OR REPLACE INTO tbl_basic_ctrl (key, max_date, updated_at) VALUES (?, ?, ?)",
-        (key, max_date, snap_ts())
+        (key, effective_max, snap_ts())
     )
     conn.commit()
 
@@ -670,10 +734,14 @@ def get_tscode_calendar(
 
 
 # ============================================================
-# 周月 K 通用读取(week / month)
+# 周月 K 通用读取(前复权 / 原始不复权)
 # ============================================================
 WEEK_TABLE = "tbl_cn_week"
 MONTH_TABLE = "tbl_cn_month"
+WEEK_ORIGIN_TABLE = "tbl_cn_week_origin"
+MONTH_ORIGIN_TABLE = "tbl_cn_month_origin"
+WEEK_TABLES = {WEEK_TABLE, WEEK_ORIGIN_TABLE}
+MONTH_TABLES = {MONTH_TABLE, MONTH_ORIGIN_TABLE}
 FREQ_TABLE_COLS = ["ts_code", "trade_date", "open", "high", "low", "close",
                    "pre_close", "change", "pct_chg", "vol", "amount"]
 
@@ -698,10 +766,9 @@ def _get_freq(
     columns: Optional[List[str]] = None,
     conn: Optional[sqlite3.Connection] = None,
 ) -> pd.DataFrame:
-    """周/月 K 通用读取,供 get_week / get_month 调用
+    """周/月 K 通用读取,供前复权和原始接口调用
 
-    数据源:db_cn_basic.db / tbl_cn_week 或 tbl_cn_month
-    重要:周月 K 入库时**已前复权**,接口不再提供不复权选项
+    数据源:db_cn_basic.db 的周/月前复权表或 origin 表。
 
     过滤条件(可组合;trade_date 优先于 start/end_date):
       - ts_code:    单只股票
@@ -746,7 +813,7 @@ def _get_freq(
         # 日期条件:trade_date 优先 — week 按 ISO 年周,month 按年月 bucket
         if trade_date is not None:
             td = _norm_date_yyyymmdd(trade_date)
-            if td and table == MONTH_TABLE:
+            if td and table in MONTH_TABLES:
                 # month:用 YYYYMM bucket,SQL 直接过滤
                 wheres.append("substr(trade_date, 1, 6) = ?")
                 params.append(_ym(td))
@@ -770,7 +837,7 @@ def _get_freq(
             return pd.DataFrame(columns=select_cols)
 
         # week + trade_date:Python 端按 ISO year/week 过滤
-        if trade_date is not None and table == WEEK_TABLE:
+        if trade_date is not None and table in WEEK_TABLES:
             td = _norm_date_yyyymmdd(trade_date)
             target_iso = _iso_year_week(td)
             ts_series = pd.to_datetime(df["trade_date"].astype(str), format="%Y%m%d")
@@ -796,12 +863,13 @@ def get_week(
     start_date: Optional[Union[str, datetime]] = None,
     end_date: Optional[Union[str, datetime]] = None,
     trade_date: Optional[Union[str, datetime]] = None,
+    qfq: bool = True,
     columns: Optional[List[str]] = None,
     conn: Optional[sqlite3.Connection] = None,
 ) -> pd.DataFrame:
-    """读周 K(已是前复权)
+    """读周 K,默认前复权;``qfq=False`` 读取原始不复权表。
 
-    数据源:db_cn_basic.db / tbl_cn_week
+    数据源:db_cn_basic.db / tbl_cn_week 或 tbl_cn_week_origin
     周聚合规则(对照 offline_downloader._aggregate_daily_to_freq freq='weekly'):
       - trade_date = 该周最后交易日(YYYYMMDD),ISO 周聚合
       - open = 周内第一日 open, close = 周内最后一日 close
@@ -811,6 +879,7 @@ def get_week(
       - ts_code / ts_codes: 单股 / 多股
       - start_date + end_date: 区间(按 trade_date)
       - trade_date: 传入某天 → 返回该天**所在 ISO 周**的所有周 K 行(通常 1 行)
+      - qfq: True=tbl_cn_week(默认),False=tbl_cn_week_origin
       - columns: 自定义返回列
       - conn: 可选外部 sqlite3 连接
 
@@ -818,7 +887,7 @@ def get_week(
         pd.DataFrame,按 (ts_code, trade_date) 升序
     """
     return _get_freq(
-        table=WEEK_TABLE,
+        table=WEEK_TABLE if qfq else WEEK_ORIGIN_TABLE,
         ts_code=ts_code, ts_codes=ts_codes,
         start_date=start_date, end_date=end_date, trade_date=trade_date,
         columns=columns, conn=conn,
@@ -831,12 +900,13 @@ def get_month(
     start_date: Optional[Union[str, datetime]] = None,
     end_date: Optional[Union[str, datetime]] = None,
     trade_date: Optional[Union[str, datetime]] = None,
+    qfq: bool = True,
     columns: Optional[List[str]] = None,
     conn: Optional[sqlite3.Connection] = None,
 ) -> pd.DataFrame:
-    """读月 K(已是前复权)
+    """读月 K,默认前复权;``qfq=False`` 读取原始不复权表。
 
-    数据源:db_cn_basic.db / tbl_cn_month
+    数据源:db_cn_basic.db / tbl_cn_month 或 tbl_cn_month_origin
     月聚合规则(对照 offline_downloader._aggregate_daily_to_freq freq='monthly'):
       - trade_date = 该月最后交易日(YYYYMMDD),自然月聚合
       - open = 月内第一日 open, close = 月内最后一日 close
@@ -846,6 +916,7 @@ def get_month(
       - ts_code / ts_codes: 单股 / 多股
       - start_date + end_date: 区间(按 trade_date)
       - trade_date: 传入某天 → 返回该天**所在自然月**的所有月 K 行(1 行)
+      - qfq: True=tbl_cn_month(默认),False=tbl_cn_month_origin
       - columns: 自定义返回列
       - conn: 可选外部 sqlite3 连接
 
@@ -853,11 +924,23 @@ def get_month(
         pd.DataFrame,按 (ts_code, trade_date) 升序
     """
     return _get_freq(
-        table=MONTH_TABLE,
+        table=MONTH_TABLE if qfq else MONTH_ORIGIN_TABLE,
         ts_code=ts_code, ts_codes=ts_codes,
         start_date=start_date, end_date=end_date, trade_date=trade_date,
         columns=columns, conn=conn,
     )
+
+
+def get_week_origin(**kwargs) -> pd.DataFrame:
+    """Convenience wrapper for :func:`get_week` with ``qfq=False``."""
+    kwargs["qfq"] = False
+    return get_week(**kwargs)
+
+
+def get_month_origin(**kwargs) -> pd.DataFrame:
+    """Convenience wrapper for :func:`get_month` with ``qfq=False``."""
+    kwargs["qfq"] = False
+    return get_month(**kwargs)
 
 
 # ============================================================
@@ -3833,6 +3916,147 @@ def count_rows(db_kind: str) -> dict:
         conn.close()
 
 
+# ---------------------------------------------------------------------------
+# TDX全市场15分钟DuckDB
+# ---------------------------------------------------------------------------
+# 15分钟主库使用DuckDB，不能塞进上面的SQLite KIND_SCHEMAS。这里仍由统一的
+# offline_db_client暴露写入/读取接口，上层无需知道实际数据库引擎。
+def init_fifteen_min_db(
+    data_root: Optional[Union[str, Path]] = None,
+) -> Path:
+    from core.tdx_fifteen_min_store import ensure_fifteen_min_schema
+    return ensure_fifteen_min_schema(data_root)
+
+
+def upsert_fifteen_min_rows(
+    rows,
+    *,
+    requested_start,
+    requested_end,
+    name: Optional[str] = None,
+    adj_factors=None,
+    source_host: Optional[str] = None,
+    replace: bool = True,
+    append_only: bool = False,
+    data_root: Optional[Union[str, Path]] = None,
+    connection=None,
+) -> dict:
+    from core.tdx_fifteen_min_store import write_fifteen_min_rows
+    return write_fifteen_min_rows(
+        rows,
+        requested_start=requested_start,
+        requested_end=requested_end,
+        name=name,
+        adj_factors=adj_factors,
+        source_host=source_host,
+        replace=replace,
+        append_only=append_only,
+        root=data_root,
+        connection=connection,
+    )
+
+
+def mark_fifteen_min_status(
+    ts_code: str,
+    requested_start,
+    requested_end,
+    *,
+    status: str,
+    source_host: Optional[str] = None,
+    error: Optional[str] = None,
+    data_root: Optional[Union[str, Path]] = None,
+) -> None:
+    from core.tdx_fifteen_min_store import mark_fifteen_min_sync
+    mark_fifteen_min_sync(
+        ts_code,
+        requested_start,
+        requested_end,
+        status=status,
+        source_host=source_host,
+        error=error,
+        root=data_root,
+    )
+
+
+def get_fifteen_min_status(
+    data_root: Optional[Union[str, Path]] = None,
+) -> pd.DataFrame:
+    from core.tdx_fifteen_min_store import get_fifteen_min_sync
+    return get_fifteen_min_sync(data_root)
+
+
+def get_fifteen_min(
+    ts_code: Optional[str] = None,
+    ts_codes: Optional[Iterable[str]] = None,
+    trade_date: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    columns: Optional[List[str]] = None,
+    data_root: Optional[Union[str, Path]] = None,
+) -> pd.DataFrame:
+    from core.tdx_fifteen_min_store import get_fifteen_min as _get_fifteen_min
+    return _get_fifteen_min(
+        ts_code=ts_code,
+        ts_codes=ts_codes,
+        trade_date=trade_date,
+        start_date=start_date,
+        end_date=end_date,
+        columns=columns,
+        root=data_root,
+    )
+
+
+def get_fifteen_min_stats(
+    data_root: Optional[Union[str, Path]] = None,
+) -> dict:
+    from core.tdx_fifteen_min_store import get_fifteen_min_stats as _stats
+    return _stats(data_root)
+
+
+def optimize_fifteen_min_db(
+    data_root: Optional[Union[str, Path]] = None,
+) -> dict:
+    from core.tdx_fifteen_min_store import optimize_fifteen_min_database
+    return optimize_fifteen_min_database(data_root)
+
+
+class FifteenMinuteWriter:
+    """复用单个DuckDB写连接，避免全市场回补时每只股票重复开关数据库。"""
+
+    def __init__(self, data_root: Optional[Union[str, Path]] = None):
+        import duckdb
+        self.data_root = init_fifteen_min_db(data_root)
+        self.connection = duckdb.connect(str(self.data_root))
+
+    def upsert(self, rows, **kwargs) -> dict:
+        kwargs["data_root"] = self.data_root
+        kwargs["connection"] = self.connection
+        return upsert_fifteen_min_rows(rows, **kwargs)
+
+    def upsert_batch(
+        self, items, *, replace: bool = True, append_only: bool = False,
+    ) -> dict:
+        from core.tdx_fifteen_min_store import write_fifteen_min_batch
+        return write_fifteen_min_batch(
+            items,
+            replace=replace,
+            append_only=append_only,
+            root=self.data_root,
+            connection=self.connection,
+        )
+
+    def close(self) -> None:
+        if self.connection is not None:
+            self.connection.close()
+            self.connection = None
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, traceback):
+        self.close()
+
+
 # PolicyDBClient(类,高级 API)
 class PolicyDBClient:
     """policyStudy 数据库客户端(v3,单表 + ctrl 表)"""
@@ -3852,6 +4076,27 @@ class PolicyDBClient:
             start_date=start_date, end_date=end_date,
             forward=forward, backward=backward,
             order_by="ts_code, trade_date, time_idx",
+        )
+
+    def get_fifteen_min(
+        self,
+        ts_code: Optional[str] = None,
+        ts_codes: Optional[Iterable[str]] = None,
+        trade_date: Optional[str] = None,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        columns: Optional[List[str]] = None,
+        data_root: Optional[Union[str, Path]] = None,
+    ) -> pd.DataFrame:
+        """读取TDX全市场15分钟DuckDB；参数契约与data_provider一致。"""
+        return get_fifteen_min(
+            ts_code=ts_code,
+            ts_codes=ts_codes,
+            trade_date=trade_date,
+            start_date=start_date,
+            end_date=end_date,
+            columns=columns,
+            data_root=data_root,
         )
 
     def get_minute_index(
