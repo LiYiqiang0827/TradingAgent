@@ -42,6 +42,8 @@ from coreClient.data_provider import (
     get_theme_members,
     get_theme_daily,
     get_market_theme_review,
+    get_market_theme_review_series,
+    get_theme_cycle_data,
     get_theme_analyses,
     get_theme_taxonomy,
     get_stock_theme_history,
@@ -52,6 +54,8 @@ from coreClient.data_provider import (
 - `get_theme_members(theme_id, as_of=None, historical=False)`：历史主归因涨停股；`historical=True` 返回逐次事件。
 - `get_theme_daily(theme_id=None, start_date=None, end_date=None)`：日度宽度、高度、热度和阶段。
 - `get_market_theme_review(trade_date=None, top_n=10, leader_count=3)`：指定日题材情绪、热门题材、结构标签和龙一至龙三；为空时取库内最新交易日。
+- `get_market_theme_review_series(start_date=None, end_date=None, top_n=10, leader_count=3)`：批量返回连续交易日的全市场题材复盘序列。
+- `get_theme_cycle_data(theme_id=None, name=None, start_date=None, end_date=None, as_of=None)`：返回单题材周期图所需的完整交易日、日度状态、周期、个股事件、龙头和催化分析。
 - `get_theme_analyses(theme_id=None, name=None, episode_id=None, latest=True)`：归因、证据、审计和模型版本。
 - `get_theme_taxonomy(level1_name=None)`：一级、二级题材映射。
 - `get_stock_theme_history(ts_code)`：个股历史主、辅助题材归因。

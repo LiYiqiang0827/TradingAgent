@@ -21,7 +21,7 @@ import duckdb
 import pandas as pd
 
 from config.settings import DB_PATH_KPL, THEME_GRAPH_DB_PATH
-from core.theme_daily_review import build_market_theme_reviews
+from core.theme_daily_review import _leader_rows, build_market_theme_reviews
 
 
 GRAPH_SCHEMA_VERSION = "1.0.0"
@@ -906,25 +906,28 @@ class ThemeGraphStore:
         conn = self.connect(read_only=True)
         try:
             return conn.execute(
-                """SELECT d.*, t.canonical_name FROM fact_theme_daily d JOIN dim_theme t USING(theme_id)"""
+                """SELECT d.*,t.canonical_name,COALESCE(x.level1_name,'待归类') AS level1_name
+                   FROM fact_theme_daily d JOIN dim_theme t USING(theme_id)
+                   LEFT JOIN dim_theme_taxonomy x USING(theme_id)"""
                 + where + " ORDER BY d.trade_date, d.heat_score DESC", params).df()
         finally:
             conn.close()
 
-    def query_market_theme_review(self, trade_date: str | None = None, top_n: int = 10,
-                                  leader_count: int = 3) -> dict[str, Any]:
-        """返回指定交易日的题材情绪、热门题材、市场结构与龙头梯队。
-
-        计算只读取 ``trade_date`` 当日及以前的题材日度事实和主归因涨停事件；
-        ST板块、ST摘帽、次新股及其一级分类从统计分母和候选中排除。
-        """
+    def query_market_theme_review_series(
+        self,
+        start_date: str | None = None,
+        end_date: str | None = None,
+        top_n: int = 10,
+        leader_count: int = 3,
+    ) -> list[dict[str, Any]]:
+        """批量返回历史可见的每日题材情绪、结构、排名和龙头梯队。"""
         conn = self.connect(read_only=True)
         try:
-            cutoff = compact_date(trade_date) if trade_date else conn.execute(
+            cutoff = compact_date(end_date) if end_date else conn.execute(
                 "SELECT MAX(trade_date) FROM fact_theme_daily"
             ).fetchone()[0]
             if not cutoff:
-                return {}
+                return []
             daily = conn.execute(
                 """SELECT d.*,t.canonical_name,
                           COALESCE(x.level1_name,'待归类') AS level1_name
@@ -946,18 +949,278 @@ class ThemeGraphStore:
                    ORDER BY e.trade_date,e.ts_code,r.theme_id""",
                 [cutoff],
             ).df()
+            breadth = conn.execute(
+                """SELECT e.trade_date,
+                          COUNT(DISTINCT CASE WHEN e.tag='涨停' THEN e.event_id END) AS market_limit_up_count,
+                          COUNT(DISTINCT CASE WHEN e.tag='炸板' THEN e.event_id END) AS market_break_count,
+                          MAX(CASE WHEN e.tag='涨停' THEN e.board_height END) AS market_max_board_height
+                   FROM fact_limit_event e
+                   JOIN rel_limit_theme r USING(event_id)
+                   JOIN dim_theme t USING(theme_id)
+                   LEFT JOIN dim_theme_taxonomy x USING(theme_id)
+                   WHERE e.trade_date<=?
+                     AND ((e.tag='涨停' AND r.attribution_role='primary') OR e.tag='炸板')
+                     AND t.canonical_name NOT IN ('ST板块','ST摘帽','次新股')
+                     AND COALESCE(x.level1_name,'待归类')<>'ST与次新'
+                   GROUP BY e.trade_date ORDER BY e.trade_date""",
+                [cutoff],
+            ).df()
         finally:
             conn.close()
-        result = build_market_theme_reviews(
+        reviews = build_market_theme_reviews(
             daily,
             events,
             top_n=max(1, int(top_n)),
             leader_count=max(1, min(3, int(leader_count))),
-        ).get(str(cutoff), {})
-        if result:
-            result["available"] = True
-            result["source"] = "db_theme_graph.duckdb / KPL primary limit-up attribution"
+        )
+        breadth_by_date = {
+            str(row.trade_date): row for row in breadth.itertuples(index=False)
+        }
+        lower = compact_date(start_date) if start_date else None
+        result: list[dict[str, Any]] = []
+        for trade_date in sorted(reviews):
+            if lower and trade_date < lower:
+                continue
+            item = reviews[trade_date]
+            market = breadth_by_date.get(trade_date)
+            if market is not None:
+                limit_count = int(market.market_limit_up_count or 0)
+                break_count = int(market.market_break_count or 0)
+                item["market_breadth"] = {
+                    "limit_up_count": limit_count,
+                    "break_count": break_count,
+                    "seal_rate": round(limit_count / (limit_count + break_count), 4)
+                    if limit_count + break_count else None,
+                    "max_board_height": int(market.market_max_board_height or 0),
+                }
+            item["available"] = True
+            item["source"] = "db_theme_graph.duckdb / KPL primary limit-up attribution"
+            result.append(item)
         return result
+
+    def query_market_theme_review(self, trade_date: str | None = None, top_n: int = 10,
+                                  leader_count: int = 3) -> dict[str, Any]:
+        """返回指定交易日的题材情绪、热门题材、市场结构与龙头梯队。"""
+        if trade_date:
+            result = self.query_market_theme_review_series(
+                start_date=trade_date,
+                end_date=trade_date,
+                top_n=top_n,
+                leader_count=leader_count,
+            )
+        else:
+            result = self.query_market_theme_review_series(
+                top_n=top_n,
+                leader_count=leader_count,
+            )
+        return result[-1] if result else {}
+
+    def query_theme_cycle_data(
+        self,
+        theme_id: str | None = None,
+        name: str | None = None,
+        start_date: str | None = None,
+        end_date: str | None = None,
+        as_of: str | None = None,
+    ) -> dict[str, Any]:
+        """返回单题材周期图所需的日度、周期、个股事件和催化分析。
+
+        ``as_of`` 存在时按历史可见模式截断行情，并过滤当时尚未生成的模型
+        分析；否则为完整研究模式，可显示事后确认的周期边界和归因。
+        """
+        conn = self.connect(read_only=True)
+        try:
+            if not theme_id:
+                if not name:
+                    raise ValueError("theme_id 和 name 至少传一个")
+                row = conn.execute(
+                    """SELECT theme_id FROM theme_alias WHERE alias=?
+                       ORDER BY confidence DESC,last_seen_at DESC LIMIT 1""",
+                    [name],
+                ).fetchone()
+                if not row:
+                    return {}
+                theme_id = str(row[0])
+            theme = conn.execute(
+                """SELECT t.theme_id,t.canonical_name,t.first_seen_date,t.last_seen_date,
+                          COALESCE(x.level1_name,'待归类') AS level1_name
+                   FROM dim_theme t LEFT JOIN dim_theme_taxonomy x USING(theme_id)
+                   WHERE t.theme_id=?""",
+                [theme_id],
+            ).df()
+            if theme.empty:
+                return {}
+            latest = conn.execute(
+                "SELECT MAX(trade_date) FROM source_day_manifest WHERE source_name=?",
+                [SOURCE_LIST],
+            ).fetchone()[0]
+            if not latest:
+                return {}
+            cutoff = min(
+                value for value in [
+                    compact_date(end_date) if end_date else str(latest),
+                    compact_date(as_of) if as_of else str(latest),
+                    str(latest),
+                ] if value
+            )
+            lower = compact_date(start_date) if start_date else conn.execute(
+                "SELECT MIN(trade_date) FROM source_day_manifest WHERE source_name=? AND trade_date<=?",
+                [SOURCE_LIST, cutoff],
+            ).fetchone()[0]
+            if not lower or lower > cutoff:
+                raise ValueError("开始日期不能晚于截止日期")
+            market_dates_all = [
+                str(row[0]) for row in conn.execute(
+                    """SELECT trade_date FROM source_day_manifest
+                       WHERE source_name=? AND trade_date<=? ORDER BY trade_date""",
+                    [SOURCE_LIST, cutoff],
+                ).fetchall()
+            ]
+            market_dates = [value for value in market_dates_all if value >= lower]
+            daily_history = conn.execute(
+                """SELECT * FROM fact_theme_daily
+                   WHERE theme_id=? AND trade_date<=? ORDER BY trade_date""",
+                [theme_id, cutoff],
+            ).df()
+            ranked = conn.execute(
+                """WITH eligible AS (
+                     SELECT d.trade_date,d.theme_id,d.heat_score,d.limit_up_count,t.canonical_name,
+                            ROW_NUMBER() OVER (
+                              PARTITION BY d.trade_date
+                              ORDER BY d.heat_score DESC,d.limit_up_count DESC,t.canonical_name,d.theme_id
+                            ) AS market_rank,
+                            COUNT(*) OVER (PARTITION BY d.trade_date) AS market_theme_count,
+                            SUM(d.limit_up_count) OVER (PARTITION BY d.trade_date) AS market_limit_up_count
+                     FROM fact_theme_daily d JOIN dim_theme t USING(theme_id)
+                     LEFT JOIN dim_theme_taxonomy x USING(theme_id)
+                     WHERE d.trade_date<=? AND d.limit_up_count>0
+                       AND t.canonical_name NOT IN ('ST板块','ST摘帽','次新股')
+                       AND COALESCE(x.level1_name,'待归类')<>'ST与次新'
+                       AND EXISTS (SELECT 1 FROM rel_limit_theme r
+                                   WHERE r.theme_id=d.theme_id AND r.attribution_role='primary')
+                   )
+                   SELECT trade_date,market_rank,market_theme_count,market_limit_up_count,
+                          limit_up_count/NULLIF(market_limit_up_count,0) AS limit_up_share
+                   FROM eligible WHERE theme_id=? ORDER BY trade_date""",
+                [cutoff, theme_id],
+            ).df()
+            calendar = pd.DataFrame({"trade_date": market_dates})
+            selected_daily = daily_history[
+                daily_history["trade_date"].astype(str).between(lower, cutoff)
+            ].copy()
+            daily = calendar.merge(selected_daily, on="trade_date", how="left").merge(
+                ranked, on="trade_date", how="left"
+            )
+            daily["data_status"] = daily["theme_id"].map(
+                lambda value: "active" if pd.notna(value) else "complete_zero_activity"
+            )
+            zero_columns = [
+                "limit_up_count", "break_count", "max_board_height", "first_board_count",
+                "multi_board_count", "ladder_points", "early_limit_share", "persistence_5",
+                "heat_score", "heat_percentile_120", "limit_up_share",
+            ]
+            for column in zero_columns:
+                daily[column] = pd.to_numeric(daily[column], errors="coerce").fillna(0)
+            daily["lifecycle_state"] = daily["lifecycle_state"].fillna("沉寂")
+            daily["theme_id"] = daily["theme_id"].fillna(theme_id)
+            events = conn.execute(
+                """SELECT * EXCLUDE(rn) FROM (
+                     SELECT e.event_id,e.trade_date,e.ts_code,e.name,e.tag,e.status_raw,
+                            e.board_height,e.lu_time,e.limit_order,e.lu_limit_order,e.bid_amount,
+                            e.amount,e.free_float,r.attribution_role,r.source_label,
+                            ROW_NUMBER() OVER (PARTITION BY e.event_id ORDER BY r.attribution_role) AS rn
+                     FROM fact_limit_event e JOIN rel_limit_theme r USING(event_id)
+                     WHERE r.theme_id=? AND e.trade_date BETWEEN ? AND ?
+                       AND ((e.tag='涨停' AND r.attribution_role='primary') OR e.tag='炸板')
+                   ) WHERE rn=1 ORDER BY trade_date,tag,board_height DESC NULLS LAST,ts_code""",
+                [theme_id, lower, cutoff],
+            ).df()
+            all_limits = conn.execute(
+                """SELECT trade_date,ts_code FROM fact_limit_event
+                   WHERE tag='涨停' AND trade_date<=? ORDER BY trade_date,ts_code""",
+                [cutoff],
+            ).df()
+            date_index = {date: index for index, date in enumerate(market_dates_all)}
+            stock_date_indices: dict[str, list[int]] = {}
+            for code, part in all_limits.groupby("ts_code"):
+                stock_date_indices[str(code)] = sorted({
+                    date_index[str(value)] for value in part["trade_date"]
+                    if str(value) in date_index
+                })
+            leader_records: list[dict[str, Any]] = []
+            if not events.empty:
+                for trade_date, part in events[events["tag"] == "涨停"].groupby("trade_date"):
+                    for leader in _leader_rows(
+                        part.assign(attribution_role="primary"),
+                        stock_date_indices,
+                        date_index,
+                        3,
+                    ):
+                        leader_records.append({"trade_date": str(trade_date), **leader})
+            leaders = pd.DataFrame(leader_records)
+
+            if as_of:
+                episode_records = []
+                for episode_id, part in daily_history.groupby("episode_id", dropna=True, sort=True):
+                    part = part.sort_values("trade_date")
+                    last_active = str(part.iloc[-1]["trade_date"])
+                    if last_active < lower:
+                        continue
+                    peak = part.sort_values(
+                        ["heat_score", "trade_date"], ascending=[False, True]
+                    ).iloc[0]
+                    gap = date_index.get(cutoff, len(market_dates_all) - 1) - date_index.get(last_active, 0)
+                    episode_records.append({
+                        "episode_id": episode_id,
+                        "theme_id": theme_id,
+                        "start_date": str(part.iloc[0]["trade_date"]),
+                        "last_active_date": last_active,
+                        "end_date": last_active if gap > 2 else None,
+                        "status": "closed_as_of" if gap > 2 else "active_as_of",
+                        "peak_date": str(peak["trade_date"]),
+                        "peak_heat": float(peak["heat_score"]),
+                        "peak_breadth": int(part["limit_up_count"].max()),
+                        "active_sessions": int(len(part)),
+                        "computed_as_of": cutoff,
+                    })
+                episodes = pd.DataFrame(episode_records)
+            else:
+                episodes = conn.execute(
+                    """SELECT * FROM fact_theme_episode
+                       WHERE theme_id=? AND start_date<=? AND last_active_date>=?
+                       ORDER BY start_date""",
+                    [theme_id, cutoff, lower],
+                ).df()
+        finally:
+            conn.close()
+
+        analyses = self.query_theme_analyses(theme_id=theme_id, latest=True)
+        if not analyses.empty:
+            analyses = analyses[analyses["entity_id"].isin(set(episodes.get("episode_id", [])))].copy()
+            if as_of:
+                analyses = analyses[
+                    pd.to_datetime(analyses["created_at"], errors="coerce")
+                    <= pd.Timestamp(cutoff) + pd.Timedelta(days=1)
+                ].copy()
+        market_reviews = self.query_market_theme_review_series(
+            start_date=lower,
+            end_date=cutoff,
+            top_n=3,
+            leader_count=1,
+        )
+        return {
+            "profile": theme.iloc[0].to_dict(),
+            "start_date": lower,
+            "end_date": cutoff,
+            "as_of": compact_date(as_of) if as_of else None,
+            "mode": "as_of" if as_of else "retrospective",
+            "daily": daily,
+            "episodes": episodes,
+            "events": events,
+            "leaders": leaders,
+            "analyses": analyses,
+            "market_reviews": market_reviews,
+        }
 
     def query_theme_members(self, theme_id: str, as_of: str | None = None,
                             historical: bool = False) -> pd.DataFrame:

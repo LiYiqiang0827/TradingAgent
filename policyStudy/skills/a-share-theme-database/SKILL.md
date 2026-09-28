@@ -1,6 +1,6 @@
 ---
 name: a-share-theme-database
-description: 查询、维护和验证 TradingAgent 的A股题材研究数据库工具，包括KPL涨停题材的历史截面、题材成员、热度周期、每日题材复盘、催化分析、增量回填和Obsidian投影。用于数据库查询、数据修复、历史回填、每日复盘生成、催化成果复用或知识库同步；需要结合新闻和盘中数据作主观研判时使用 a-share-theme-research。
+description: 查询、维护和验证 TradingAgent 的A股题材研究数据库工具，包括KPL涨停题材的历史截面、题材成员、热度周期、每日题材复盘与周期可视化、催化分析、增量回填和Obsidian投影。用于数据库查询、数据修复、历史回填、每日复盘与周期图生成、催化成果复用或知识库同步；需要结合新闻和盘中数据作主观研判时使用 a-share-theme-research。
 ---
 
 # A股题材研究数据库工具
@@ -10,7 +10,7 @@ description: 查询、维护和验证 TradingAgent 的A股题材研究数据库�
 ## 按任务读取
 
 - 查询题材、股票、日度热度或已有归因：读[查询与数据合同](references/database-contract.md)的“查询接口”和“历史时点”。
-- 生成或检查每日题材情绪、热门题材、市场结构、龙一至龙三和每日复盘投影：读[每日题材复盘](references/daily-market-review.md)。
+- 生成或检查每日题材情绪、热门题材、市场结构、龙一至龙三、全市场轮动图、单题材生命周期图和每日复盘投影：读[每日题材复盘](references/daily-market-review.md)。
 - 增量更新、历史回填、指定日修复或故障诊断：读同一参考的“维护流程”和“验收”。
 - 修改表结构、题材分类或 Obsidian 渲染：先读项目主文档 `/Users/nickzhang/TradingAgent/offlineDataManager/docs/题材研究数据库工具.md` 及代码详细设计 `offlineDataManager/docs/代码详细设计/theme_graph.md`。
 

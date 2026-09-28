@@ -3,6 +3,33 @@
 本目录存放可复用的行情与研究画图脚本。所有行情数据统一通过
 `coreClient.data_provider` 获取。
 
+## 题材情绪周期
+
+`plot_market_theme_cycle.py` 一次生成两张全市场图：
+
+- 题材情绪周期：0—100情绪分、前三题材绝对热度、涨停/炸板、封板率、
+  最高板、主线集中度和五类市场结构；
+- 一级题材轮动：5日滚动宽度排名和每日涨停宽度热力图。
+
+```bash
+.venv/bin/python plot/plot_market_theme_cycle.py \
+  --start-date 20260105 --end-date 20260924
+```
+
+`plot_single_theme_cycle.py` 一次生成两张单题材图：
+
+- 生命周期总览：热度、历史百分位、宽度、封板率、梯队、市场排名、涨停份额、
+  生命周期色带和已入库催化；
+- 核心股演化：逐日涨停、炸板、板高度及龙一至龙三。
+
+```bash
+.venv/bin/python plot/plot_single_theme_cycle.py 商业航天 \
+  --start-date 20260401 --end-date 20260731
+```
+
+两类脚本默认保存到 `plot/tmp_savepic/theme_cycle`。增加 `--as-of YYYYMMDD`
+时只展示截止日可见行情，并过滤当时尚未生成的模型分析和事后周期边界。
+
 ## 日 K 线
 
 `plot_daily_kline.py` 从 `offlineDataManager` 的本地数据库读取日线，绘制：

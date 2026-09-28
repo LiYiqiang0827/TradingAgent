@@ -23,7 +23,9 @@ data_provider.py — 统一数据接入层(2026-09-17 新增)
   指数:        get_index_basic / get_index_daily
   日历:        get_tradecal
   KPL:         get_kpl_list / get_kpl_concept_cons / get_kpl_limit_performance
-  题材知识库:  get_theme_profile / get_theme_members / get_theme_daily / get_market_theme_review / get_theme_analyses / get_theme_taxonomy / get_stock_theme_history
+  题材知识库:  get_theme_profile / get_theme_members / get_theme_daily / get_market_theme_review
+                get_market_theme_review_series / get_theme_cycle_data / get_theme_analyses
+                get_theme_taxonomy / get_stock_theme_history
   新闻:        get_news
 """
 from __future__ import annotations
@@ -2048,6 +2050,38 @@ def get_market_theme_review(
         trade_date=trade_date,
         top_n=top_n,
         leader_count=leader_count,
+    )
+
+
+def get_market_theme_review_series(
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    top_n: int = 10,
+    leader_count: int = 3,
+) -> list[dict]:
+    """批量返回历史可见的全市场题材情绪、结构、排名和龙头序列。"""
+    return _theme_store().query_market_theme_review_series(
+        start_date=start_date,
+        end_date=end_date,
+        top_n=top_n,
+        leader_count=leader_count,
+    )
+
+
+def get_theme_cycle_data(
+    theme_id: Optional[str] = None,
+    name: Optional[str] = None,
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    as_of: Optional[str] = None,
+) -> dict:
+    """返回单题材周期图使用的日度、周期、个股事件、龙头和催化数据。"""
+    return _theme_store().query_theme_cycle_data(
+        theme_id=theme_id,
+        name=name,
+        start_date=start_date,
+        end_date=end_date,
+        as_of=as_of,
     )
 
 

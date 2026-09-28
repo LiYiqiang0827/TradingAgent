@@ -72,6 +72,17 @@ def test_build_is_idempotent_and_temporal(tmp_path: Path):
     assert review["hot_themes"][0]["theme"] == "测试题材"
     assert review["hot_themes"][0]["leaders"][0]["title"] == "龙一"
     assert review["hot_themes"][0]["leaders"][0]["ts_code"] == "000001.SZ"
+    review_series = store.query_market_theme_review_series("20260105", "20260107")
+    assert [item["trade_date"] for item in review_series] == ["20260105", "20260106", "20260107"]
+    assert review_series[-1]["market_breadth"]["limit_up_count"] == 1
+    cycle = store.query_theme_cycle_data(
+        name="测试题材", start_date="20260105", end_date="20260107", as_of="20260107"
+    )
+    assert cycle["mode"] == "as_of"
+    assert cycle["daily"]["trade_date"].tolist() == ["20260105", "20260106", "20260107"]
+    assert set(cycle["events"]["ts_code"]) == {"000001.SZ", "000002.SZ", "000003.SZ"}
+    assert cycle["leaders"].iloc[0]["title"] == "龙一"
+    assert cycle["analyses"].empty
     second = store.build("20260105", "20260107")
     assert second["changed_list_dates"] == 0
     conn = duckdb.connect(str(graph), read_only=True)

@@ -53,6 +53,33 @@ review = get_market_theme_review("20260924", top_n=10, leader_count=3)
 
 人工入口只在不存在时创建，后续渲染不得覆盖人工研究内容。无数据变化时再次渲染应为幂等，验收时报告 `files_written`、`files_unchanged` 和错误。
 
+## 周期图
+
+连续区间查询使用：
+
+```python
+from coreClient.data_provider import get_market_theme_review_series, get_theme_cycle_data
+
+market = get_market_theme_review_series("20260105", "20260924")
+theme = get_theme_cycle_data(name="商业航天", start_date="20260401", end_date="20260731")
+```
+
+全市场图：
+
+```bash
+.venv/bin/python plot/plot_market_theme_cycle.py \
+  --start-date 20260105 --end-date 20260924
+```
+
+单题材图：
+
+```bash
+.venv/bin/python plot/plot_single_theme_cycle.py 商业航天 \
+  --start-date 20260401 --end-date 20260731
+```
+
+全市场输出情绪周期和一级题材轮动两张图；单题材输出生命周期和核心股演化两张图。默认保存到 `plot/tmp_savepic/theme_cycle`。历史回放传 `--as-of`，不得在历史可见图中绘制截止日之后生成的模型归因或最终周期边界。
+
 ## 验证
 
 基础测试：
