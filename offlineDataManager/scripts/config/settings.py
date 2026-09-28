@@ -37,6 +37,15 @@ THEME_VAULT_ROOT = Path(
 # db_cn_news.db:新闻数据
 DB_PATH_NEWS = DATA_DIR / "db_cn_news.db"
 
+# Major News 事件清洗库（DuckDB）。每日新闻分析只使用 tbl_major_news；
+# 原始新闻继续保存在 db_cn_news.db，该库只保存可重建的派生结果。
+NEWS_EVENT_DB_PATH = Path(
+    os.environ.get(
+        "TRADING_AGENT_NEWS_EVENT_DB_PATH",
+        str(DATA_DIR / "db_major_news_events.duckdb"),
+    )
+)
+
 # db_cn_index.db:指数数据(2026-09-15 新增,用户要求单独数据库)
 DB_PATH_INDEX = DATA_DIR / "db_cn_index.db"
 

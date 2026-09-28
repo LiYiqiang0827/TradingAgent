@@ -864,6 +864,17 @@ class CNDataDown:
                 df = self.client.pro.cctv_news(date=td)
                 if df is not None and len(df) > 0:
                     df["datetime"] = td  # 用 date 作 datetime
+                    # Tushare cctv_news 不返回 md5。SQLite 组合主键允许 NULL，过去
+                    # 因而会把同一天相同节目重复写入。这里补稳定主键并统一来源。
+                    from core.news_event_store import stable_cctv_md5
+                    if "src" not in df.columns:
+                        df["src"] = "cctv"
+                    else:
+                        df["src"] = df["src"].fillna("cctv").replace("", "cctv")
+                    df["md5"] = df.apply(
+                        lambda row: stable_cctv_md5(td, row.get("title"), row.get("content")),
+                        axis=1,
+                    )
                     df["snap_ts"] = snap_ts()
                     # 写入 db_cn_news.db
                     inserted = upsert_df(self.conn_news, df, table, key_cols=["datetime", "md5"])

@@ -1997,6 +1997,105 @@ def get_cctv_news(
     return _route(source, _db, _online)
 
 
+def get_news_events(
+    start_date: str,
+    end_date: str,
+    *,
+    include_excluded: bool = False,
+    limit: Optional[int] = None,
+) -> pd.DataFrame:
+    """读取去重后的 Major News 事件，默认排除纯A股行情结果稿。"""
+    from offlineDataManager.scripts.core.news_event_store import NewsEventStore
+
+    return NewsEventStore().query_events(
+        start_date=start_date,
+        end_date=end_date,
+        include_excluded=include_excluded,
+        limit=limit,
+    )
+
+
+def get_news_event_daily_stats(start_date: str, end_date: str) -> pd.DataFrame:
+    """读取 Major News 清洗层的每日原始量、事件量、有效量和压缩率。"""
+    from offlineDataManager.scripts.core.news_event_store import NewsEventStore
+
+    return NewsEventStore().query_daily_stats(start_date, end_date)
+
+
+def get_news_insights(
+    start_date: str,
+    end_date: str,
+    *,
+    min_importance: int = 0,
+    include_dropped: bool = False,
+    limit: Optional[int] = None,
+) -> pd.DataFrame:
+    """读取 LLM 提炼后的有效 Major News 及其类别、摘要、关键事实和相关题材。"""
+    from offlineDataManager.scripts.core.news_event_store import NewsEventStore
+
+    return NewsEventStore().query_insights(
+        start_date=start_date,
+        end_date=end_date,
+        min_importance=min_importance,
+        include_dropped=include_dropped,
+        limit=limit,
+    )
+
+
+def get_news_llm_daily_stats(start_date: str, end_date: str) -> pd.DataFrame:
+    """读取每日确定性清洗事件数、LLM已处理数和LLM有效新闻数。"""
+    from offlineDataManager.scripts.core.news_event_store import NewsEventStore
+
+    return NewsEventStore().query_llm_daily_stats(start_date, end_date)
+
+
+def get_major_news_analysis(
+    start_date: str,
+    end_date: str,
+    *,
+    theme_id: Optional[str] = None,
+    theme_label: Optional[str] = None,
+    entity: Optional[str] = None,
+    keyword: Optional[str] = None,
+    market_impact: Optional[str] = None,
+    min_importance: int = 0,
+) -> pd.DataFrame:
+    """查询正式归档的 Major News 评分、评级和深度提炼结果。"""
+    from offlineDataManager.scripts.core.major_news_graph_store import MajorNewsGraphStore
+
+    return MajorNewsGraphStore().query_analysis(
+        start_date, end_date, theme_id=theme_id,
+        theme_label=theme_label, entity=entity, keyword=keyword,
+        market_impact=market_impact, min_importance=min_importance,
+    )
+
+
+def get_major_news_theme_edges(
+    start_date: str,
+    end_date: str,
+    *,
+    theme_id: Optional[str] = None,
+) -> pd.DataFrame:
+    """查询新闻到题材的候选关系，保留未匹配标签和审计状态。"""
+    from offlineDataManager.scripts.core.major_news_graph_store import MajorNewsGraphStore
+
+    return MajorNewsGraphStore().query_theme_edges(start_date, end_date, theme_id=theme_id)
+
+
+def get_major_news_daily_summary(start_date: str, end_date: str) -> pd.DataFrame:
+    """读取 Major News 每日归档量、评级分布与输入版本。"""
+    from offlineDataManager.scripts.core.major_news_graph_store import MajorNewsGraphStore
+
+    return MajorNewsGraphStore().query_daily_summary(start_date, end_date)
+
+
+def get_major_news_event_graph(semantic_event_id: str, *, as_of: Optional[str] = None) -> dict:
+    """从新闻语义事件回溯规则事件、原始报道、题材和实体关系。"""
+    from offlineDataManager.scripts.core.major_news_graph_store import MajorNewsGraphStore
+
+    return MajorNewsGraphStore().query_event_graph(semantic_event_id, as_of=as_of)
+
+
 # ============================================================================
 # 题材时序知识库（DuckDB 派生层；事实源仍为 KPL）
 # ============================================================================

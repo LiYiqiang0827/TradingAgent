@@ -10,6 +10,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / 'scripts'))
 
 from core.offline_downloader import CNDataDown
+from core.news_event_store import repair_cctv_news
 from loguru import logger
 
 
@@ -19,6 +20,8 @@ def main():
 
     t0 = time.time()
     try:
+        repair = repair_cctv_news()
+        logger.info(f"[service_cctv_news] 历史主键/重复检查: {repair}")
         down = CNDataDown()
         result = down.update_cctv_news()
         logger.info(f"[service_cctv_news] 完成: +{result.get('inserted', 0):,} 行, 用时 {result.get('elapsed', 0):.1f}s")

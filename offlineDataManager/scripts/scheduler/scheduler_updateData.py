@@ -40,6 +40,12 @@ STR_TIME_MORNING = "09:05"  # 早上补:涨跌停价(昨天收盘) + kpl 涨停�
 STR_TIME_KPL_LP_1 = "16:30"  # 收盘后 30 分钟(15:00 A股收盘)
 STR_TIME_KPL_LP_2 = "20:00"  # 晚间再补一次
 
+# 前一自然日新闻在05:00抓取窗口结束后做一次LLM提炼，避免与高频新闻写入竞争。
+STR_TIME_NEWS_LLM = "05:10"
+NEWS_LLM_MODEL = os.environ.get(
+    "THEME_VLLM_MODEL", "/home/sysadmin/data/disk02/jc/models/qwen3.8-27b-fp8"
+)
+
 # News 更新窗口:08:00 - 次日 05:00
 NEWS_START = dtime(8, 0)
 NEWS_END = dtime(5, 0)
@@ -62,7 +68,8 @@ def is_news_window() -> bool:
 
 
 def spawn_service(service_name: str, extra_args: list = None, sync: bool = False,
-                   abort_on_failure: bool = True) -> subprocess.Popen:
+                   abort_on_failure: bool = True,
+                   extra_env: dict[str, str] | None = None) -> subprocess.Popen:
     """启动一个 service 子进程
 
     Args:
@@ -90,6 +97,8 @@ def spawn_service(service_name: str, extra_args: list = None, sync: bool = False
 
     # PYTHONPATH 必须包含 ~/TradingAgent/,这样子进程能 import coreClient.tushare_client
     env = {**os.environ, "PYTHONPATH": str(PROJECT_ROOT.parent) + ":" + os.environ.get("PYTHONPATH", "")}
+    if extra_env:
+        env.update(extra_env)
 
     if sync:
         # 同步模式:等子进程跑完再返回(用于全量更新)
@@ -306,6 +315,21 @@ def task_news_update():
     spawn_service("service_major_news", sync=False)
 
 
+def task_news_llm_update():
+    """05:10生成前一自然日 Major News 分析及 Obsidian 文档。"""
+    target = (datetime.now() - timedelta(days=1)).strftime("%Y%m%d")
+    logger.info(f"[news_llm] 启动 {target} Major News 每日分析")
+    spawn_service(
+        "service_daily_major_news_analysis",
+        ["--trade-date", target],
+        sync=False,
+        extra_env={
+            "THEME_VLLM_TRANSPORT": os.environ.get("THEME_VLLM_TRANSPORT", "ssh"),
+            "THEME_VLLM_MODEL": NEWS_LLM_MODEL,
+        },
+    )
+
+
 def task_kpl_limit_performance():
     """kpl 涨停表现详情(每天 16:30 / 20:00)— 实时补 kpl_list 滞后
 
@@ -333,6 +357,7 @@ def run_daemon():
     logger.info(f"  完整更新: {STR_TIME_FULL_DB_1} / {STR_TIME_FULL_DB_2} / {STR_TIME_FULL_DB_3}")
     logger.info(f"  kpl_limit_performance: {STR_TIME_KPL_LP_1} / {STR_TIME_KPL_LP_2}")
     logger.info(f"  News: 每 {NEWS_INTERVAL_MIN} 分钟 (08:00 - 05:00)")
+    logger.info(f"  News LLM: 每天 {STR_TIME_NEWS_LLM} 分析前一自然日 Major News")
     logger.info("=" * 60)
 
     # 早上快速更新:09:05 只补涨跌停价 + 涨停榜
@@ -348,6 +373,7 @@ def run_daemon():
 
     # News:每 10 分钟
     schedule.every(NEWS_INTERVAL_MIN).minutes.do(task_news_update)
+    schedule.every().day.at(STR_TIME_NEWS_LLM).do(task_news_llm_update)
 
     # 启动时立即跑一次完整更新
     logger.info("[启动] 立即执行一次完整更新...")
