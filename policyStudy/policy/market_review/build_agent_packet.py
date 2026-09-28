@@ -88,6 +88,28 @@ def compact_packet(packet: dict[str, Any], catalysts: list[dict[str, Any]]) -> d
         if row.get("pattern_stage") == "initial_launch" and row.get("themes")
     ][:4]
 
+    theme_review = packet.get("theme_market_review") or {}
+    compact_theme_review = pick(theme_review, [
+        "available", "trade_date", "method_version", "theme_sentiment_score",
+        "theme_sentiment_level", "top3_heat_composite", "history_window_sessions",
+        "structure", "excluded_scope", "point_in_time", "reason",
+    ])
+    compact_theme_review["hot_themes"] = []
+    for theme in theme_review.get("hot_themes", [])[:10]:
+        item = pick(theme, [
+            "rank", "theme_id", "theme", "level1_name", "heat_score", "limit_up_count",
+            "break_count", "max_board_height", "seal_rate", "persistence_5",
+            "lifecycle_state", "previous_rank", "rank_change",
+        ])
+        item["leaders"] = [
+            pick(leader, [
+                "rank", "title", "ts_code", "name", "leader_score", "board_height",
+                "limit_days_20", "limit_time", "roles",
+            ])
+            for leader in theme.get("leaders", [])[:3]
+        ]
+        compact_theme_review["hot_themes"].append(item)
+
     return {
         "task": {
             "trade_date": packet["metadata"]["trade_date"],
@@ -141,6 +163,7 @@ def compact_packet(packet: dict[str, Any], catalysts: list[dict[str, Any]]) -> d
             "previous_2plus_board_outcomes": noteworthy_outcomes,
         },
         "themes": compact_themes,
+        "theme_market_review": compact_theme_review,
         "past_mainline_tracking_raw": past_rows[:8],
         "candidate_pools": {
             "first_pullback_in_progress": [pick(row, candidate_keys) for row in pullback_rows],

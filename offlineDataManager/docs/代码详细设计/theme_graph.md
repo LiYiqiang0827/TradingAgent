@@ -71,13 +71,14 @@
 
 ```python
 from coreClient.data_provider import (
-    get_theme_profile, get_theme_members, get_theme_daily, get_theme_analyses,
+    get_theme_profile, get_theme_members, get_theme_daily, get_market_theme_review, get_theme_analyses,
     get_stock_theme_history,
 )
 
 profile = get_theme_profile(name="机器人", as_of="20260924")
 leaders = get_theme_members(profile["theme_id"], as_of="20260924")
 timeline = get_theme_daily(profile["theme_id"], "20260101", "20260924")
+market_review = get_market_theme_review("20260924")
 analyses = get_theme_analyses(theme_id=profile["theme_id"])
 semiconductor_children = get_theme_taxonomy("半导体")
 stock_history = get_stock_theme_history("000001.SZ")
@@ -106,7 +107,9 @@ cd policyStudy/policy/题材涨停研究/theme_graph
 
 ## Obsidian 投影
 
-默认目录为 `~/Documents/Obsidian Vault/A股题材知识库`，可用 `TRADING_AGENT_THEME_VAULT_ROOT` 修改。`01_题材` 下每个一级题材是一个文件夹，包含一级总览和所属二级题材页；每日复盘中的题材链接会指向对应文件夹。3,330 只历史涨停股暂不批量建档，研究到具体股票时再按需创建；题材周期不建立独立文档，始终作为所属题材页面内的周期表和时间线。周期表直接显示最新大模型归因、审计状态和置信度；表格下保留阶段摘要、催化时间线、市场核心、新闻/行情证据索引及未解决问题。`needs_review` 结果允许进入自动生成区并醒目标注为待复核，但不能冒充人工确认结论。渲染器只在人工文件不存在时创建骨架，后续不会覆盖人工研究内容。
+默认目录为 `~/Documents/Obsidian Vault/A股题材知识库`，可用 `TRADING_AGENT_THEME_VAULT_ROOT` 修改。`01_题材` 下每个一级题材是一个文件夹，包含一级总览和所属二级题材页；每日复盘中的题材链接会指向对应文件夹。`06_每日复盘` 的人工入口嵌入自动生成页；自动页包含截至当日的题材情绪分、主线结构、热门题材前十与龙一至龙三。3,330 只历史涨停股暂不批量建档，研究到具体股票时再按需创建；题材周期不建立独立文档，始终作为所属题材页面内的周期表和时间线。周期表直接显示最新大模型归因、审计状态和置信度；表格下保留阶段摘要、催化时间线、市场核心、新闻/行情证据索引及未解决问题。`needs_review` 结果允许进入自动生成区并醒目标注为待复核，但不能冒充人工确认结论。渲染器只在人工文件不存在时创建骨架，后续不会覆盖人工研究内容。
+
+每日复盘规则位于 `core/theme_daily_review.py`。前三题材热度按50%/30%/20%合成，再按截至当日最近120个交易日的历史百分位映射到0—100；结构分类另看题材宽度集中度、一级题材聚合、封板质量、持续性和前日排名迁移。龙头候选只取当日主归因涨停股，先按板高分层，同板高内再按近20个市场日涨停频次、封板时间、封单/自由流通盘和成交额确定龙一至龙三。ST板块、ST摘帽、次新股及一级分类“ST与次新”全链路排除。
 
 ## 本地模型分工
 

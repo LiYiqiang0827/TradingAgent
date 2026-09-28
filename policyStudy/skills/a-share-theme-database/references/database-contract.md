@@ -41,6 +41,7 @@ from coreClient.data_provider import (
     get_theme_profile,
     get_theme_members,
     get_theme_daily,
+    get_market_theme_review,
     get_theme_analyses,
     get_theme_taxonomy,
     get_stock_theme_history,
@@ -50,6 +51,7 @@ from coreClient.data_provider import (
 - `get_theme_profile(theme_id=None, name=None, as_of=None)`：题材身份、截至时点的最近状态和周期。
 - `get_theme_members(theme_id, as_of=None, historical=False)`：历史主归因涨停股；`historical=True` 返回逐次事件。
 - `get_theme_daily(theme_id=None, start_date=None, end_date=None)`：日度宽度、高度、热度和阶段。
+- `get_market_theme_review(trade_date=None, top_n=10, leader_count=3)`：指定日题材情绪、热门题材、结构标签和龙一至龙三；为空时取库内最新交易日。
 - `get_theme_analyses(theme_id=None, name=None, episode_id=None, latest=True)`：归因、证据、审计和模型版本。
 - `get_theme_taxonomy(level1_name=None)`：一级、二级题材映射。
 - `get_stock_theme_history(ts_code)`：个股历史主、辅助题材归因。
@@ -58,6 +60,7 @@ from coreClient.data_provider import (
 
 - 题材研究指定日期时，`get_theme_profile` 和 `get_theme_members` 必须传 `as_of`。
 - `get_theme_daily` 必须限制 `end_date`。
+- `get_market_theme_review` 在历史研究中必须传 `trade_date`；内部只读取该日及以前事实。
 - 周期的 `end_date` 是事后分段字段；历史判断只使用截至当时可见的日度记录。
 - 模型分析的 `created_at` 晚于历史决策时点时，只能作为事后知识，不得伪装为当时信息。
 
@@ -149,3 +152,11 @@ GROUP BY attribution_role;
 - 自动区与人工研究区都保留；
 - 无数据库变化时二次渲染不应重复写文件；
 - 报告模型完成、数据库写入、Obsidian写入各自数量。
+
+### 每日题材复盘
+
+- 情绪分在0—100，返回日期与请求日期一致；
+- ST板块、ST摘帽、次新股和一级分类ST与次新没有进入统计；
+- 热门题材、结构证据和龙头候选只使用截止日可见事实；
+- 龙一至龙三遵循板高硬优先，同板高内再比较人气、封板、封单和成交；
+- 生成页与接口结果一致；模型盲审一致率只作为规则审计，不报告为真实准确率。

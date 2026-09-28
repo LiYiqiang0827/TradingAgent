@@ -23,7 +23,7 @@ data_provider.py — 统一数据接入层(2026-09-17 新增)
   指数:        get_index_basic / get_index_daily
   日历:        get_tradecal
   KPL:         get_kpl_list / get_kpl_concept_cons / get_kpl_limit_performance
-  题材知识库:  get_theme_profile / get_theme_members / get_theme_daily / get_theme_analyses / get_theme_taxonomy / get_stock_theme_history
+  题材知识库:  get_theme_profile / get_theme_members / get_theme_daily / get_market_theme_review / get_theme_analyses / get_theme_taxonomy / get_stock_theme_history
   新闻:        get_news
 """
 from __future__ import annotations
@@ -2032,6 +2032,23 @@ def get_theme_daily(
 ) -> pd.DataFrame:
     """查询程序化题材日度宽度、高度、热度与生命周期候选状态。"""
     return _theme_store().query_theme_daily(theme_id=theme_id, start_date=start_date, end_date=end_date)
+
+
+def get_market_theme_review(
+    trade_date: Optional[str] = None,
+    top_n: int = 10,
+    leader_count: int = 3,
+) -> dict:
+    """返回每日题材情绪、热门题材排名、主线结构和各题材龙一至龙三。
+
+    ``trade_date`` 为空时读取题材库最新交易日。结果严格按截至该日的可见
+    数据计算，并排除 ST板块、ST摘帽、次新股及其一级分类。
+    """
+    return _theme_store().query_market_theme_review(
+        trade_date=trade_date,
+        top_n=top_n,
+        leader_count=leader_count,
+    )
 
 
 def get_stock_theme_history(ts_code: str) -> pd.DataFrame:

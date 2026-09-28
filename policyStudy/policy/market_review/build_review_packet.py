@@ -31,6 +31,7 @@ from coreClient.data_provider import (  # noqa: E402
     get_kpl_limit_performance,
     get_kpl_list,
     get_limit_list,
+    get_market_theme_review,
     get_stk_limit,
     get_tradecal,
 )
@@ -1001,6 +1002,19 @@ def validate_packet(packet: dict[str, Any]) -> dict[str, Any]:
         expected_touch = theme.get("closed_limit_up_count", 0) / touches if touches else None
         if expected_touch is not None and abs(expected_touch - (theme.get("touch_seal_rate") or 0)) > 1e-12:
             errors.append(f"theme touch-seal rate mismatch: {theme.get('theme')}")
+    theme_review = packet.get("theme_market_review") or {}
+    if theme_review.get("available"):
+        score = theme_review.get("theme_sentiment_score")
+        if score is None or not 0 <= float(score) <= 100:
+            errors.append("theme sentiment score must be in [0, 100]")
+        if str(theme_review.get("trade_date")) != str(packet.get("metadata", {}).get("trade_date")):
+            errors.append("theme market review date does not match packet date")
+        excluded = {"ST板块", "ST摘帽", "次新股"}
+        leaked = sorted(
+            excluded.intersection(str(row.get("theme")) for row in theme_review.get("hot_themes", []))
+        )
+        if leaked:
+            errors.append(f"excluded themes leaked into market review: {','.join(leaked)}")
     if packet.get("data_quality", {}).get("required_missing"):
         errors.append("required current-day sources are missing")
     if not packet.get("data_quality", {}).get("late_break_minute_validated", False):
@@ -1151,6 +1165,20 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
 
     required_names = ["basic", "day_current", "daily_basic_current", "price_limits_current", "limit_current", "performance_current", "concept_current", "index_current"]
     required_missing = [name for name in required_names if frames.get(name, pd.DataFrame()).empty]
+    try:
+        theme_market_review = get_market_theme_review(trade_date=trade_date, top_n=10, leader_count=3)
+        if not theme_market_review:
+            theme_market_review = {
+                "available": False,
+                "trade_date": trade_date,
+                "reason": "题材研究数据库尚无该交易日事实",
+            }
+    except Exception as exc:
+        theme_market_review = {
+            "available": False,
+            "trade_date": trade_date,
+            "reason": f"题材研究数据库读取失败: {type(exc).__name__}: {exc}",
+        }
     packet = {
         "metadata": {
             "packet_version": "MR_PACKET_V1",
@@ -1174,6 +1202,10 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
             "money_flow_language": "observable price/breadth/amount proxies; no authoritative net-flow claim",
             "daily_amount_unit": "get_day amount is thousand CNY; packet market_amount_trillion_cny is the normalized display value",
             "event_amount_unit": "limit/KPL event amount is CNY and is not added to get_day amount without conversion",
+            "theme_sentiment_score": "top-3 theme heat weighted 50%/30%/20%, then as-of percentile-ranked in the trailing 120 trade sessions",
+            "theme_structure": "deterministic classification from current width, sealing quality, concentration, persistence and prior-day rank migration",
+            "theme_leaders": "primary-attribution limit-up candidates ranked by board height, prior-20-session limit recurrence, sealing time, order/free-float and amount",
+            "theme_exclusions": "ST sector, ST removal, recent listings and level-1 ST/recent-listing taxonomy",
         },
         "data_quality": {
             "required_missing": required_missing,
@@ -1196,6 +1228,7 @@ def build(args: argparse.Namespace) -> dict[str, Any]:
         "market": market_summary(current_day, events, frames["index_current"], previous_day),
         "ladder": ladder_summary(events, previous_events, current_day),
         "themes": themes,
+        "theme_market_review": theme_market_review,
         "past_mainline_tracking": past_mainline_tracking(history_rows, themes, trade_date),
         "candidate_cards": candidate_cards(events, themes, overlaps, frames["day_history"], frames["limit_history"], names),
         "agent_instructions": {

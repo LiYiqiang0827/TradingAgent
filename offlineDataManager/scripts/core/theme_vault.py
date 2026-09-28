@@ -11,6 +11,7 @@ import duckdb
 import pandas as pd
 
 from config.settings import THEME_GRAPH_DB_PATH, THEME_VAULT_ROOT
+from core.theme_daily_review import build_market_theme_reviews
 
 
 def _safe_name(value: str) -> str:
@@ -106,8 +107,11 @@ class ThemeVaultRenderer:
                        AND r.attribution_role='primary')
                    ORDER BY t.canonical_name,t.theme_id""").df()
             daily = conn.execute(
-                """SELECT d.*, t.canonical_name FROM fact_theme_daily d
-                   JOIN dim_theme t USING(theme_id) WHERE EXISTS (
+                """SELECT d.*,t.canonical_name,
+                          COALESCE(x.level1_name,'待归类') AS level1_name
+                   FROM fact_theme_daily d
+                   JOIN dim_theme t USING(theme_id)
+                   LEFT JOIN dim_theme_taxonomy x USING(theme_id) WHERE EXISTS (
                      SELECT 1 FROM rel_limit_theme r WHERE r.theme_id=d.theme_id
                        AND r.attribution_role='primary')
                    ORDER BY d.trade_date,d.heat_score DESC,t.canonical_name,d.theme_id""").df()
@@ -120,6 +124,7 @@ class ThemeVaultRenderer:
             aliases = conn.execute("SELECT * FROM theme_alias ORDER BY alias").df()
             stock_events = conn.execute(
                 """SELECT e.trade_date,e.ts_code,e.name,e.tag,e.status_raw,e.board_height,
+                          e.lu_time,e.limit_order,e.lu_limit_order,e.bid_amount,e.amount,e.free_float,
                           r.theme_id,t.canonical_name,r.attribution_role
                    FROM fact_limit_event e JOIN rel_limit_theme r USING(event_id)
                    JOIN dim_theme t USING(theme_id)""").df()
@@ -143,6 +148,7 @@ class ThemeVaultRenderer:
 
         theme_files = {row.theme_id: f"{_safe_name(row.level1_name)}/{_safe_name(row.canonical_name)}__{_safe_name(row.theme_id)}"
                        for row in themes.itertuples(index=False)}
+        daily_reviews = build_market_theme_reviews(daily, stock_events, top_n=10, leader_count=3)
         self._render_home(themes, daily, episodes, theme_files)
         for level1_name, part in themes.groupby("level1_name", sort=True):
             folder = self.root / "01_题材" / _safe_name(level1_name)
@@ -151,7 +157,7 @@ class ThemeVaultRenderer:
         for row in themes.itertuples(index=False):
             self._render_theme(row, aliases, daily, episodes, stock_events, analyses, theme_files)
         for date, part in daily.groupby("trade_date", sort=True):
-            self._render_daily(str(date), part, theme_files)
+            self._render_daily(str(date), part, theme_files, daily_reviews.get(str(date), {}))
         return asdict(self.stats)
 
     def _render_level1(self, level1_name: str, themes: pd.DataFrame, daily: pd.DataFrame,
@@ -570,23 +576,83 @@ tags: [A股个股]
         self._write(manual_path, manual, manual=True)
         self.stats.stock_dashboards += 1
 
-    def _render_daily(self, trade_date: str, part: pd.DataFrame, theme_files: dict[str, str]) -> None:
+    def _render_daily(self, trade_date: str, part: pd.DataFrame, theme_files: dict[str, str],
+                      review: dict | None = None) -> None:
         part = part.sort_values(["heat_score", "canonical_name", "theme_id"],
                                 ascending=[False, True, True])
-        rows = []
+        full_rows = []
         for item in part.head(30).itertuples(index=False):
             link = theme_files.get(item.theme_id, _safe_name(item.theme_id))
-            rows.append([f"[[01_题材/{link}|{item.canonical_name}]]", item.heat_score,
-                         item.limit_up_count, item.break_count, _value(item.max_board_height), item.lifecycle_state])
+            full_rows.append([f"[[01_题材/{link}|{item.canonical_name}]]", item.heat_score,
+                              item.limit_up_count, item.break_count, _value(item.max_board_height), item.lifecycle_state])
+        review = review or {}
+        structure = review.get("structure") or {}
+        hot_rows: list[list[object]] = []
+        leader_sections: list[str] = []
+        for theme in review.get("hot_themes", []):
+            link = theme_files.get(theme["theme_id"], _safe_name(theme["theme_id"]))
+            leaders = theme.get("leaders") or []
+            leader_names = [item.get("name") or item.get("ts_code") or "-" for item in leaders]
+            leader_names += ["-"] * (3 - len(leader_names))
+            change = theme.get("rank_change")
+            rank_change = "新进" if theme.get("previous_rank") is None else (f"+{change}" if change > 0 else str(change))
+            hot_rows.append([
+                theme["rank"], f"[[01_题材/{link}|{theme['theme']}]]", _fmt(theme.get("heat_score"), 2),
+                theme.get("limit_up_count", 0), theme.get("break_count", 0),
+                _value(theme.get("max_board_height")), _fmt(theme.get("seal_rate"), 2),
+                theme.get("lifecycle_state", "-"), rank_change,
+                leader_names[0], leader_names[1], leader_names[2],
+            ])
+            if leaders:
+                detail_rows = []
+                for leader in leaders:
+                    detail_rows.append([
+                        leader.get("title", "-"), f"{leader.get('name', '-')}（{leader.get('ts_code', '-')}）",
+                        _fmt(leader.get("leader_score"), 1), leader.get("board_height", "-"),
+                        leader.get("limit_days_20", "-"), leader.get("limit_time") or "-",
+                        "、".join(leader.get("roles") or []) or "-",
+                    ])
+                leader_sections.append(
+                    f"### {theme['rank']}. {theme['theme']}\n\n"
+                    + _table(["龙位", "股票", "龙头分", "高度", "近20日涨停", "首次封板", "角色"], detail_rows)
+                )
+        score = review.get("theme_sentiment_score", "-")
+        level = review.get("theme_sentiment_level", "-")
+        composite = review.get("top3_heat_composite", "-")
+        history_window = review.get("history_window_sessions", "-")
+        structure_label = structure.get("label", "待判断")
+        structure_confidence = structure.get("confidence", "-")
+        summary = structure.get("summary", "暂无结构判断。")
         content = f"""---
 type: generated-daily-theme-review
 trade_date: {trade_date}
+theme_sentiment_score: {score}
+theme_sentiment_level: {level}
+theme_structure: {structure.get('code', 'unknown')}
+method_version: {review.get('method_version', 'unknown')}
 ---
-# {trade_date} 题材热度
+# {trade_date} 题材复盘
 
-{_table(['题材', '热度', '涨停', '炸板', '高度', '阶段'], rows)}
+## 今日题材情绪
 
-> 分数与阶段只使用该日及以前的入库事实；这是候选排序，不代替催化和逻辑复核。
+- **题材情绪：{score}/100（{level}）**
+- **市场结构：{structure_label}**（判断置信度：{structure_confidence}）
+- 前三题材原始热度合成：{composite}；历史标尺：截至当日最近 {history_window} 个交易日
+- 结构结论：{summary}
+
+## 热门题材排名
+
+{_table(['排名', '题材', '热度', '涨停', '炸板', '高度', '封板率', '阶段', '较前日', '龙一', '龙二', '龙三'], hot_rows) if hot_rows else '暂无可用题材复盘。'}
+
+## 热门题材龙头梯队
+
+{chr(10).join(leader_sections) if leader_sections else '暂无可用龙头候选。'}
+
+## 完整热度表
+
+{_table(['题材', '热度', '涨停', '炸板', '高度', '阶段'], full_rows)}
+
+> 情绪分由前三题材热度按 50%/30%/20% 合成后，计算其在截至当日最近120个交易日中的历史百分位。龙头先按板高分层，同板高内再比较近20日涨停频次、封板时间、封单/流通盘和成交额；全程只使用当日及以前事实。ST板块、ST摘帽和次新股不参与统计。程序结果是候选排序，仍需结合催化与题材逻辑复核。
 """
         self._write(self.root / "_generated" / "daily" / f"{trade_date}__dashboard.md", content)
         manual_path = self.root / "06_每日复盘" / f"{trade_date}.md"

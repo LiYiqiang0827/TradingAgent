@@ -21,6 +21,7 @@ import duckdb
 import pandas as pd
 
 from config.settings import DB_PATH_KPL, THEME_GRAPH_DB_PATH
+from core.theme_daily_review import build_market_theme_reviews
 
 
 GRAPH_SCHEMA_VERSION = "1.0.0"
@@ -909,6 +910,54 @@ class ThemeGraphStore:
                 + where + " ORDER BY d.trade_date, d.heat_score DESC", params).df()
         finally:
             conn.close()
+
+    def query_market_theme_review(self, trade_date: str | None = None, top_n: int = 10,
+                                  leader_count: int = 3) -> dict[str, Any]:
+        """返回指定交易日的题材情绪、热门题材、市场结构与龙头梯队。
+
+        计算只读取 ``trade_date`` 当日及以前的题材日度事实和主归因涨停事件；
+        ST板块、ST摘帽、次新股及其一级分类从统计分母和候选中排除。
+        """
+        conn = self.connect(read_only=True)
+        try:
+            cutoff = compact_date(trade_date) if trade_date else conn.execute(
+                "SELECT MAX(trade_date) FROM fact_theme_daily"
+            ).fetchone()[0]
+            if not cutoff:
+                return {}
+            daily = conn.execute(
+                """SELECT d.*,t.canonical_name,
+                          COALESCE(x.level1_name,'待归类') AS level1_name
+                   FROM fact_theme_daily d
+                   JOIN dim_theme t USING(theme_id)
+                   LEFT JOIN dim_theme_taxonomy x USING(theme_id)
+                   WHERE d.trade_date<=? AND EXISTS (
+                     SELECT 1 FROM rel_limit_theme r
+                     WHERE r.theme_id=d.theme_id AND r.attribution_role='primary')
+                   ORDER BY d.trade_date,d.heat_score DESC,t.canonical_name,d.theme_id""",
+                [cutoff],
+            ).df()
+            events = conn.execute(
+                """SELECT e.trade_date,e.ts_code,e.name,e.tag,e.status_raw,e.board_height,
+                          e.lu_time,e.limit_order,e.lu_limit_order,e.bid_amount,e.amount,e.free_float,
+                          r.theme_id,r.attribution_role
+                   FROM fact_limit_event e JOIN rel_limit_theme r USING(event_id)
+                   WHERE e.trade_date<=? AND e.tag='涨停' AND r.attribution_role='primary'
+                   ORDER BY e.trade_date,e.ts_code,r.theme_id""",
+                [cutoff],
+            ).df()
+        finally:
+            conn.close()
+        result = build_market_theme_reviews(
+            daily,
+            events,
+            top_n=max(1, int(top_n)),
+            leader_count=max(1, min(3, int(leader_count))),
+        ).get(str(cutoff), {})
+        if result:
+            result["available"] = True
+            result["source"] = "db_theme_graph.duckdb / KPL primary limit-up attribution"
+        return result
 
     def query_theme_members(self, theme_id: str, as_of: str | None = None,
                             historical: bool = False) -> pd.DataFrame:
