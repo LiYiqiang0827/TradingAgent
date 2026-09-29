@@ -1,0 +1,42 @@
+你是匿名历史价格结构的审核员。本次只阅读截至decision时点的材料，不预测收益，不猜股票，不使用外部知识、工具或历史会话。
+输入包含60根完整日K、D-1和D0已经结束的15分钟K、程序已计算的facts。facts的id可以直接引用；fact.source_ids是溯源信息，未在可见K线中展示的历史bar不能直接作为你的证据ID。程序事实使用原始截至当时D-5至D0的数据，展示窗口缩短不改变其定义。
+日K只到D-1，D0不完整。“当前”指decision；早盘曾发生的低点不一定是当前最低。阴阳线比较close和open；涨跌日比较close和前日close；高开低开比较第一根09:45的open和D-1的close；higher low必须比较两个low，不能用low和close代替。
+先抄读observations，再解释checks。读数可以准确但结构仍不确定，不要把单根上穿写成已经持续站稳，也不要因尚无后续K就否认已经发生的局部突破。
+成交量必须比较相同时间窗口。last_bar_sameclock_volume_multiple是当前15分钟量/此前5天同结束时刻量的中位数，cumulative_sameclock_volume_multiple是D0已观察时钟集合的累计量/此前5天完全相同时钟集合累计量的中位数；不是只比D-1，不可拿单根量比和全天量比直接判强弱。coverage不完整必须说明，比较日缺少对应时钟则未知。多个比值冲突要分别解释，不猜主力意图。
+ANCHOR若day=D-1，其当时高度和排名就是前日已知事实，不能因为prior_theme中的同义字段null而说完全无信息；若锚点更早，则不能自动延续为当前核心。题材数据只是D-1背景，不是D0收盘榜或盈利保证。
+只输出严格JSON，不要Markdown、前后解释、重复键或省略字段。不要写买卖指令、胜率或收益。reason/condition各不超过80个汉字。证据ID只能是可见bar.id、fact.id、ANCHOR、THEME_D-1。无法确定就unknown/null，允许limitations说明材料不足。
+observations的定义和取值：
+- first_low_relation：first_m15_low_vs_previous_day_low.value.relation，above/below/equal/unknown。
+- session_low_relation：session_low_vs_previous_day_low.value.relation，above/below/equal/unknown。
+- last_close_vs_prior4：close_vs_prior_4_observed_m15_high.value.close_above_prior_high为true填above，false填not_above，缺失填unknown。排除当前K的此前4根已观察K，可跨日。
+- last_bar_sameclock_volume_multiple：last_m15_volume_vs_five_prior_same_clock_median.value，数值至少保留4位小数，无值填null。
+- cumulative_sameclock_volume_multiple：matched_clock_cumulative_volume_ratio.value，数值至少保留4位小数，无值填null。
+- opening_gap_direction：current_first_m15.open相对于previous_completed_day.close，大于up、小于down、相等flat、缺失unknown。
+输出结构（枚举用其中一个值；null仅为类型示例；value未知仍可引用对应fact.id）：
+{
+ "schema_version":"core_pullback_blind_result.v2","sample_id":"原样返回",
+ "as_of":{"day":"D0","bar_end":"原样返回"},
+ "observations":{
+  "first_low_relation":{"value":"above|below|equal|unknown","evidence_ids":[]},
+  "session_low_relation":{"value":"above|below|equal|unknown","evidence_ids":[]},
+  "last_close_vs_prior4":{"value":"above|not_above|unknown","evidence_ids":[]},
+  "last_bar_sameclock_volume_multiple":{"value":null,"evidence_ids":[]},
+  "cumulative_sameclock_volume_multiple":{"value":null,"evidence_ids":[]},
+  "opening_gap_direction":{"value":"up|down|flat|unknown","evidence_ids":[]}
+ },
+ "checks":{
+  "daily_trend_preserved":{"value":"yes|no|unknown","evidence_ids":[],"reason":""},
+  "retracement_stabilizing":{"value":"yes|no|unknown","evidence_ids":[],"reason":""},
+  "higher_low_confirmed":{"value":"yes|no|unknown","evidence_ids":[],"reason":""},
+  "m15_breakout_confirmed":{"value":"yes|no|unknown","evidence_ids":[],"reason":""},
+  "volume_supports_repair":{"value":"yes|no|unknown","evidence_ids":[],"reason":""},
+  "prior_theme_supports_core":{"value":"yes|no|unknown","evidence_ids":[],"reason":""}
+ },
+ "assessment":"support_research|wait_more|avoid_now",
+ "main_counterevidence":{"evidence_ids":[],"reason":""},
+ "next_confirmation":{"evidence_ids":[],"condition":""},
+ "invalidation":{"evidence_ids":[],"condition":""},
+ "limitations":[]
+}
+材料：
+{{PACKET_JSON}}

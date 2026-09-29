@@ -23,6 +23,14 @@
   - `policy/题材涨停研究/` 下有 watchlist csv(13 MB 历史数据)
   - `scripts/data_gen.py` — 批量数据生成
   - `scripts/watchlist_gen.py` — watchlist 生成器
+  - [低位板早期识别的时点回放](early_high_board_research_2025_2026.md) — 2025—2026 全候选分母、1/15 分钟可成交性、跨年检验与止损失败边界
+  - [核心股回调后二启的因果回放](core_reactivation_causal_2025_2026.md) — 修复未来数据预筛，比较多日退出与当日失效后的最早可卖时点
+  - [核心股回调结构固定协议实验](core_pullback_structure_2025.md) — 先冻结多日缩量、低点抬高、压力空间条件，再评分2025年完整信号池；保留全部六个严格匹配案例
+  - [匿名结构盲读与事实核对](core_pullback_blind_pilot_2025.md) — 12例隔离输入、MiniMax原始输出与事实审计；区分格式可用、读数正确和未来收益关联
+  - [程序事实与模型解释开发复测](core_pullback_blind_facts_v2_2025.md) — 同12例改用命名OHLC和程序事实；独立重算参考值，保留无效输出分母，不作新留出或收益验证
+  - [冻结二启信号的现金与尾部压力检查](core_reactivation_account_risk_2026.md) — 10万元固定资金档、整手和最低佣金、同刻回款限制、题材持仓重叠；不把成本账本当市值净值
+  - [30万元复投资金曲线与最大回撤](core_reactivation_compound_300k_2026.md) — 每日按前日市值净资产复投，保留六个固定情景，逐分钟估值并同时报告分钟/日收盘回撤
+  - [高位连板后续走势与固定止损](high_board_followthrough_stop_2026.md) — 4/5/6板后收益分布、-10%止损和逐笔数学连乘；区分历史描述与可执行账户复利
 
 - **A股复盘工具箱**:
   - `policy/market_review/` — 收盘后全市场事实包、Agent写作包与最终验收
