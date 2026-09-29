@@ -123,6 +123,22 @@ plot/tmp_savepic/kline_day_000001.SZ_20260305_20260605_multidays.jpg
 
 `--lookback-months`、`--lookahead-months` 和 `--to-latest` 对该模式同样有效。
 
+### 买入与卖出标记
+
+任一日期模式都可同时传入 `--buy-date` 和 `--sell-date`：
+
+```bash
+.venv/bin/python plot/plot_daily_kline.py 603155.SH \
+  --trade-dates 20260610 20260611 20260622 20260623 20260706 \
+  --buy-date 20260623 --sell-date 20260706 \
+  --save-pic
+```
+
+买入日使用绿色上三角和虚线，卖出日使用红色下三角和虚线，两日之间用浅蓝色
+标出持仓区间。标记仅指交易日期，**不表示实际成交价格**。买卖日期必须成对、
+有对应日 K，且买入日不晚于卖出日；若超出默认展示范围，窗口会自动扩展。
+保存文件名追加 `_buy20260623_sell20260706`，不会与未标记交易的图互相覆盖。
+
 自定义保存目录：
 
 ```bash
@@ -143,6 +159,8 @@ plot/tmp_savepic/kline_day_000001.SZ_20260305_20260605_multidays.jpg
 --save-pic             保存 JPG 图片，默认关闭（也支持 --save、--savepic）
 --save-dir DIR         保存目录，默认 plot/tmp_savepic
 --dpi 160              输出清晰度
+--buy-date YYYYMMDD    买入日期，须与 --sell-date 同时提供
+--sell-date YYYYMMDD   卖出日期，须与 --buy-date 同时提供
 ```
 
 ## 批量日 K 线
@@ -182,6 +200,7 @@ plot/tmp_savepic/kline_day_000001.SZ_20260305_20260605_multidays.jpg
 
 合并后，只有一个涨停日的股票仍按单日模式命名；有多个涨停日的股票按
 `kline_day_股票代码_最小日期_最大日期_multidays.jpg` 命名。
+如果某行包含买卖日期，该行代表独立的一笔交易，不会按股票代码与其他行合并。
 
 ### 混合字典列表
 
@@ -196,10 +215,14 @@ plot/tmp_savepic/kline_day_000001.SZ_20260305_20260605_multidays.jpg
   },
   {
     "ts_code": "000001.SZ",
-    "trade_date": "2026-06-05"
+    "trade_date": "2026-06-05",
+    "buy_date": "2026-06-08",
+    "sell_date": "2026-06-15"
   }
 ]
 ```
+
+批量输入也接受 `buydate`/`selldate` 和 `entry_date`/`exit_date` 别名。
 
 仓库提供了 [batch_items.example.json](./batch_items.example.json)，可以直接运行：
 

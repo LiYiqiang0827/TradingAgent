@@ -49,6 +49,28 @@ class PlotDailyKlineBatchTest(unittest.TestCase):
             ["20260407", "20260605"],
         )
 
+    def test_buy_sell_are_normalized_and_distinct_trades_are_preserved(self):
+        rows = [
+            {"ts_code": "000001.SZ", "trade_date": "20260605",
+             "buydate": "20260608", "selldate": "20260610"},
+            {"ts_code": "000001.SZ", "trade_date": "20260605",
+             "buydate": "20260609", "selldate": "20260611"},
+        ]
+        normalized = normalize_batch_items(rows)
+        self.assertEqual(len(normalized), 2)
+        self.assertEqual(normalized[0]["buy_date"], "20260608")
+        self.assertEqual(normalized[1]["sell_date"], "20260611")
+        merged = merge_watchlist_same_tscode(rows)
+        self.assertEqual(len(merged), 2)
+        self.assertTrue(all(item["trade_date"] == "20260605" for item in merged))
+
+    def test_invalid_single_trade_date_is_rejected_in_batch(self):
+        with self.assertRaisesRegex(ValueError, "必须同时提供"):
+            normalize_batch_items([
+                {"ts_code": "000001.SZ", "trade_date": "20260605",
+                 "buy_date": "20260608"},
+            ])
+
     def test_exact_duplicate_is_removed(self):
         item = {"ts_code": "600519.SH", "trade_date": "20260605"}
         normalized = normalize_batch_items([item, dict(item)])

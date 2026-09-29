@@ -6,6 +6,9 @@
 2. ``--trade-date``：标记一个指定交易日。
 3. ``--trade-dates``：标记同一股票的多个指定交易日。
 
+所有模式都可以附加 ``--buy-date`` 和 ``--sell-date``，标记交易日期并突出
+两日之间的持仓区间。日期标记不代表实际成交价格。
+
 图形默认展示观察起点前 12 个月，以及观察终点后 1 个月的数据。使用
 ``--to-latest`` 时，展示终点改为当前日期。为了让 MA250 在展示窗口起点就有
 完整数值，脚本会在展示窗口之前额外读取一段只用于均线计算的预热数据。
@@ -61,6 +64,8 @@ class PlotWindow:
     trade_date_mode: bool
     marked_dates: tuple[pd.Timestamp, ...]
     selection_mode: str
+    buy_date: pd.Timestamp | None = None
+    sell_date: pd.Timestamp | None = None
 
 
 def parse_date(value: str) -> pd.Timestamp:
@@ -106,6 +111,8 @@ def resolve_window(
     ma_warmup_days: int,
     to_latest: bool,
     trade_dates: Sequence[str] | None = None,
+    buy_date: str | None = None,
+    sell_date: str | None = None,
     today: date | pd.Timestamp | None = None,
 ) -> PlotWindow:
     """根据命令行模式计算选择、展示和读取窗口。"""
@@ -132,6 +139,13 @@ def resolve_window(
         raise ValueError(
             "必须传 --trade-date、--trade-dates，或同时传 --start-date 和 --end-date"
         )
+
+    if (buy_date is None) != (sell_date is None):
+        raise ValueError("--buy-date 和 --sell-date 必须同时提供")
+    buy = parse_date(buy_date) if buy_date is not None else None
+    sell = parse_date(sell_date) if sell_date is not None else None
+    if buy is not None and sell is not None and buy > sell:
+        raise ValueError("买入日期不能晚于卖出日期")
 
     if trade_date is not None:
         selected_start = selected_end = parse_date(trade_date)
@@ -160,8 +174,16 @@ def resolve_window(
         display_end = latest
         if selected_end > display_end:
             raise ValueError("选择日期不能晚于 --to-latest 对应的当前日期")
+        if sell is not None and sell > display_end:
+            raise ValueError("卖出日期不能晚于 --to-latest 对应的当前日期")
     else:
         display_end = natural_end
+
+    # 交易标记即使在默认扩展窗口之外，也必须出现在最终图中。
+    if buy is not None and sell is not None:
+        display_start = min(display_start, buy)
+        if not to_latest:
+            display_end = max(display_end, sell)
 
     fetch_start = display_start - pd.Timedelta(days=ma_warmup_days)
     return PlotWindow(
@@ -173,6 +195,8 @@ def resolve_window(
         trade_date_mode=trade_date_mode,
         marked_dates=marked_dates,
         selection_mode=selection_mode,
+        buy_date=buy,
+        sell_date=sell,
     )
 
 
@@ -295,6 +319,21 @@ def _mark_selection(ax: Axes, dates: pd.Series, window: PlotWindow) -> None:
     ax.axvline(right - 0.5, color="#d35400", linewidth=0.9, linestyle="--", alpha=0.8)
 
 
+def _trade_positions(dates: pd.Series, window: PlotWindow) -> tuple[int, int] | None:
+    """定位买卖日的实际 K 线，避免把非交易日或缺失行情画到邻近日期。"""
+
+    if window.buy_date is None or window.sell_date is None:
+        return None
+    values = dates.to_numpy(dtype="datetime64[ns]")
+    positions: list[int] = []
+    for label, marker in (("买入", window.buy_date), ("卖出", window.sell_date)):
+        found = np.flatnonzero(values == np.datetime64(marker))
+        if not len(found):
+            raise ValueError(f"{label}日期 {marker.date()} 没有交易数据；请检查交易日和离线行情")
+        positions.append(int(found[0]))
+    return positions[0], positions[1]
+
+
 def _draw_candles(ax: Axes, df: pd.DataFrame) -> list[str]:
     up_color = "#d62728"  # A 股习惯：红涨
     down_color = "#179c52"  # 绿跌
@@ -353,6 +392,7 @@ def plot_daily_kline(
         raise ValueError("show=False 时必须提供 save_path")
     if save_path is not None and save_path.suffix.lower() not in {".jpg", ".jpeg"}:
         raise ValueError("保存文件必须使用 .jpg 或 .jpeg 扩展名")
+    trade_positions = _trade_positions(df["date"], window)
 
     _configure_chinese_font()
     fig, (price_ax, volume_ax) = plt.subplots(
@@ -367,6 +407,14 @@ def plot_daily_kline(
         axis.set_facecolor("#fafafa")
         axis.grid(True, axis="both", color="#d9d9d9", linewidth=0.5, alpha=0.55)
         _mark_selection(axis, df["date"], window)
+        if trade_positions is not None:
+            buy_x, sell_x = trade_positions
+            axis.axvspan(
+                buy_x - 0.5, sell_x + 0.5,
+                color="#72b6e4", alpha=0.20, zorder=0.5,
+            )
+            axis.axvline(buy_x, color="#087f5b", linewidth=1.35, linestyle="--", zorder=5)
+            axis.axvline(sell_x, color="#a52b51", linewidth=1.35, linestyle="--", zorder=5)
 
     colors = _draw_candles(price_ax, df)
     x = np.arange(len(df))
@@ -380,6 +428,26 @@ def plot_daily_kline(
             label=f"MA{days}",
             zorder=4,
         )
+
+    if trade_positions is not None:
+        buy_x, sell_x = trade_positions
+        axis_coords = price_ax.get_xaxis_transform()
+        sell_y = 0.90 if buy_x == sell_x else 0.93
+        for marker_x, marker_y, label, marker, color, align, offset in (
+            (buy_x, 0.97, "买入", "^", "#087f5b", "left", 0.7),
+            (sell_x, sell_y, "卖出", "v", "#a52b51", "right", -0.7),
+        ):
+            price_ax.scatter(
+                [marker_x], [marker_y], transform=axis_coords, marker=marker,
+                s=115, color=color, edgecolor="white", linewidth=0.7,
+                zorder=7, clip_on=False,
+            )
+            price_ax.text(
+                marker_x + offset, marker_y, label, transform=axis_coords,
+                ha=align, va="center",
+                fontsize=9, color=color, fontweight="bold", zorder=7,
+                bbox={"facecolor": "#fafafa", "edgecolor": "none", "alpha": 0.8, "pad": 1},
+            )
 
     volume_in_10k_lots = df["vol"] / 10_000.0
     volume_ax.bar(x, volume_in_10k_lots, width=0.64, color=colors, alpha=0.76)
@@ -401,10 +469,16 @@ def plot_daily_kline(
         )
     title_name = f"{stock_name} " if stock_name else ""
     adjustment = "前复权价格" if qfq else "不复权价格"
+    title_lines = [f"{title_name}{ts_code}  日 K  |  {adjustment}  |  {selected_text}"]
+    if window.buy_date is not None and window.sell_date is not None:
+        title_lines.append(
+            f"持仓 {window.buy_date:%Y-%m-%d} 至 "
+            f"{window.sell_date:%Y-%m-%d}（仅标日期）"
+        )
+    title_lines.append(f"离线数据实际展示 {actual_start} 至 {actual_end}")
     price_ax.set_title(
-        f"{title_name}{ts_code}  日 K  |  {adjustment}  |  {selected_text}\n"
-        f"离线数据实际展示 {actual_start} 至 {actual_end}",
-        fontsize=15,
+        "\n".join(title_lines),
+        fontsize=14,
         pad=12,
     )
     price_ax.set_ylabel("价格（元）")
@@ -449,6 +523,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     mode.add_argument("--start-date", help="要标记的日期段起点，需与 --end-date 同用")
     parser.add_argument("--end-date", help="要标记的日期段终点")
+    parser.add_argument("--buy-date", "--buydate", help="买入交易日；须与 --sell-date 同用")
+    parser.add_argument("--sell-date", "--selldate", help="卖出交易日；须与 --buy-date 同用")
     parser.add_argument(
         "--lookback-months",
         type=int,
@@ -500,6 +576,8 @@ def build_save_path(ts_code: str, window: PlotWindow, save_dir: Path) -> Path:
     start_text = window.selected_start.strftime("%Y%m%d")
     end_text = window.selected_end.strftime("%Y%m%d")
     suffix = "_multidays" if window.selection_mode == "multi" else ""
+    if window.buy_date is not None and window.sell_date is not None:
+        suffix += f"_buy{window.buy_date:%Y%m%d}_sell{window.sell_date:%Y%m%d}"
     filename = f"kline_day_{ts_code}_{start_text}_{end_text}{suffix}.jpg"
     return save_dir.expanduser() / filename
 
@@ -514,6 +592,8 @@ def main(argv: Sequence[str] | None = None) -> int:
             end_date=args.end_date,
             trade_date=args.trade_date,
             trade_dates=args.trade_dates,
+            buy_date=args.buy_date,
+            sell_date=args.sell_date,
             lookback_months=args.lookback_months,
             lookahead_months=args.lookahead_months,
             ma_warmup_days=args.ma_warmup_days,

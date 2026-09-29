@@ -13,6 +13,7 @@
 ``{"ts_code": "000001.SZ", "trade_date": "2026-06-05"}``
 ``{"ts_code": "000001.SZ", "trade_dates": ["2026-06-05", "2026-07-10"]}``
 两种字典可以出现在同一个列表中。
+任一模式可选填 ``buy_date`` 和 ``sell_date``，在图中标出持仓区间。
 """
 
 from __future__ import annotations
@@ -72,6 +73,8 @@ FIELD_ALIASES = {
     "end_date": ("end_date", "enddate"),
     "trade_date": ("trade_date", "tradedate"),
     "trade_dates": ("trade_dates", "tradedates"),
+    "buy_date": ("buy_date", "buydate", "entry_date"),
+    "sell_date": ("sell_date", "selldate", "exit_date"),
     "name": ("name", "stock_name"),
 }
 
@@ -131,6 +134,8 @@ def normalize_batch_item(item: Mapping[str, Any], row_number: int | None = None)
     end_date = _find_value(item, "end_date")
     trade_date = _find_value(item, "trade_date")
     trade_dates = _normalize_trade_dates(_find_raw_value(item, "trade_dates"))
+    buy_date = _find_value(item, "buy_date")
+    sell_date = _find_value(item, "sell_date")
 
     # 复用单图脚本的完整日期模式校验。
     window = resolve_window(
@@ -142,6 +147,8 @@ def normalize_batch_item(item: Mapping[str, Any], row_number: int | None = None)
         lookahead_months=1,
         ma_warmup_days=400,
         to_latest=False,
+        buy_date=buy_date,
+        sell_date=sell_date,
     )
     if trade_dates is not None:
         trade_dates = [value.strftime("%Y%m%d") for value in window.marked_dates]
@@ -151,6 +158,8 @@ def normalize_batch_item(item: Mapping[str, Any], row_number: int | None = None)
         "end_date": end_date,
         "trade_date": trade_date,
         "trade_dates": trade_dates,
+        "buy_date": window.buy_date.strftime("%Y%m%d") if window.buy_date is not None else None,
+        "sell_date": window.sell_date.strftime("%Y%m%d") if window.sell_date is not None else None,
         "name": _find_value(item, "name"),
     }
 
@@ -170,6 +179,8 @@ def normalize_batch_items(items: Sequence[Mapping[str, Any]]) -> list[dict[str, 
             row["end_date"],
             row["trade_date"],
             tuple(row["trade_dates"] or []),
+            row["buy_date"],
+            row["sell_date"],
         )
         if key in seen:
             continue
@@ -187,6 +198,10 @@ def merge_watchlist_same_tscode(items: Sequence[Mapping[str, Any]]) -> list[dict
     passthrough: list[dict[str, Any]] = []
     for index, raw_item in enumerate(items, start=1):
         row = normalize_batch_item(raw_item, index)
+        if row["buy_date"] is not None:
+            # 不同持仓区间属于不同交易，不能按证券代码合成一张图。
+            passthrough.append(row)
+            continue
         dates: list[str] = []
         if row.get("trade_date"):
             dates.append(str(row["trade_date"]))
@@ -294,6 +309,8 @@ def plot_batch(
                 row["end_date"],
                 row["trade_date"],
                 tuple(row["trade_dates"] or []),
+                row["buy_date"],
+                row["sell_date"],
             )
             if key in seen:
                 summary.skipped += 1
@@ -332,6 +349,8 @@ def plot_batch(
                 lookahead_months=lookahead_months,
                 ma_warmup_days=ma_warmup_days,
                 to_latest=to_latest,
+                buy_date=item.get("buy_date"),
+                sell_date=item.get("sell_date"),
             )
             target = build_save_path(code, window, output_dir).resolve()
             if target.exists() and not overwrite:
