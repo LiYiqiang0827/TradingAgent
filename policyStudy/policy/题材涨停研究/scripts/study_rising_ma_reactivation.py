@@ -67,6 +67,11 @@ def describe(frame: pd.DataFrame, trade_date: str) -> dict:
     peak_i = int(search.high.idxmax())
     peak = frame.iloc[peak_i]
     before_peak = frame.iloc[max(0, peak_i - 60):peak_i]
+    wave_start_i = int(frame.low.iloc[peak_i - 30:peak_i].idxmin())
+    pre_wave_volume = frame.raw_vol.iloc[wave_start_i - 20:wave_start_i].mean()
+    first_wave_volume = frame.raw_vol.iloc[wave_start_i:peak_i + 1].mean()
+    pullback_volume = frame.raw_vol.iloc[peak_i + 1:i].mean()
+    whole_wave_volume = frame.raw_vol.iloc[wave_start_i:i + 1].mean()
     peak_volume = frame.raw_vol.iloc[max(0, peak_i - 4):peak_i + 1].mean()
     before_peak_volume = frame.raw_vol.iloc[peak_i - 24:peak_i - 4].mean()
     pre_volume = frame.raw_vol.iloc[i - 3:i].mean()
@@ -86,6 +91,7 @@ def describe(frame: pd.DataFrame, trade_date: str) -> dict:
         for n in (30, 60, 120)}
     values = {
         "trade_date": trade_date, "status": "ok", "close": float(bar.close),
+        "first_wave_start_date": str(frame.iloc[wave_start_i].trade_date),
         "peak_date": str(peak.trade_date), "peak_age_bars": i - peak_i,
         "peak_high": float(peak.high),
         "impulse_from_prior_60d_low_pct": 100 * (peak.high / pre_low - 1),
@@ -96,6 +102,12 @@ def describe(frame: pd.DataFrame, trade_date: str) -> dict:
         "pre3_volume_vs_peak5": pre_volume / peak_volume if peak_volume > 0 else np.nan,
         "impulse_volume_vs_pre20": peak_volume / before_peak_volume
         if before_peak_volume > 0 else np.nan,
+        "first_wave_volume_vs_pre": first_wave_volume / pre_wave_volume
+        if pre_wave_volume > 0 else np.nan,
+        "pullback_volume_vs_pre": pullback_volume / pre_wave_volume
+        if pre_wave_volume > 0 else np.nan,
+        "whole_wave_volume_vs_pre": whole_wave_volume / pre_wave_volume
+        if pre_wave_volume > 0 else np.nan,
         "day_volume_vs_prior5": bar.raw_vol / prior5_volume if prior5_volume > 0 else np.nan,
         "low_to_ma20_pct": 100 * (bar.low / bar.ma20 - 1),
         "close_to_ma20_pct": 100 * (bar.close / bar.ma20 - 1),
@@ -113,6 +125,8 @@ def describe(frame: pd.DataFrame, trade_date: str) -> dict:
         "impulse": 20 <= values["impulse_from_prior_60d_low_pct"] <= 200,
         "stage_new_high": values["peak_vs_prior_60d_high_pct"] >= 0,
         "impulse_volume_expanded": values["impulse_volume_vs_pre20"] >= 1.4,
+        "first_wave_volume_sustained": values["first_wave_volume_vs_pre"] >= 1.5,
+        "pullback_volume_sustained": values["pullback_volume_vs_pre"] >= 1.5,
         "pullback": -35 <= values["pullback_from_peak_pct"] <= -5,
         "ma20_retest": -8 <= values["low_to_ma20_pct"] <= 3 and values["close_to_ma20_pct"] >= -1,
         "mid_mas_rising": all(values[f"ma{n}_slope10_pct"] > 0 for n in (20, 30, 60)),
@@ -125,6 +139,8 @@ def describe(frame: pd.DataFrame, trade_date: str) -> dict:
         "impulse": 20 <= values["impulse_from_prior_60d_low_pct"] <= 250,
         "stage_new_high": values["peak_vs_prior_60d_high_pct"] >= 0,
         "impulse_volume_expanded": values["impulse_volume_vs_pre20"] >= 1.4,
+        "first_wave_volume_sustained": values["first_wave_volume_vs_pre"] >= 1.5,
+        "pullback_volume_sustained": values["pullback_volume_vs_pre"] >= 1.5,
         "pullback": -45 <= values["pullback_from_peak_pct"] <= -8,
         "ma30_retest": -10 <= values["low_to_ma30_pct"] <= 5 and values["close_to_ma30_pct"] >= -5,
         "mid_and_long_mas_rising": all(values[f"ma{n}_slope{lag}_pct"] > 0
