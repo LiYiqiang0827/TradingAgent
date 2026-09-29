@@ -188,17 +188,27 @@ def theme_evidence(kpl: pd.DataFrame, trade_date: str, keyword: str) -> dict:
 
 
 def plot_template(frame: pd.DataFrame, result: dict, path: Path) -> None:
-    """Daily candles, actual volume, MAs, prior peak and decision-date marker."""
+    """Draw an as-of daily chart; add first-wave evidence when supplied."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.patches import Rectangle
 
-    view = frame.tail(75).reset_index(drop=True)
+    plt.rcParams["font.sans-serif"] = ["Arial Unicode MS", "Hiragino Sans GB", "DejaVu Sans"]
+    plt.rcParams["axes.unicode_minus"] = False
+    view = frame.tail(110).reset_index(drop=True)
     fig, (ax, volume_ax) = plt.subplots(
-        2, 1, figsize=(14, 7.5), sharex=True,
+        2, 1, figsize=(15, 8), sharex=True,
         gridspec_kw={"height_ratios": [4, 1]}, layout="constrained")
     x = np.arange(len(view))
+    start_date = str(result.get("first_wave_start", result.get("first_wave_start_date", "")))
+    start_pos = view.index[view.trade_date.eq(start_date)]
+    peak_pos = view.index[view.trade_date.eq(result["peak_date"])]
+    if len(start_pos) and len(peak_pos):
+        ax.axvspan(int(start_pos[0]) - .5, int(peak_pos[0]) + .5,
+                   color="#f0ad4e", alpha=.09, zorder=0)
+        ax.axvspan(int(peak_pos[0]) + .5, len(view) - .5,
+                   color="#bb5ca9", alpha=.07, zorder=0)
     for idx, row in view.iterrows():
         color = "#cc3333" if row.close >= row.open else "#219653"
         ax.vlines(idx, row.low, row.high, color=color, lw=.85)
@@ -209,7 +219,6 @@ def plot_template(frame: pd.DataFrame, result: dict, path: Path) -> None:
     for period, color in ((20, "#3977bc"), (30, "#bb5ca9"),
                           (60, "#9a692e"), (120, "#62616e")):
         ax.plot(x, view[f"ma{period}"], color=color, lw=1.25, label=f"MA{period}")
-    peak_pos = view.index[view.trade_date.eq(result["peak_date"])]
     if len(peak_pos):
         peak_x = int(peak_pos[0])
         ax.scatter([peak_x], [result["peak_high"]], marker="v", s=75,
@@ -217,11 +226,26 @@ def plot_template(frame: pd.DataFrame, result: dict, path: Path) -> None:
         ax.annotate(f"prior peak {result['peak_date']}",
                     (peak_x, result["peak_high"]), xytext=(7, 10),
                     textcoords="offset points", color="#6d28d9", fontsize=8)
-        ax.axvspan(peak_x, len(view) - 1, color="#f6dfec", alpha=.16)
+    board_dates = set(str(result.get("first_wave_board_dates", "")).split("|"))
+    board_rows = view[view.trade_date.isin(board_dates)]
+    if not board_rows.empty:
+        ax.scatter(board_rows.index, board_rows.high * 1.025, marker="*", s=85,
+                   color="#e58f00", edgecolor="#7d4e00", linewidth=.35,
+                   zorder=6, label="首波自身涨停")
+    baseline = result.get("pre_wave_volume")
+    if baseline is not None and np.isfinite(float(baseline)):
+        volume_ax.axhline(float(baseline), color="#4f5665", linestyle="--",
+                          linewidth=1, label="启动前20日均量")
+        volume_ax.legend(loc="upper left", fontsize=8)
     ax.axvline(len(view) - 1, color="#6d28d9", linestyle=":", lw=1)
     volume_ax.axvline(len(view) - 1, color="#6d28d9", linestyle=":", lw=1)
-    ax.set_title(f"{result['ts_code']} through {result['trade_date']}  |  "
-                 f"{result['template_observation']} (close-of-day)")
+    name = str(result.get("name", ""))
+    title = f"{name} {result['ts_code']}  截至 {result['trade_date']}  |  "
+    title += f"{result['template_observation']}（仅截至当日）"
+    if baseline is not None:
+        title += (f"\n首波/启动前量 {float(result['first_wave_volume_vs_pre']):.2f}×"
+                  f"   回调/启动前量 {float(result['pullback_volume_vs_pre']):.2f}×")
+    ax.set_title(title)
     ax.set_ylabel("QFQ price")
     volume_ax.set_ylabel("Actual vol")
     ax.grid(alpha=.15)
