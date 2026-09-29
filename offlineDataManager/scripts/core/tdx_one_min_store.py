@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -21,6 +22,7 @@ from core.one_min_store import (
 
 
 TDX_ONE_MIN_START = "20260507"
+STOCK_DAY_LINEAGE_VERSION = 1
 RAW_COLUMNS = [
     "ts_code", "trade_date", "datetime", "time_idx",
     "open", "high", "low", "close", "vol", "amount",
@@ -321,6 +323,59 @@ def _record_tdx_partition(
         ])
 
 
+def _stock_day_lineage(
+    day: str, downloaded_codes: set[str], retained_codes: Sequence[str],
+    previous_manifest_path: Path,
+) -> dict:
+    """Record this merge's sources without guessing an old partition's lineage.
+
+    ``retained_previous_partition_codes`` is the actual fallback operation, not
+    proof of a CSV origin. Legacy aggregate counts/source_path cannot establish
+    per-stock provenance; only explicit same-day stock lineage is inherited.
+    """
+    origins = {"tdx": set(downloaded_codes), "csv": set(), "unknown": set()}
+    previous_sources: dict = {}
+    previous_status = "not_needed"
+    previous_hash = None
+    if retained_codes:
+        previous_status = "missing_manifest"
+        if previous_manifest_path.is_file():
+            raw = previous_manifest_path.read_bytes()
+            previous_hash = hashlib.sha256(raw).hexdigest()
+            try:
+                previous = json.loads(raw)
+                lineage = previous.get("source_lineage") if isinstance(previous, dict) else None
+                if lineage is None:
+                    previous_status = "legacy_without_stock_lineage"
+                elif (isinstance(lineage, dict)
+                      and lineage.get("version") == STOCK_DAY_LINEAGE_VERSION
+                      and lineage.get("trade_date") == day
+                      and isinstance(lineage.get("stock_codes_by_source"), dict)
+                      and all(isinstance(lineage["stock_codes_by_source"].get(source), list)
+                              and all(isinstance(code, str)
+                                      for code in lineage["stock_codes_by_source"][source])
+                              for source in origins)):
+                    previous_sources = lineage["stock_codes_by_source"]
+                    previous_status = "explicit_stock_lineage"
+                else:
+                    previous_status = "invalid_stock_lineage"
+            except (ValueError, UnicodeDecodeError):
+                previous_status = "invalid_manifest_json"
+    for code in retained_codes:
+        matches = [source for source in origins if code in previous_sources.get(source, [])]
+        # Missing or contradictory prior provenance stays unknown.
+        origins[matches[0] if len(matches) == 1 else "unknown"].add(code)
+    return {
+        "version": STOCK_DAY_LINEAGE_VERSION, "trade_date": day,
+        "tdx_downloaded_codes": sorted(downloaded_codes),
+        "retained_previous_partition_codes": sorted(retained_codes),
+        "stock_codes_by_source": {source: sorted(codes) for source, codes in origins.items()},
+        "previous_manifest_status": previous_status,
+        "previous_manifest_sha256": previous_hash,
+        "legacy_fallback_fields_note": "csv_fallback_* counts retained rows/stocks; it does not establish CSV origin",
+    }
+
+
 def finalize_tdx_one_min_day(
     trade_date: str,
     stage_root: Union[str, Path],
@@ -329,7 +384,11 @@ def finalize_tdx_one_min_day(
     catalog_path: Optional[Union[str, Path]] = None,
     source_host: Optional[str] = None,
 ) -> dict:
-    """合并单日staging、补名称和复权因子，原子替换正式Parquet分区。"""
+    """合并单日staging、补名称/因子，并保存逐股票日来源血缘。
+
+    新增manifest的 ``source_lineage``；旧数量字段继续兼容。旧分区保留数据
+    没有逐股来源证据时明确记unknown，不从混合分区的聚合数量猜测CSV来源。
+    """
     from core.offline_db_client import get_adj_factor, get_basic, get_day
 
     day = normalize_trade_date(trade_date)
@@ -479,6 +538,7 @@ def finalize_tdx_one_min_day(
         "tdx_stock_count": len(stage_codes), "tdx_rows": len(stage_codes) * 240,
         "csv_fallback_stock_count": len(missing_codes),
         "csv_fallback_rows": fallback_rows,
+        "source_lineage": _stock_day_lineage(day, stage_codes, missing_codes, manifest_path),
         "imported_at": datetime.now(timezone.utc).isoformat(),
     }
     temp_manifest.write_text(json.dumps(manifest, ensure_ascii=False, indent=2, default=str), encoding="utf-8")

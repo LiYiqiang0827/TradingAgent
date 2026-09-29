@@ -6,6 +6,7 @@ from pathlib import Path
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
+import pytest
 
 from core.one_min_store import get_one_min
 from core.tdx_one_min_store import (
@@ -88,6 +89,15 @@ def test_stage_and_finalize_tdx_partition(tmp_path: Path, monkeypatch) -> None:
         source_host="test.example:7709",
     )
     assert result["rows"] == 4
+    lineage = result["source_lineage"]
+    assert lineage["trade_date"] == "20260924"
+    assert lineage["tdx_downloaded_codes"] == ["000001.SZ", "600000.SH"]
+    assert lineage["retained_previous_partition_codes"] == []
+    assert lineage["stock_codes_by_source"] == {
+        "tdx": ["000001.SZ", "600000.SH"], "csv": [], "unknown": [],
+    }
+    saved = json.loads((store / "_manifest" / "trade_date=20260924.json").read_text())
+    assert saved["source_lineage"] == lineage
     frame = get_one_min(trade_date="20260924", root=store)
     assert frame.groupby("ts_code")["time_idx"].apply(list).tolist() == [[0, 239], [0, 239]]
     assert set(frame["adj_factor"]) == {2.0, 3.0}
@@ -124,9 +134,19 @@ def test_normalize_existing_partition_removes_0930_and_reindexes(tmp_path: Path)
     assert frame.groupby("ts_code")["time_idx"].apply(list).tolist() == [
         [0, 120, 239], [0, 120, 239],
     ]
+    # Session normalization must not invent provenance for old manifests.
+    saved = json.loads((manifest_dir / f"trade_date={day}.json").read_text())
+    assert "source_lineage" not in saved
 
 
-def test_finalize_reindexes_legacy_csv_fallback(tmp_path: Path, monkeypatch) -> None:
+@pytest.mark.parametrize("prior_kind, expected_origin", [
+    ("missing", "unknown"), ("legacy_counts", "unknown"),
+    ("explicit_csv", "csv"), ("explicit_tdx", "tdx"),
+    ("conflicting", "unknown"), ("wrong_day", "unknown"),
+])
+def test_finalize_reindexes_legacy_csv_fallback(
+    tmp_path: Path, monkeypatch, prior_kind: str, expected_origin: str,
+) -> None:
     from core import offline_db_client
     from core import tdx_one_min_store
 
@@ -152,6 +172,23 @@ def test_finalize_reindexes_legacy_csv_fallback(tmp_path: Path, monkeypatch) -> 
         pa.Table.from_pandas(pd.DataFrame(legacy), preserve_index=False),
         target_dir / "part-000.parquet",
     )
+    manifest_path = store / "_manifest" / f"trade_date={day}.json"
+    if prior_kind != "missing":
+        manifest_path.parent.mkdir()
+        # Even aggregate "one CSV fallback" counts cannot identify the stock.
+        previous = {"trade_date": day, "data_source": "tdx_with_csv_fallback",
+                    "tdx_stock_count": 1, "csv_fallback_stock_count": 1,
+                    "source_file": f"tdx://security-bars/1min/{day}"}
+        if prior_kind != "legacy_counts":
+            groups = {"tdx": [], "csv": [], "unknown": []}
+            groups["tdx" if prior_kind == "explicit_tdx" else "csv"] = ["600000.SH"]
+            if prior_kind == "conflicting":
+                groups["tdx"] = ["600000.SH"]
+            previous["source_lineage"] = {
+                "version": 1, "trade_date": "20260923" if prior_kind == "wrong_day" else day,
+                "stock_codes_by_source": groups,
+            }
+        manifest_path.write_text(json.dumps(previous), encoding="utf-8")
     monkeypatch.setattr(
         offline_db_client, "get_basic",
         lambda *_args, **_kwargs: pd.DataFrame({
@@ -177,10 +214,36 @@ def test_finalize_reindexes_legacy_csv_fallback(tmp_path: Path, monkeypatch) -> 
     frame = get_one_min(trade_date=day, root=store)
     assert result["data_source"] == "tdx_with_csv_fallback"
     assert result["csv_fallback_rows"] == 240
+    lineage = result["source_lineage"]
+    assert lineage["tdx_downloaded_codes"] == ["000001.SZ"]
+    assert lineage["retained_previous_partition_codes"] == ["600000.SH"]
+    expected_sources = {"tdx": ["000001.SZ"], "csv": [], "unknown": []}
+    expected_sources[expected_origin].append("600000.SH")
+    assert lineage["stock_codes_by_source"] == expected_sources
+    assert json.loads(manifest_path.read_text())["source_lineage"] == lineage
+    if prior_kind in {"legacy_counts", "missing"}:
+        assert lineage["previous_manifest_status"] in {
+            "legacy_without_stock_lineage", "missing_manifest",
+        }
     assert len(frame) == 480
     assert frame.groupby("ts_code")["time_idx"].apply(list).tolist() == [
         list(range(240)), list(range(240)),
     ]
+    # A repeated merge retains established per-stock provenance, including unknown.
+    repeated = finalize_tdx_one_min_day(
+        day, stage, root=store, catalog_path=catalog, source_host="test.example:7709",
+    )
+    assert repeated["source_lineage"]["stock_codes_by_source"] == expected_sources
+    assert repeated["source_lineage"]["previous_manifest_status"] == "explicit_stock_lineage"
+    # Only actual replacement by new TDX rows resolves an unknown/CSV origin.
+    stage_tdx_one_min_batch([{"rows": _full_rows("600000.SH", day)}], stage)
+    replaced = finalize_tdx_one_min_day(
+        day, stage, root=store, catalog_path=catalog, source_host="test.example:7709",
+    )
+    assert replaced["source_lineage"]["retained_previous_partition_codes"] == []
+    assert replaced["source_lineage"]["stock_codes_by_source"] == {
+        "tdx": ["000001.SZ", "600000.SH"], "csv": [], "unknown": [],
+    }
 
 
 def test_remove_one_min_partition_cleans_files_manifest_and_catalog(tmp_path: Path) -> None:

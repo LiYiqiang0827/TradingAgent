@@ -41,11 +41,25 @@ TDX下载先按交易日写入`oneMinute/tdx_stage`。全市场全部股票成�
 每日调度把oneMin放在daily和adj_factor之后，确保新分区带有当日复权因子。
 
 TDX历史服务器对不同股票的最早可用日期并不一致。历史替换时，以当日日线表的
-实际交易股票集合作为完整性基准：TDX已返回的股票使用TDX，仍缺少的股票才从同日
-旧CSV分区补齐，并统一删除09:30、重算`time_idx=0..239`。这种分区在清单中标记为
-`tdx_with_csv_fallback`，同时记录两类来源各自的股票数和行数；纯TDX分区标记为
+实际交易股票集合作为完整性基准：TDX已返回的股票使用TDX，仍缺少的股票从同日
+旧Parquet分区保留，并统一删除09:30、重算`time_idx=0..239`。这种分区在清单中沿用
+`tdx_with_csv_fallback` 标记；旧分区可能含CSV、TDX或混合数据，这个名字不能证明
+每只保留股票实际来自CSV。全部股票由本次TDX数据覆盖时标记为
 `tdx`。未来每日增量若TDX缺少任一实际交易股票且没有既有分区可补齐，质量门会
 拒绝替换正式数据。TDX区间内由旧CSV产生、但不在上交所交易日历中的分区会被删除。
+
+2026-09-29 起的新合并结果在逐日 manifest 中增加 `source_lineage`：
+
+- `tdx_downloaded_codes`：本次真正写入TDX数据的股票列表。
+- `retained_previous_partition_codes`：从同日旧分区保留的股票列表。
+- `stock_codes_by_source`：逐股归入 `tdx`、`csv` 或 `unknown`。
+- `previous_manifest_status`、`previous_manifest_sha256`：继承依据的状态与哈希。
+
+只继承同一交易日明确的逐股来源记录；旧清单仅有数量、记录缺失、日期错位或来源
+冲突时写 `unknown`，不根据 `tdx://` 路径或下载覆盖起止日期猜测。旧
+`csv_fallback_stock_count/rows` 字段保留兼容，其实际语义是本次保留的旧分区数量。
+新代码不追改已有分区，也不声称恢复了旧数据血缘；需要重新下载并核验后才能消除
+旧股票日的未知来源。分钟聚合与15分钟价格一致，只是内部一致性校验，不是来源证明。
 
 ```bash
 # 日常增量到最近已收盘交易日
