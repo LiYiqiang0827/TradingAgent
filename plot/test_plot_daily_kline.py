@@ -210,6 +210,13 @@ class PlotDailyKlineTest(unittest.TestCase):
                     frame, ts_code="000001.SZ", stock_name="样本", window=window,
                     qfq=True, save_path=path, show=False,
                 )
+                price_markers = {
+                    (round(float(point[0])), round(float(point[1]), 2))
+                    for collection in plt.gcf().axes[0].collections
+                    for point in collection.get_offsets()
+                }
+                self.assertIn((1, 10.2), price_markers)
+                self.assertIn((2, 10.5), price_markers)
                 volume_bars = plt.gcf().axes[1].containers[0].patches
                 self.assertEqual(
                     [round(bar.get_x() + bar.get_width() / 2) for bar in volume_bars],

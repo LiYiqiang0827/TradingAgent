@@ -431,21 +431,20 @@ def plot_daily_kline(
 
     if trade_positions is not None:
         buy_x, sell_x = trade_positions
-        axis_coords = price_ax.get_xaxis_transform()
-        sell_y = 0.90 if buy_x == sell_x else 0.93
-        for marker_x, marker_y, label, marker, color, align, offset in (
-            (buy_x, 0.97, "买入", "^", "#087f5b", "left", 0.7),
-            (sell_x, sell_y, "卖出", "v", "#a52b51", "right", -0.7),
+        for marker_x, label, marker, color, offset, vertical_align in (
+            (buy_x, "买入", "^", "#087f5b", 14, "bottom"),
+            (sell_x, "卖出", "v", "#a52b51", -14, "top"),
         ):
+            marker_price = float(df.iloc[marker_x]["open"])
             price_ax.scatter(
-                [marker_x], [marker_y], transform=axis_coords, marker=marker,
-                s=115, color=color, edgecolor="white", linewidth=0.7,
-                zorder=7, clip_on=False,
+                [marker_x], [marker_price], marker=marker, s=135,
+                color=color, edgecolor="white", linewidth=0.8, zorder=7,
             )
-            price_ax.text(
-                marker_x + offset, marker_y, label, transform=axis_coords,
-                ha=align, va="center",
-                fontsize=9, color=color, fontweight="bold", zorder=7,
+            price_ax.annotate(
+                f"{label}日开盘 {marker_price:.2f}",
+                xy=(marker_x, marker_price), xytext=(0, offset),
+                textcoords="offset points", ha="center", va=vertical_align,
+                fontsize=9, color=color, fontweight="bold", zorder=8,
                 bbox={"facecolor": "#fafafa", "edgecolor": "none", "alpha": 0.8, "pad": 1},
             )
 

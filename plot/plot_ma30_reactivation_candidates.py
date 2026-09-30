@@ -1,7 +1,7 @@
-"""Draw every de-duplicated MA30 reactivation candidate as it looked on signal day.
+"""Draw paired MA30 charts: decision-time structure and later trade replay.
 
-The gallery table separately shows the retrospective ten-session open-to-open
-simulation. Future prices never enter the charts.
+The decision-time chart stops at the signal close. The separate replay chart
+uses later prices only to review the simulated entry and exit.
 """
 
 from __future__ import annotations
@@ -24,6 +24,7 @@ for path in (ROOT, RESEARCH_SCRIPTS):
 from coreClient.data_provider import get_adj_factor, get_day, get_kpl_list  # noqa: E402
 from backtest_rising_ma_reactivation_202605_202608 import _stock_frame  # noqa: E402
 from study_rising_ma_reactivation import plot_template  # noqa: E402
+from plot.plot_daily_kline_batch import plot_batch  # noqa: E402
 
 
 DEFAULT_SOURCE = ROOT / "outputs" / "rising_ma_reactivation" / "may_aug_2026_final" / "first_episode_matches.csv"
@@ -114,25 +115,47 @@ def generate(source: Path, output: Path) -> dict:
                                  "error": str(exc)})
 
     records.sort(key=lambda item: (item["signal_date"], item["ts_code"]))
+    if records:
+        replay_dir = output / "buy_sell_replay"
+        replay_items = [
+            {"ts_code": item["ts_code"], "name": item["name"],
+             "trade_date": item["signal_date"], "buy_date": item["entry_date"],
+             "sell_date": item["exit_date"]}
+            for item in records
+        ]
+        replay = plot_batch(
+            replay_items, save_dir=replay_dir, lookback_months=6,
+            lookahead_months=1, ma_warmup_days=400, qfq=True,
+            overwrite=True, progress=False,
+        )
+        if replay.failed or len(replay.outputs) != len(records):
+            failures.extend(replay.errors)
+            raise RuntimeError(f"买卖回放图未画全：{replay.success} 成功，"
+                               f"{replay.skipped} 已存在，{replay.failed} 失败")
+        for item, replay_path in zip(records, replay.outputs):
+            item["trade_chart_path"] = str(replay_path.resolve())
+
     pd.DataFrame(records).to_csv(output / "MA30候选交易表.csv", index=False,
                                  encoding="utf-8-sig")
     lines = [
         "# 2026 年 5–8 月 MA30 整理再启动候选日线图",
         "",
-        f"共 {len(episodes)} 次去重候选、{len(records)} 张日线图。点击股票代码查看该次信号日的图。",
-        "图只展示截至筛选日的日线、MA20/30/60/120、实际成交量、第一波自身涨停、第一波阶段高点与启动前均量基准；不展示后续行情。",
+        f"共 {len(episodes)} 次去重候选，分别生成 {len(records)} 张筛选日图和 {len(records)} 张买卖回放图。点击股票代码查看含模拟买卖日期的回放图，点击“筛选日图”看当时可见的结构。",
+        "筛选日图只展示截至当日的日线、MA20/30/60/120、实际成交量、第一波自身涨停、第一波阶段高点与启动前均量基准。回放图额外显示后续日线，绿色上三角和虚线为模拟买入日，红色下三角和虚线为模拟卖出日，浅蓝色为持有区间；后续行情没有参与筛选。",
         "",
         "下表的买卖日期是**模拟**：筛选日次一交易日开盘买入，持有十个交易日后开盘卖出；跌停无法卖出则按原回放顺延。区间涨跌幅按复权等价买卖开盘价之比计算，估算净收益再扣买卖合计 0.4% 成本。开盘价只是成交代理，并非真实成交保证。题材为第一波最后一次涨停当日的开盘啦原始标签，可能含附加标签。",
         "",
-        "| 股票代码 | 名字 | 模拟买入日期 | 模拟卖出日期 | 区间涨跌幅 | 估算净收益 | 题材 |",
-        "| --- | --- | --- | --- | ---: | ---: | --- |",
+        "| 股票代码／买卖回放图 | 筛选日图 | 名字 | 模拟买入日期 | 模拟卖出日期 | 区间涨跌幅 | 估算净收益 | 题材 |",
+        "| --- | --- | --- | --- | --- | ---: | ---: | --- |",
     ]
     for item in records:
         chart = Path(item["chart_path"]).name
+        replay_chart = Path(item["trade_chart_path"])
         label = item["name"].replace("|", "、")
         theme = item["theme"].replace("|", "、")
         lines.append(
-            f"| [{item['ts_code']}]({chart}) | {label} | "
+            f"| [{item['ts_code']}](buy_sell_replay/{replay_chart.name}) | "
+            f"[筛选日图]({chart}) | {label} | "
             f"{_fmt_date(item['entry_date'])} | {_fmt_date(item['exit_date'])} | "
             f"{_fmt_pct(item['price_change_pct'])} | "
             f"{_fmt_pct(item['estimated_net_pct'])} | {theme} |"
@@ -140,7 +163,8 @@ def generate(source: Path, output: Path) -> dict:
     (output / "MA30候选交易表.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     (output / "errors.json").write_text(json.dumps(failures, ensure_ascii=False, indent=2),
                                          encoding="utf-8")
-    summary = {"candidates": len(episodes), "charts": len(records),
+    summary = {"candidates": len(episodes), "as_of_charts": len(records),
+               "buy_sell_replay_charts": sum("trade_chart_path" in item for item in records),
                "failed": len(failures), "output": str(output.resolve())}
     (output / "manifest.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2),
                                             encoding="utf-8")
