@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "files": 138,
+  "bytes": 7534064,
+  "scope": "two task directories, six necessary dependencies, scoped .gitattributes",
+  "secrets_pattern_hits": 0,
+  "all_python_ast_parsed": true,
+  "all_staged_bytes_match_audited_working_files": true
+}

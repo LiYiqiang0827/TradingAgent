@@ -1,0 +1,33 @@
+{
+  "status": "verified",
+  "artifact_commit": "d44bc2505911c0bed6724599caa5c1fb0794b17c",
+  "remote_branch": "MrWu",
+  "source": "git push explicit HEAD:MrWu; fresh git fetch; ls-remote; blob verification from fetched remote tree",
+  "checks": [
+    {
+      "path": "docs/research/mrwu_sentiment_cycle_20261005/README.md",
+      "sha256": "1d00582b11edc5122c32c85b5b372f2adabdbd8cb038464380bd9f9f661698b8",
+      "remote_blob_matches_local": true
+    },
+    {
+      "path": "docs/research/mrwu_sentiment_cycle_20261005/REPRODUCE.md",
+      "sha256": "eaeb55c6a0a8413df7dffbae18e8372095227b517b357d0e320b54224b7a408e",
+      "remote_blob_matches_local": true
+    },
+    {
+      "path": "docs/research/mrwu_sentiment_cycle_20261005/deliverables/A股接力情绪与周期研究_20260101_20260930_v0.1.pdf",
+      "sha256": "3bfde897136f888b8f739549701e8797e876b24af3b03b236bc94e1227d8823a",
+      "remote_blob_matches_local": true
+    },
+    {
+      "path": "docs/research/mrwu_sentiment_cycle_20261005/data/environment_daily.csv",
+      "sha256": "3fc9c1dc201ca45e4d31c6e04e053f5c1695e9b8d1e6724ee4b384dfe3cd54b5",
+      "remote_blob_matches_local": true
+    },
+    {
+      "path": "policyStudy/policy/speculation_sentiment_lite/production.py",
+      "sha256": "73a0e4ae9344837811369e9d7bbf07d648968e863a49e2f5c84a54523fa92dd5",
+      "remote_blob_matches_local": true
+    }
+  ]
+}

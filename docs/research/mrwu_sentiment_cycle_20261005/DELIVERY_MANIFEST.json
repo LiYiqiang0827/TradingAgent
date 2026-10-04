@@ -64,10 +64,13 @@
       "evidence": "data/acceptance/free_rebuild.json"
     },
     "git": {
-      "status": "pending_push",
+      "status": "verified_published",
       "target_branch": "MrWu",
       "repository": "https://github.com/LiYiqiang0827/TradingAgent",
-      "force_push": false
+      "force_push": false,
+      "verified_artifact_commit": "d44bc2505911c0bed6724599caa5c1fb0794b17c",
+      "evidence": "data/acceptance/git_publication.json",
+      "note": "This verification records the artifact commit; the following audit-only commit contains this evidence. PDF, code and data are unchanged."
     }
   },
   "fingerprints": {
@@ -154,12 +157,15 @@
     "data/acceptance/cohort_exception_validation.json",
     "data/acceptance/cohort_exceptions.csv",
     "data/acceptance/data_controller_acceptance.json",
+    "data/acceptance/final_main_worktree_check.json",
     "data/acceptance/free_rebuild.json",
+    "data/acceptance/git_publication.json",
     "data/acceptance/input_integrity.json",
     "data/acceptance/mature_nonstandard_limit_stock_days.csv",
     "data/acceptance/pdf_visual_review.json",
     "data/acceptance/production_nonmutation.json",
     "data/acceptance/production_prefix_and_repeat.json",
+    "data/acceptance/publication_scope.json",
     "data/acceptance/render_checks.json",
     "data/acceptance/report_consistency.json",
     "data/acceptance/reproduction_review.json",
