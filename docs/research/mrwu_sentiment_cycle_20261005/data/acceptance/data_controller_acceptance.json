@@ -1,0 +1,22 @@
+{
+  "status": "accepted_with_disclosed_local_exclusion",
+  "SSE_SZSE_same_open_dates": true,
+  "open_days": 467,
+  "year_counts": {
+    "2024": 43,
+    "2025": 243,
+    "2026": 181
+  },
+  "historical_identity_gap": {
+    "code": "300114.SZ",
+    "warmup": 43,
+    "calibration": 26,
+    "analysis": 0,
+    "old_snapshot_lookup_rows": 0
+  },
+  "input_manifest_sha256": "d8ea4bf3c634204d1f9009d9f82093d593f4f3a7742ef98d3ba53907a56c7c63",
+  "observed_price_rows": 2406834,
+  "daily_without_limit": 0,
+  "key_checks": "passed",
+  "source_integrity_final_hash_check": "running_separately"
+}

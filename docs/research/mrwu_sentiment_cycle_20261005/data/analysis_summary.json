@@ -1,0 +1,37 @@
+{
+  "calendar_days": 181,
+  "score_valid_days": 181,
+  "score_unknown_days": 0,
+  "theme_valid_days": 181,
+  "start": "2026-01-05",
+  "end": "2026-09-30",
+  "score_mean": 45.80889135904877,
+  "grade_counts": {
+    "D": 59,
+    "C": 49,
+    "B": 38,
+    "A": 23,
+    "S": 12
+  },
+  "phase_counts": {
+    "冰点": 59,
+    "退潮": 35,
+    "启动候选": 30,
+    "修复": 27,
+    "中性/混沌": 18,
+    "分歧": 10,
+    "强势": 1,
+    "扩散": 1
+  },
+  "panic_days": 18,
+  "score_theme_correlation": 0.6017209016185092,
+  "score_theme_paired_n": 181,
+  "sources": {
+    "grade_counts": "sentiment_daily.csv valid score groupby grade5; unknown reported separately",
+    "phase_counts": "cycle_daily.csv groupby phase",
+    "score_theme_correlation": "environment_daily.csv pairwise complete Pearson; descriptive; shared price source",
+    "cases": "case_selection.csv deterministic rules"
+  },
+  "return_validation_performed": false,
+  "cycle_version": "C0-v1"
+}

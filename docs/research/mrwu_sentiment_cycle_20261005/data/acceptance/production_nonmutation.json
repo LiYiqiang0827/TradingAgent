@@ -1,0 +1,9 @@
+{
+  "same_live_file_size_mtime_ns": true,
+  "files": [
+    "db_cn_basic.db",
+    "db_cn_index.db",
+    "db_cn_kpl.db"
+  ],
+  "connections": "mode=ro&immutable=1, query_only; input content fingerprints recorded before runs"
+}

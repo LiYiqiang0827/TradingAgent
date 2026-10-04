@@ -1,0 +1,39 @@
+{
+  "status": "accepted_by_controller",
+  "dates": [
+    "2026-09-09",
+    "2026-09-10",
+    "2026-09-11"
+  ],
+  "high_stock_rows_read": 43,
+  "high_groups": [
+    {
+      "n": 19,
+      "sum": 990,
+      "mean": 52.10526315789474
+    },
+    {
+      "n": 15,
+      "sum": 790,
+      "mean": 52.666666666666664
+    },
+    {
+      "n": 9,
+      "sum": 530,
+      "mean": 58.888888888888886
+    }
+  ],
+  "root_checks": [
+    "All ties across three distinct previous heights included and equally weighted",
+    "9/10 two lower-limit closes receive 0 before negative-return category",
+    "Previous cohort counts 73/48/34 all observed",
+    "Eligible counts 4999/4997/4998; limit up 48/34/40; broken 28/25/24",
+    "Turnover uses thousand-yuan source unit and previous 20 observed market days; no panic on these three dates",
+    "Module arithmetic independently reconstructed; validation max error 1.0658141036401503e-14"
+  ],
+  "evidence": [
+    "three_day_hand_worksheet.csv",
+    "three_day_high_stock_worksheet.csv",
+    "validation.json"
+  ]
+}

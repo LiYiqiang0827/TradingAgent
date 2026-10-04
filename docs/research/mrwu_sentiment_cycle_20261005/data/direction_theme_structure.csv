@@ -1,0 +1,4 @@
+﻿direction,theme_observed_n,adjacent_observed_n,top1_changed_n,top1_changed_rate,clear_or_multiple_mainline_n,structure_replacement_n,low_score_high_theme_n
+上,85,85,55,0.6470588235294118,52,8,5
+平,8,8,3,0.375,5,0,1
+下,88,87,56,0.6436781609195402,39,7,11

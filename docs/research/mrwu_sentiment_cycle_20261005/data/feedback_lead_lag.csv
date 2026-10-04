@@ -1,0 +1,9 @@
+﻿feature_change_at_t,score_change_offset,paired_n,pearson,interpretation
+M4,-1,181,-0.2706869220202191,shared_formula_descriptive_not_prediction
+M4,0,181,0.7478013004772149,shared_formula_descriptive_not_prediction
+M4,1,180,-0.27116600030470533,shared_formula_descriptive_not_prediction
+M4,3,178,-0.029137231170382534,shared_formula_descriptive_not_prediction
+H_score,-1,181,-0.32357509420766123,shared_formula_descriptive_not_prediction
+H_score,0,181,0.7441989448059547,shared_formula_descriptive_not_prediction
+H_score,1,180,-0.25388424099541684,shared_formula_descriptive_not_prediction
+H_score,3,178,0.12979035761149693,shared_formula_descriptive_not_prediction

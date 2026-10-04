@@ -1,0 +1,27 @@
+{
+  "calendar_rows": 181,
+  "score_valid_rows": 181,
+  "theme_valid_rows": 181,
+  "outer_weight_max_error": 2.842170943040401e-14,
+  "priors_recomputed_from_2025": 8,
+  "clipping_rows_independently_checked": 20,
+  "monthly_and_transition_denominators": "passed",
+  "cycle_prefixes": [
+    {
+      "cutoff": "2026-03-31",
+      "days_including_2025": 299,
+      "all_cycle_fields_equal": true
+    },
+    {
+      "cutoff": "2026-06-30",
+      "days_including_2025": 359,
+      "all_cycle_fields_equal": true
+    },
+    {
+      "cutoff": "2026-09-09",
+      "days_including_2025": 410,
+      "all_cycle_fields_equal": true
+    }
+  ],
+  "status": "passed"
+}

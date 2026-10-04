@@ -1,0 +1,42 @@
+[
+  {
+    "path": "offlineDataManager/scripts/core/theme_daily_review.py",
+    "source": "existing local TradingAgent implementation; source left unchanged",
+    "reason": "existing theme service and fixed review algorithm; Windows/scoped-read compatibility",
+    "source_sha256": "177b44d446164efc181a8e8ae1a14771e2429e98de2276565b58154af9846d08",
+    "delivered_sha256": "96bac1885a78aee6b225642bc9020cc2cb130daca7c99ce86376b6346f0302dc",
+    "modification": "output_start_date avoids assembling earlier outputs while retaining full prior history for calculations; 172 original daily JSONs unchanged"
+  },
+  {
+    "path": "offlineDataManager/scripts/core/theme_graph_store.py",
+    "source": "existing local TradingAgent implementation; source left unchanged",
+    "reason": "existing theme service and fixed review algorithm; Windows/scoped-read compatibility",
+    "source_sha256": "eb623ba869fd9ac035ceab55ea650c9a75fb668c757eb3139bf78fd99387e3b6",
+    "delivered_sha256": "53f9dbb9df64438d96b4152051ee9e114d8d6535e00f6b05600899e6fde9cbdf",
+    "modification": "output_start_date avoids assembling earlier outputs while retaining full prior history for calculations; 172 original daily JSONs unchanged"
+  },
+  {
+    "path": "offlineDataManager/scripts/core/theme_vault.py",
+    "source": "existing local TradingAgent implementation; source left unchanged",
+    "reason": "existing theme service and fixed review algorithm; Windows/scoped-read compatibility",
+    "source_sha256": "9a38d4f3f18299f5b563c4b88cad0afb38fd6ae92c382eef11d6ee4d6a25cbb6",
+    "delivered_sha256": "9a38d4f3f18299f5b563c4b88cad0afb38fd6ae92c382eef11d6ee4d6a25cbb6",
+    "modification": "none"
+  },
+  {
+    "path": "offlineDataManager/scripts/service/service_theme_graph.py",
+    "source": "existing local TradingAgent implementation; source left unchanged",
+    "reason": "existing theme service and fixed review algorithm; Windows/scoped-read compatibility",
+    "source_sha256": "53cdb484a4295bfa4a30283f132cb4e8ab163f34e14e7ba39fa43aeb095dab04",
+    "delivered_sha256": "53cdb484a4295bfa4a30283f132cb4e8ab163f34e14e7ba39fa43aeb095dab04",
+    "modification": "none"
+  },
+  {
+    "path": "offlineDataManager/scripts/config/data_safety.py",
+    "source": "existing local TradingAgent implementation; source left unchanged",
+    "reason": "existing theme service and fixed review algorithm; Windows/scoped-read compatibility",
+    "source_sha256": "1d59a4641393b1e1ac73576ef03044415962e605935e07ce28a05f31fc55a208",
+    "delivered_sha256": "1d59a4641393b1e1ac73576ef03044415962e605935e07ce28a05f31fc55a208",
+    "modification": "none"
+  }
+]

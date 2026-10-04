@@ -1,0 +1,12 @@
+{
+  "ts_code": "300114.SZ",
+  "stock_day_rows": 69,
+  "year_counts": {
+    "2024": 43,
+    "2025": 26
+  },
+  "2026_direct_exclusions": 0,
+  "resolution": "Retain raw prices and limits; exclude only these stock-day rows due missing listing identity and historical name. API global L/D/P identity and old-code namechange request returned no matching identity. No invented aliases or source fields.",
+  "scope": "2024-11-01 to 2025-02-14",
+  "parent_authorization": "Explicit 6.3 local exclusion; does not block input_ready or entire market day"
+}

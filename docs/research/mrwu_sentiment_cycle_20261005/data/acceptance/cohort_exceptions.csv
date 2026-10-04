@@ -1,0 +1,3 @@
+﻿trade_date,ts_code,name,prev_height,found,paused,missing,return_obs,ref_ok,delist_date,absence_explanation
+2025-07-11,000584.SZ,工智退(退),1,False,False,True,False,False,20250711,local_basic_delisting_effective_by_date
+2026-07-14,000004.SZ,国华退,3,False,False,True,False,False,20260714,local_basic_delisting_effective_by_date

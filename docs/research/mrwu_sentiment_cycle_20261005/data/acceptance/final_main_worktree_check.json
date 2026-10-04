@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "main_status_records": 207,
+  "main_status_unchanged": true,
+  "note": "Same status plus isolation and original reused-source hashes; not claiming full hashes for every unrelated file"
+}

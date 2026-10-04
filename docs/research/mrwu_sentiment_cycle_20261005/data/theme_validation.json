@@ -1,0 +1,13 @@
+{
+  "days": 181,
+  "start": "2026-01-05",
+  "end": "2026-09-30",
+  "method_versions": [
+    "theme-market-review-v2"
+  ],
+  "all_point_in_time": true,
+  "source_db_sha256": "7002ccfbb7e31edd2f67ac79d45a191bdaecc14ccd953b78ec0d493dc5e84168",
+  "source_timestamp_limit": "Point-in-time algorithmic slicing does not authenticate original KPL publication or revisions.",
+  "extra_case_context_days": 6,
+  "extra_case_context_start": "2025-12-24"
+}

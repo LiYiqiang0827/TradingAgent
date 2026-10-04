@@ -1,0 +1,30 @@
+{
+  "trading_days": 467,
+  "price_rows": 2406834,
+  "historical_name_missing_rows": 69,
+  "historical_name_missing_codes": 1,
+  "overlap_candidate_rows": 537,
+  "overlap_conflicting_st_rows": 0,
+  "latest_start_conflicting_st_rows": 0,
+  "daily_limit_missing_rows": 0,
+  "daily_basic_identity_missing_rows": 69,
+  "key_checks": {
+    "tbl_cn_day": {
+      "range_rows": 2540672,
+      "duplicate_code_date_keys": 0,
+      "null_or_empty_key_rows": 0
+    },
+    "tbl_cn_stk_limit": {
+      "range_rows": 2584276,
+      "duplicate_code_date_keys": 0,
+      "null_or_empty_key_rows": 0
+    },
+    "tbl_cn_suspend": {
+      "range_rows": 7244,
+      "duplicate_code_date_keys": 0,
+      "null_or_empty_key_rows": 0
+    }
+  },
+  "missing_listing_date_rows": 69,
+  "basis": "actual_daily_rows"
+}

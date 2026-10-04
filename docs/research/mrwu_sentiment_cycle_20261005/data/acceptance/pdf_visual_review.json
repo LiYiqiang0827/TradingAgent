@@ -1,0 +1,30 @@
+{
+  "status": "accepted_by_controller",
+  "pdf_sha256": "3bfde897136f888b8f739549701e8797e876b24af3b03b236bc94e1227d8823a",
+  "pages_rendered": 24,
+  "all_contact_sheets_reviewed": true,
+  "dense_pages_reviewed_full_size": [
+    6,
+    7,
+    10,
+    11,
+    12,
+    16,
+    20,
+    21,
+    23
+  ],
+  "final_revision_pages_reviewed": [
+    16,
+    20
+  ],
+  "out_of_page_text_count": 0,
+  "checks": [
+    "Chinese glyphs, axes, units, page labels, tables and source footnotes legible",
+    "Table-note spacing on page16 corrected",
+    "Human comparison page20 preserves September14 single-day improvement versus five-day retreat conflict",
+    "All empirical chart data comes from published final F1 tables",
+    "Read all 24 pages; no strategy-return, causal or unseen-sample claim accepted"
+  ],
+  "render_evidence_local": "RUN/render/final; individual PNGs retained locally, compact verification published"
+}

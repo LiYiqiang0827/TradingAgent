@@ -1,0 +1,230 @@
+{
+  "delivery_version": "v0.1",
+  "method_version": "F1-formal-live-v1",
+  "cycle_version": "C0-v1",
+  "research_character": "descriptive; 2026 already studied; no strategy-return validation",
+  "controller": "User-selected Astra session; sole substantive judgment and final acceptance owner; no self-switch claimed",
+  "native_worker": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "xhigh",
+    "configuration_evidence": "Native collaboration tool accepted explicit model/effort; no silent substitution",
+    "independent_runtime_introspection_available": false,
+    "external_workers_used": false
+  },
+  "scope": {
+    "start": "2026-01-01",
+    "end": "2026-09-30",
+    "actual_first_trade_date": "2026-01-05",
+    "actual_last_trade_date": "2026-09-30"
+  },
+  "acceptance": {
+    "data_coverage": {
+      "status": "complete_with_disclosed_local_exclusions",
+      "score_days": 181,
+      "calendar_days": 181,
+      "theme_days": 181,
+      "score_unknown_days": 0
+    },
+    "numerical_reproduction": {
+      "status": "passed",
+      "baseline_reference_days": 415,
+      "unit_tests": 39,
+      "direct_three_day_review": [
+        "2026-09-09",
+        "2026-09-10",
+        "2026-09-11"
+      ],
+      "true_source_truncation_prefixes": [
+        "2026-03-31",
+        "2026-06-30",
+        "2026-09-09"
+      ],
+      "repeat_full_all_fields_exact": true,
+      "evidence_directory": "data/acceptance"
+    },
+    "phase": {
+      "status": "complete",
+      "days": 181,
+      "version": "C0-v1",
+      "exploratory": true
+    },
+    "pdf": {
+      "status": "passed_controller_visual_review",
+      "pages": 24,
+      "path": "deliverables/A股接力情绪与周期研究_20260101_20260930_v0.1.pdf",
+      "sha256": "3bfde897136f888b8f739549701e8797e876b24af3b03b236bc94e1227d8823a",
+      "bytes": 1667994,
+      "evidence": "data/acceptance/pdf_visual_review.json"
+    },
+    "free_rebuild": {
+      "status": "passed",
+      "entry": "reproduction/build_deck.py",
+      "pdf_bytes_equal": true,
+      "all_24_pages_text_and_pixels_equal": true,
+      "evidence": "data/acceptance/free_rebuild.json"
+    },
+    "git": {
+      "status": "pending_push",
+      "target_branch": "MrWu",
+      "repository": "https://github.com/LiYiqiang0827/TradingAgent",
+      "force_push": false
+    }
+  },
+  "fingerprints": {
+    "frozen_configuration_sha256": {
+      "CYCLE_SPEC.md": "7d8f92d1cf8a68b82b9a709fcb232037685d7b672f67ce22e20d1f85719c9db6",
+      "external_reconciliation.csv": "d4ad420afac7a4e4695004b73eb7728045292b85d9862bbdcf7e388ad92f850e",
+      "formal_spec.json": "6229cfc9be8f0c0fb794ffe71a28b6edc49f456e82f5fb7d7a211781a298bb42",
+      "REUSED_CODE.json": "1663fae316398ffc6d942deee6551f82e928db71f7437c824ac94e57962b9600"
+    },
+    "calibration_file_sha256": "10e1b558a9e2fd80bd710b95e45b00f1df41566047a67b271efecb41ce6c97ee",
+    "calibration_internal_fingerprint": "d21f9a96bb073944828fd90ca5a08701aae3d26da9cda048dc2a9db3fc70b8cf",
+    "input_snapshot_fingerprint": "d8ea4bf3c634204d1f9009d9f82093d593f4f3a7742ef98d3ba53907a56c7c63",
+    "published_input_manifest_sha256": "b7a75d87fb0b12351d972ac49818fe35679aefbb151c79e8e1007ff6e89dea60",
+    "note": "Published manifest removes machine-specific paths; original input fingerprint identifies full local manifest.",
+    "provenance_note": "REUSED_CODE provenance clarified after read-only audit; formula and C0 freeze hashes unchanged."
+  },
+  "large_local_outputs": {
+    "events": {
+      "file": "events.parquet",
+      "rows": 2406834,
+      "sha256": "a39b412b4da6da8c4445d6997344082ba3f89bb7267f566926809b44843f08ea"
+    },
+    "cohorts": {
+      "file": "cohorts.parquet",
+      "rows": 32694,
+      "sha256": "030ce93fbf0167fa7597c474b0c1e7cd1484c657572a5afe1310a717974af895"
+    },
+    "uploaded": false,
+    "rebuild_entry": "policyStudy/policy/speculation_sentiment_lite/production.py"
+  },
+  "findings": {
+    "calendar_days": 181,
+    "score_valid_days": 181,
+    "score_unknown_days": 0,
+    "theme_valid_days": 181,
+    "start": "2026-01-05",
+    "end": "2026-09-30",
+    "score_mean": 45.80889135904877,
+    "grade_counts": {
+      "D": 59,
+      "C": 49,
+      "B": 38,
+      "A": 23,
+      "S": 12
+    },
+    "phase_counts": {
+      "冰点": 59,
+      "退潮": 35,
+      "启动候选": 30,
+      "修复": 27,
+      "中性/混沌": 18,
+      "分歧": 10,
+      "强势": 1,
+      "扩散": 1
+    },
+    "panic_days": 18,
+    "score_theme_correlation": 0.6017209016185092,
+    "score_theme_paired_n": 181,
+    "sources": {
+      "grade_counts": "sentiment_daily.csv valid score groupby grade5; unknown reported separately",
+      "phase_counts": "cycle_daily.csv groupby phase",
+      "score_theme_correlation": "environment_daily.csv pairwise complete Pearson; descriptive; shared price source",
+      "cases": "case_selection.csv deterministic rules"
+    },
+    "return_validation_performed": false,
+    "cycle_version": "C0-v1"
+  },
+  "remaining_limitations": [
+    "300114.SZ identity unavailable for 69 stock-days: 43 warmup + 26 calibration + 0 analysis; locally excluded",
+    "Two absent previous-cohort observations explained by local delist_date; missing counts retained",
+    "KPL/namechange/human-review provider first-publication and revision times not authenticated",
+    "Existing suspend table one-row-per-stock/date cannot retain both same-date R and intraday S for 301139.SZ on 2026-09-30; raw response audited",
+    "Optional unused daily_basic last eight dates not backfilled"
+  ],
+  "not_performed": [
+    "Strategy-return experiments (three specifications delivered)",
+    "Six-module sequence: M6 evidence incomplete; not required by updated execution brief",
+    "PPTX export: PDF and free source delivered",
+    "Trading, execution changes, automatic schedules"
+  ],
+  "published_data_files": [
+    "data/acceptance/cent_boundary_acceptance.json",
+    "data/acceptance/cent_regime_changed_stock_days.csv",
+    "data/acceptance/cohort_exception_validation.json",
+    "data/acceptance/cohort_exceptions.csv",
+    "data/acceptance/data_controller_acceptance.json",
+    "data/acceptance/free_rebuild.json",
+    "data/acceptance/input_integrity.json",
+    "data/acceptance/mature_nonstandard_limit_stock_days.csv",
+    "data/acceptance/pdf_visual_review.json",
+    "data/acceptance/production_nonmutation.json",
+    "data/acceptance/production_prefix_and_repeat.json",
+    "data/acceptance/render_checks.json",
+    "data/acceptance/report_consistency.json",
+    "data/acceptance/reproduction_review.json",
+    "data/acceptance/theme_prefix_validation.json",
+    "data/acceptance/three_day_controller_review.json",
+    "data/acceptance/three_day_hand_worksheet.csv",
+    "data/acceptance/three_day_high_stock_worksheet.csv",
+    "data/acceptance/three_day_validation.json",
+    "data/acceptance/unit_tests.json",
+    "data/analysis_summary.json",
+    "data/backfill_changes.csv",
+    "data/baseline_diff.csv",
+    "data/baseline_validation.json",
+    "data/calendar.csv",
+    "data/calibration.json",
+    "data/calibration_reference.json",
+    "data/case_selection.csv",
+    "data/case_windows.csv",
+    "data/clipping_statistics.csv",
+    "data/code_quality_summary.json",
+    "data/cycle_daily.csv",
+    "data/daily_0910_neighbor_reconciliation.json",
+    "data/daily_identity_gaps.csv",
+    "data/daily_limit_gaps.csv",
+    "data/daily_raw.csv",
+    "data/data_change_summary.csv",
+    "data/data_coverage.csv",
+    "data/direction_theme_structure.csv",
+    "data/divergence_days.csv",
+    "data/environment_daily.csv",
+    "data/event_summary.csv",
+    "data/event_windows.csv",
+    "data/external_reconciliation.csv",
+    "data/feedback_lead_lag.csv",
+    "data/formal_daily_2025_2026.csv",
+    "data/grade_transitions.csv",
+    "data/human_comparison.csv",
+    "data/human_review.csv",
+    "data/human_source.csv",
+    "data/index_code_coverage.csv",
+    "data/index_quality_summary.json",
+    "data/input_manifest.json",
+    "data/local_identity_exclusion.json",
+    "data/market_code_coverage.csv",
+    "data/monthly_modules.csv",
+    "data/monthly_rotation.csv",
+    "data/monthly_summary.csv",
+    "data/namechange_daily_coverage.csv",
+    "data/namechange_load_result.json",
+    "data/namechange_missing_intervals.csv",
+    "data/official_calendar_summary.json",
+    "data/old_snapshot_identity_lookup.json",
+    "data/phase_transitions.csv",
+    "data/production_validation.json",
+    "data/quality_daily.csv",
+    "data/reference_to_formal_diff.csv",
+    "data/report_numbers.csv",
+    "data/robustness_daily.csv",
+    "data/robustness_summary.csv",
+    "data/runs.csv",
+    "data/same_score_direction.csv",
+    "data/sentiment_daily.csv",
+    "data/theme_context_daily.csv",
+    "data/theme_emotion_cross.csv",
+    "data/theme_rank_daily.csv",
+    "data/theme_validation.json"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "before_rows": 13990,
+  "after_rows": 13990,
+  "inserted_rows": 0,
+  "repeat_inserted_rows": 0,
+  "interval_semantics": "inclusive start and end; NULL end is open; conflicts remain explicit",
+  "shared_boundary_policy": "Prefer latest start_date on shared inclusive boundary and mark ambiguity; unresolved candidates with same start_date remain explicit conflicts",
+  "raw_hash_sha256": "e627286e5b713dbeef113ebfa31389a065406aca7a9bc77b2fb1da60605826f5",
+  "loaded_at": "2026-10-04T17:48:15+00:00"
+}

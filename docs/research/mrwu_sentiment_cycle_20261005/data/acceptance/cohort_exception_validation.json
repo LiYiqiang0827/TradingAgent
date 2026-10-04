@@ -1,0 +1,8 @@
+{
+  "exception_rows": 2,
+  "explained_by_local_delisting": 2,
+  "unresolved_observation_rows": 0,
+  "score_or_denominator_changes": false,
+  "basis": "Frozen local stock_basic delist_date; original missing observation count retained; not filled as promotion failure",
+  "provider_first_publication_verified": false
+}

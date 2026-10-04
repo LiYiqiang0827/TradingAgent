@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "tests": 39,
+  "elapsed_seconds": 5.64,
+  "runner": "root direct execution",
+  "exit_code": 0,
+  "command": "python -m pytest -q -p no:cacheprovider test_core.py test_production.py test_research_statistics.py --basetemp <fresh isolated directory>",
+  "timestamp_utc": "2026-10-04T18:25:54.503724+00:00",
+  "source_hashes": {
+    "score.py": "e5d3f22537769be436f14b9ea13358acee12052ef290aa6f7c737551bffaa853",
+    "cycle.py": "27a03541b3a4fde16be57b4aa5cedc5c9dde3b14f75235040d25e3ea810092b9",
+    "production.py": "73a0e4ae9344837811369e9d7bbf07d648968e863a49e2f5c84a54523fa92dd5",
+    "tests\\test_core.py": "f804a9eeee5f826c099cb6adc79ea2a89f4b3ffcda74d4d9bd16f859268ade38",
+    "tests\\test_production.py": "2707541176a0e6f9db30abe6cdcc14cb8ec6a9028e851a746c99de5b4b910bd7",
+    "tests\\test_research_statistics.py": "05b3b979da5cb2b8e476b5c165f00099b5d022b5b9d58cb2e82e2393735399bc"
+  }
+}

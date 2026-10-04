@@ -1,0 +1,151 @@
+{
+  "pdf_pages": 24,
+  "pages": [
+    {
+      "page": 1,
+      "text_characters": 210,
+      "out_of_page_text": [],
+      "rendered": "page_01.png"
+    },
+    {
+      "page": 2,
+      "text_characters": 240,
+      "out_of_page_text": [],
+      "rendered": "page_02.png"
+    },
+    {
+      "page": 3,
+      "text_characters": 263,
+      "out_of_page_text": [],
+      "rendered": "page_03.png"
+    },
+    {
+      "page": 4,
+      "text_characters": 255,
+      "out_of_page_text": [],
+      "rendered": "page_04.png"
+    },
+    {
+      "page": 5,
+      "text_characters": 330,
+      "out_of_page_text": [],
+      "rendered": "page_05.png"
+    },
+    {
+      "page": 6,
+      "text_characters": 293,
+      "out_of_page_text": [],
+      "rendered": "page_06.png"
+    },
+    {
+      "page": 7,
+      "text_characters": 558,
+      "out_of_page_text": [],
+      "rendered": "page_07.png"
+    },
+    {
+      "page": 8,
+      "text_characters": 137,
+      "out_of_page_text": [],
+      "rendered": "page_08.png"
+    },
+    {
+      "page": 9,
+      "text_characters": 135,
+      "out_of_page_text": [],
+      "rendered": "page_09.png"
+    },
+    {
+      "page": 10,
+      "text_characters": 146,
+      "out_of_page_text": [],
+      "rendered": "page_10.png"
+    },
+    {
+      "page": 11,
+      "text_characters": 157,
+      "out_of_page_text": [],
+      "rendered": "page_11.png"
+    },
+    {
+      "page": 12,
+      "text_characters": 146,
+      "out_of_page_text": [],
+      "rendered": "page_12.png"
+    },
+    {
+      "page": 13,
+      "text_characters": 141,
+      "out_of_page_text": [],
+      "rendered": "page_13.png"
+    },
+    {
+      "page": 14,
+      "text_characters": 157,
+      "out_of_page_text": [],
+      "rendered": "page_14.png"
+    },
+    {
+      "page": 15,
+      "text_characters": 152,
+      "out_of_page_text": [],
+      "rendered": "page_15.png"
+    },
+    {
+      "page": 16,
+      "text_characters": 332,
+      "out_of_page_text": [],
+      "rendered": "page_16.png"
+    },
+    {
+      "page": 17,
+      "text_characters": 160,
+      "out_of_page_text": [],
+      "rendered": "page_17.png"
+    },
+    {
+      "page": 18,
+      "text_characters": 172,
+      "out_of_page_text": [],
+      "rendered": "page_18.png"
+    },
+    {
+      "page": 19,
+      "text_characters": 166,
+      "out_of_page_text": [],
+      "rendered": "page_19.png"
+    },
+    {
+      "page": 20,
+      "text_characters": 523,
+      "out_of_page_text": [],
+      "rendered": "page_20.png"
+    },
+    {
+      "page": 21,
+      "text_characters": 434,
+      "out_of_page_text": [],
+      "rendered": "page_21.png"
+    },
+    {
+      "page": 22,
+      "text_characters": 266,
+      "out_of_page_text": [],
+      "rendered": "page_22.png"
+    },
+    {
+      "page": 23,
+      "text_characters": 312,
+      "out_of_page_text": [],
+      "rendered": "page_23.png"
+    },
+    {
+      "page": 24,
+      "text_characters": 312,
+      "out_of_page_text": [],
+      "rendered": "page_24.png"
+    }
+  ],
+  "outside_page_text_count": 0,
+  "note": "Automated bounds are supplemental; root must inspect all pages visually."
+}

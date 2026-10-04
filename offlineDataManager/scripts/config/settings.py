@@ -2,14 +2,19 @@
 ~/TradingAgent/offlineDataManager/config/settings.py
 项目配置:数据库路径 + schema (Tushare token 已移到 ~/TradingAgent/coreClient/tushare_config.py)
 """
+import os
 from pathlib import Path
+from .data_safety import frozen_mode
 
 # ==================== 路径 ====================
 # 2026-09-10 改造:cn_data 已并入 ~/TradingAgent/offlineDataManager/
 # PROJECT_ROOT 改为相对路径(__file__ 的 2 层父目录),不依赖 cwd
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-DATA_DIR = PROJECT_ROOT / "data"
+DATA_DIR = Path(os.environ.get("TRADING_AGENT_DATA_DIR", str(PROJECT_ROOT / "data"))).expanduser().resolve()
 LOG_DIR = PROJECT_ROOT / "logs"
+DERIVED_DATA_DIR = Path(os.environ.get("TRADING_AGENT_DERIVED_DATA_DIR", str(PROJECT_ROOT / ".local" / "runtime"))).expanduser()
+THEME_GRAPH_DB_PATH = Path(os.environ.get("TRADING_AGENT_THEME_GRAPH_DB_PATH", str(DERIVED_DATA_DIR / "db_theme_graph.duckdb")))
+THEME_VAULT_ROOT = Path(os.environ.get("TRADING_AGENT_THEME_VAULT_ROOT", str(DERIVED_DATA_DIR / "theme-vault")))
 
 # ========== 三个数据库(2026-09-10 拆分,模仿 MyATM)==========
 # db_cn_basic.db:基础数据(日 K、复权、交易历、股票信息、周月 K)
@@ -38,8 +43,9 @@ DB_PATH_POLICY_TICKS = DATA_DIR / "policy_ticks.db"
 DB_PATH = DB_PATH_BASIC
 
 # 确保目录存在
-DATA_DIR.mkdir(parents=True, exist_ok=True)
-LOG_DIR.mkdir(parents=True, exist_ok=True)
+if not frozen_mode():
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
 
 # ==================== 数据源优先级 ====================
 DEFAULT_SOURCE = "tushare"  # 仅用 Tushare(未来可加 wzw 备份)

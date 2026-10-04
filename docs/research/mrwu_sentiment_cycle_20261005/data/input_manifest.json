@@ -1,0 +1,230 @@
+{
+  "method_version": "F1-formal-live-v1",
+  "calibration_version": "F1-2025-a5-v1",
+  "input_fingerprint": "d8ea4bf3c634204d1f9009d9f82093d593f4f3a7742ef98d3ba53907a56c7c63",
+  "input_manifest_path": "input_manifest.json",
+  "source_manifest": {
+    "snapshot_id": "sentiment_cycle_20261005_01_live_after_s01",
+    "created_at": "2026-10-04T18:01:56+00:00",
+    "information_cutoff": "2026-09-30",
+    "databases": {
+      "basic": {
+        "path": "db_cn_basic.db",
+        "size": 13726412800,
+        "mtime_ns": 1791135763949589600,
+        "sha256": "8ad25a589811b6143b682da2694696b579f66dbe08c2a963c28f55c46a662318",
+        "audited_range_table_counts": {
+          "tbl_cn_day": 2540672,
+          "tbl_cn_stk_limit": 2584276,
+          "tbl_cn_suspend": 7244,
+          "tbl_cn_daily_basic": 2496222
+        },
+        "audited_range": [
+          "20241101",
+          "20260930"
+        ],
+        "full_metadata_table_counts": {
+          "tbl_cn_basic": 5911,
+          "tbl_cn_namechange": 13990,
+          "tbl_cn_tradecal": 6390
+        },
+        "key_validation": {
+          "tbl_cn_day": {
+            "pk_columns": [
+              "ts_code",
+              "trade_date"
+            ],
+            "duplicate_keys": 0,
+            "null_or_empty_keys": 0,
+            "range": [
+              "20241101",
+              "20260930"
+            ],
+            "basis": "Reused completed actual-row validation in code_quality_summary.json; no redundant full PK scan"
+          },
+          "tbl_cn_stk_limit": {
+            "pk_columns": [
+              "trade_date",
+              "ts_code"
+            ],
+            "duplicate_keys": 0,
+            "null_or_empty_keys": 0,
+            "range": [
+              "20241101",
+              "20260930"
+            ],
+            "basis": "Reused completed actual-row validation in code_quality_summary.json; no redundant full PK scan"
+          },
+          "tbl_cn_suspend": {
+            "pk_columns": [
+              "trade_date",
+              "ts_code"
+            ],
+            "duplicate_keys": 0,
+            "null_or_empty_keys": 0,
+            "range": [
+              "20241101",
+              "20260930"
+            ],
+            "basis": "Reused completed actual-row validation in code_quality_summary.json; no redundant full PK scan"
+          },
+          "tbl_cn_daily_basic": {
+            "pk_columns": [
+              "trade_date",
+              "ts_code"
+            ],
+            "duplicate_keys": null,
+            "null_or_empty_keys": null,
+            "basis": "Optional unused table preserved from byte-validated complete source; no writes this run; not revalidated for the five-module input"
+          }
+        },
+        "hash_basis": "previous complete full-file SHA256 with unchanged exact path/size/mtime_ns; no writers since input quiescence"
+      },
+      "kpl": {
+        "path": "db_cn_kpl.db",
+        "size": 2002710528,
+        "mtime_ns": 1791131888717055700,
+        "sha256": "a77a65b17d8b9b517d7317a0e98f343c011b4dcd8401bcbddbd6d8eebccd2e2a",
+        "audited_range_table_counts": {
+          "tbl_cn_kpl_list": 52442,
+          "tbl_cn_limit_list": 54573
+        },
+        "audited_range": [
+          "20241101",
+          "20260930"
+        ],
+        "full_metadata_table_counts": {},
+        "key_validation": {
+          "tbl_cn_kpl_list": {
+            "pk_columns": [
+              "ts_code",
+              "trade_date",
+              "tag"
+            ],
+            "duplicate_keys": 0,
+            "null_or_empty_keys": 0,
+            "range": [
+              "20241101",
+              "20260930"
+            ],
+            "read_strategy": "covering primary-key index where available"
+          },
+          "tbl_cn_limit_list": {
+            "pk_columns": [
+              "trade_date",
+              "ts_code",
+              "limit"
+            ],
+            "duplicate_keys": 0,
+            "null_or_empty_keys": 0,
+            "range": [
+              "20241101",
+              "20260930"
+            ],
+            "read_strategy": "covering primary-key index where available"
+          }
+        },
+        "hash_basis": "direct full-file SHA256 in this manifest invocation"
+      },
+      "index": {
+        "path": "db_cn_index.db",
+        "size": 13119488,
+        "mtime_ns": 1791131836002612400,
+        "sha256": "b4bacf39565b6acbe6cc43c12f4cb2b15f846dfe0d9f53f2c7d04541ffce9a1d",
+        "audited_range_table_counts": {
+          "tbl_cn_index_daily": 5596
+        },
+        "audited_range": [
+          "20241101",
+          "20260930"
+        ],
+        "full_metadata_table_counts": {},
+        "key_validation": {
+          "tbl_cn_index_daily": {
+            "pk_columns": [
+              "trade_date",
+              "ts_code"
+            ],
+            "duplicate_keys": 0,
+            "null_or_empty_keys": 0,
+            "range": [
+              "20241101",
+              "20260930"
+            ],
+            "read_strategy": "covering primary-key index where available"
+          }
+        },
+        "hash_basis": "direct full-file SHA256 in this manifest invocation"
+      }
+    },
+    "frozen_databases": {
+      "basic": {
+        "path": "db_cn_basic.db",
+        "size": 13708206080,
+        "mtime_ns": 1789734184634986700,
+        "sha256": "c7630959cccffd6271f182267d0d91d6f942e82e567b724dc4b97c18bfc45cbc",
+        "source_unmodified_evidence": "read_only_connections and unchanged basic restore metadata"
+      },
+      "kpl": {
+        "path": "db_cn_kpl.db",
+        "size": 2002362368,
+        "mtime_ns": 1789733273922571700,
+        "sha256": "3699708cffe78a8f206052cb69b8531fe653df0c0db0f5a4f6060ffa854c01fc",
+        "source_unmodified_evidence": "read_only_connections; inventory mtime/size match"
+      },
+      "index": {
+        "path": "db_cn_index.db",
+        "size": 13094912,
+        "mtime_ns": 1789733193816363400,
+        "sha256": "5e908f5705e5940b88c103834c324379e0207b2f40b66cc7cc29da741c46bc75",
+        "source_unmodified_evidence": "read_only_connections; inventory mtime/size match"
+      }
+    },
+    "source_safety": "All source reads used mode=ro&immutable=1; basic pre/post metadata unchanged; source hash matched complete copy before modification",
+    "model_configuration": {
+      "task_requested_model": "gpt-6.1-sol",
+      "task_requested_reasoning_effort": "xhigh",
+      "runtime_introspection_available": false,
+      "basis": "parent supplied native worker configuration"
+    },
+    "closed_writer_policy": "All write connections explicitly closed before manifest; active WAL/journal rejected",
+    "audit_files": {
+      "backfill_changes.csv": "85bcc887a55eb5fd945bca056c8eff94527da2d4ef3d8122076456930997938e",
+      "calendar.csv": "3120e7e9ae2d31567f7bf0d20ea38e439c8d84e7285c7a7136210671e665074d",
+      "daily_identity_gaps.csv": "a41ed854d7f25932edfca8fa08675e490716d9447f46f7f3b7a003002ffa74f1",
+      "daily_limit_gaps.csv": "ebb615314004c10820f548eff7fa623057435fb202b63b492d05b19e952499ea",
+      "data_coverage.csv": "28fa84dc2dbd5c79195f264a1efb64fc7ca628b727c760131e74b2ef838cf76b",
+      "frozen_calendar.csv": "d743d1b5b99173b14a0df68e0298713c94835f4cf1c66359385df6aee330f585",
+      "frozen_data_coverage.csv": "4570c504f05596a38d0e6e9e027f4d10d912953ea41fba5ed37061e4dd1a65bd",
+      "frozen_final_calendar.csv": "1b50e8c0d701107db47bfac3c88b0167ae03c38ea1d6e4ae57183bb4c083570e",
+      "frozen_final_data_coverage.csv": "f8dec94f00c871c1b72169a850b249af3bbb875b1026880b79abac8e7ee17965",
+      "index_code_coverage.csv": "21689b4f7b1231cc1c300c37e6fd42c8fbcb9376116c800a2c168eec88700a9c",
+      "market_code_coverage.csv": "6673a127da698a739b5cdcf4a3981e3054a70ec18cf776d0c38aecd88818c059",
+      "namechange_daily_coverage.csv": "0ea72182be665f3e76c50865db87fed59bea2988311d3db9536d6073e3866f27",
+      "namechange_download.csv": "e627286e5b713dbeef113ebfa31389a065406aca7a9bc77b2fb1da60605826f5",
+      "namechange_missing_intervals.csv": "e9679105bc272a45684dca7fcac81928845a28a31b33da4964b56f8cf1b2b3db",
+      "namechange_quality.csv": "5eb75ef63410c00577f597dfa0a64b420802986bbcd2301467ca9d799948e973",
+      "official_calendar_download.csv": "fd2c21d9b96928df66b333c8437a68783fdb01533a16ddb7d79cc30545fcb2dc",
+      "preliminary_namechange_daily_coverage.csv": "9588b261ecf89d95fe6f119bfd9102d201c6bc864306b5d67e603882d1e0b9c6",
+      "preliminary_namechange_missing_intervals.csv": "4cf58e5ca7200017db0fc94a81a2f0a1695ba76d4a930a6e6facd85db43c7f0d"
+    },
+    "execution_brief": {
+      "path": "ASTRA_EXECUTION_BRIEF_20261005.md",
+      "sha256": "dbd5e1dad4f26191cec8fb8f6f57ed2db6f27149385c1caa38192f1ba861c8ed"
+    },
+    "finished_at": "2026-10-04T18:03:12+00:00"
+  },
+  "data_root": "live",
+  "read_start": "2024-11-01",
+  "information_cutoff": "2026-09-30",
+  "available_at_basis": "post-close research convention; provider first-publication timestamp unverified",
+  "raw_only_cache": "raw_cache",
+  "fixed_calibration_path": null,
+  "code_sha256": "73a0e4ae9344837811369e9d7bbf07d648968e863a49e2f5c84a54523fa92dd5",
+  "score_sha256": "e5d3f22537769be436f14b9ea13358acee12052ef290aa6f7c737551bffaa853",
+  "spec_sha256": "6229cfc9be8f0c0fb794ffe71a28b6edc49f456e82f5fb7d7a211781a298bb42",
+  "denominator_policy": "Yesterday eligible U frozen on previous market day; current missing/suspended/unusable separated; returns require positive consistent pre-close and ref_ok, including newly ST members",
+  "turnover_policy": "Positive finite raw amount*1000; partial sums flagged with actual observed/original counts; all missing NaN; prior 20 market-day rolling mean without interpolation",
+  "name_interval_policy": "Inclusive start/end; latest start preferred and overlap marked; same-latest-start conflicting ST uses marked fallback or unknown",
+  "comparison_pool_policy": "No age restriction; non-ST, validated standard prices; exclude effective historical name containing 退 and record comparison_delisting_excluded_n. Formal pool remains unchanged."
+}

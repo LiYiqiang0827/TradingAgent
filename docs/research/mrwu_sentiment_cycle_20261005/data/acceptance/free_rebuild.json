@@ -1,0 +1,140 @@
+{
+  "status": "passed",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "environment": "fresh isolated venv with only public free packages",
+  "network_or_database_required_for_rebuild": false,
+  "published_pdf_sha256": "3bfde897136f888b8f739549701e8797e876b24af3b03b236bc94e1227d8823a",
+  "rebuilt_pdf_sha256": "3bfde897136f888b8f739549701e8797e876b24af3b03b236bc94e1227d8823a",
+  "pdf_bytes_equal": true,
+  "pages": [
+    {
+      "page": 1,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 2,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 3,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 4,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 5,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 6,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 7,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 8,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 9,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 10,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 11,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 12,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 13,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 14,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 15,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 16,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 17,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 18,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 19,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 20,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 21,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 22,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 23,
+      "text_exact": true,
+      "pixels_exact": true
+    },
+    {
+      "page": 24,
+      "text_exact": true,
+      "pixels_exact": true
+    }
+  ],
+  "packages": {
+    "numpy": "2.5.3",
+    "pandas": "2.3.3",
+    "matplotlib": "3.11.2",
+    "reportlab": "5.0.1",
+    "pymupdf": "1.28.2",
+    "pillow": "12.3.0"
+  },
+  "source": "reproduction/build_deck.py --data published/data --output separate_output/report.pdf"
+}

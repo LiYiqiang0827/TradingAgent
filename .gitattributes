@@ -1,0 +1,12 @@
+# Preserve audited research bytes across Windows/Linux checkouts.
+# These rules affect only this delivery and its explicitly reused dependencies.
+.gitattributes -text
+policyStudy/policy/speculation_sentiment_lite/** -text whitespace=cr-at-eol
+docs/research/mrwu_sentiment_cycle_20261005/** -text whitespace=cr-at-eol
+docs/research/mrwu_sentiment_cycle_20261005/deliverables/*.pdf -diff
+offlineDataManager/scripts/config/settings.py -text whitespace=cr-at-eol
+offlineDataManager/scripts/config/data_safety.py -text whitespace=cr-at-eol
+offlineDataManager/scripts/core/theme_daily_review.py -text whitespace=cr-at-eol
+offlineDataManager/scripts/core/theme_graph_store.py -text whitespace=cr-at-eol
+offlineDataManager/scripts/core/theme_vault.py -text whitespace=cr-at-eol
+offlineDataManager/scripts/service/service_theme_graph.py -text whitespace=cr-at-eol

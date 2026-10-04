@@ -1,0 +1,50 @@
+[
+  {
+    "cutoff": "20260331",
+    "kind": "prefix",
+    "daily_rows": 299,
+    "raw_rows_with_warmup": 342,
+    "events": 1757457,
+    "cohort_rows": 23455,
+    "daily_raw_all_fields_exact": true,
+    "events_all_fields_exact": true,
+    "cohorts_all_fields_exact": true,
+    "same_calibration_bytes": true
+  },
+  {
+    "cutoff": "20260630",
+    "kind": "prefix",
+    "daily_rows": 359,
+    "raw_rows_with_warmup": 402,
+    "events": 2068683,
+    "cohort_rows": 28109,
+    "daily_raw_all_fields_exact": true,
+    "events_all_fields_exact": true,
+    "cohorts_all_fields_exact": true,
+    "same_calibration_bytes": true
+  },
+  {
+    "cutoff": "20260909",
+    "kind": "prefix",
+    "daily_rows": 410,
+    "raw_rows_with_warmup": 453,
+    "events": 2333913,
+    "cohort_rows": 31921,
+    "daily_raw_all_fields_exact": true,
+    "events_all_fields_exact": true,
+    "cohorts_all_fields_exact": true,
+    "same_calibration_bytes": true
+  },
+  {
+    "cutoff": "20260930",
+    "kind": "repeat_full",
+    "daily_rows": 424,
+    "raw_rows_with_warmup": 467,
+    "events": 2406834,
+    "cohort_rows": 32694,
+    "daily_raw_all_fields_exact": true,
+    "events_all_fields_exact": true,
+    "cohorts_all_fields_exact": true,
+    "same_calibration_bytes": true
+  }
+]

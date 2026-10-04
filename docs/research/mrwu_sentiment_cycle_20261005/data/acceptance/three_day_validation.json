@@ -1,0 +1,11 @@
+{
+  "dates": [
+    "2026-09-09",
+    "2026-09-10",
+    "2026-09-11"
+  ],
+  "independent_module_arithmetic": "passed",
+  "max_score_error": 1.0658141036401503e-14,
+  "all_high_stocks_inspected": 43,
+  "note": "Root must read the worksheet, inspect source rows and resolve differences; this arithmetic check is not worker acceptance by assertion."
+}

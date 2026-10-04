@@ -1,0 +1,115 @@
+{
+  "daily_counts": {
+    "20260909": 5550,
+    "20260910": 5549,
+    "20260911": 5550
+  },
+  "pairs": [
+    {
+      "from_date": "20260909",
+      "to_date": "20260910",
+      "from_count": 5550,
+      "to_count": 5549,
+      "changes": [
+        {
+          "ts_code": "301390.SZ",
+          "kind": "removed",
+          "basic": [
+            "经纬股份",
+            "20230508",
+            ""
+          ],
+          "suspension_events": [
+            [
+              "20260910",
+              "S",
+              ""
+            ]
+          ]
+        },
+        {
+          "ts_code": "301689.SZ",
+          "kind": "added",
+          "basic": [
+            "电科思仪",
+            "20260910",
+            ""
+          ],
+          "suspension_events": []
+        },
+        {
+          "ts_code": "603159.SH",
+          "kind": "removed",
+          "basic": [
+            "上海亚虹",
+            "20160812",
+            ""
+          ],
+          "suspension_events": [
+            [
+              "20260910",
+              "S",
+              ""
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "from_date": "20260910",
+      "to_date": "20260911",
+      "from_count": 5549,
+      "to_count": 5550,
+      "changes": [
+        {
+          "ts_code": "002998.SZ",
+          "kind": "added",
+          "basic": [
+            "优彩资源",
+            "20200925",
+            ""
+          ],
+          "suspension_events": [
+            [
+              "20260910",
+              "S",
+              ""
+            ],
+            [
+              "20260911",
+              "R",
+              ""
+            ]
+          ]
+        },
+        {
+          "ts_code": "688496.SH",
+          "kind": "removed",
+          "basic": [
+            "*ST清越",
+            "20221228",
+            ""
+          ],
+          "suspension_events": [
+            [
+              "20260911",
+              "S",
+              ""
+            ]
+          ]
+        },
+        {
+          "ts_code": "688801.SH",
+          "kind": "added",
+          "basic": [
+            "C燧原",
+            "20260911",
+            ""
+          ],
+          "suspension_events": []
+        }
+      ]
+    }
+  ],
+  "all_count_deltas_accounted_by_code_sets": true
+}

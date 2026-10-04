@@ -1,0 +1,11 @@
+{
+  "source": "tbl_cn_basic.parquet",
+  "code": "300114.SZ",
+  "matching_rows": 0,
+  "checked_columns": [
+    "ts_code",
+    "name",
+    "list_date"
+  ],
+  "matching_values": []
+}

@@ -1,0 +1,31 @@
+{
+  "dates": 415,
+  "joined": {
+    "both": 415,
+    "left_only": 0,
+    "right_only": 0
+  },
+  "score_max_absolute_difference": 0.0,
+  "grade_mismatches": 0,
+  "max_module_rounded_difference": {
+    "接力情绪分": 0.0,
+    "M1连板接力": 0.0,
+    "M2强势股反馈": 0.0,
+    "M3涨跌停结构": 0.0,
+    "M4中位股生态": 0.0,
+    "M5流动性": 0.0,
+    "涨停数": 0.0,
+    "炸板数": 0.0,
+    "跌停数": 0.0,
+    "合格股票数": 0.0
+  },
+  "input_sha256": {
+    "tbl_cn_basic.parquet": "770d271bdecd90c78c99da6a66df673175a6e6ddd1961655ea514ac2511ce680",
+    "tbl_cn_day.parquet": "0e2662fde04f179cc7d18be877e31dbd53313af8e40bec7a1e97c3ff24226db5",
+    "tbl_cn_index_daily.parquet": "c3551ab1d098447041a06be163c9c728d42bc920173a7cfcd640ae7e200fefd9",
+    "tbl_cn_kpl_list.parquet": "438add3df5e0104faccc5f9253242d4693bb4bd21a213709f3dea3d417499149",
+    "tbl_cn_stk_limit.parquet": "a1a3aac820d0229fc8d5ed5327d885d9cc9fdccdcf700836f5719a08dec90711",
+    "tbl_cn_suspend.parquet": "9631d56df3538960873bb3ad11fc3651a13b97b1f3e3e6ab2601a9aa99176c5c",
+    "tbl_cn_tradecal.parquet": "945f55953c337c918160d36bcc5b1839acad6d5347d47d4a1a0264173320ee9e"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "status": "passed",
+  "started_at": "2026-10-04T18:07:01.022834+00:00",
+  "files": [
+    {
+      "source": "frozen.basic",
+      "bytes": 13708206080,
+      "sha256": "c7630959cccffd6271f182267d0d91d6f942e82e567b724dc4b97c18bfc45cbc",
+      "expected_sha256": "c7630959cccffd6271f182267d0d91d6f942e82e567b724dc4b97c18bfc45cbc",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "frozen.kpl",
+      "bytes": 2002362368,
+      "sha256": "3699708cffe78a8f206052cb69b8531fe653df0c0db0f5a4f6060ffa854c01fc",
+      "expected_sha256": "3699708cffe78a8f206052cb69b8531fe653df0c0db0f5a4f6060ffa854c01fc",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "frozen.index",
+      "bytes": 13094912,
+      "sha256": "5e908f5705e5940b88c103834c324379e0207b2f40b66cc7cc29da741c46bc75",
+      "expected_sha256": "5e908f5705e5940b88c103834c324379e0207b2f40b66cc7cc29da741c46bc75",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "live.basic",
+      "bytes": 13726412800,
+      "sha256": "8ad25a589811b6143b682da2694696b579f66dbe08c2a963c28f55c46a662318",
+      "expected_sha256": "8ad25a589811b6143b682da2694696b579f66dbe08c2a963c28f55c46a662318",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "live.kpl",
+      "bytes": 2002710528,
+      "sha256": "a77a65b17d8b9b517d7317a0e98f343c011b4dcd8401bcbddbd6d8eebccd2e2a",
+      "expected_sha256": "a77a65b17d8b9b517d7317a0e98f343c011b4dcd8401bcbddbd6d8eebccd2e2a",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "live.index",
+      "bytes": 13119488,
+      "sha256": "b4bacf39565b6acbe6cc43c12f4cb2b15f846dfe0d9f53f2c7d04541ffce9a1d",
+      "expected_sha256": "b4bacf39565b6acbe6cc43c12f4cb2b15f846dfe0d9f53f2c7d04541ffce9a1d",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_basic.parquet",
+      "bytes": 356052,
+      "sha256": "770d271bdecd90c78c99da6a66df673175a6e6ddd1961655ea514ac2511ce680",
+      "expected_sha256": "770d271bdecd90c78c99da6a66df673175a6e6ddd1961655ea514ac2511ce680",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_day.parquet",
+      "bytes": 91459916,
+      "sha256": "0e2662fde04f179cc7d18be877e31dbd53313af8e40bec7a1e97c3ff24226db5",
+      "expected_sha256": "0e2662fde04f179cc7d18be877e31dbd53313af8e40bec7a1e97c3ff24226db5",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_index_daily.parquet",
+      "bytes": 417242,
+      "sha256": "c3551ab1d098447041a06be163c9c728d42bc920173a7cfcd640ae7e200fefd9",
+      "expected_sha256": "c3551ab1d098447041a06be163c9c728d42bc920173a7cfcd640ae7e200fefd9",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_kpl_list.parquet",
+      "bytes": 2626728,
+      "sha256": "438add3df5e0104faccc5f9253242d4693bb4bd21a213709f3dea3d417499149",
+      "expected_sha256": "438add3df5e0104faccc5f9253242d4693bb4bd21a213709f3dea3d417499149",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_stk_limit.parquet",
+      "bytes": 15491751,
+      "sha256": "a1a3aac820d0229fc8d5ed5327d885d9cc9fdccdcf700836f5719a08dec90711",
+      "expected_sha256": "a1a3aac820d0229fc8d5ed5327d885d9cc9fdccdcf700836f5719a08dec90711",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_suspend.parquet",
+      "bytes": 17351,
+      "sha256": "9631d56df3538960873bb3ad11fc3651a13b97b1f3e3e6ab2601a9aa99176c5c",
+      "expected_sha256": "9631d56df3538960873bb3ad11fc3651a13b97b1f3e3e6ab2601a9aa99176c5c",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "old_snapshot.tbl_cn_tradecal.parquet",
+      "bytes": 8077,
+      "sha256": "945f55953c337c918160d36bcc5b1839acad6d5347d47d4a1a0264173320ee9e",
+      "expected_sha256": "945f55953c337c918160d36bcc5b1839acad6d5347d47d4a1a0264173320ee9e",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    },
+    {
+      "source": "original_theme_source",
+      "bytes": 154677248,
+      "sha256": "1b0d54845ffda14bcd23de692984b0ce6826ee08116103c1c802fcd4de9c199a",
+      "expected_sha256": "1b0d54845ffda14bcd23de692984b0ce6826ee08116103c1c802fcd4de9c199a",
+      "hash_equal": true,
+      "unchanged_during_read": true
+    }
+  ],
+  "main_worktree_status": {
+    "identical": true,
+    "before_lines": 207,
+    "after_lines": 207,
+    "scope": "Exact status comparison plus isolated writes; not a retrospective content hash of every unrelated file"
+  },
+  "finished_at": "2026-10-04T18:14:38.595145+00:00"
+}

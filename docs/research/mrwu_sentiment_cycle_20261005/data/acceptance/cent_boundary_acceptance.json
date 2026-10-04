@@ -1,0 +1,20 @@
+{
+  "status": "accepted",
+  "changed_stock_days": 28,
+  "changed_by_exact_nominal_regime": {
+    "n10": 25,
+    "n20": 3
+  },
+  "legacy_attribution_stages_all_fields_exact": [
+    "score_live_legacy.csv",
+    "score_live_history_own.csv",
+    "score_B0.csv"
+  ],
+  "other_regime_stock_days_including_warmup": 854,
+  "other_new_listing_age_le20": 824,
+  "other_mature_nonST_large_upper_tiny_lower_bounds": 30,
+  "unexplained_remaining_other_stock_days": 0,
+  "root_review": "Checked both upper/lower cent endpoints, including 0.24->0.26/0.22 at nominal 10%, and 0.18->0.22/0.14, 0.17->0.20/0.14, 0.13->0.16/0.10 at nominal 20%. Mature nonstandard rows have lower bound 0.01 and upper bound over twice reference; excluded on observed limits, without inferring legal status from names.",
+  "scope": "2024-11-01..2026-09-30; output quality table excludes 2024 warmup",
+  "research_parameters_changed": false
+}
