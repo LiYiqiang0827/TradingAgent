@@ -7,7 +7,7 @@ import pytest
 
 from policyStudy.policy.market_sentiment.human import (
     BAND_LABELS, LABEL_COLUMNS, NEUTRAL_FIELDS, WEATHER_ORDER,
-    create_packets, evaluate_labels, machine_band,
+    create_packets, machine_band,
 )
 from policyStudy.policy.market_sentiment.cards import reference_2025, card_rows
 
@@ -30,12 +30,6 @@ def labels(dates, **changes):
     return frame
 
 
-def evaluate(tmp_path, source, harry, li, revision=0):
-    tmp_path.mkdir(parents=True, exist_ok=True)
-    h, l = tmp_path / "Harry.csv", tmp_path / "Li.csv"
-    harry.to_csv(h, index=False)
-    li.to_csv(l, index=False)
-    return evaluate_labels(source, h, l, tmp_path / "evaluation", revision)
 
 
 @pytest.mark.parametrize("dimension", ["hit", "cont", "act"])
@@ -52,7 +46,7 @@ def test_packets_reproducible_sorted_neutral_and_independently_blank(tmp_path):
     snapshot = source.copy(deep=True)
     a = create_packets(source, tmp_path / "a")
     b = create_packets(source.iloc[::-1], tmp_path / "b")
-    assert a["status"] == "random_part_ready"
+    assert a["status"] == "optional_ready"
     assert a["counts"] == {"total": 15, "random": 15, "nominated": 0}
     assert all(stratum["final_random_n"] == 3 for stratum in a["strata"].values())
     key_a = pd.read_csv(a["paths"]["selection_manifest"])
@@ -70,7 +64,7 @@ def test_packets_reproducible_sorted_neutral_and_independently_blank(tmp_path):
     assert not (tmp_path / "a/packets/facts.csv").exists()
     assert not (tmp_path / "a/packets/facts.md").exists()
     assert (tmp_path / "a/packets/reference_2025.csv").exists()
-    for name in ("Harry", "Li"):
+    for name in ("Li",):
         empty = pd.read_csv(a["paths"][f"{name}_labels"], keep_default_na=False)
         assert empty.columns.tolist() == LABEL_COLUMNS
         assert empty[LABEL_COLUMNS[1:]].eq("").to_numpy().all()
@@ -109,73 +103,16 @@ def test_small_class_and_exhausted_replacement_pool_are_disclosed(tmp_path):
     assert result["strata"]["sunny"]["random_shortfall_n"] == 3
 
 
-def test_empty_labels_awaiting_and_zero_common_denominator_never_pass(tmp_path):
-    source = daily(n=2, codes=["sunny", "cloudy"])
-    empty = labels(source.trade_date)
-    result = evaluate(tmp_path / "blank", source, empty, empty)
-    assert result["status"] == "awaiting_labels" and result["threshold_revision_count"] == 0
-    assert all(result["dimensions"][dimension]["primary"]["n"] == 0 for dimension in BAND_LABELS)
-    assert not result["all_dimensions_pass"]
-    assert pd.read_csv(result["paths"]["differences"]).empty
-    # One person's labels are not a common truth or a reason to consume revision.
-    h = labels(source.trade_date, hit="轻", cont="差", act="低")
-    result = evaluate(tmp_path / "single", source, h, empty)
-    assert result["status"] == "needs_review"
-    assert result["dimensions"]["hit"]["machine_vs_harry"]["n"] == 2
-    assert result["dimensions"]["hit"]["primary"]["n"] == 0
 
 
-def test_primary_exact_70_and_failure_cannot_hide_in_overall_average(tmp_path):
-    source = daily(n=10, codes=["sunny"] * 10)
-    common = labels(source.trade_date, hit=["轻"] * 7 + ["重"] * 3, cont="差", act="低", weather="阴")
-    result = evaluate(tmp_path / "70", source, common, common)
-    assert result["status"] == "pass"
-    assert result["dimensions"]["hit"]["primary"] == {"n": 10, "hits": 7, "accuracy": .7, "machine_unavailable_n": 0, "pass": True}
-    assert result["weather_supplement"]["machine_vs_harry"]["accuracy"] == 0
-    failed = common.copy()
-    failed.loc[6, "hit"] = "重"
-    result = evaluate(tmp_path / "failed", source, failed, failed)
-    assert result["status"] == "needs_review"
-    assert result["dimensions"]["hit"]["primary"]["accuracy"] == .6
-    assert result["dimensions"]["cont"]["primary"]["accuracy"] == result["dimensions"]["act"]["primary"]["accuracy"] == 1
-    result = evaluate(tmp_path / "last_revision", source, failed, failed, revision=1)
-    assert result["status"] == "failed_after_allowed_revision" and result["threshold_revision_count"] == 1
-    with pytest.raises(ValueError, match="0 or 1"):
-        evaluate(tmp_path / "over_revision", source, failed, failed, revision=2)
 
 
-def test_dimension_specific_missing_disagreement_and_small_denominator(tmp_path):
-    source = daily(n=3, codes=["sunny"] * 3)
-    source["mkt_cont"] = 100
-    source["mkt_act"] = 50
-    h = labels(source.trade_date, hit=["轻", "", "轻"], cont=["好", "一般", ""], act=["中", "中", ""])
-    l = labels(source.trade_date, hit=["轻", "重", "重"], cont=["差", "", "好"], act=["中", "", "中"])
-    result = evaluate(tmp_path / "missing", source, h, l)
-    assert result["dimensions"]["hit"]["primary"]["n"] == 1
-    assert result["dimensions"]["hit"]["harry_vs_li"]["n"] == 2
-    assert result["dimensions"]["hit"]["harry_vs_li"]["hits"] == 1
-    assert result["dimensions"]["cont"]["primary"]["n"] == 0
-    assert result["dimensions"]["act"]["primary"]["n"] == 1
-    assert result["status"] == "needs_review"
-    differences = pd.read_csv(result["paths"]["differences"])
-    assert set(NEUTRAL_FIELDS).issubset(differences.columns)
-    assert differences.reason.str.contains("Harry_vs_Li").any()
-    # A small but positive common denominator remains explicit and can pass.
-    one = labels(source.trade_date.iloc[:1], hit="轻", cont="好", act="中")
-    result = evaluate(tmp_path / "small", source, one, one)
-    assert result["status"] == "pass"
-    assert all(result["dimensions"][dimension]["primary"]["n"] == 1 for dimension in BAND_LABELS)
-    source.loc[0, "mkt_hit"] = np.nan
-    result = evaluate(tmp_path / "machine_missing", source, one, one)
-    assert result["dimensions"]["hit"]["primary"]["n"] == 1
-    assert result["dimensions"]["hit"]["primary"]["machine_unavailable_n"] == 1
-    assert result["status"] == "needs_review"
 
 
 def test_real_annotation_never_overwritten_and_invalid_labels_rejected(tmp_path):
     source = daily()
     result = create_packets(source, tmp_path / "pack")
-    path = result["paths"]["Harry_labels"]
+    path = result["paths"]["Li_labels"]
     actual = pd.read_csv(path, keep_default_na=False)
     actual.loc[0, "notes"] = "Remembered independently"
     actual.to_csv(path, index=False)
@@ -183,12 +120,6 @@ def test_real_annotation_never_overwritten_and_invalid_labels_rejected(tmp_path)
     with pytest.raises(FileExistsError, match="Preserve"):
         create_packets(source, tmp_path / "pack")
     assert open(path, "rb").read() == before
-    bad = labels(source.trade_date, hit="invented")
-    with pytest.raises(ValueError, match="invalid hit"):
-        evaluate(tmp_path / "bad", source, bad, labels(source.trade_date))
-    duplicate = pd.concat([actual, actual.iloc[:1]], ignore_index=True)
-    with pytest.raises(ValueError, match="duplicate dates"):
-        evaluate(tmp_path / "duplicate", source, duplicate, labels(source.trade_date))
 
 
 def test_card_reference_independent_linear_hand_values_and_2026_excluded():
@@ -232,7 +163,7 @@ def test_ten_card_items_zero_denominator_units_and_no_answers():
 def test_rebuilding_cards_preserves_selected_dates_and_blank_labels(tmp_path):
     source = daily()
     result = create_packets(source, tmp_path / "preserve")
-    paths = [result["paths"]["selection_manifest"], result["paths"]["Harry_labels"], result["paths"]["Li_labels"]]
+    paths = [result["paths"]["selection_manifest"], result["paths"]["Li_labels"]]
     before = [open(path, "rb").read() for path in paths]
     create_packets(source, tmp_path / "preserve")
     assert before == [open(path, "rb").read() for path in paths]

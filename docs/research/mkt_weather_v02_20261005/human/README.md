@@ -1,5 +1,5 @@
-# 大盘天气预报：独立人工标注
+# 当前标注入口：李老师10日
 
-给标注者的材料在 packets/：cards.pdf 每日一张、cards.html 可离线打印，卡片仅10项中性事实及2025常见范围；另附 Harry 和 Li 各自的空标签、提名模板、小型参考表。请先分别标注，再比较。private_key/ 是机器答案、抽样依据和审计细节；两人独立标注完成前请勿打开或转发。
+当前只需使用[10页事实卡](li10/packets/cards.pdf)及[Li标签表](li10/packets/Li_labels.csv)，只请李老师一人。日期已打乱，每张三个读数标签，天气和备注选填，允许留空或整张跳过。说明见li10/packets/README.md。
 
-当前共15个唯一日期，已收到0个唯一提名。没有收到提名时仅为随机部分，仍需补充约15个记得清楚的日期。补齐入口：`python -m policyStudy.policy.market_sentiment.run human-pack --daily <日表> --output <新的human目录> --nominations <提名CSV>`。填过标签的目录不会被重建覆盖。
+原packets中的15张随机卡片、历史模板和提名入口完整保留，为可选材料，无需填写。当前评估固定使用10个指定日期，不要求第二位标注者或额外提名。各private_key目录为隔离机器答案及审计，标注前不需阅读。

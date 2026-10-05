@@ -22,13 +22,17 @@
 
 `add_forecasts(daily, calendar=None) -> DataFrame`; `evaluate_forecasts(daily, start='2026-01-01', end='2026-09-30') -> (summary:dict, detail:DataFrame)`; `transition_table(daily) -> DataFrame`。calendar包含交易日lookahead，若不足目标留空并写原因；不得猜下一自然日。列forecast_origin_date/forecast_target_date以及mkt_forecast_{code}_count/prob，mkt_forecast_n/top1/status，mkt_baseline_persistence/mode_known。代码固定sunny,cloudy,overcast,thunder,storm。每个t先累计t-1→t，仅相邻市场日且两端有效，再输出本日概率；n0空概率，n1..9标不足。并列先今日天气后固定序。历史众数含今日，固定同规则；全期众数只在evaluate计算，明确ex_post。2026按目标日期共同分母四法比较，n小不剔除。返回summary需methods内各method的n/hits/accuracy、exclusions、sample_small_n、conclusion；detail每目标日真实/四预测/evaluable/reason。
 
-## W04 human.py
+## W04 当前人工参考接口：R3 / 20261005
 
-`create_packets(daily, output_dir, nominations=None, seed=20261005) -> dict`：output_dir为报告human根，生成packets和private_key。每日事实只读取已冻结mkt原始量/指数，不含读数、旧分、天气、预测或机器判词；按日期中性排序，随机每天气3日；提名去重与同类补抽。空模板Harry/Li列trade_date,hit,cont,act,weather,notes；nomination模板。`evaluate_labels(daily, harry_path, li_path, output_dir, threshold_revision_count=0) -> dict`。machine bands<35,<65,>=65；三维各自两人一致且已标注日为主分母、零不通过，空标签awaiting_labels，一次修改后未达标failed_after_allowed_revision；首次有标签未通过状态needs_review（评估内部，最终STATUS由root按实际决定）。输出neutral差异和分母，天气补充。自带CLI可调用，run.py包装；不得消耗真实修订次数。返回路径/count/status。所有模拟标签仅tests/tmp。
+`li_packet.create_li_packet(daily, output_dir, seed=20261005)`：固定用户指定10日，顺序独立于读数打乱，生成10页盲卡和Li单人空表，机器答案单独存private_key。hit/cont/act三档主要必填，weather和notes选填，空白或跳过保留缺失。新入口li-pack。
+
+`li_review.evaluate_li_labels(daily, li_path, output_dir, threshold_revision_counts=None)`：固定10日；逐读数报一致天数与可比/缺失数，至少7/10为基本一致，reference_only=true。机器高于人/低于人分别计数，一方向至少3日且该维度修订次数为0才adjustment_allowed；次数hit/cont/act各0或1，不自动修改阈值。空表awaiting_labels、部分填写partial_labels、已填review_recorded；不设双人共同分母或整体pass门槛。
+
+`human.create_packets(daily, output_dir, nominations=None, seed=20261005)`保留随机/提名的可选功能，不再要求补足或第二人填写。旧验收JSON及sources记录旧提交，不是当前协议。模拟标签只放RUN/tests新目录。
 
 ## W05 run.py / figures.py / 文档（字段稳定后派发）
 
-主控冻结history/today/human-pack/evaluate-human公共入口后派发。发布小型mkt_raw_daily.csv可独立重建读数/预报/图，无数据库、无需网络；原库路线只读复用F1。今天入口不得把陈旧日说成今日，无上游完成证据不挂自动调度，仍可手动打印截至最新已完成日摘要。原库合并进行中不读取混合快照。
+主控冻结history/today/human-pack/li-pack/evaluate-human公共入口后派发。发布小型mkt_raw_daily.csv可独立重建读数/预报/图，无数据库、无需网络；原库路线只读复用F1。今天入口不得把陈旧日说成今日，无上游完成证据不挂自动调度，仍可手动打印截至最新已完成日摘要。原库合并进行中不读取混合快照。
 
 ## 执行合同共同条款
 

@@ -1,0 +1,87 @@
+{
+  "status": "root_accepted",
+  "checked_at": "2026-10-05T03:46:24.242718+00:00",
+  "base_commit": "40e218393918545858d53e9abee344458f415388",
+  "pdf_pages": 10,
+  "card_facts_per_day": 10,
+  "order_shuffled_without_machine_input": true,
+  "label_csv_order_matches_pdf": true,
+  "blind_packet_files": 6,
+  "no_machine_answers_or_boundary_markers": true,
+  "all_font_glyphs_present": true,
+  "all_text_within_page": true,
+  "reference_2025_unchanged": true,
+  "protected_files": [
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv",
+      "sha256": "2dda56a1ccbe6fdc5b88326faacb91a0f5e4341c77760f3592a385416653c946",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_raw_daily.csv",
+      "sha256": "0c98dd4270a662948aeafe71b366243032c4207b4a1ac3baa71c96b0b44fb017",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_calibration_v02.json",
+      "sha256": "cc3d0898686ced275740a3bb71eebd4b0002f6b7f754088663ebb712b8369a56",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/cards.pdf",
+      "sha256": "c25d56f744874db7f6367acfd5820ab1732e4b530a23f391e28be8eaf7f199c3",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/cards.html",
+      "sha256": "3028d9cb1f98d776aaccd667ef41619c6e80d104414bff197cf2f21578b0b53e",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/Harry_labels.csv",
+      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/Li_labels.csv",
+      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/nominations_template.csv",
+      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/reference_2025.csv",
+      "sha256": "8941bceff62015f7891bff5bb20bbb7704506f55bd0836a48662750542020d4a",
+      "byte_equal_to_base": true
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/selection_manifest.csv",
+      "sha256": "7b99fa3d485ba30ee98b61c66a1aa5d9e16b47ecd33bd2546ee775fe8f837017",
+      "byte_equal_to_base": true
+    }
+  ],
+  "weather_config_unchanged": true,
+  "tests_passed": 71,
+  "boundary_subtests_passed": 8,
+  "empty_evaluation": "awaiting_labels; no revision consumed",
+  "rendered": [
+    {
+      "page": 1,
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r3_first.png"
+    },
+    {
+      "page": 1,
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r3_dense.png"
+    },
+    {
+      "page": 10,
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r3_last.png"
+    }
+  ],
+  "visual_review": "Root opened current first/densest and final-page renders; ten facts and six-line label form fit without overlap or missing glyphs",
+  "layout_regression": "3 packet tests passed after separating all label fields onto their own lines",
+  "worker_review": "Root inspected implementation and tests for all fixed-denominator, missingness and directional revision rules; no threshold changes"
+}

@@ -8,14 +8,16 @@
     "bounded_packages": [
       "W01",
       "W04",
-      "W04R2 raw-fact cards"
+      "W04R2 raw-fact cards",
+      "W04R3-EVAL single-Li reference evaluator"
     ]
   },
   "root_packages": [
     "W02 readings/calibration",
     "W03 causal forecasts",
     "W05 CLI/report/figures/integration",
-    "R2 borderline/local preflight integration, 424-day parity and independent card acceptance"
+    "R2 borderline/local preflight integration, 424-day parity and independent card acceptance",
+    "R3 fixed ten-day shuffled cards, CLI/doc replacement, preservation checks, PDF visual acceptance and publication"
   ],
   "decomposition_change": "native agent thread limit reached after first requested worker; reused that exact configured worker sequentially and retained remaining implementation with root, no replacement model",
   "interface_version": "20261005-01",

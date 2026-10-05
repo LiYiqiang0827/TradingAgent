@@ -1,0 +1,4 @@
+dimension,matches,total_requested,labeled_n,evaluable_n,missing_n,unavailable_machine_n,basic_consistency,higher_disagreement_n,lower_disagreement_n,revision_used,adjustment_allowed,reason,eligible_directions
+hit,0,10,0,0,10,0,,0,0,0,False,no_evaluable_labels,
+cont,0,10,0,0,10,0,,0,0,0,False,no_evaluable_labels,
+act,0,10,0,0,10,0,,0,0,0,False,no_evaluable_labels,

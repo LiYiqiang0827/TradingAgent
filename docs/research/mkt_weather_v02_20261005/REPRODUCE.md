@@ -34,16 +34,24 @@ python -m policyStudy.policy.market_sentiment.run today --data-root '<已验证�
 
 日表与摘要增加临界提示：仅检查当天决定天气的分支，距离严格小于3分才提示另一侧天气；等于边界时明确写“低于某值”，不改变原分类。下一交易日日期仍由统一交易日历提供，不单独推算。
 
-## 人工标注
+## 李老师10日标注与参考评估
 
-只把 human/packets 内容发给 Harry 与 Li。cards.pdf每日一页，cards.html可离线查看，每张10项事实并列2025 P10/中位/P90，不展示机器读数、天气答案或分类阈值；字体已嵌入PDF。每人独立填写各自CSV。补提名在 `nominations_template.csv` 的 trade_date 列填约15个日期后运行 human-pack；程序按种子20261005重建分层随机部分，重合日期按同天气候选补抽。不要向标注者展示 private_key。程序不把既有聊天复盘当两人的正式标签。
+当前只请李老师一人，使用 `human/li10/packets/cards.pdf` 和同序 `Li_labels.csv`。用户指定10日随机打乱顺序，每页保留原10项事实及2025 P10/中位/P90，不附机器读数、天气答案、日期分组或临界提示。hit/cont/act为三个主要必填项；weather/notes选填。不确定可留空或整张跳过，程序按维度保留有效填写，另列未完成日。
 
 ```powershell
-python -m policyStudy.policy.market_sentiment.run human-pack --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --nominations '<nominations.csv>' --output '<新的human目录>'
-python -m policyStudy.policy.market_sentiment.run evaluate-human --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --harry '<Harry标签CSV>' --li '<Li标签CSV>' --output '<人工评估目录>'
+python -m policyStudy.policy.market_sentiment.run li-pack --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --output '<新的李老师10日目录>'
+python -m policyStudy.policy.market_sentiment.run evaluate-human --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --li '<Li标签CSV>' --revision-ledger docs/research/mkt_weather_v02_20261005/human/li10/private_key/threshold_revision_ledger.json --output '<标注完成后的私有评估目录>'
 ```
 
-分维度报告机器对两人、两人相互一致率，以及双方一致日中机器的准确率。三项均≥70%才通过；分母零待标注。未达标只允许一次有人工证据的切点修订；不调整指标、锚点、先验、权重，不按收益择优。
+逐读数报一致天数、已填天数、可比天数、缺失及同方向分歧。固定10日中至少7日一致记为“基本一致”，仅作参考，不设工程通过关卡；缺失不计不一致，也不缩小7/10的参考基数。同一读数至少3个可比日机器档位高于人，或至少3日低于人，且该读数修订次数为0，才允许总控依据证据调整该读数分档阈值一次。两个方向不能相加；机器缺失不构成方向证据。次数按hit/cont/act分别保存，评估本身不修改阈值或增加次数；当前均为0。weather只作选填补充，不参与调整条件。
+
+原 `human/packets/cards.pdf` 的15张随机卡片与提名入口保留为可选材料，无需填写或提名，也不纳入当前10日评估。历史Harry模板仅留档，不再需要第二位标注者；旧双人规则已由当前单人规则替代。
+
+```powershell
+python -m policyStudy.policy.market_sentiment.run human-pack --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --nominations '<可选提名CSV>' --output '<新的可选材料目录>'
+```
+
+三个读数、天气、先验、锚点与权重在本轮保持不变。不要把机器答案目录交给尚未标注的人；程序不以旧聊天或AI代填标签。
 
 ## 验收入口
 

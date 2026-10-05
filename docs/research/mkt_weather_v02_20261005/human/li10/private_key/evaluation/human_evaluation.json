@@ -1,0 +1,209 @@
+{
+  "reference_only": true,
+  "status": "awaiting_labels",
+  "reviewer": "Li",
+  "fixed_dates": [
+    "2026-08-27",
+    "2026-08-31",
+    "2026-09-03",
+    "2026-09-07",
+    "2026-09-09",
+    "2025-11-14",
+    "2025-12-03",
+    "2026-05-07",
+    "2026-06-10",
+    "2026-06-11"
+  ],
+  "total_requested": 10,
+  "reference_match_count": 7,
+  "dimensions": {
+    "hit": {
+      "matches": 0,
+      "total_requested": 10,
+      "labeled_n": 0,
+      "evaluable_n": 0,
+      "missing_n": 10,
+      "unavailable_machine_n": 0,
+      "unavailable_machine_dates": [],
+      "basic_consistency": null,
+      "higher_disagreement_n": 0,
+      "lower_disagreement_n": 0,
+      "eligible_directions": [],
+      "revision_used": 0,
+      "adjustment_allowed": false,
+      "reason": "no_evaluable_labels"
+    },
+    "cont": {
+      "matches": 0,
+      "total_requested": 10,
+      "labeled_n": 0,
+      "evaluable_n": 0,
+      "missing_n": 10,
+      "unavailable_machine_n": 0,
+      "unavailable_machine_dates": [],
+      "basic_consistency": null,
+      "higher_disagreement_n": 0,
+      "lower_disagreement_n": 0,
+      "eligible_directions": [],
+      "revision_used": 0,
+      "adjustment_allowed": false,
+      "reason": "no_evaluable_labels"
+    },
+    "act": {
+      "matches": 0,
+      "total_requested": 10,
+      "labeled_n": 0,
+      "evaluable_n": 0,
+      "missing_n": 10,
+      "unavailable_machine_n": 0,
+      "unavailable_machine_dates": [],
+      "basic_consistency": null,
+      "higher_disagreement_n": 0,
+      "lower_disagreement_n": 0,
+      "eligible_directions": [],
+      "revision_used": 0,
+      "adjustment_allowed": false,
+      "reason": "no_evaluable_labels"
+    }
+  },
+  "weather": {
+    "matches": 0,
+    "denominator": 0,
+    "labeled_n": 0,
+    "unavailable_machine_n": 0
+  },
+  "incomplete_dates": [
+    "2026-08-27",
+    "2026-08-31",
+    "2026-09-03",
+    "2026-09-07",
+    "2026-09-09",
+    "2025-11-14",
+    "2025-12-03",
+    "2026-05-07",
+    "2026-06-10",
+    "2026-06-11"
+  ],
+  "partially_labeled_dates": [],
+  "blank_or_skipped_dates": [
+    "2026-08-27",
+    "2026-08-31",
+    "2026-09-03",
+    "2026-09-07",
+    "2026-09-09",
+    "2025-11-14",
+    "2025-12-03",
+    "2026-05-07",
+    "2026-06-10",
+    "2026-06-11"
+  ],
+  "incomplete_details": [
+    {
+      "trade_date": "2026-08-27",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-08-31",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-09-03",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-09-07",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-09-09",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2025-11-14",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2025-12-03",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-05-07",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-06-10",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    },
+    {
+      "trade_date": "2026-06-11",
+      "missing_dimensions": [
+        "hit",
+        "cont",
+        "act"
+      ]
+    }
+  ],
+  "threshold_revision_counts": {
+    "hit": 0,
+    "cont": 0,
+    "act": 0
+  },
+  "machine_band_cutpoints": {
+    "hit": [
+      35.0,
+      65.0
+    ],
+    "cont": [
+      35.0,
+      65.0
+    ],
+    "act": [
+      35.0,
+      65.0
+    ]
+  },
+  "thresholds_changed": false,
+  "machine_scores_changed": false,
+  "paths": {
+    "summary": "docs\\research\\mkt_weather_v02_20261005\\human\\li10\\private_key\\evaluation\\human_evaluation.json",
+    "metrics": "docs\\research\\mkt_weather_v02_20261005\\human\\li10\\private_key\\evaluation\\agreement_metrics.csv",
+    "disagreements": "docs\\research\\mkt_weather_v02_20261005\\human\\li10\\private_key\\evaluation\\disagreements.csv",
+    "readme": "docs\\research\\mkt_weather_v02_20261005\\human\\li10\\private_key\\evaluation\\README.md"
+  }
+}

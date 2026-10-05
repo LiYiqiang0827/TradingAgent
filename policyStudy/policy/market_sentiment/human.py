@@ -1,4 +1,4 @@
-"""Independent blind-label packets and per-dimension human agreement checks."""
+"""Optional random/nominated blind packets and shared label helpers."""
 from __future__ import annotations
 
 import argparse
@@ -80,7 +80,8 @@ def machine_band(value: Any, dimension: str) -> str | None:
     score = float(value)
     if not 0 <= score <= 100:
         raise ValueError("A machine reading must lie in 0..100")
-    lower, upper = SPEC["human_bins"]
+    bins = SPEC["human_bins"]
+    lower, upper = bins[dimension] if isinstance(bins, dict) else bins
     return BAND_LABELS[dimension][0 if score < lower else 1 if score < upper else 2]
 
 
@@ -170,7 +171,7 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
         frozen_dates = pd.read_csv(existing_selection, dtype=str).trade_date.tolist()
         if frozen_dates != selected_dates:
             raise ValueError("Preserve existing selected dates; use a new packet directory for another sample")
-    label_paths = {name: packets / f"{name}_labels.csv" for name in ("Harry", "Li")}
+    label_paths = {name: packets / f"{name}_labels.csv" for name in ("Li",)}
     # Rebuilding a blank packet is safe; overwriting a person's work is not.
     for path in label_paths.values():
         if path.exists():
@@ -195,14 +196,11 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
         old = packets / filename
         if old.exists():
             old.replace(private / f"archived_{filename}")
-    glossary = ["# Harry 与 Li 独立标注说明", "", "请各自阅读 cards.pdf（每日一张）或 cards.html，在自己的标签 CSV 中填写；先独立标注，再讨论。", "",
-                "- hit（挨打）：轻 / 中 / 重。", "- cont（延续）：差 / 一般 / 好。", "- act（活跃）：低 / 中 / 高。",
-                "- weather（最接近的天气）：晴 / 多云 / 阴 / 雷阵雨 / 暴雨。", "- notes：可选备注；不确定的标签可以留空。", "",
-                "昨日群体按昨日合格涨停身份固定；连板群体包括昨日全部 ≥2 板。今日大跌为收盘相对有效前收跌 5% 及以上或收于跌停，每只只计一次。比例的分母是今日可观测人数。", "",
-                "每张卡片只有10项事实。右列按 P10 / 中位数 / P90 显示2025全年可观测日值的常见范围，采用线性分位。参考范围仅帮助理解数值，不替人划分类别。", "",
-                "数、分母和比例分别计算分位；所有比例不平滑，以百分比显示。指数1.2%表示+1.2%，金额单位为万亿元。晋级 ≥4 板组包括更高板。缺失比例表示分母为零或无法观测。", "",
-                "nominations_template.csv 用于补充约15个记得清楚的日期，填写 YYYY-MM-DD；允许两人重复提名，程序会去重。", "",
-                "reference_2025.csv 是小型参考表，记录各子项单位、有效日数及三个分位。原始审计细节留在独立目录，不需要标注者逐项阅读。"]
+    glossary = ["# 可选随机卡片与提名材料", "", "本目录原15张随机卡片保留为可选参考，无需填写；当前必需工作仅为用户指定的10日李老师卡片，入口见 ../li10/。", "",
+                "如自愿补充，可阅读cards.pdf或cards.html并填写Li_labels.csv。历史Harry_labels.csv仅为旧版留档，不再要求第二位标注者。", "",
+                "hit：轻/中/重；cont：差/一般/好；act：低/中/高。weather和notes选填，允许留空或跳过。", "",
+                "卡片每项并列2025 P10/中位/P90，比例均为可观测分母的原始k/n，不平滑。金额单位万亿元，指数及比例为百分比。", "",
+                "nominations_template.csv及human-pack入口继续保留为可选功能，不要求补足日期，也不纳入当前10日参考评估。"]
     (packets / "README.md").write_text("\n".join(glossary) + "\n", encoding="utf-8")
     key = selected.reindex(columns=["trade_date", "mkt_hit", "mkt_cont", "mkt_act", "mkt_weather"])
     for dimension in DIMENSIONS:
@@ -218,17 +216,17 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
     _csv(private / "selection_manifest.csv", pd.DataFrame(sample_rows, columns=["trade_date", "machine_weather", "selection", "overlapped_initial_random"]))
     _csv(private / "nominations_used.csv", nominees)
     paths = {**card_paths, "facts_csv": str(private / "audit_raw_facts.csv"),
-             "Harry_labels": str(label_paths["Harry"]), "Li_labels": str(label_paths["Li"]),
+             "Li_labels": str(label_paths["Li"]),
              "nominations_template": str(nomination_template), "private_key": str(private / "machine_key.csv"),
              "selection_manifest": str(private / "selection_manifest.csv"), "sampling_summary": str(private / "sampling_summary.json")}
-    summary = {"status": "random_part_ready" if not nominated else "complete", "count": len(selected_dates),
+    summary = {"status": "optional_ready", "count": len(selected_dates),
                "counts": {"total": len(selected_dates), "random": sum(len(group) for group in draws.values()), "nominated": len(nominated)},
-               "seed": seed, "target_total_approx": 30, "duplicate_nominations_n": duplicate_nominations_n,
+               "seed": seed, "required": False, "duplicate_nominations_n": duplicate_nominations_n,
                "strata": strata, "missing_neutral_fields": [field for field in NEUTRAL_FIELDS if field not in source],
                "paths": paths, "human_labels_filled": False}
     _json(private / "sampling_summary.json", summary)
-    (private / "README.md").write_text("# 机器答案与抽样依据：暂勿揭盲\n\n此目录含机器三读数、三档和天气，以及分层抽样依据。Harry 与 Li 完成各自独立标签前，请勿打开或转发；仅把 ../packets/ 交给标注者。评估结果也可能包含答案，须同样保留在此目录。\n", encoding="utf-8")
-    (Path(output_dir) / "README.md").write_text(f"# 大盘天气预报：独立人工标注\n\n给标注者的材料在 packets/：cards.pdf 每日一张、cards.html 可离线打印，卡片仅10项中性事实及2025常见范围；另附 Harry 和 Li 各自的空标签、提名模板、小型参考表。请先分别标注，再比较。private_key/ 是机器答案、抽样依据和审计细节；两人独立标注完成前请勿打开或转发。\n\n当前共{len(selected_dates)}个唯一日期，已收到{len(nominated)}个唯一提名。没有收到提名时仅为随机部分，仍需补充约15个记得清楚的日期。补齐入口：`python -m policyStudy.policy.market_sentiment.run human-pack --daily <日表> --output <新的human目录> --nominations <提名CSV>`。填过标签的目录不会被重建覆盖。\n", encoding="utf-8")
+    (private / "README.md").write_text("# 隔离机器答案与历史抽样依据\n\n仅作审计，不放入盲标材料。当前李老师10日包见../li10/packets；原随机卡片可选，无需第二位标注者。\n", encoding="utf-8")
+    (Path(output_dir) / "README.md").write_text(f"# 可选随机与提名材料\n\n当前共{len(selected_dates)}个唯一日期，提名{len(nominated)}日；仅作为可选材料，不要求填写或补足。当前正式人工参考为李老师一人的指定10日包，使用li-pack生成。原随机/提名入口human-pack继续保留；已填标签不会被覆盖。\n", encoding="utf-8")
     return summary
 
 
@@ -270,98 +268,10 @@ def _agreement(left: pd.Series, right: pd.Series) -> dict:
     return {"n": n, "hits": hits, "accuracy": hits / n if n else None}
 
 
-def evaluate_labels(daily: pd.DataFrame, harry_path: str | Path, li_path: str | Path,
-                    output_dir: str | Path, threshold_revision_count: int = 0) -> dict:
-    """Evaluate each dimension independently; never revise any thresholds."""
-    if threshold_revision_count not in (0, 1):
-        raise ValueError("threshold_revision_count must be 0 or 1")
-    source = _daily(daily).set_index("trade_date")
-    available_dates = set(source.index)
-    harry = _labels(harry_path, "Harry", available_dates).reindex(source.index).fillna("")
-    li = _labels(li_path, "Li", available_dates).reindex(source.index).fillna("")
-    machine = pd.DataFrame(index=source.index)
-    for dimension in DIMENSIONS:
-        machine[dimension] = source[f"mkt_{dimension}"].map(lambda value: machine_band(value, dimension))
-    machine["weather"] = source.mkt_weather.where(source.mkt_weather.isin(WEATHER_ORDER), None)
-    dimensions = {}
-    metric_rows, differences = [], []
-    for dimension in (*DIMENSIONS, "weather"):
-        result = {"machine_vs_harry": _agreement(machine[dimension], harry[dimension]),
-                  "machine_vs_li": _agreement(machine[dimension], li[dimension]),
-                  "harry_vs_li": _agreement(harry[dimension], li[dimension])}
-        if dimension in DIMENSIONS:
-            common = harry[dimension].ne("") & li[dimension].ne("") & harry[dimension].eq(li[dimension])
-            n = int(common.sum())
-            hits = int(machine.loc[common, dimension].eq(harry.loc[common, dimension]).sum())
-            result["primary"] = {"n": n, "hits": hits, "accuracy": hits / n if n else None,
-                                 "machine_unavailable_n": int(machine.loc[common, dimension].isna().sum()),
-                                 "pass": n > 0 and hits / n >= 0.7}
-            dimensions[dimension] = result
-        for comparison, metric in result.items():
-            metric_rows.append({"dimension": dimension, "comparison": comparison, **metric})
-        has_harry, has_li = harry[dimension].ne(""), li[dimension].ne("")
-        mismatch_harry = has_harry & machine[dimension].ne(harry[dimension])
-        mismatch_li = has_li & machine[dimension].ne(li[dimension])
-        mismatch_humans = has_harry & has_li & harry[dimension].ne(li[dimension])
-        for day in source.index[mismatch_harry | mismatch_li | mismatch_humans]:
-            reasons = []
-            if pd.isna(machine.at[day, dimension]):
-                reasons.append("machine_unavailable")
-            if mismatch_harry.at[day]:
-                reasons.append("machine_vs_Harry")
-            if mismatch_li.at[day]:
-                reasons.append("machine_vs_Li")
-            if mismatch_humans.at[day]:
-                reasons.append("Harry_vs_Li")
-            entry = {"trade_date": day, "dimension": dimension, "machine": machine.at[day, dimension],
-                     "Harry": harry.at[day, dimension], "Li": li.at[day, dimension], "reason": ";".join(reasons),
-                     "Harry_notes": harry.at[day, "notes"], "Li_notes": li.at[day, "notes"]}
-            entry.update(source.loc[day].reindex(NEUTRAL_FIELDS).to_dict())
-            differences.append(entry)
-        if dimension == "weather":
-            weather = result
-    rating_count = int(harry[[*DIMENSIONS, "weather"]].ne("").sum().sum() + li[[*DIMENSIONS, "weather"]].ne("").sum().sum())
-    all_pass = all(result["primary"]["pass"] for result in dimensions.values())
-    status = "awaiting_labels" if rating_count == 0 else "pass" if all_pass else "needs_review" if threshold_revision_count == 0 else "failed_after_allowed_revision"
-    output = Path(output_dir)
-    output.mkdir(parents=True, exist_ok=True)
-    paths = {"summary": str(output / "human_evaluation.json"), "metrics": str(output / "agreement_metrics.csv"), "differences": str(output / "neutral_disagreements.csv")}
-    lower, upper = SPEC["human_bins"]
-    summary = {"status": status, "threshold_revision_count": threshold_revision_count,
-               "machine_bands": {"low": f"[0,{lower})", "middle": f"[{lower},{upper})", "high": f"[{upper},100]"},
-               "primary_threshold": 0.7, "primary_denominator": "per dimension: both humans labeled and agreed; unavailable machine stays in n and is disclosed",
-               "dimensions": dimensions, "weather_supplement": weather, "all_dimensions_pass": all_pass,
-               "counts": {"daily": len(source), "human_ratings": rating_count, "disagreement_rows": len(differences),
-                          "harry_dates_with_ratings": int(harry[[*DIMENSIONS, "weather"]].ne("").any(axis=1).sum()),
-                          "li_dates_with_ratings": int(li[[*DIMENSIONS, "weather"]].ne("").any(axis=1).sum())},
-               "paths": paths}
-    _json(output / "human_evaluation.json", summary)
-    _csv(output / "agreement_metrics.csv", pd.DataFrame(metric_rows))
-    difference_columns = ["trade_date", "dimension", "machine", "Harry", "Li", "reason", "Harry_notes", "Li_notes", *NEUTRAL_FIELDS]
-    _csv(output / "neutral_disagreements.csv", pd.DataFrame(differences, columns=difference_columns).sort_values(["trade_date", "dimension"]))
-    (output / "README.md").write_text("# 人工一致率评估\n\n本目录可能包含机器答案和人的标签，仅在独立标注完成后讨论。主标准按挨打、延续、活跃分别计算双方都标注且意见一致的日期；每项均达到70%且各自分母大于零才通过。天气一致率只作补充，不能替代三维主标准。空标签不消耗修订次数；程序只记录传入的 threshold_revision_count，不修改阈值。\n", encoding="utf-8")
-    return summary
-
-
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
-    commands = parser.add_subparsers(dest="command", required=True)
-    packet = commands.add_parser("human-pack")
-    packet.add_argument("--daily", required=True)
-    packet.add_argument("--output", required=True)
-    packet.add_argument("--nominations")
-    packet.add_argument("--seed", type=int, default=20261005)
-    evaluate = commands.add_parser("evaluate-human")
-    evaluate.add_argument("--daily", required=True)
-    evaluate.add_argument("--harry", required=True)
-    evaluate.add_argument("--li", required=True)
-    evaluate.add_argument("--output", required=True)
-    evaluate.add_argument("--threshold-revision-count", type=int, default=0)
-    args = parser.parse_args()
-    daily = pd.read_csv(args.daily, float_precision="round_trip")
-    result = create_packets(daily, args.output, args.nominations, args.seed) if args.command == "human-pack" else evaluate_labels(daily, args.harry, args.li, args.output, args.threshold_revision_count)
-    print(json.dumps(_safe(result), ensure_ascii=False, allow_nan=False))
-    return 0
+    # Both module entry points use the current single-rater command contract.
+    from .run import main as shared_main
+    return shared_main()
 
 
 if __name__ == "__main__":

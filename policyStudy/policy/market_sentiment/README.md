@@ -17,8 +17,8 @@ python -m policyStudy.policy.market_sentiment.run today --data-root '<安全停�
 
 ```powershell
 python -m pytest policyStudy/policy/market_sentiment/tests -q
-python -m policyStudy.policy.market_sentiment.run human-pack --daily <mkt_daily.csv> --output <human目录> --nominations <提名CSV>
-python -m policyStudy.policy.market_sentiment.run evaluate-human --daily <mkt_daily.csv> --harry <Harry_labels.csv> --li <Li_labels.csv> --output <评估目录>
+python -m policyStudy.policy.market_sentiment.run li-pack --daily <mkt_daily.csv> --output <李老师10日目录>
+python -m policyStudy.policy.market_sentiment.run evaluate-human --daily <mkt_daily.csv> --li <Li_labels.csv> --output <评估目录>
 ```
 
-权重、阈值、a=5、2025线性分位与机器三档固定在 config/mkt_spec_v02.json；任何人工依据修订均需总控形成完整新版本，最多一次。空标签不通过验收，不代填人类意见。
+权重、天气阈值、a=5、2025线性分位与当前机器三档固定在config/mkt_spec_v02.json，本轮未修改。人工参考只使用用户指定10日及李老师标签：逐读数至少7/10天一致记为基本一致，无硬关卡。同一读数至少3日同方向不一致，且该读数未修订，才允许总控调整其分档阈值一次；评估不自动调参。空白或跳过单列，weather/notes选填。原15张随机卡片与human-pack提名入口保留为可选，无需填写。

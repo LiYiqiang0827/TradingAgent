@@ -233,16 +233,23 @@ def parser():
         q.add_argument('--start',default='20250102');q.add_argument('--end',default='20260930');q.add_argument('--generated-at');q.add_argument('--upstream-receipt')
         q.add_argument('--f1-input-manifest');q.add_argument('--f1-cache-dir')
     q=sp.add_parser('human-pack');q.add_argument('--daily',required=True);q.add_argument('--output',required=True);q.add_argument('--nominations')
-    q=sp.add_parser('evaluate-human');q.add_argument('--daily',required=True);q.add_argument('--harry',required=True);q.add_argument('--li',required=True);q.add_argument('--output',required=True);q.add_argument('--threshold-revision-count',type=int,default=0)
+    q=sp.add_parser('li-pack');q.add_argument('--daily',required=True);q.add_argument('--output',required=True)
+    q=sp.add_parser('evaluate-human');q.add_argument('--daily',required=True);q.add_argument('--li',required=True);q.add_argument('--output',required=True);q.add_argument('--revision-ledger')
     return p
 
 def main():
     a=parser().parse_args()
     if a.command=='history':history(a);return 0
     if a.command=='today':return today(a)
-    from .human import create_packets,evaluate_labels
+    from .human import create_packets
     if a.command=='human-pack':print(create_packets(read_csv(a.daily),a.output,a.nominations))
-    else:print(evaluate_labels(read_csv(a.daily),a.harry,a.li,a.output,a.threshold_revision_count))
+    elif a.command=='li-pack':
+        from .li_packet import create_li_packet
+        print(create_li_packet(read_csv(a.daily),a.output))
+    else:
+        from .li_review import evaluate_li_labels
+        ledger=json.loads(Path(a.revision_ledger).read_text(encoding='utf-8')) if a.revision_ledger else None
+        print(evaluate_li_labels(read_csv(a.daily),a.li,a.output,ledger))
     return 0
 
 if __name__=='__main__':raise SystemExit(main())
