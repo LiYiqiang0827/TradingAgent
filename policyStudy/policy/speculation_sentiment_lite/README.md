@@ -1,5 +1,7 @@
 # 接力情绪 F1 与探索性周期 C0
 
+2026-10-05定位更新：F1作为大盘情绪测量引擎继续沿用，旧score5保留为新天气的mkt_relay_score。新工作入口是[大盘天气预报v0.2](../market_sentiment/README.md)；C0周期相位与本目录题材对照成果存档，不进入新天气计算。下文为原v0.1交付说明。
+
 本目录提供2025固定标尺、2026历史环境测量的精简实现。先读[研究包](../../../docs/research/mrwu_sentiment_cycle_20261005/README.md)及[复刻说明](../../../docs/research/mrwu_sentiment_cycle_20261005/REPRODUCE.md)。不连接策略收益，不交易，不设置日更。
 
 | 入口 | 职责 |

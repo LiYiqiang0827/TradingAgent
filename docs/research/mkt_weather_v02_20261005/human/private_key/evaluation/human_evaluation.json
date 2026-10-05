@@ -1,0 +1,115 @@
+{
+  "status": "awaiting_labels",
+  "threshold_revision_count": 0,
+  "machine_bands": {
+    "low": "[0,35)",
+    "middle": "[35,65)",
+    "high": "[65,100]"
+  },
+  "primary_threshold": 0.7,
+  "primary_denominator": "per dimension: both humans labeled and agreed; unavailable machine stays in n and is disclosed",
+  "dimensions": {
+    "hit": {
+      "machine_vs_harry": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "machine_vs_li": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "harry_vs_li": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "primary": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null,
+        "machine_unavailable_n": 0,
+        "pass": false
+      }
+    },
+    "cont": {
+      "machine_vs_harry": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "machine_vs_li": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "harry_vs_li": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "primary": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null,
+        "machine_unavailable_n": 0,
+        "pass": false
+      }
+    },
+    "act": {
+      "machine_vs_harry": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "machine_vs_li": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "harry_vs_li": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null
+      },
+      "primary": {
+        "n": 0,
+        "hits": 0,
+        "accuracy": null,
+        "machine_unavailable_n": 0,
+        "pass": false
+      }
+    }
+  },
+  "weather_supplement": {
+    "machine_vs_harry": {
+      "n": 0,
+      "hits": 0,
+      "accuracy": null
+    },
+    "machine_vs_li": {
+      "n": 0,
+      "hits": 0,
+      "accuracy": null
+    },
+    "harry_vs_li": {
+      "n": 0,
+      "hits": 0,
+      "accuracy": null
+    }
+  },
+  "all_dimensions_pass": false,
+  "counts": {
+    "daily": 424,
+    "human_ratings": 0,
+    "disagreement_rows": 0,
+    "harry_dates_with_ratings": 0,
+    "li_dates_with_ratings": 0
+  },
+  "paths": {
+    "summary": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\human_evaluation.json",
+    "metrics": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\agreement_metrics.csv",
+    "differences": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\neutral_disagreements.csv"
+  }
+}

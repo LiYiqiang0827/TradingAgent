@@ -1,0 +1,71 @@
+{
+  "status": "random_part_ready",
+  "count": 15,
+  "counts": {
+    "total": 15,
+    "random": 15,
+    "nominated": 0
+  },
+  "seed": 20261005,
+  "target_total_approx": 30,
+  "duplicate_nominations_n": 0,
+  "strata": {
+    "sunny": {
+      "candidate_n": 117,
+      "requested_random_n": 3,
+      "initial_random_n": 3,
+      "overlap_with_nominations_n": 0,
+      "replacement_n": 0,
+      "final_random_n": 3,
+      "random_shortfall_n": 0
+    },
+    "cloudy": {
+      "candidate_n": 137,
+      "requested_random_n": 3,
+      "initial_random_n": 3,
+      "overlap_with_nominations_n": 0,
+      "replacement_n": 0,
+      "final_random_n": 3,
+      "random_shortfall_n": 0
+    },
+    "overcast": {
+      "candidate_n": 46,
+      "requested_random_n": 3,
+      "initial_random_n": 3,
+      "overlap_with_nominations_n": 0,
+      "replacement_n": 0,
+      "final_random_n": 3,
+      "random_shortfall_n": 0
+    },
+    "thunder": {
+      "candidate_n": 31,
+      "requested_random_n": 3,
+      "initial_random_n": 3,
+      "overlap_with_nominations_n": 0,
+      "replacement_n": 0,
+      "final_random_n": 3,
+      "random_shortfall_n": 0
+    },
+    "storm": {
+      "candidate_n": 93,
+      "requested_random_n": 3,
+      "initial_random_n": 3,
+      "overlap_with_nominations_n": 0,
+      "replacement_n": 0,
+      "final_random_n": 3,
+      "random_shortfall_n": 0
+    }
+  },
+  "missing_neutral_fields": [],
+  "paths": {
+    "facts_csv": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\facts.csv",
+    "facts_markdown": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\facts.md",
+    "Harry_labels": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Harry_labels.csv",
+    "Li_labels": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Li_labels.csv",
+    "nominations_template": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\nominations_template.csv",
+    "private_key": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\machine_key.csv",
+    "selection_manifest": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\selection_manifest.csv",
+    "sampling_summary": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\sampling_summary.json"
+  },
+  "human_labels_filled": false
+}

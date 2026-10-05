@@ -1,0 +1,80 @@
+{
+  "task_id": "W01",
+  "status": "ready_for_root_acceptance",
+  "input_version": "INTERFACE_CONTRACT_20261005-01/F1-formal_corrected",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_effort_requested": "xhigh",
+  "model_verification_source": "root spawn tool acceptance; no independent introspection API in worker",
+  "input_paths": [
+    "D:/ProjectRocketData/processed/TradingAgent/outputs/speculation_sentiment/sentiment_cycle_20261005_01/formal_corrected/events.parquet",
+    "D:/ProjectRocketData/processed/TradingAgent/outputs/speculation_sentiment/sentiment_cycle_20261005_01/formal_corrected/cohorts.parquet",
+    "D:/ProjectRocketData/processed/TradingAgent/outputs/speculation_sentiment/sentiment_cycle_20261005_01/formal_corrected/sentiment_daily.csv"
+  ],
+  "scope": "pure DataFrame adapter plus load_formal, edge tests, raw daily CSV, field mapping, source and validation evidence",
+  "forbidden": [
+    "database writes",
+    "old algorithm or parameters",
+    "other worker files",
+    "Git",
+    "extra agents"
+  ],
+  "output_paths": [
+    "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\market_sentiment\\mkt_weather_v02_20261005_01\\adapter\\mkt_raw_daily.csv",
+    "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\market_sentiment\\mkt_weather_v02_20261005_01\\adapter\\input_fingerprints.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\data\\adapter_field_mapping.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_validation.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_input_fingerprints.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_direct_days.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_local_gaps.csv",
+    "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\market_sentiment\\mkt_weather_v02_20261005_01\\adapter\\cohort_hand_checks.csv"
+  ],
+  "changed_files": [
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\policyStudy\\policy\\market_sentiment\\adapter.py",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\policyStudy\\policy\\market_sentiment\\tests\\test_adapter.py",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\data\\adapter_field_mapping.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_direct_days.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_input_fingerprints.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_local_gaps.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W01_validation.json"
+  ],
+  "checks": {
+    "boundary_tests": "8 passed",
+    "date_coverage": "243+181=424",
+    "old_columns_and_mappings": "exact",
+    "source_inputs": "before/after SHA256 exact",
+    "true_prefix_rebuilds": [
+      {
+        "cutoff": "2026-03-31",
+        "events_rows": 1757457,
+        "cohorts_rows": 23455,
+        "daily_rows": 299,
+        "all_fields_exact": true,
+        "reran_build_raw": true
+      },
+      {
+        "cutoff": "2026-06-30",
+        "events_rows": 2068683,
+        "cohorts_rows": 28109,
+        "daily_rows": 359,
+        "all_fields_exact": true,
+        "reran_build_raw": true
+      },
+      {
+        "cutoff": "2026-09-09",
+        "events_rows": 2333913,
+        "cohorts_rows": 31921,
+        "daily_rows": 410,
+        "all_fields_exact": true,
+        "reran_build_raw": true
+      }
+    ],
+    "cohort_hand_aggregations": 424,
+    "raw_numeric_csv_roundtrip": "exact"
+  },
+  "known_issues": [
+    "F1's local paused/missing cohort members remain excluded from observed denominators and disclosed; no invented returns.",
+    "Only root may declare final acceptance."
+  ],
+  "next_owner": "root",
+  "root_acceptance": "accepted_after_source_review_and_independent_tests"
+}

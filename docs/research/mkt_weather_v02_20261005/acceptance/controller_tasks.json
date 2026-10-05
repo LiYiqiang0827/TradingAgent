@@ -1,0 +1,37 @@
+{
+  "controller": "user-selected Astra; sole final acceptance owner",
+  "native_worker": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "xhigh",
+    "evidence": "explicit native spawn arguments accepted; no independent underlying runtime introspection API",
+    "task": "/root/weather_w01",
+    "bounded_packages": [
+      "W01",
+      "W04"
+    ]
+  },
+  "root_packages": [
+    "W02 readings/calibration",
+    "W03 causal forecasts",
+    "W05 CLI/report/figures/integration"
+  ],
+  "decomposition_change": "native agent thread limit reached after first requested worker; reused that exact configured worker sequentially and retained remaining implementation with root, no replacement model",
+  "interface_version": "20261005-01",
+  "same_failure_retry_limit": 2,
+  "deadline": "bounded deliverables in this continuous execution; return immediately when tests and artifact contract complete",
+  "no_external_workers": true,
+  "no_raw_database_writes": true,
+  "no_returns_or_trades": true,
+  "root_reviewed_files": [
+    "policyStudy/policy/market_sentiment/__init__.py",
+    "policyStudy/policy/market_sentiment/acceptance.py",
+    "policyStudy/policy/market_sentiment/adapter.py",
+    "policyStudy/policy/market_sentiment/figures.py",
+    "policyStudy/policy/market_sentiment/forecast.py",
+    "policyStudy/policy/market_sentiment/human.py",
+    "policyStudy/policy/market_sentiment/io.py",
+    "policyStudy/policy/market_sentiment/readings.py",
+    "policyStudy/policy/market_sentiment/run.py",
+    "policyStudy/policy/market_sentiment/verify_delivery.py"
+  ]
+}

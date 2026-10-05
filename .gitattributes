@@ -3,6 +3,9 @@
 .gitattributes -text
 policyStudy/policy/speculation_sentiment_lite/** -text whitespace=cr-at-eol
 docs/research/mrwu_sentiment_cycle_20261005/** -text whitespace=cr-at-eol
+policyStudy/policy/market_sentiment/** -text whitespace=cr-at-eol
+docs/research/mkt_weather_v02_20261005/** -text whitespace=cr-at-eol
+docs/research/mkt_weather_v02_20261005/figures/*.svg -diff
 docs/research/mrwu_sentiment_cycle_20261005/deliverables/*.pdf -diff
 offlineDataManager/scripts/config/settings.py -text whitespace=cr-at-eol
 offlineDataManager/scripts/config/data_safety.py -text whitespace=cr-at-eol

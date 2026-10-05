@@ -1,0 +1,30 @@
+{
+  "state": {
+    "basic": {
+      "path": "D:\\ProjectRocketData\\live\\db_cn_basic.db",
+      "bytes": 13726412800,
+      "mtime_ns": 1791135763949589600
+    },
+    "kpl": {
+      "path": "D:\\ProjectRocketData\\live\\db_cn_kpl.db",
+      "bytes": 2002710528,
+      "mtime_ns": 1791131888717055700
+    },
+    "index": {
+      "path": "D:\\ProjectRocketData\\live\\db_cn_index.db",
+      "bytes": 13119488,
+      "mtime_ns": 1791131836002612400
+    }
+  },
+  "calendar_days": 424,
+  "calendar_max": "2026-09-30",
+  "index_rows": 424,
+  "index_columns": [
+    "trade_date",
+    "mkt_index_sh_pct",
+    "mkt_index_sz_pct",
+    "mkt_index_cyb_pct"
+  ],
+  "source": "read-only stable LIVE databases",
+  "nonmutation_stat_check": true
+}

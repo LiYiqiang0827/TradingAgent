@@ -1,0 +1,66 @@
+{
+  "task_id": "W04",
+  "status": "ready_for_root_acceptance",
+  "input_version": "INTERFACE_CONTRACT_20261005-01/W04",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_effort_requested": "xhigh",
+  "model_acceptance_evidence": "Root confirmed explicit spawn parameters accepted for this reused worker session; no independent worker introspection API",
+  "input_path": "D:/ProjectRocketData/processed/TradingAgent/outputs/market_sentiment/mkt_weather_v02_20261005_01/formal/mkt_daily.csv",
+  "scope": "human.py, its boundary tests, blind packets and separate machine key, empty-label evaluation and W04 evidence",
+  "forbidden": [
+    "adapter edits",
+    "other worker files",
+    "configuration or threshold changes",
+    "database writes",
+    "Git",
+    "additional agents",
+    "invented human labels"
+  ],
+  "output_paths": [
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W04_validation.json"
+  ],
+  "changed_files": [
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\policyStudy\\policy\\market_sentiment\\human.py",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\policyStudy\\policy\\market_sentiment\\tests\\test_human.py",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W04_validation.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\facts.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\facts.md",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Harry_labels.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Li_labels.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\nominations_template.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\README.md",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\agreement_metrics.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\human_evaluation.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\neutral_disagreements.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\README.md",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\machine_key.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\nominations_used.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\README.md",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\sampling_summary.json",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\selection_manifest.csv",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\README.md"
+  ],
+  "checks": {
+    "boundary_tests": "10 passed",
+    "packet_random_count": 15,
+    "neutral_whitelist_and_exact_source": true,
+    "no_public_answer_leak": true,
+    "blank_evaluation": "awaiting_labels",
+    "primary_denominators": {
+      "hit": 0,
+      "cont": 0,
+      "act": 0
+    },
+    "input_unchanged": true,
+    "weather_enums_and_machine_cutpoints": "readings.SPEC; current weather labels and 35/65 unchanged"
+  },
+  "known_issues": [
+    "Only 15 random dates are prepared; roughly 15 remembered nominations have not been supplied.",
+    "Both independent human labels are blank; definition acceptance remains awaiting_labels.",
+    "Only root declares final acceptance; worker made no threshold changes or real revision."
+  ],
+  "next_owner": "root",
+  "input_sha256": "09789df43de469e2cda219d47b0b499ce0b6d43bd315a47fec3a82526cca3c58",
+  "root_acceptance": "accepted_after_source_review_and_independent_tests"
+}

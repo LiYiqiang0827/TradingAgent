@@ -1,0 +1,28 @@
+{
+  "historical_engineering": "complete_with_disclosed_gaps",
+  "forecast_comparison": "complete",
+  "human_packets": "random_part_ready",
+  "human_definition_acceptance": "awaiting_labels",
+  "threshold_revision_count": 0,
+  "data_unification": "in_progress",
+  "daily_automation": "ready_not_enabled",
+  "publication": "local_only",
+  "updated_at": "2026-10-05T00:20:13.809316+00:00",
+  "evidence_paths": [
+    "controller_acceptance.json",
+    "rebuild_visual_today.json",
+    "root_human_tests.json",
+    "tests.xml",
+    "W01_validation.json",
+    "W04_validation.json",
+    "DAILY_AUTOMATION.md"
+  ],
+  "gaps": {
+    "human": "15 random unique dates ready; about 15 nominations and independent Harry/Li labels pending",
+    "calendar": "stable local calendar ends 2026-09-30; last forecast target unknown",
+    "raw_identity": "300114.SZ lacks reliable listing identity on 26 calibration stock-days (43 additional warmup stock-days), locally excluded by unchanged F1",
+    "cohorts": "76 paused members and 2 missing-price members among previous-limit-up cohorts over 424 days; observed denominator retained",
+    "integration": "unification owner still updating original DB; 181-day original-DB F1 comparison and safe completion hook not yet handed over",
+    "automation": "first postholiday unattended day is a future event; not claimed verified"
+  }
+}

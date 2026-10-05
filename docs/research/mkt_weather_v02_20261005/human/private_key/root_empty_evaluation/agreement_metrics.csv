@@ -1,0 +1,16 @@
+dimension,comparison,n,hits,accuracy,machine_unavailable_n,pass
+hit,machine_vs_harry,0,0,,,
+hit,machine_vs_li,0,0,,,
+hit,harry_vs_li,0,0,,,
+hit,primary,0,0,,0.0,False
+cont,machine_vs_harry,0,0,,,
+cont,machine_vs_li,0,0,,,
+cont,harry_vs_li,0,0,,,
+cont,primary,0,0,,0.0,False
+act,machine_vs_harry,0,0,,,
+act,machine_vs_li,0,0,,,
+act,harry_vs_li,0,0,,,
+act,primary,0,0,,0.0,False
+weather,machine_vs_harry,0,0,,,
+weather,machine_vs_li,0,0,,,
+weather,harry_vs_li,0,0,,,

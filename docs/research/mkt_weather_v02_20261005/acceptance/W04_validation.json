@@ -1,0 +1,146 @@
+{
+  "task_id": "W04",
+  "status": "ready_for_root_acceptance",
+  "input_version": "INTERFACE_CONTRACT_20261005-01/W04",
+  "generated_at": "2026-10-05T00:16:04.144270+00:00",
+  "input_path": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\market_sentiment\\mkt_weather_v02_20261005_01\\formal\\mkt_daily.csv",
+  "input_rows": 424,
+  "input_sha256_before": "09789df43de469e2cda219d47b0b499ce0b6d43bd315a47fec3a82526cca3c58",
+  "input_sha256_after": "09789df43de469e2cda219d47b0b499ce0b6d43bd315a47fec3a82526cca3c58",
+  "input_unchanged": true,
+  "packet_status": "random_part_ready",
+  "packet_counts": {
+    "total": 15,
+    "random": 15,
+    "nominated": 0
+  },
+  "seed": 20261005,
+  "each_machine_class_random_n": 3,
+  "date_sorted_unique": true,
+  "facts_match_source_exact": true,
+  "neutral_whitelist_fields_n": 42,
+  "public_files_no_scores_weather_answers_forecasts": true,
+  "independent_blank_labels": [
+    "Harry",
+    "Li"
+  ],
+  "real_labels_filled": false,
+  "empty_evaluation_status": "awaiting_labels",
+  "threshold_revision_count": 0,
+  "primary_n": {
+    "hit": 0,
+    "cont": 0,
+    "act": 0
+  },
+  "primary_denominator_policy": "per dimension: both humans labeled and agreed; unavailable machine stays in n and is disclosed",
+  "tests": {
+    "passed": 10,
+    "result": "10 passed in 1.06s",
+    "command": "python -m pytest policyStudy/policy/market_sentiment/tests/test_human.py -q -p no:cacheprovider --basetemp RUN/human_test/tests/tmp_config",
+    "simulations_only_under": "D:/ProjectRocketData/processed/TradingAgent/outputs/market_sentiment/mkt_weather_v02_20261005_01/human_test/tests"
+  },
+  "paths": {
+    "facts_csv": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\facts.csv",
+    "facts_markdown": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\facts.md",
+    "Harry_labels": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Harry_labels.csv",
+    "Li_labels": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Li_labels.csv",
+    "nominations_template": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\nominations_template.csv",
+    "private_key": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\machine_key.csv",
+    "selection_manifest": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\selection_manifest.csv",
+    "sampling_summary": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\sampling_summary.json"
+  },
+  "evaluation_paths": {
+    "summary": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\human_evaluation.json",
+    "metrics": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\agreement_metrics.csv",
+    "differences": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\evaluation\\neutral_disagreements.csv"
+  },
+  "file_fingerprints": [
+    {
+      "path": "human\\packets\\facts.csv",
+      "sha256": "8986fcfe629189d3e7c8d63097051ded7aeeb0cda5a3c311da68dfddaed12a46",
+      "bytes": 4186
+    },
+    {
+      "path": "human\\packets\\facts.md",
+      "sha256": "c323886b7665c1441e74e1d080639771ab5a81aa83e70c4ab324214d690b2b8d",
+      "bytes": 30210
+    },
+    {
+      "path": "human\\packets\\Harry_labels.csv",
+      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93",
+      "bytes": 294
+    },
+    {
+      "path": "human\\packets\\Li_labels.csv",
+      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93",
+      "bytes": 294
+    },
+    {
+      "path": "human\\packets\\nominations_template.csv",
+      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768",
+      "bytes": 31
+    },
+    {
+      "path": "human\\packets\\README.md",
+      "sha256": "483303d6a5810ee446e92721f5472a8a0e21feb743e94ef29976e9394d3c410c",
+      "bytes": 3621
+    },
+    {
+      "path": "human\\private_key\\evaluation\\agreement_metrics.csv",
+      "sha256": "da493047eca0af31863dce411b7a4083a69b83d898f9f7aae0283f1cf579b6fc",
+      "bytes": 481
+    },
+    {
+      "path": "human\\private_key\\evaluation\\human_evaluation.json",
+      "sha256": "8f7c4149aec54be67dc9a901b9141a7256c8e55371e4805b029d397f5b57fa80",
+      "bytes": 2833
+    },
+    {
+      "path": "human\\private_key\\evaluation\\neutral_disagreements.csv",
+      "sha256": "f3174cb811e42108be161e86bba696b3f9352e003ae0e7b2ff31eb6b952f39ab",
+      "bytes": 751
+    },
+    {
+      "path": "human\\private_key\\evaluation\\README.md",
+      "sha256": "ebc2e2e3411bcfbb6630b09da3425079c5d489a0bb234c5ab1f116e90edf4bbb",
+      "bytes": 423
+    },
+    {
+      "path": "human\\private_key\\machine_key.csv",
+      "sha256": "e7dcc133705d1cf04a98c0d1bc70b4122e79c216c58715ea42f30eb58b5d59c9",
+      "bytes": 1455
+    },
+    {
+      "path": "human\\private_key\\nominations_used.csv",
+      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768",
+      "bytes": 31
+    },
+    {
+      "path": "human\\private_key\\README.md",
+      "sha256": "7ffbd2e6f1144830a19777d57afa4e6b32786fb9e820ef09ca8f673369758177",
+      "bytes": 295
+    },
+    {
+      "path": "human\\private_key\\sampling_summary.json",
+      "sha256": "9da53ce344253b00a6a596e5c1e1ddd60bdba44748cf5868e66a503ff54c1cb5",
+      "bytes": 2865
+    },
+    {
+      "path": "human\\private_key\\selection_manifest.csv",
+      "sha256": "7b99fa3d485ba30ee98b61c66a1aa5d9e16b47ecd33bd2546ee775fe8f837017",
+      "bytes": 547
+    },
+    {
+      "path": "human\\README.md",
+      "sha256": "e185e177490d99a3cfd12aee8368db2080eac00a7066ed51396aec8f7ec68abc",
+      "bytes": 651
+    }
+  ],
+  "known_issues": [
+    "Only 15 random dates are prepared; roughly 15 remembered nominations have not been supplied.",
+    "Both independent human labels are blank; definition acceptance remains awaiting_labels.",
+    "Only root declares final acceptance; worker made no threshold changes or real revision."
+  ],
+  "next_owner": "root",
+  "weather_enums_and_machine_cutpoints_source": "readings.SPEC; frozen config remains unchanged"
+}
