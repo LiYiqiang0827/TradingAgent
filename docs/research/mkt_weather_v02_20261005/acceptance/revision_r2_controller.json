@@ -1,0 +1,100 @@
+{
+  "checked_at": "2026-10-05T01:27:29.084954+00:00",
+  "base_commit": "ba74dfaf9ca017e31d5aeab6bde6554cf7e6d679",
+  "status": "passed",
+  "existing_scientific_columns_exact": 346,
+  "rows_exact": 424,
+  "borderline_counterfactual_grid_cases": 672,
+  "borderline_days": 62,
+  "borderline_days_2026": 30,
+  "weather_counts_2026": {
+    "cloudy": 69,
+    "storm": 47,
+    "sunny": 32,
+    "overcast": 27,
+    "thunder": 6
+  },
+  "calibration_sha256": "cc3d0898686ced275740a3bb71eebd4b0002f6b7f754088663ebb712b8369a56",
+  "threshold_revision_count": 0,
+  "live_preflight_audit": {
+    "live": {
+      "path": "D:\\ProjectRocketData\\live",
+      "unfinished_residuals": [
+        "db_cn_basic.db.incomplete_20261004T162159Z"
+      ],
+      "source_state": {
+        "basic": {
+          "path": "D:\\ProjectRocketData\\live\\db_cn_basic.db",
+          "bytes": 13726412800,
+          "mtime_ns": 1791135763949589600
+        },
+        "kpl": {
+          "path": "D:\\ProjectRocketData\\live\\db_cn_kpl.db",
+          "bytes": 2002710528,
+          "mtime_ns": 1791131888717055700
+        },
+        "index": {
+          "path": "D:\\ProjectRocketData\\live\\db_cn_index.db",
+          "bytes": 13119488,
+          "mtime_ns": 1791131836002612400
+        }
+      },
+      "latest_dates": {
+        "tbl_cn_day": "20260930",
+        "tbl_cn_stk_limit": "20260930",
+        "tbl_cn_kpl_list": "20260930",
+        "000001.SH": "20260930",
+        "399001.SZ": "20260930",
+        "399006.SZ": "20260930"
+      },
+      "calendar_horizons": {
+        "SSE": "20260930",
+        "SZSE": "20260930"
+      },
+      "unchanged_during_read": true,
+      "no_receipt_preflight": {
+        "status": "blocked",
+        "reason": "upstream_incomplete_residual: db_cn_basic.db.incomplete_20261004T162159Z"
+      }
+    },
+    "original": {
+      "path": "D:\\ProjectRocketData\\legacy_C_Project_Rocket\\Trading Agent Database",
+      "unfinished_residuals": [],
+      "source_state": {
+        "basic": {
+          "path": "D:\\ProjectRocketData\\legacy_C_Project_Rocket\\Trading Agent Database\\db_cn_basic.db",
+          "bytes": 14320226304,
+          "mtime_ns": 1791161073965953500
+        },
+        "kpl": {
+          "path": "D:\\ProjectRocketData\\legacy_C_Project_Rocket\\Trading Agent Database\\db_cn_kpl.db",
+          "bytes": 2044358656,
+          "mtime_ns": 1791159662450335600
+        },
+        "index": {
+          "path": "D:\\ProjectRocketData\\legacy_C_Project_Rocket\\Trading Agent Database\\db_cn_index.db",
+          "bytes": 13115392,
+          "mtime_ns": 1791154361251855500
+        }
+      },
+      "latest_dates": {
+        "tbl_cn_day": "20260930",
+        "tbl_cn_stk_limit": "20260930",
+        "tbl_cn_kpl_list": "20260930",
+        "000001.SH": "20260930",
+        "399001.SZ": "20260930",
+        "399006.SZ": "20260930"
+      },
+      "calendar_horizons": {
+        "SSE": "20260930",
+        "SZSE": "20260930"
+      },
+      "unchanged_during_read": true,
+      "no_receipt_preflight": {
+        "status": "blocked",
+        "reason": "calendar_horizon_insufficient: SSE lacks 20261005; await unified calendar"
+      }
+    }
+  },
+  "scope": "Presentation and no-receipt local operational preflight only; no input DB/config/F1/calibration mutation"
+}

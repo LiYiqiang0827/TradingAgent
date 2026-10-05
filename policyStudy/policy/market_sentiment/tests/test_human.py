@@ -9,6 +9,7 @@ from policyStudy.policy.market_sentiment.human import (
     BAND_LABELS, LABEL_COLUMNS, NEUTRAL_FIELDS, WEATHER_ORDER,
     create_packets, evaluate_labels, machine_band,
 )
+from policyStudy.policy.market_sentiment.cards import reference_2025, card_rows
 
 
 def daily(n=25, codes=None):
@@ -61,9 +62,14 @@ def test_packets_reproducible_sorted_neutral_and_independently_blank(tmp_path):
     facts = pd.read_csv(a["paths"]["facts_csv"])
     assert facts.columns.tolist() == ["trade_date", *NEUTRAL_FIELDS]
     assert not {"mkt_hit", "mkt_cont", "mkt_act", "mkt_relay_score", "mkt_weather", "mkt_forecast_n", "mkt_summary"} & set(facts.columns)
-    text = (tmp_path / "a/packets/facts.md").read_text(encoding="utf-8")
+    text = (tmp_path / "a/packets/cards.html").read_text(encoding="utf-8")
     assert "SECRET_MACHINE_DESCRIPTION" not in text
     assert not any(code in text for code in WEATHER_ORDER)
+    assert text.count("<section class='card'>") == 15
+    assert text.count("<tr><td>") == 150
+    assert not (tmp_path / "a/packets/facts.csv").exists()
+    assert not (tmp_path / "a/packets/facts.md").exists()
+    assert (tmp_path / "a/packets/reference_2025.csv").exists()
     for name in ("Harry", "Li"):
         empty = pd.read_csv(a["paths"][f"{name}_labels"], keep_default_na=False)
         assert empty.columns.tolist() == LABEL_COLUMNS
@@ -183,3 +189,50 @@ def test_real_annotation_never_overwritten_and_invalid_labels_rejected(tmp_path)
     duplicate = pd.concat([actual, actual.iloc[:1]], ignore_index=True)
     with pytest.raises(ValueError, match="duplicate dates"):
         evaluate(tmp_path / "duplicate", source, duplicate, labels(source.trade_date))
+
+
+def test_card_reference_independent_linear_hand_values_and_2026_excluded():
+    source = daily(n=4, codes=["sunny"] * 4)
+    source["trade_date"] = ["2025-01-02", "2025-01-03", "2025-01-06", "2026-01-02"]
+    source["mkt_up_n"] = [0, 10, 20, 10**9]
+    source["mkt_all_drop_k"] = [0, 1, 9, 10**9]
+    source["mkt_all_observed_n"] = [0, 2, 10, 10**9]
+    source["mkt_turnover_cny"] = [1e12, 2e12, 3e12, 1e20]
+    # A stale/pre-smoothed rate must not be read by card references.
+    source["mkt_all_drop_rate"] = 1.0
+    result = reference_2025(source).set_index("metric")
+    assert result.loc["up", ["p10", "p50", "p90"]].tolist() == [2, 10, 18]
+    assert result.loc["all_pct", "n_valid"] == 2
+    assert result.loc["all_pct", "n_missing"] == 1
+    assert result.loc["all_pct", ["p10", "p50", "p90"]].tolist() == [54, 70, 86]
+    assert result.loc["turnover", ["p10", "p50", "p90"]].tolist() == [1.2, 2, 2.8]
+    source.loc[3, "mkt_up_n"] = -10**8
+    pd.testing.assert_frame_equal(result, reference_2025(source).set_index("metric"))
+
+
+def test_ten_card_items_zero_denominator_units_and_no_answers():
+    source = daily(n=3, codes=["sunny"] * 3)
+    source.loc[0, ["mkt_all_drop_k", "mkt_all_observed_n", "mkt_chain_drop_k", "mkt_chain_observed_n", "mkt_promo_h1_k", "mkt_promo_h1_n"]] = 0
+    source.loc[0, "mkt_turnover_cny"] = 1.234e12
+    source.loc[0, "mkt_index_sh_pct"] = -1.5
+    source.loc[0, ["mkt_advance_n", "mkt_eligible_n"]] = [25, 100]
+    rows = card_rows(source.iloc[0], reference_2025(source))
+    assert len(rows) == 10
+    assert "比例 缺失" in rows[4]["current"] and "比例 缺失" in rows[5]["current"]
+    assert rows[6]["current"].count("板:") == 4
+    assert "≥4板" in rows[6]["current"]
+    assert "1.234万亿元" in rows[7]["current"]
+    assert "25.00%" in rows[8]["current"]
+    assert "上证 -1.50%" in rows[9]["current"]
+    text = json.dumps(rows, ensure_ascii=False)
+    assert "SECRET_MACHINE_DESCRIPTION" not in text
+    assert "mkt_hit" not in text and "sunny" not in text
+
+
+def test_rebuilding_cards_preserves_selected_dates_and_blank_labels(tmp_path):
+    source = daily()
+    result = create_packets(source, tmp_path / "preserve")
+    paths = [result["paths"]["selection_manifest"], result["paths"]["Harry_labels"], result["paths"]["Li_labels"]]
+    before = [open(path, "rb").read() for path in paths]
+    create_packets(source, tmp_path / "preserve")
+    assert before == [open(path, "rb").read() for path in paths]

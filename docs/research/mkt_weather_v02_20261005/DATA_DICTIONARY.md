@@ -34,5 +34,7 @@
 | mkt_forecast_n / top1 / status | 五类计数和、最大概率类、小样本/无样本/正常状态 |
 | mkt_baseline_persistence / mode_known | 明日同今日、截至当日已知历史众数 |
 | mkt_summary | 不附交易建议的一行摘要 |
+| mkt_borderline / borderline_hint / borderline_details_json | 当前决定天气的分支距阈值严格小于3分时为真；提示方向、距离及另一侧天气，JSON保留完整精度；不改变分类 |
+| mkt_upstream_receipt_status | 仅today运行输出：最新日attached或not_attached；无凭证通过本地检查后摘要末尾标“未附凭证”，历史日期为空 |
 
 九项为all_drop、chain_drop、ddens、m1raw、ladder、max_height、log_ratio20、advance_pct、udens。五类代码固定sunny晴、cloudy多云、overcast阴、thunder雷阵雨、storm暴雨。精确旧字段映射见 data/adapter_field_mapping.json。forecast_evaluation_daily.csv以目标日排列，四方法共用evaluable分母；mode_ex_post只用于事后参照。clipping_statistics按年份和组成项区分严格截断与端点。

@@ -92,14 +92,19 @@ def summary_line(row):
     labels=[str(row.get('mkt_quality_status',''))]
     if row.get('mkt_extreme',False):labels.append('极端')
     if row.get('mkt_forecast_n',0)<10:labels.append('样本不足' if row.get('mkt_forecast_n',0)>0 else '尚无同类转移样本')
+    hint=row.get('mkt_borderline_hint','')
+    boundary=f'{hint}｜' if isinstance(hint,str) and hint else ''
+    receipt='｜未附凭证' if row.get('mkt_upstream_receipt_status')=='not_attached' else ''
     return (f'{row.trade_date} 大盘天气：{row.get("mkt_weather_label","") or "待输入"}｜挨打 {num("mkt_hit")} 延续 {num("mkt_cont")} 活跃 {num("mkt_act")}｜'
+            +boundary+
             f'昨日涨停 {num("mkt_all_original_n",0)} 只，可观测 {num("mkt_all_observed_n",0)} 只，今日大跌 {num("mkt_all_drop_k",0)} 只｜'
             f'最高 {num("mkt_max_height",0)} 板｜成交 {num("mkt_turnover_cny",2,1e12)} 万亿（20日均的 {num("mkt_ratio20",2)} 倍）｜'
-            f'下一交易日 {target_text}：{forecast}（过去 {num("mkt_forecast_n",0)} 次已完成同类转移）｜'+ '；'.join(labels))
+            f'下一交易日 {target_text}：{forecast}（过去 {num("mkt_forecast_n",0)} 次已完成同类转移）｜'+ '；'.join(labels)+receipt)
 
 def history(args):
     from .adapter import build_raw,load_formal
     from .forecast import add_forecasts,evaluate_forecasts,transition_table
+    from .borderline import add_borderline
     output=Path(args.output);output.mkdir(parents=True,exist_ok=True)
     metadata={};calendar=None
     if args.raw_daily:
@@ -124,9 +129,15 @@ def history(args):
     cal=json.loads(Path(args.calibration).read_text(encoding='utf-8')) if args.calibration else calibrate(raw,identity)
     daily=compute_readings(raw,cal,generated_at=args.generated_at)
     daily=add_forecasts(daily,calendar)
+    daily=add_borderline(daily)
+    if getattr(args,'receipt_status',None):
+        daily['mkt_upstream_receipt_status']=''
+        daily.loc[daily.trade_date.eq(daily.trade_date.max()),'mkt_upstream_receipt_status']=args.receipt_status
     daily['mkt_summary']=daily.apply(summary_line,axis=1)
     evaluation,detail=evaluate_forecasts(daily)
     daily=daily[daily.trade_date.ge(iso(args.start))]
+    if getattr(args,'expected_source_state',None) is not None and args.expected_source_state!=source_state(args.data_root):
+        raise RuntimeError('upstream_changed_during_run: no derived outputs written')
     write_csv(output/'mkt_raw_daily.csv',raw);write_csv(output/'mkt_daily.csv',daily)
     write_json(output/'mkt_calibration_v02.json',cal)
     write_csv(output/'clipping_statistics.csv',clipping_statistics(daily,cal))
@@ -149,17 +160,20 @@ def exclusive_output(output):
 def historical_changes(old,daily):
     if old is None:return []
     a=old.set_index('trade_date');b=daily.set_index('trade_date')
-    cols=[c for c in b if c in a and c not in ('generated_at','data_cutoff','input_snapshot_id','mkt_summary')]
+    cols=[c for c in b if c in a and c not in ('generated_at','data_cutoff','input_snapshot_id','mkt_summary','mkt_upstream_receipt_status')]
     def missing(v):return pd.isna(v) or (isinstance(v,str) and v=='')
     def equal(x,y):return (missing(x) and missing(y)) or (not missing(x) and not missing(y) and x==y)
     return [day for day in a.index.intersection(b.index) if any(not equal(a.at[day,c],b.at[day,c]) for c in cols)]
 
 def today(args):
+    from .upstream import check_without_receipt
     started=time.perf_counter();out=Path(args.output)
     if not args.calibration:raise ValueError('today requires fixed --calibration; never refits')
     with exclusive_output(out):
         args.start='20250102'
         current=datetime.now(ZoneInfo('Asia/Shanghai')).date().isoformat()
+        preflight=None
+        args.receipt_status='not_attached'
         if args.data_root:
             m=engine();before=source_state(args.data_root)
             with m.ro(Path(args.data_root)/'db_cn_basic.db') as c:
@@ -168,16 +182,26 @@ def today(args):
             if not last or last!=limit:raise RuntimeError('upstream_incomplete: daily/limit cutoff mismatch')
             if iso(last)>current:raise RuntimeError('future_input_date')
             if iso(last)==current and datetime.now(ZoneInfo('Asia/Shanghai')).hour<15:raise RuntimeError('upstream_incomplete: market has not closed')
+            receipt_file=Path(args.upstream_receipt) if args.upstream_receipt else None
+            if receipt_file is not None and receipt_file.exists():
+                u=json.loads(receipt_file.read_text(encoding='utf-8'))
+                if u.get('status')!='success' or iso(u.get('trade_date',''))!=iso(last) or not u.get('completed_at') or u.get('source_state')!=before:
+                    raise RuntimeError('upstream_failed_or_stale_receipt: completion and exact source snapshot required')
+                args.receipt_status='attached'
+                preflight={'status':'verified_receipt','receipt_attached':True,'receipt_sha256':sha256(receipt_file)}
+            else:
+                try:preflight=check_without_receipt(args.data_root,source_state)
+                except (RuntimeError,sqlite3.Error) as exc:
+                    write_json(out/'today_preflight.json',{'status':'blocked','reason':str(exc),'receipt_attached':False})
+                    raise
+                before=preflight['source_state'];last=preflight['expected_trade_date']
+            args.expected_source_state=before
             args.end=last
             receipt_path=out/'today_receipt.json'
             prev=json.loads(receipt_path.read_text(encoding='utf-8')) if receipt_path.exists() else {}
             if prev.get('source_state')==before and (out/'mkt_raw_daily.csv').exists():
                 args.raw_daily=str(out/'mkt_raw_daily.csv')
                 args.calendar=str(out/'market_calendar.csv') if (out/'market_calendar.csv').exists() else None
-            if args.upstream_receipt:
-                u=json.loads(Path(args.upstream_receipt).read_text(encoding='utf-8'))
-                if u.get('status')!='success' or iso(u.get('trade_date',''))!=iso(last) or not u.get('completed_at') or u.get('source_state')!=before:
-                    raise RuntimeError('upstream_failed_or_stale_receipt: completion and exact source snapshot required')
         else:
             before=None
             if not args.raw_daily:raise ValueError('today requires --data-root or explicit --raw-daily snapshot')
@@ -190,15 +214,12 @@ def today(args):
         changed=historical_changes(old,daily)
         latest=daily.iloc[-1];state='latest_completed_snapshot' if latest.trade_date!=current else 'latest_available_unverified_completion'
         if before is not None:
-            caldays=read_csv(out/'market_calendar.csv').trade_date
-            expected=caldays[caldays.le(current)].max()
-            if latest.trade_date<expected:state='upstream_stale'
-            elif caldays.max()<current:state='calendar_horizon_insufficient_latest_snapshot'
-            elif latest.trade_date!=current:state='market_closed_latest_completed'
-            elif args.upstream_receipt:state='completed_today'
+            state='completed_today' if latest.trade_date==current else 'market_closed_latest_completed'
+            write_json(out/'today_preflight.json',preflight)
         print(f'[{state}] {latest.mkt_summary}')
         write_json(out/'today_receipt.json',{'status':state,'latest_completed_date':latest.trade_date,'source_state':before,
                    'calibration_sha256':cal_before,'elapsed_seconds':time.perf_counter()-started,
+                   'upstream_completion':preflight,'receipt_attached':args.receipt_status=='attached',
                    'changed_historical_dates':changed,'row_count':len(daily),'duplicates':int(daily.trade_date.duplicated().sum()),
                    'recompute_policy':'on upstream snapshot change recompute affected history and successors conservatively as full prefix; frozen calibration'})
         if state=='upstream_stale':return 2

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "pdf_pages": 15,
+  "facts_per_card": 10,
+  "independent_raw_reference_metrics": 28,
+  "reference_period_days": 243,
+  "quantile_comparisons": 84,
+  "sample_and_labels_bytes_equal_to_base": true,
+  "root_visual_review": "First and densest page rendered, opened and inspected; no clipping or missing glyphs",
+  "cross_drive_repair": "HTML font embedded; FONT_LICENSE.txt included",
+  "tests": {
+    "cases": 50,
+    "subtests": 8,
+    "junit_records": 50
+  }
+}

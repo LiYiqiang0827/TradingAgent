@@ -1,0 +1,97 @@
+{
+  "checked_at": "2026-10-05T01:36:06.457891+00:00",
+  "unchanged_calibration_sha256": "cc3d0898686ced275740a3bb71eebd4b0002f6b7f754088663ebb712b8369a56",
+  "raw_daily_sha256": "0c98dd4270a662948aeafe71b366243032c4207b4a1ac3baa71c96b0b44fb017",
+  "code": [
+    {
+      "path": "policyStudy/policy/market_sentiment/README.md",
+      "sha256": "7450965ed80598d629bfb015bc6bb2342b44fb8de068b55150c3d4e9671b3369"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/__init__.py",
+      "sha256": "7b8baab862533049d54410e4d275cd01fd227652d6936f3ec9edd9ac7fd8139a"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/acceptance.py",
+      "sha256": "e62eb7f8e04a13d0d365602f151cba19ed2dec4654e6a58afaeb58c74293069f"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/adapter.py",
+      "sha256": "df8662aab6fc3ba0f094d9ebd99496a18d398b1ad3f73259a57269c7ee6e04b8"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/borderline.py",
+      "sha256": "eba8759de6221ef0fa31fd4d4fe8b5e509229d3cb3357cd214370632aca1098c"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/cards.py",
+      "sha256": "66cd897eea1b721d4f3c2865012544f0e9a595121b3e5181d07048157eeaf870"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/config/mkt_spec_v02.json",
+      "sha256": "5e9c555733b83d9644aa224de2a867fd655fbe795453a8259da0aae38a4344a3"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/figures.py",
+      "sha256": "a2bf984f343579e4316b46318b082b86e248bc62be9b699d90228ec981f68765"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/forecast.py",
+      "sha256": "b188f24d297bbdf61d4f277daaa21f6eb6508ef16777ff52d74bca6c31d5265b"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/human.py",
+      "sha256": "ba3c2040931d8fcc0bfd709b4505cb5eb2d2c6dcab1022fa8406e10c6bafd61c"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/io.py",
+      "sha256": "e2cf68c3c8f83db5a5e037172ab47321c2268d592ce69be9ee2f4ed6449632d4"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/readings.py",
+      "sha256": "4a1aa24fc164e447ac260e73300aa8a7f6072c7b40406b4b8ceb88a957c4273f"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/run.py",
+      "sha256": "d84d167e4ffccad22f543cfaf72d84b351c5804574ccfea0169a13329c346213"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_adapter.py",
+      "sha256": "92426850328ec67411d36f02e796b7e87edf7da9f70193ff6d882cd312c22afd"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_borderline.py",
+      "sha256": "09b7db9399c695b7f494b599082f49ce50f739811a513c9ea9c160dc7e93b5f8"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_forecast.py",
+      "sha256": "c0f74e1acefa7f82b5553c4ab9de88e5f7e0ac7e9e7d53c5c1565614aa44b42d"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_human.py",
+      "sha256": "b63307661d9fce9c283aa134ce0dd12ca1709f7d216a8e47d00c05a53c940cb8"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_readings.py",
+      "sha256": "5bde0e8bf5fb57273f74847df3fcce0beebb79644c658c3f404dbd44e1519e5c"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_run.py",
+      "sha256": "616ca232aa559465036790522eec9ded16d1be5d50d74a7b6031ae00536dd43b"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/tests/test_upstream.py",
+      "sha256": "1cc64d4b1df1c92be4a267c8f181f63ff5cb5bca8937770e742eb946f1e2ce99"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/upstream.py",
+      "sha256": "2e058d63eba1645080467794a4b6fd6cc1bba472ea1507a1205378feba7888fd"
+    },
+    {
+      "path": "policyStudy/policy/market_sentiment/verify_delivery.py",
+      "sha256": "55b95a211579155432df427a2a48b1e03b66426a303029c1c25071048ce48f99"
+    }
+  ],
+  "acceptance_tests": "revision_r2_tests.xml",
+  "previous_release": "ba74dfaf9ca017e31d5aeab6bde6554cf7e6d679"
+}

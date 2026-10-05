@@ -165,6 +165,11 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
     facts = selected.reindex(columns=["trade_date", *NEUTRAL_FIELDS])
     packets = Path(output_dir) / "packets"
     private = Path(output_dir) / "private_key"
+    existing_selection = private / "selection_manifest.csv"
+    if nominations is None and existing_selection.exists():
+        frozen_dates = pd.read_csv(existing_selection, dtype=str).trade_date.tolist()
+        if frozen_dates != selected_dates:
+            raise ValueError("Preserve existing selected dates; use a new packet directory for another sample")
     label_paths = {name: packets / f"{name}_labels.csv" for name in ("Harry", "Li")}
     # Rebuilding a blank packet is safe; overwriting a person's work is not.
     for path in label_paths.values():
@@ -175,29 +180,29 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
                 raise FileExistsError(f"Preserve existing completed/annotated labels: {path}")
     packets.mkdir(parents=True, exist_ok=True)
     private.mkdir(parents=True, exist_ok=True)
-    _csv(packets / "facts.csv", facts)
+    _csv(private / "audit_raw_facts.csv", facts)
     blanks = pd.DataFrame({column: selected_dates if column == "trade_date" else [""] * len(selected_dates) for column in LABEL_COLUMNS})
     for path in label_paths.values():
         _csv(path, blanks)
     nomination_template = packets / "nominations_template.csv"
     if not nomination_template.exists():
         _csv(nomination_template, pd.DataFrame(columns=["trade_date", "nominated_by", "notes"]))
-    facts_lines = ["# 独立标注：当日中性事实", "", "日期按先后排序；缺失表示无法观测。金额展示为万亿元，原始 CSV 金额单位为元。", ""]
-    for _, row in facts.iterrows():
-        facts_lines += [f"## {row.trade_date}", "", "| 事实 | 数值 |", "|---|---:|"]
-        for field, (name, unit) in NEUTRAL_FIELDS.items():
-            displayed_unit = "" if field.endswith("_cny") or unit == "0–1" else f" {unit}"
-            facts_lines.append(f"| {name} | {_format(row[field], field)}{displayed_unit} |")
-        facts_lines.append("")
-    (packets / "facts.md").write_text("\n".join(facts_lines), encoding="utf-8")
-    glossary = ["# Harry 与 Li 独立标注说明", "", "请各自阅读 facts.md，在自己的标签 CSV 中填写；先独立标注，再讨论。", "",
+    from .cards import write_cards
+    card_paths = write_cards(source, selected_dates, packets)
+    # Old wide blind materials become private audit evidence. Paths are fixed
+    # children of this explicit output directory, never computed glob moves.
+    for filename in ("facts.csv", "facts.md"):
+        old = packets / filename
+        if old.exists():
+            old.replace(private / f"archived_{filename}")
+    glossary = ["# Harry 与 Li 独立标注说明", "", "请各自阅读 cards.pdf（每日一张）或 cards.html，在自己的标签 CSV 中填写；先独立标注，再讨论。", "",
                 "- hit（挨打）：轻 / 中 / 重。", "- cont（延续）：差 / 一般 / 好。", "- act（活跃）：低 / 中 / 高。",
                 "- weather（最接近的天气）：晴 / 多云 / 阴 / 雷阵雨 / 暴雨。", "- notes：可选备注；不确定的标签可以留空。", "",
                 "昨日群体按昨日合格涨停身份固定；连板群体包括昨日全部 ≥2 板。今日大跌为收盘相对有效前收跌 5% 及以上或收于跌停，每只只计一次。比例的分母是今日可观测人数。", "",
-                "涨跌幅指数用百分点存储，例如 1.2 表示 +1.2%；上涨占比和群体大跌率的 CSV 原始值为 0–1。晋级 ≥4 板组包括更高板。空比例表示分母为零或无法观测。", "",
+                "每张卡片只有10项事实。右列按 P10 / 中位数 / P90 显示2025全年可观测日值的常见范围，采用线性分位。参考范围仅帮助理解数值，不替人划分类别。", "",
+                "数、分母和比例分别计算分位；所有比例不平滑，以百分比显示。指数1.2%表示+1.2%，金额单位为万亿元。晋级 ≥4 板组包括更高板。缺失比例表示分母为零或无法观测。", "",
                 "nominations_template.csv 用于补充约15个记得清楚的日期，填写 YYYY-MM-DD；允许两人重复提名，程序会去重。", "",
-                "## facts.csv 字段", "", "| 字段 | 含义 | 单位 |", "|---|---|---|"]
-    glossary += [f"| {field} | {description} | {unit} |" for field, (description, unit) in NEUTRAL_FIELDS.items()]
+                "reference_2025.csv 是小型参考表，记录各子项单位、有效日数及三个分位。原始审计细节留在独立目录，不需要标注者逐项阅读。"]
     (packets / "README.md").write_text("\n".join(glossary) + "\n", encoding="utf-8")
     key = selected.reindex(columns=["trade_date", "mkt_hit", "mkt_cont", "mkt_act", "mkt_weather"])
     for dimension in DIMENSIONS:
@@ -212,7 +217,7 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
                             "overlapped_initial_random": any(day in group for group in initial.values()) and day in nominated})
     _csv(private / "selection_manifest.csv", pd.DataFrame(sample_rows, columns=["trade_date", "machine_weather", "selection", "overlapped_initial_random"]))
     _csv(private / "nominations_used.csv", nominees)
-    paths = {"facts_csv": str(packets / "facts.csv"), "facts_markdown": str(packets / "facts.md"),
+    paths = {**card_paths, "facts_csv": str(private / "audit_raw_facts.csv"),
              "Harry_labels": str(label_paths["Harry"]), "Li_labels": str(label_paths["Li"]),
              "nominations_template": str(nomination_template), "private_key": str(private / "machine_key.csv"),
              "selection_manifest": str(private / "selection_manifest.csv"), "sampling_summary": str(private / "sampling_summary.json")}
@@ -223,7 +228,7 @@ def create_packets(daily: pd.DataFrame, output_dir: str | Path, nominations: Any
                "paths": paths, "human_labels_filled": False}
     _json(private / "sampling_summary.json", summary)
     (private / "README.md").write_text("# 机器答案与抽样依据：暂勿揭盲\n\n此目录含机器三读数、三档和天气，以及分层抽样依据。Harry 与 Li 完成各自独立标签前，请勿打开或转发；仅把 ../packets/ 交给标注者。评估结果也可能包含答案，须同样保留在此目录。\n", encoding="utf-8")
-    (Path(output_dir) / "README.md").write_text(f"# 大盘天气预报：独立人工标注\n\n给标注者的材料在 packets/，包括按日期排序的中性事实、Harry 和 Li 各自的空标签，以及提名模板。请先分别标注，再比较。private_key/ 是机器答案与抽样依据；两人独立标注完成前请勿打开或转发。\n\n当前共{len(selected_dates)}个唯一日期，已收到{len(nominated)}个唯一提名。没有收到提名时仅为随机部分，仍需补充约15个记得清楚的日期。补齐入口：`python -m policyStudy.policy.market_sentiment.run human-pack --daily <日表> --output <新的human目录> --nominations <提名CSV>`。填过标签的目录不会被重建覆盖。\n", encoding="utf-8")
+    (Path(output_dir) / "README.md").write_text(f"# 大盘天气预报：独立人工标注\n\n给标注者的材料在 packets/：cards.pdf 每日一张、cards.html 可离线打印，卡片仅10项中性事实及2025常见范围；另附 Harry 和 Li 各自的空标签、提名模板、小型参考表。请先分别标注，再比较。private_key/ 是机器答案、抽样依据和审计细节；两人独立标注完成前请勿打开或转发。\n\n当前共{len(selected_dates)}个唯一日期，已收到{len(nominated)}个唯一提名。没有收到提名时仅为随机部分，仍需补充约15个记得清楚的日期。补齐入口：`python -m policyStudy.policy.market_sentiment.run human-pack --daily <日表> --output <新的human目录> --nominations <提名CSV>`。填过标签的目录不会被重建覆盖。\n", encoding="utf-8")
     return summary
 
 

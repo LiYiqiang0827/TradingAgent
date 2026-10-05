@@ -1,6 +1,6 @@
 # 复刻与日更
 
-仓库根运行，Python 3.12，使用免费包 numpy、pandas、pyarrow、matplotlib；测试另需 pytest。随附派生表路线不需要数据库、联网、令牌或模型。Windows 现有环境为 `C:\Project Rocket\Codex\TradingAgent\.venv\Scripts\python.exe`。
+仓库根运行，Python 3.12，使用免费包 numpy、pandas、pyarrow、matplotlib；卡片PDF另需reportlab，测试另需pytest和pypdf。随附派生表路线不需要数据库、联网、令牌或模型。Windows现有环境为 `C:\Project Rocket\Codex\TradingAgent\.venv\Scripts\python.exe`。
 
 ## 路线一：从随附派生小表复刻
 
@@ -27,14 +27,16 @@ python -m policyStudy.policy.market_sentiment.run history --data-root 'D:/Projec
 ## 今天与自动接入
 
 ```powershell
-python -m policyStudy.policy.market_sentiment.run today --data-root '<已验证且停写的总库>' --calibration docs/research/mkt_weather_v02_20261005/data/mkt_calibration_v02.json --output '<持续天气输出目录>' --upstream-receipt '<上游实际完成凭证.json>'
+python -m policyStudy.policy.market_sentiment.run today --data-root '<已验证且停写的总库>' --calibration docs/research/mkt_weather_v02_20261005/data/mkt_calibration_v02.json --output '<持续天气输出目录>'
 ```
 
-`today` 锁住派生目录，最新日由行情和限价共同截止日确定；当前交易日15:00前拒绝；日历不足显示确切状态。数据源、校准或上游完成凭证不匹配则报错。完成凭证格式见 [自动接入合同](acceptance/DAILY_AUTOMATION.md)。未挂接时不要把手动重跑成功当自动运行成功，节后首日无人干预成功另记。
+`today` 锁住派生目录，完成凭证为可选。未提供或文件不存在时，检查日历确定的预期已完成日、三库关键截止日相同、无未完成残留、文件静置180秒；通过即运行并在最新行末尾标“未附凭证”。行情未完成才停止，普通质量告警照常输出。已有凭证可加 `--upstream-receipt '<实际凭证.json>'`，仍核验成功状态和源快照。详细规则及本机真实限制见[自动接入合同](acceptance/DAILY_AUTOMATION.md)。未挂接时不要把手动重跑成功当自动运行成功，节后首日无人干预成功另记。
+
+日表与摘要增加临界提示：仅检查当天决定天气的分支，距离严格小于3分才提示另一侧天气；等于边界时明确写“低于某值”，不改变原分类。下一交易日日期仍由统一交易日历提供，不单独推算。
 
 ## 人工标注
 
-只把 human/packets 内容发给 Harry 与 Li。每人独立填写各自CSV。补提名在 `nominations_template.csv` 的 trade_date 列填约15个日期后运行 human-pack；程序按种子20261005重建分层随机部分，重合日期按同天气候选补抽。不要向标注者展示 private_key。程序不把既有聊天复盘当两人的正式标签。
+只把 human/packets 内容发给 Harry 与 Li。cards.pdf每日一页，cards.html可离线查看，每张10项事实并列2025 P10/中位/P90，不展示机器读数、天气答案或分类阈值；字体已嵌入PDF。每人独立填写各自CSV。补提名在 `nominations_template.csv` 的 trade_date 列填约15个日期后运行 human-pack；程序按种子20261005重建分层随机部分，重合日期按同天气候选补抽。不要向标注者展示 private_key。程序不把既有聊天复盘当两人的正式标签。
 
 ```powershell
 python -m policyStudy.policy.market_sentiment.run human-pack --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --nominations '<nominations.csv>' --output '<新的human目录>'
@@ -52,4 +54,4 @@ python -m policyStudy.policy.market_sentiment.acceptance --formal-dir '<formal_c
 
 实际前缀是先截断事件、群体、旧日表，再重跑新增计算；不是裁剪结果CSV。2025全年固定锚点的事后性明确保留。验收记录与源码/输入清单见 acceptance，状态见 STATUS.json。
 
-如果本机系统 TEMP 的 pytest 目录无写权限，可为pytest加 `--basetemp <已创建父目录下的全新子目录>`。本轮实际验证为32项测试加8个边界子用例，JUnit记录40条全部通过。手动LIVE入口从通过文件状态校验的既有原始帧缓存完成端到端计算，后续同日复跑约1秒；源数据修订后的完整读取耗时取决于磁盘和数据规模，未将缓存复跑时间说成冷读性能。
+如果本机系统 TEMP 的 pytest 目录无写权限，可为pytest加 `--basetemp <已创建父目录下的全新子目录>`。初版验证为32项测试加8个边界子用例；本次修订50项测试全部通过，另8个边界子用例和672组临界反算通过，JUnit保存50项测试记录。初版手动LIVE入口曾从通过文件状态校验的既有原始帧缓存完成端到端计算，后续同日复跑约1秒；新无凭证生产预检因现存残件/日历范围而明确停止（见修订审计），不将初版成功冒充新入口实盘通过；源数据修订后的完整读取耗时取决于磁盘和数据规模，未将缓存复跑时间说成冷读性能。
