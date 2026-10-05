@@ -5,7 +5,7 @@
   "threshold_revision_count": 0,
   "data_unification": "in_progress",
   "daily_automation": "ready_not_enabled",
-  "publication": "local_only",
+  "publication": "pushed_verified",
   "updated_at": "2026-10-05T03:41:43.253761+00:00",
   "evidence_paths": [
     "controller_acceptance.json",
@@ -23,7 +23,8 @@
     "revision_r3_controller.json",
     "revision_r3_tests.xml",
     "W04R3_eval_contract.json",
-    "USER_CHANGE_R3.md"
+    "USER_CHANGE_R3.md",
+    "revision_r3_publication.json"
   ],
   "gaps": {
     "human": "Li labels for the fixed 10 dates pending; optional random cards/nominations are not required",

@@ -53,8 +53,8 @@
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/STATUS.json",
-      "bytes": 1981,
-      "sha256": "d44695b605a49cfe5009527a7026e4c44a3fcaf58e54aa94bf1b35e6850ffd0c"
+      "bytes": 2068,
+      "sha256": "2d1de198cea998d8769cecf4d9a381233fcd6aa7152206b8a145f7743401c026"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/USER_CHANGE_R2.md",
@@ -215,6 +215,11 @@
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r3_last.png",
       "bytes": 209758,
       "sha256": "7c680169304a293080e63b46bddc1151de826bb7f17889f0fcf6c2189029cae1"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r3_publication.json",
+      "bytes": 530,
+      "sha256": "30a7d2c6680cb6ebd5f85f16ef0e3fa89cfc5268e0c1b7170205d15b32754e6b"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r3_source_fingerprints.json",
