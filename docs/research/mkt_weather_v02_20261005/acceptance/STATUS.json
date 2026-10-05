@@ -6,7 +6,7 @@
   "threshold_revision_count": 0,
   "data_unification": "in_progress",
   "daily_automation": "ready_not_enabled",
-  "publication": "local_only",
+  "publication": "pushed_verified",
   "updated_at": "2026-10-05T01:33:54.839365+00:00",
   "evidence_paths": [
     "controller_acceptance.json",
@@ -19,7 +19,8 @@
     "git_publication.json",
     "revision_r2_controller.json",
     "revision_r2_cards_root.json",
-    "revision_r2_tests.xml"
+    "revision_r2_tests.xml",
+    "revision_r2_publication.json"
   ],
   "gaps": {
     "human": "15 random unique dates ready; about 15 nominations and independent Harry/Li labels pending",
