@@ -1,490 +1,394 @@
 {
-  "historical_days": 424,
-  "three_reading_days": 424,
-  "weather_days": 424,
-  "forecast_evaluable_2026_days": 181,
-  "boundary_tests": 32,
-  "additional_unittest_subcases": 8,
-  "human_labels_received": false,
-  "human_packets_random_days": 15,
-  "threshold_revision_count": 0,
-  "new_pdf_ppt": false,
-  "source_root_readonly": "D:/ProjectRocketData/live",
-  "run_root": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\market_sentiment\\mkt_weather_v02_20261005_01",
-  "target_branch": "MrWu",
-  "repo": "https://github.com/LiYiqiang0827/TradingAgent",
-  "archive_pdf_unchanged": true,
-  "cloud_destination_url": "https://drive.google.com/drive/folders/1gNKjKMxziXhUskeR6fsrIObnJjpr8YrK",
+  "status": "pushed_verified",
+  "verified_artifact_commit": "ae854a9169aeee0c405470168a8f58a0760e7928",
+  "remote_branch": "MrWu",
+  "remote_tip_at_check": "ae854a9169aeee0c405470168a8f58a0760e7928",
+  "all_changed_blobs_verified_against_fetched_remote": true,
+  "changed_file_count": 95,
+  "checked_at": "2026-10-05T00:21:15.354438+00:00",
+  "force_push": false,
+  "main_pushed": false,
+  "note": "Following commit contains publication audit and refreshed manifest/status only; scientific artifacts unchanged.",
   "files": [
     {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/controller_acceptance.json",
-      "bytes": 3179,
-      "sha256": "e6e7b4b1a01ecbb3058cffa67e66ec0aba334dcb6ec0a521ea66450cb3ad3869"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/controller_tasks.json",
-      "bytes": 1608,
-      "sha256": "99d57890ab06b338183ea0a5539c52660a7bd555b813d32731f491a87706bb7c"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/DAILY_AUTOMATION.md",
-      "bytes": 1441,
-      "sha256": "e4be69f27fec2cf32badf57bb90f5ee846136c24fd02e772c3dae4542e38bd3c"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/data_unification_snapshot.json",
-      "bytes": 615,
-      "sha256": "c88fa03dc735c32e1ad4501f4a51fc5bd2c489ec66cd4177397316f7b6eebea7"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/direct_case_components.csv",
-      "bytes": 10181,
-      "sha256": "11a07c6984d5fcc9cb4b314372d7159f126ac6f74026738836c0d28bc0c3357f"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/direct_cases.csv",
-      "bytes": 625,
-      "sha256": "27398e62bf2537771beed2dc7673009eeb2590e630b299bc768b57455dffd72e"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/git_publication.json",
-      "bytes": 18079,
-      "sha256": "001f09d805dfcadb368b2437374f69aa73d0628a595f279aedd827fea1e23ba5"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/INTERFACE_CONTRACT.md",
-      "bytes": 6437,
-      "sha256": "4f1d54d1775c63e13ca07b173f05020c6b2c03dabf321ed1264ae4bfbfefac25"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/rebuild_visual_today.json",
-      "bytes": 2611,
-      "sha256": "3c1007d1beccc503ebd5081ec62017ac8c683ba673140ebccd6707c2480cc59d"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/root_human_tests.json",
-      "bytes": 473,
-      "sha256": "5c038cf2bc644337a70b729159c96a831508612913348f18e5f3f9ab13b3a953"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/SOURCE_VERSIONS.json",
-      "bytes": 1295,
-      "sha256": "bf423626fd031baf3a71455c90887a449803e7152e26456d3e2f572d7c4216f9"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/STATUS.json",
-      "bytes": 1424,
-      "sha256": "3a916cf01817fa2e541a0357a900edbee48496379df8e1148a18ac2d94cf5cea"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/supplementary_source.json",
-      "bytes": 763,
-      "sha256": "c4a77e195e5e120749109119d511a24f4716e7db186ece25ecdfe918fd64a67c"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/tests.xml",
-      "bytes": 5061,
-      "sha256": "dfa3d62dbb0a3ec545f4eef04b004d395a65dbb06b22033a07fce193c7a1924d"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_contract_result.json",
-      "bytes": 4539,
-      "sha256": "13e641c04a5bdf12473224e2d6059ede3b1e338d0bfea046a823a59be82a4aa6"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_direct_days.csv",
-      "bytes": 1251,
-      "sha256": "a42a92ba57a081c419cdda4bd477487f8e653926e48c9bacaa7957eea056f39d"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_input_fingerprints.json",
-      "bytes": 2593,
-      "sha256": "32edb3cadff57a3571bf517e1512765c61ee3136baaa5d1890f40a681984cc36"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_local_gaps.csv",
-      "bytes": 3118,
-      "sha256": "83731db22e33f4c8abfacfe975398d9d7d72c6db1e289065abac23990e33e9d4"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_validation.json",
-      "bytes": 5294,
-      "sha256": "55fa2d2f72c4c83ccb9328b6ab088fcf451f347c3a717daa3dd9956175223840"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W04_contract_result.json",
-      "bytes": 4962,
-      "sha256": "7fada259d7421551ab30e37084f1ca086c2dfdd6792ddf0847affbc5320df4a3"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W04_validation.json",
-      "bytes": 6903,
-      "sha256": "a214de6d0720724e114347ec3c9fffefc0536c12105ffae52e50af86d543c9d5"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/adapter_field_mapping.json",
-      "bytes": 7525,
-      "sha256": "faae99d8b9135e37c6d1fc50f1ab9c0401838e343c838d1d06cd6a541524a89a"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/clipping_statistics.csv",
-      "bytes": 3140,
-      "sha256": "9f616cca99c1c24dc4d785e09121f5ca693207c55e7848243c0fd136883cee12"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/forecast_evaluation.json",
-      "bytes": 1051,
-      "sha256": "adc271d6b23fbe49d696b065b7b905ef3bd71380a9605fc301792cf734cdb6f8"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/forecast_evaluation_daily.csv",
-      "bytes": 16258,
-      "sha256": "0948367435e53220431c36fa4e483219af9a6d32378f8e4b43dd9d261facd213"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/index_daily.csv",
-      "bytes": 14511,
-      "sha256": "ff595138499f68976e199609ca95e9719ae437c6adeeb9c0c6d96cec8f16c96c"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/input_manifest.json",
-      "bytes": 135,
-      "sha256": "e6c3598736083c5400c306fb1003d8ca987357855b6ec8cb70409a732e764e07"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/market_calendar.csv",
-      "bytes": 5100,
-      "sha256": "510765d388c1fd7a26294e8b62fd47d393f47ab52dab95c61a3cc56dbfabd8f7"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_calibration_v02.json",
-      "bytes": 2933,
-      "sha256": "cc3d0898686ced275740a3bb71eebd4b0002f6b7f754088663ebb712b8369a56"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv",
-      "bytes": 1388566,
-      "sha256": "09789df43de469e2cda219d47b0b499ce0b6d43bd315a47fec3a82526cca3c58"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_raw_daily.csv",
-      "bytes": 877355,
-      "sha256": "0c98dd4270a662948aeafe71b366243032c4207b4a1ac3baa71c96b0b44fb017"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/monthly_weather.csv",
-      "bytes": 772,
-      "sha256": "78945670a567aa41bf8a0ce918488a7cd9099d1308a5bb575d083b56b3086919"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/provisional_comparison.csv",
-      "bytes": 5255,
-      "sha256": "70a3d2072b0543fe9aaec6f261f23f6045a205e11e244bc5b660b699e2d28b50"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/report_numbers.json",
-      "bytes": 1645,
-      "sha256": "c5044ad9aeacd9091da17660e52d78ae5b7b73ebd9caa60811dc3ba92c874f4a"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/transition_table.csv",
-      "bytes": 1038,
-      "sha256": "dd0b2d6c00a1cbfa47eafbb9e00b81fd9ac8033059ad83fc2b0dc9ec2363dabf"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/weather_relay_crosstab.csv",
-      "bytes": 117,
-      "sha256": "51a60821609213f3d9122aa54c2d4164e53f67256438f3221118ab4a7243390f"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/data/yearly_weather.csv",
-      "bytes": 83,
-      "sha256": "4fd4ec9225583feef625e2d4f372edd7d7fc3b326a7e43e74e6d1390ed5ed6f1"
+      "path": ".gitattributes",
+      "sha256": "9f62c0ceec7f4e4c0a10a8487be39c762c37ad24af6a6097b48897dc74f2125f"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/DATA_DICTIONARY.md",
-      "bytes": 3741,
       "sha256": "ffbe53e8071d0ffedc26d7b6e6cba8483fbf7bb3fa99ff4b145835b6a8fbd139"
     },
     {
+      "path": "docs/research/mkt_weather_v02_20261005/DELIVERY_MANIFEST.json",
+      "sha256": "469945ea3ce1c65bf80dd0ae2748364695069e066fe6b6eec65f9b73bb04fbb5"
+    },
+    {
       "path": "docs/research/mkt_weather_v02_20261005/DESIGN_DECISIONS.md",
-      "bytes": 2364,
       "sha256": "66ab084fd36ba8ea34af99e58926392241d721db189f0afba992db7136a79b29"
     },
     {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/01_weather_calendar.png",
-      "bytes": 156122,
-      "sha256": "37adf1e21a33ff8f766086ab8118cdb50c6a5e19d5ba046cf852b6e509998e80"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/01_weather_calendar.svg",
-      "bytes": 152479,
-      "sha256": "0b4523a04dedb38dcc770ea077db3078a42c78cda67013076138f0160f73b462"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/02_monthly_weather.png",
-      "bytes": 66138,
-      "sha256": "bbd1c310dbcb767fc4d1cbf51b973f6aadf5b1a3f83ba70da2c3dd60116953c8"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/02_monthly_weather.svg",
-      "bytes": 71201,
-      "sha256": "d2ed59e5f0c6b823231a65bfe46cb391931cfd753985f48f70bb1e87b1bc515f"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/03_transition_frequencies.png",
-      "bytes": 172214,
-      "sha256": "d9447dd5a00c2264c5bdd6e196cef9609add180aa79fae8e8f3305dae70352df"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/03_transition_frequencies.svg",
-      "bytes": 109704,
-      "sha256": "6a1357bca8d906c83b50b652915dcd82d064e547f547545f5945762b9cb0b971"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/04_reading_distributions.png",
-      "bytes": 78337,
-      "sha256": "bcc7009da94d3fc8a9a6f9890ae70747c5915999bb939ece1caf2ef83097c317"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/04_reading_distributions.svg",
-      "bytes": 97351,
-      "sha256": "640146dc094a740fe96a063b5cf80e9c98902f27faa4e5c376f74b61f3e73ffd"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/05_weather_relay.png",
-      "bytes": 64654,
-      "sha256": "acfabf5ec568b077ff86989e46312782685529d743787c702bf5a6930df4d264"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/figures/05_weather_relay.svg",
-      "bytes": 68255,
-      "sha256": "81d1571755f275d75f94d87defa9dcf79a1185974d176bc0f48f5b7a3b5abee5"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/packets/facts.csv",
-      "bytes": 4186,
-      "sha256": "8986fcfe629189d3e7c8d63097051ded7aeeb0cda5a3c311da68dfddaed12a46"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/packets/facts.md",
-      "bytes": 30210,
-      "sha256": "c323886b7665c1441e74e1d080639771ab5a81aa83e70c4ab324214d690b2b8d"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/packets/Harry_labels.csv",
-      "bytes": 294,
-      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/packets/Li_labels.csv",
-      "bytes": 294,
-      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/packets/nominations_template.csv",
-      "bytes": 31,
-      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/packets/README.md",
-      "bytes": 3621,
-      "sha256": "483303d6a5810ee446e92721f5472a8a0e21feb743e94ef29976e9394d3c410c"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/agreement_metrics.csv",
-      "bytes": 481,
-      "sha256": "da493047eca0af31863dce411b7a4083a69b83d898f9f7aae0283f1cf579b6fc"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/human_evaluation.json",
-      "bytes": 2833,
-      "sha256": "8f7c4149aec54be67dc9a901b9141a7256c8e55371e4805b029d397f5b57fa80"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/neutral_disagreements.csv",
-      "bytes": 751,
-      "sha256": "f3174cb811e42108be161e86bba696b3f9352e003ae0e7b2ff31eb6b952f39ab"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/README.md",
-      "bytes": 423,
-      "sha256": "ebc2e2e3411bcfbb6630b09da3425079c5d489a0bb234c5ab1f116e90edf4bbb"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/machine_key.csv",
-      "bytes": 1455,
-      "sha256": "e7dcc133705d1cf04a98c0d1bc70b4122e79c216c58715ea42f30eb58b5d59c9"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/nominations_used.csv",
-      "bytes": 31,
-      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/README.md",
-      "bytes": 295,
-      "sha256": "7ffbd2e6f1144830a19777d57afa4e6b32786fb9e820ef09ca8f673369758177"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/agreement_metrics.csv",
-      "bytes": 481,
-      "sha256": "da493047eca0af31863dce411b7a4083a69b83d898f9f7aae0283f1cf579b6fc"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/human_evaluation.json",
-      "bytes": 2668,
-      "sha256": "4cf5c0290b026aea322a941a2015a61311630b81e6694d0b27e4a70784354262"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/neutral_disagreements.csv",
-      "bytes": 751,
-      "sha256": "f3174cb811e42108be161e86bba696b3f9352e003ae0e7b2ff31eb6b952f39ab"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/README.md",
-      "bytes": 423,
-      "sha256": "ebc2e2e3411bcfbb6630b09da3425079c5d489a0bb234c5ab1f116e90edf4bbb"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/sampling_summary.json",
-      "bytes": 2865,
-      "sha256": "9da53ce344253b00a6a596e5c1e1ddd60bdba44748cf5868e66a503ff54c1cb5"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/selection_manifest.csv",
-      "bytes": 547,
-      "sha256": "7b99fa3d485ba30ee98b61c66a1aa5d9e16b47ecd33bd2546ee775fe8f837017"
-    },
-    {
-      "path": "docs/research/mkt_weather_v02_20261005/human/README.md",
-      "bytes": 651,
-      "sha256": "e185e177490d99a3cfd12aee8368db2080eac00a7066ed51396aec8f7ec68abc"
-    },
-    {
       "path": "docs/research/mkt_weather_v02_20261005/REPORT.md",
-      "bytes": 5891,
       "sha256": "c7346c541480906254d2115a9fee29893dcc04fe9cdb6a4921a26e3ecdb3df9d"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/REPRODUCE.md",
-      "bytes": 6066,
       "sha256": "39f32920ca55ae9549aee0fa0618105e59dd6ac1a3aaa2233c6dd1586c22a6c1"
     },
     {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/DAILY_AUTOMATION.md",
+      "sha256": "e4be69f27fec2cf32badf57bb90f5ee846136c24fd02e772c3dae4542e38bd3c"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/INTERFACE_CONTRACT.md",
+      "sha256": "4f1d54d1775c63e13ca07b173f05020c6b2c03dabf321ed1264ae4bfbfefac25"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/SOURCE_VERSIONS.json",
+      "sha256": "bf423626fd031baf3a71455c90887a449803e7152e26456d3e2f572d7c4216f9"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/STATUS.json",
+      "sha256": "2ff943c1e16d382536d33e348f8f3b73fda40aa0c2846cb4a66fe2e0a54145aa"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_contract_result.json",
+      "sha256": "13e641c04a5bdf12473224e2d6059ede3b1e338d0bfea046a823a59be82a4aa6"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_direct_days.csv",
+      "sha256": "a42a92ba57a081c419cdda4bd477487f8e653926e48c9bacaa7957eea056f39d"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_input_fingerprints.json",
+      "sha256": "32edb3cadff57a3571bf517e1512765c61ee3136baaa5d1890f40a681984cc36"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_local_gaps.csv",
+      "sha256": "83731db22e33f4c8abfacfe975398d9d7d72c6db1e289065abac23990e33e9d4"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W01_validation.json",
+      "sha256": "55fa2d2f72c4c83ccb9328b6ab088fcf451f347c3a717daa3dd9956175223840"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W04_contract_result.json",
+      "sha256": "7fada259d7421551ab30e37084f1ca086c2dfdd6792ddf0847affbc5320df4a3"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/W04_validation.json",
+      "sha256": "a214de6d0720724e114347ec3c9fffefc0536c12105ffae52e50af86d543c9d5"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/controller_acceptance.json",
+      "sha256": "e6e7b4b1a01ecbb3058cffa67e66ec0aba334dcb6ec0a521ea66450cb3ad3869"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/controller_tasks.json",
+      "sha256": "99d57890ab06b338183ea0a5539c52660a7bd555b813d32731f491a87706bb7c"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/data_unification_snapshot.json",
+      "sha256": "c88fa03dc735c32e1ad4501f4a51fc5bd2c489ec66cd4177397316f7b6eebea7"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/direct_case_components.csv",
+      "sha256": "11a07c6984d5fcc9cb4b314372d7159f126ac6f74026738836c0d28bc0c3357f"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/direct_cases.csv",
+      "sha256": "27398e62bf2537771beed2dc7673009eeb2590e630b299bc768b57455dffd72e"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/rebuild_visual_today.json",
+      "sha256": "3c1007d1beccc503ebd5081ec62017ac8c683ba673140ebccd6707c2480cc59d"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/root_human_tests.json",
+      "sha256": "5c038cf2bc644337a70b729159c96a831508612913348f18e5f3f9ab13b3a953"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/supplementary_source.json",
+      "sha256": "c4a77e195e5e120749109119d511a24f4716e7db186ece25ecdfe918fd64a67c"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/tests.xml",
+      "sha256": "dfa3d62dbb0a3ec545f4eef04b004d395a65dbb06b22033a07fce193c7a1924d"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/adapter_field_mapping.json",
+      "sha256": "faae99d8b9135e37c6d1fc50f1ab9c0401838e343c838d1d06cd6a541524a89a"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/clipping_statistics.csv",
+      "sha256": "9f616cca99c1c24dc4d785e09121f5ca693207c55e7848243c0fd136883cee12"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/forecast_evaluation.json",
+      "sha256": "adc271d6b23fbe49d696b065b7b905ef3bd71380a9605fc301792cf734cdb6f8"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/forecast_evaluation_daily.csv",
+      "sha256": "0948367435e53220431c36fa4e483219af9a6d32378f8e4b43dd9d261facd213"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/index_daily.csv",
+      "sha256": "ff595138499f68976e199609ca95e9719ae437c6adeeb9c0c6d96cec8f16c96c"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/input_manifest.json",
+      "sha256": "e6c3598736083c5400c306fb1003d8ca987357855b6ec8cb70409a732e764e07"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/market_calendar.csv",
+      "sha256": "510765d388c1fd7a26294e8b62fd47d393f47ab52dab95c61a3cc56dbfabd8f7"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_calibration_v02.json",
+      "sha256": "cc3d0898686ced275740a3bb71eebd4b0002f6b7f754088663ebb712b8369a56"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv",
+      "sha256": "09789df43de469e2cda219d47b0b499ce0b6d43bd315a47fec3a82526cca3c58"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/mkt_raw_daily.csv",
+      "sha256": "0c98dd4270a662948aeafe71b366243032c4207b4a1ac3baa71c96b0b44fb017"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/monthly_weather.csv",
+      "sha256": "78945670a567aa41bf8a0ce918488a7cd9099d1308a5bb575d083b56b3086919"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/provisional_comparison.csv",
+      "sha256": "70a3d2072b0543fe9aaec6f261f23f6045a205e11e244bc5b660b699e2d28b50"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/report_numbers.json",
+      "sha256": "c5044ad9aeacd9091da17660e52d78ae5b7b73ebd9caa60811dc3ba92c874f4a"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/transition_table.csv",
+      "sha256": "dd0b2d6c00a1cbfa47eafbb9e00b81fd9ac8033059ad83fc2b0dc9ec2363dabf"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/weather_relay_crosstab.csv",
+      "sha256": "51a60821609213f3d9122aa54c2d4164e53f67256438f3221118ab4a7243390f"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/data/yearly_weather.csv",
+      "sha256": "4fd4ec9225583feef625e2d4f372edd7d7fc3b326a7e43e74e6d1390ed5ed6f1"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/01_weather_calendar.png",
+      "sha256": "37adf1e21a33ff8f766086ab8118cdb50c6a5e19d5ba046cf852b6e509998e80"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/01_weather_calendar.svg",
+      "sha256": "0b4523a04dedb38dcc770ea077db3078a42c78cda67013076138f0160f73b462"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/02_monthly_weather.png",
+      "sha256": "bbd1c310dbcb767fc4d1cbf51b973f6aadf5b1a3f83ba70da2c3dd60116953c8"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/02_monthly_weather.svg",
+      "sha256": "d2ed59e5f0c6b823231a65bfe46cb391931cfd753985f48f70bb1e87b1bc515f"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/03_transition_frequencies.png",
+      "sha256": "d9447dd5a00c2264c5bdd6e196cef9609add180aa79fae8e8f3305dae70352df"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/03_transition_frequencies.svg",
+      "sha256": "6a1357bca8d906c83b50b652915dcd82d064e547f547545f5945762b9cb0b971"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/04_reading_distributions.png",
+      "sha256": "bcc7009da94d3fc8a9a6f9890ae70747c5915999bb939ece1caf2ef83097c317"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/04_reading_distributions.svg",
+      "sha256": "640146dc094a740fe96a063b5cf80e9c98902f27faa4e5c376f74b61f3e73ffd"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/05_weather_relay.png",
+      "sha256": "acfabf5ec568b077ff86989e46312782685529d743787c702bf5a6930df4d264"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/figures/05_weather_relay.svg",
+      "sha256": "81d1571755f275d75f94d87defa9dcf79a1185974d176bc0f48f5b7a3b5abee5"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/README.md",
+      "sha256": "e185e177490d99a3cfd12aee8368db2080eac00a7066ed51396aec8f7ec68abc"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/Harry_labels.csv",
+      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/Li_labels.csv",
+      "sha256": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/README.md",
+      "sha256": "483303d6a5810ee446e92721f5472a8a0e21feb743e94ef29976e9394d3c410c"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/facts.csv",
+      "sha256": "8986fcfe629189d3e7c8d63097051ded7aeeb0cda5a3c311da68dfddaed12a46"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/facts.md",
+      "sha256": "c323886b7665c1441e74e1d080639771ab5a81aa83e70c4ab324214d690b2b8d"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/packets/nominations_template.csv",
+      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/README.md",
+      "sha256": "7ffbd2e6f1144830a19777d57afa4e6b32786fb9e820ef09ca8f673369758177"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/README.md",
+      "sha256": "ebc2e2e3411bcfbb6630b09da3425079c5d489a0bb234c5ab1f116e90edf4bbb"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/agreement_metrics.csv",
+      "sha256": "da493047eca0af31863dce411b7a4083a69b83d898f9f7aae0283f1cf579b6fc"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/human_evaluation.json",
+      "sha256": "8f7c4149aec54be67dc9a901b9141a7256c8e55371e4805b029d397f5b57fa80"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/evaluation/neutral_disagreements.csv",
+      "sha256": "f3174cb811e42108be161e86bba696b3f9352e003ae0e7b2ff31eb6b952f39ab"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/machine_key.csv",
+      "sha256": "e7dcc133705d1cf04a98c0d1bc70b4122e79c216c58715ea42f30eb58b5d59c9"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/nominations_used.csv",
+      "sha256": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/README.md",
+      "sha256": "ebc2e2e3411bcfbb6630b09da3425079c5d489a0bb234c5ab1f116e90edf4bbb"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/agreement_metrics.csv",
+      "sha256": "da493047eca0af31863dce411b7a4083a69b83d898f9f7aae0283f1cf579b6fc"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/human_evaluation.json",
+      "sha256": "4cf5c0290b026aea322a941a2015a61311630b81e6694d0b27e4a70784354262"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/root_empty_evaluation/neutral_disagreements.csv",
+      "sha256": "f3174cb811e42108be161e86bba696b3f9352e003ae0e7b2ff31eb6b952f39ab"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/sampling_summary.json",
+      "sha256": "9da53ce344253b00a6a596e5c1e1ddd60bdba44748cf5868e66a503ff54c1cb5"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/human/private_key/selection_manifest.csv",
+      "sha256": "7b99fa3d485ba30ee98b61c66a1aa5d9e16b47ecd33bd2546ee775fe8f837017"
+    },
+    {
       "path": "docs/research/mkt_weather_v02_20261005/reproduction/MktSansSC.ttf",
-      "bytes": 250264,
       "sha256": "5d7bd6d56a25ad3609b3e6ffab8d87891b790c38c680723fb18f115db1536395"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/reproduction/OFL.txt",
-      "bytes": 4387,
       "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/sources/ASTRA_MKT_WEATHER_V02_EXECUTION_BRIEF_20261005.md",
-      "bytes": 36915,
       "sha256": "a98763be5380346267abd697e880a867e989a0d2eca6cd55d5ed9b8406e8e379"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/sources/DATA_UNIFY_20261005.md",
-      "bytes": 6899,
       "sha256": "59a42cf7f41584ec5341d5e7acd6c71b48984431c0b7aebd9fad1f6214cc74ba"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/sources/market_sentiment_state_machine_design_v0.2_20261005.md",
-      "bytes": 10006,
       "sha256": "8011cb48706fd8c74d38dbe78339602489fe9c13a8db36795b98640c7500a5f2"
     },
     {
+      "path": "policyStudy/policy/market_sentiment/README.md",
+      "sha256": "62c1ad3c3e2c98fef4bbaea366e8844b05b355693605954a4149b9105a2d2ef2"
+    },
+    {
       "path": "policyStudy/policy/market_sentiment/__init__.py",
-      "bytes": 87,
       "sha256": "7b8baab862533049d54410e4d275cd01fd227652d6936f3ec9edd9ac7fd8139a"
     },
     {
       "path": "policyStudy/policy/market_sentiment/acceptance.py",
-      "bytes": 6368,
       "sha256": "e62eb7f8e04a13d0d365602f151cba19ed2dec4654e6a58afaeb58c74293069f"
     },
     {
       "path": "policyStudy/policy/market_sentiment/adapter.py",
-      "bytes": 12282,
       "sha256": "df8662aab6fc3ba0f094d9ebd99496a18d398b1ad3f73259a57269c7ee6e04b8"
     },
     {
       "path": "policyStudy/policy/market_sentiment/config/mkt_spec_v02.json",
-      "bytes": 1007,
       "sha256": "5e9c555733b83d9644aa224de2a867fd655fbe795453a8259da0aae38a4344a3"
     },
     {
       "path": "policyStudy/policy/market_sentiment/figures.py",
-      "bytes": 7067,
       "sha256": "a2bf984f343579e4316b46318b082b86e248bc62be9b699d90228ec981f68765"
     },
     {
       "path": "policyStudy/policy/market_sentiment/forecast.py",
-      "bytes": 5843,
       "sha256": "b188f24d297bbdf61d4f277daaa21f6eb6508ef16777ff52d74bca6c31d5265b"
     },
     {
       "path": "policyStudy/policy/market_sentiment/human.py",
-      "bytes": 23316,
       "sha256": "0bbcd6e63b735540904086df4caaefe1dcc60bd4fa5b1f7ee9758844078194c5"
     },
     {
       "path": "policyStudy/policy/market_sentiment/io.py",
-      "bytes": 927,
       "sha256": "e2cf68c3c8f83db5a5e037172ab47321c2268d592ce69be9ee2f4ed6449632d4"
     },
     {
       "path": "policyStudy/policy/market_sentiment/readings.py",
-      "bytes": 8118,
       "sha256": "4a1aa24fc164e447ac260e73300aa8a7f6072c7b40406b4b8ceb88a957c4273f"
     },
     {
-      "path": "policyStudy/policy/market_sentiment/README.md",
-      "bytes": 2349,
-      "sha256": "62c1ad3c3e2c98fef4bbaea366e8844b05b355693605954a4149b9105a2d2ef2"
-    },
-    {
       "path": "policyStudy/policy/market_sentiment/run.py",
-      "bytes": 14388,
       "sha256": "f3b871cc73bfd35768ee5994f33885a2a14a13a85a439d1c5e7d33b435c1c773"
     },
     {
       "path": "policyStudy/policy/market_sentiment/tests/test_adapter.py",
-      "bytes": 8184,
       "sha256": "92426850328ec67411d36f02e796b7e87edf7da9f70193ff6d882cd312c22afd"
     },
     {
       "path": "policyStudy/policy/market_sentiment/tests/test_forecast.py",
-      "bytes": 2444,
       "sha256": "c0f74e1acefa7f82b5553c4ab9de88e5f7e0ac7e9e7d53c5c1565614aa44b42d"
     },
     {
       "path": "policyStudy/policy/market_sentiment/tests/test_human.py",
-      "bytes": 9932,
       "sha256": "8f5236fb2639da79efdc6f668d2e6c01cc87f8992689f12bf13cb972a09a1747"
     },
     {
       "path": "policyStudy/policy/market_sentiment/tests/test_readings.py",
-      "bytes": 2392,
       "sha256": "5bde0e8bf5fb57273f74847df3fcce0beebb79644c658c3f404dbd44e1519e5c"
     },
     {
       "path": "policyStudy/policy/market_sentiment/tests/test_run.py",
-      "bytes": 3191,
       "sha256": "616ca232aa559465036790522eec9ded16d1be5d50d74a7b6031ae00536dd43b"
     },
     {
       "path": "policyStudy/policy/market_sentiment/verify_delivery.py",
-      "bytes": 3424,
       "sha256": "55b95a211579155432df427a2a48b1e03b66426a303029c1c25071048ce48f99"
+    },
+    {
+      "path": "policyStudy/policy/speculation_sentiment_lite/README.md",
+      "sha256": "33b79d5e0a111a7608c155b6ed215cf72f699f9aba63201ae9e1a28c46fa4397"
     }
-  ],
-  "publication": {
-    "status": "pushed_verified",
-    "verified_artifact_commit": "ae854a9169aeee0c405470168a8f58a0760e7928",
-    "evidence": "acceptance/git_publication.json"
-  }
+  ]
 }
