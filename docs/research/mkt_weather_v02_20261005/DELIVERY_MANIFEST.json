@@ -63,8 +63,8 @@
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/STATUS.json",
-      "bytes": 2446,
-      "sha256": "d0be7ba4935a2b83a8482b132d856cb3fe73f5d8b01dbed5d36b12028a9c640f"
+      "bytes": 2487,
+      "sha256": "a3438f2666d3a913a1cc6819353aca9487a5bc57d156160000ed4eacde2b51ad"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/USER_CHANGE_R2.md",
@@ -268,13 +268,18 @@
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r4_controller.json",
-      "bytes": 2586,
-      "sha256": "9ee3ac466e60430479c4c75abfff6c9295cc32ba20452240a3f60b085a9fc24e"
+      "bytes": 2599,
+      "sha256": "1f3043a395f3cd43f3995a0255573cb8eb665e07689aae3339c16a2196169d89"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r4_legacy_unification.json",
       "bytes": 14027,
       "sha256": "0d30bd31300aa5b36266f82b1c84b7a376d8e18b83f39b13d1b0b60937c63fda"
+    },
+    {
+      "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r4_publication.json",
+      "bytes": 912,
+      "sha256": "273ff7c4a8aa8c226da4ca9d41422170475b73c90bbdc2062992eb4a993a68f8"
     },
     {
       "path": "docs/research/mkt_weather_v02_20261005/acceptance/revision_r4_root_checks.json",

@@ -26,7 +26,7 @@
   "baseline_full_event_prefix_days": [299,359,410],
   "daily_explanations": 424,
   "component_contribution_rows": 3816,
-  "publication": "local_only_pending_remote",
+  "publication": "implementation_pushed_verified_b7338a6",
   "remaining_research_items": [],
   "remaining_operational_items": [
     "Calendar missing 20261007 prevents original-DB today completion",

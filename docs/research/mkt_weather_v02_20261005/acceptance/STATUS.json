@@ -5,7 +5,7 @@
   "threshold_revision_count": 0,
   "data_unification": "scores_verified_scheduler_disabled",
   "daily_automation": "ready_not_enabled",
-  "publication": "local_only",
+  "publication": "pushed_verified",
   "updated_at": "2026-10-07",
   "methodology_review": "project_review_accepted",
   "evidence_paths": [
@@ -33,7 +33,8 @@
     "revision_r4_code_review.json",
     "revision_r4_baseline_execution.json",
     "revision_r4_legacy_unification.json",
-    "original_database_preflight_r4.json"
+    "original_database_preflight_r4.json",
+    "revision_r4_publication.json"
   ],
   "gaps": {
     "human": "Full independent labels not obtained and no longer requested; no AI labels substituted",
