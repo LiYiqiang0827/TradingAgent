@@ -38,3 +38,7 @@
 | mkt_upstream_receipt_status | 仅today运行输出：最新日attached或not_attached；无凭证通过本地检查后摘要末尾标“未附凭证”，历史日期为空 |
 
 九项为all_drop、chain_drop、ddens、m1raw、ladder、max_height、log_ratio20、advance_pct、udens。五类代码固定sunny晴、cloudy多云、overcast阴、thunder雷阵雨、storm暴雨。精确旧字段映射见 data/adapter_field_mapping.json。forecast_evaluation_daily.csv以目标日排列，四方法共用evaluable分母；mode_ex_post只用于事后参照。clipping_statistics按年份和组成项区分严格截断与端点。
+
+## R4解释与诊断副表
+
+原mkt_daily.csv列与值不变。data/review_r4/daily_explanations.csv以trade_date一对一关联，provenance声明为总控编写、程序确定性生成；含三维事实、广度分歧、受罚与活跃并存、小群体及端点说明。component_contributions.csv每日期×九项保存名义/有效权重、Q值和贡献；correlations.csv按2025/2026分别给pairwise分母与Pearson相关。threshold_sensitivity.csv按年度/参数/±3分列可比天数、天气变化和可用性变化；threshold_changed_dates.csv保留每次变化明细，不把重复日期求和当唯一日期。review_summary.json记录版本、输入范围及未调参声明。

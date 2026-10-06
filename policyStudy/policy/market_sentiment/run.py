@@ -145,6 +145,8 @@ def history(args):
     write_csv(output/'transition_table.csv',transition_table(daily))
     if calendar:write_csv(output/'market_calendar.csv',pd.DataFrame({'trade_date':calendar}))
     write_json(output/'input_manifest.json',metadata)
+    from .review import explain_daily
+    write_csv(output/'daily_explanations.csv',explain_daily(daily))
     print(json.dumps({'days':len(daily),'cutoff':daily.trade_date.max(),'output':str(output)},ensure_ascii=False))
     return daily
 
@@ -235,12 +237,16 @@ def parser():
     q=sp.add_parser('human-pack');q.add_argument('--daily',required=True);q.add_argument('--output',required=True);q.add_argument('--nominations')
     q=sp.add_parser('li-pack');q.add_argument('--daily',required=True);q.add_argument('--output',required=True)
     q=sp.add_parser('evaluate-human');q.add_argument('--daily',required=True);q.add_argument('--li',required=True);q.add_argument('--output',required=True);q.add_argument('--revision-ledger')
+    q=sp.add_parser('review');q.add_argument('--daily',required=True);q.add_argument('--output',required=True)
     return p
 
 def main():
     a=parser().parse_args()
     if a.command=='history':history(a);return 0
     if a.command=='today':return today(a)
+    if a.command=='review':
+        from .review import run_review
+        print(json.dumps(run_review(read_csv(a.daily),a.output),ensure_ascii=False));return 0
     from .human import create_packets
     if a.command=='human-pack':print(create_packets(read_csv(a.daily),a.output,a.nominations))
     elif a.command=='li-pack':

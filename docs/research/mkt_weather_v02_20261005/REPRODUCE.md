@@ -34,16 +34,26 @@ python -m policyStudy.policy.market_sentiment.run today --data-root '<已验证�
 
 日表与摘要增加临界提示：仅检查当天决定天气的分支，距离严格小于3分才提示另一侧天气；等于边界时明确写“低于某值”，不改变原分类。下一交易日日期仍由统一交易日历提供，不单独推算。
 
-## 李老师10日标注与参考评估
+## 项目内审与每日解释（当前入口）
 
-当前只请李老师一人，使用 `human/li10/packets/cards.pdf` 和同序 `Li_labels.csv`。用户指定10日随机打乱顺序，每页保留原10项事实及2025 P10/中位/P90，不附机器读数、天气答案、日期分组或临界提示。hit/cont/act为三个主要必填项；weather/notes选填。不确定可留空或整张跳过，程序按维度保留有效填写，另列未完成日。
+2026-10-07起不再等待人工标注。history/today自动写出daily_explanations.csv；解释只使用当日已计算事实，不联网、不生成新标签。完整诊断命令：
+
+```powershell
+python -m policyStudy.policy.market_sentiment.run review --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --output C:/ProjectRocketWeatherReview
+```
+
+生成424日解释、3816行分项贡献、分年相关性、八个单参数±3分诊断及变更日期。诊断不修改阈值、原日表或校准。方法判断见METHOD_REVIEW_R4.md，源资料见sources/public_methods_r4.json。
+
+## 可选的历史人工参考工具
+
+此前只请李老师一人，使用 `human/li10/packets/cards.pdf` 和同序 `Li_labels.csv`。用户指定10日随机打乱顺序，每页保留原10项事实及2025 P10/中位/P90，不附机器读数、天气答案、日期分组或临界提示。hit/cont/act为三个主要必填项；weather/notes选填。不确定可留空或整张跳过，程序按维度保留有效填写，另列未完成日。
 
 ```powershell
 python -m policyStudy.policy.market_sentiment.run li-pack --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --output '<新的李老师10日目录>'
 python -m policyStudy.policy.market_sentiment.run evaluate-human --daily docs/research/mkt_weather_v02_20261005/data/mkt_daily.csv --li '<Li标签CSV>' --revision-ledger docs/research/mkt_weather_v02_20261005/human/li10/private_key/threshold_revision_ledger.json --output '<标注完成后的私有评估目录>'
 ```
 
-逐读数报一致天数、已填天数、可比天数、缺失及同方向分歧。固定10日中至少7日一致记为“基本一致”，仅作参考，不设工程通过关卡；缺失不计不一致，也不缩小7/10的参考基数。同一读数至少3个可比日机器档位高于人，或至少3日低于人，且该读数修订次数为0，才允许总控依据证据调整该读数分档阈值一次。两个方向不能相加；机器缺失不构成方向证据。次数按hit/cont/act分别保存，评估本身不修改阈值或增加次数；当前均为0。weather只作选填补充，不参与调整条件。
+逐读数报一致天数、已填天数、可比天数、缺失及同方向分歧。固定10日中至少7日一致记为“基本一致”，仅作参考，不设工程通过关卡；缺失不计不一致，也不缩小7/10的参考基数。同一读数至少3个可比日机器档位高于人，或至少3日低于人，且该读数修订次数为0，才允许总控依据证据调整该读数分档阈值一次。两个方向不能相加；机器缺失不构成方向证据。次数按hit/cont/act分别保存，评估本身不修改阈值或增加次数；当前均为0；此人工协议现在仅为可选历史工具。weather只作选填补充，不参与调整条件。
 
 原 `human/packets/cards.pdf` 的15张随机卡片与提名入口保留为可选材料，无需填写或提名，也不纳入当前10日评估。历史Harry模板仅留档，不再需要第二位标注者；旧双人规则已由当前单人规则替代。
 
@@ -63,3 +73,7 @@ python -m policyStudy.policy.market_sentiment.acceptance --formal-dir '<formal_c
 实际前缀是先截断事件、群体、旧日表，再重跑新增计算；不是裁剪结果CSV。2025全年固定锚点的事后性明确保留。验收记录与源码/输入清单见 acceptance，状态见 STATUS.json。
 
 如果本机系统 TEMP 的 pytest 目录无写权限，可为pytest加 `--basetemp <已创建父目录下的全新子目录>`。初版验证为32项测试加8个边界子用例；本次修订50项测试全部通过，另8个边界子用例和672组临界反算通过，JUnit保存50项测试记录。初版手动LIVE入口曾从通过文件状态校验的既有原始帧缓存完成端到端计算，后续同日复跑约1秒；新无凭证生产预检因现存残件/日历范围而明确停止（见修订审计），不将初版成功冒充新入口实盘通过；源数据修订后的完整读取耗时取决于磁盘和数据规模，未将缓存复跑时间说成冷读性能。
+
+## 2026-10-07重新验收
+
+当前最终测试计数和证据以acceptance/revision_r4_controller.json及revision_r4_tests.xml为准，上述初版/R2计数留作历史记录。旧F1本次另跑37项合成测试。总库181日score5/grade5已重新核验一致；原库today预检仍因日历无20261007而停。无需完成凭证，但也不猜测缺失日历。发布数据路线和显式快照today均可完整运行。

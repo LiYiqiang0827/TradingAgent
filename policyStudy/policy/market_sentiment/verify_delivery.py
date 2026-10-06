@@ -25,7 +25,7 @@ def verify(report,rebuild,today_output):
         assert sha256(report/'data'/name)==sha256(rebuild/'data'/name),name
     assert json.loads((report/'data/forecast_evaluation.json').read_text(encoding='utf-8'))==json.loads((rebuild/'forecast_evaluation.json').read_text(encoding='utf-8'))
     text=(report/'REPORT.md').read_text(encoding='utf-8')
-    required=['424','181','43.09%','40.88%','28.18%','38.12%','63.78','68.68','62.19','awaiting_labels','ready_not_enabled']
+    required=['424','181','43.09%','40.88%','28.18%','38.12%','63.78','68.68','62.19','project_review_accepted','ready_not_enabled']
     for token in required:assert token in text,token
     actual=published[published.trade_date.str.startswith('2026')]
     assert actual.mkt_weather.value_counts().to_dict()=={'cloudy':69,'storm':47,'sunny':32,'overcast':27,'thunder':6}

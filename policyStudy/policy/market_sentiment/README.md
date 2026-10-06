@@ -22,3 +22,13 @@ python -m policyStudy.policy.market_sentiment.run evaluate-human --daily <mkt_da
 ```
 
 权重、天气阈值、a=5、2025线性分位与当前机器三档固定在config/mkt_spec_v02.json，本轮未修改。人工参考只使用用户指定10日及李老师标签：逐读数至少7/10天一致记为基本一致，无硬关卡。同一读数至少3日同方向不一致，且该读数未修订，才允许总控调整其分档阈值一次；评估不自动调参。空白或跳过单列，weather/notes选填。原15张随机卡片与human-pack提名入口保留为可选，无需填写。
+
+## R4当前运行方式
+
+2026-10-07已按用户授权结束人工等待，以公开方法对照和项目内审接受描述性定义。上述人工工具保留可选。history/today随结果输出daily_explanations.csv，逐日显示实际分子分母、指数与广度分歧、小群体及标尺饱和。
+
+```powershell
+python -m policyStudy.policy.market_sentiment.run review --daily <mkt_daily.csv> --output <诊断目录>
+```
+
+review另生成分项贡献核验、分年相关性和四个天气切点各±3分的敏感性诊断；不择优，不改历史分数或阈值。方法判断与已披露边界见报告目录METHOD_REVIEW_R4.md。
