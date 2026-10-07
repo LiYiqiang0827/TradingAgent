@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-08",
+  "project": "ma15_pullback_v21",
+  "purpose": "teacher_rule_and_case_review",
+  "publication_scope": "documentation_figures_existing_evidence_only",
+  "case_package_status": "CLOSED_COMPLETED",
+  "research_execution_authorized_by_this_document": false,
+  "s0_accepted": false,
+  "s1_started": false,
+  "exam_opened": false,
+  "old_stop_preserved": true,
+  "teacher_understanding_accepted": false,
+  "real_execution_accepted": false,
+  "view_version": "exclude_extra_0930_v1",
+  "case_output_start": "2026-01-05",
+  "case_output_end": "2026-09-18",
+  "warmup_start": "2025-06-01",
+  "warmup_use": "indicators_only_for_2026_cases",
+  "securities": [
+    {
+      "code": "688137.SH",
+      "name": "近岸蛋白"
+    },
+    {
+      "code": "002413.SZ",
+      "name": "雷科防务"
+    },
+    {
+      "code": "688627.SH",
+      "name": "精智达"
+    },
+    {
+      "code": "000725.SZ",
+      "name": "京东方A"
+    },
+    {
+      "code": "002810.SZ",
+      "name": "山东赫达"
+    },
+    {
+      "code": "600371.SH",
+      "name": "万向德农"
+    },
+    {
+      "code": "300759.SZ",
+      "name": "康龙化成"
+    }
+  ],
+  "seed": {
+    "k": 8,
+    "T": 16,
+    "W": 48,
+    "tol": 0.01,
+    "c": 0.008,
+    "hold_exit": true,
+    "V4": false,
+    "expectation": "乙",
+    "daily_ma30_rising": 10,
+    "daily_alignment_ratio": 0.6,
+    "formal_statistical_values": false
+  },
+  "observed": {
+    "events": 5,
+    "ready": 0,
+    "buys": 0,
+    "sells": 0,
+    "charts": 11
+  },
+  "event_definition": "observation event at >=16 consecutive bearish bars; trading eligibility still requires >=48",
+  "quality": {
+    "scope": "seven stocks including 2025 warmup; not annual",
+    "suspect_stock_days": 624,
+    "denominator_stock_days": 2240,
+    "amount_residual_stock_days": 526,
+    "volume_residual_stock_days": 141,
+    "overlap_stock_days": 43,
+    "normal_bars_verified": 35840,
+    "excluded_extra_rows": 2240,
+    "annual_new_rate": null,
+    "volume_dependent_decisions": "conditional_on_dependency_quality",
+    "old_2020_C_ratio": {
+      "numerator": 99485,
+      "denominator": 949391,
+      "use": "historical_only_not_new_view_rate"
+    }
+  },
+  "prior_execution_validation": {
+    "related_tests_passed": 124,
+    "real_prefix_cutoffs": 16,
+    "independent_event_counts": 5,
+    "rerun_during_documentation_publication": false,
+    "formal_200_event_validation_completed": false
+  },
+  "accepted_scope": [
+    "normal16 raw fidelity and extra0930 exclusion",
+    "daily aggregation and O-only opening proxy contract",
+    "seven-stock 2026 causal case explanation with node-specific quality limits",
+    "five independently checked bear-length counts, refusal/setup-failure/pre-ready-wait charts",
+    "124 related synthetic/unit/regression tests and 16 actual local prefix checks"
+  ],
+  "conditional_scope": [
+    "volume-dependent strict-pool predicates with residual dependency days remain conditional"
+  ],
+  "not_accepted": [
+    "teacher same-point understanding",
+    "real trades/exits/failure cost/returns",
+    "real R16/L48/L25 labels",
+    "real ready-then-no-touch example",
+    "new annual quality rate",
+    "formal >=200-event test",
+    "full S0",
+    "S1 or later stages"
+  ],
+  "teacher_questions": [
+    {
+      "id": "Q1",
+      "status": "UNANSWERED",
+      "change_adopted": false
+    },
+    {
+      "id": "Q2",
+      "status": "UNANSWERED",
+      "change_adopted": false
+    },
+    {
+      "id": "Q3",
+      "status": "UNANSWERED",
+      "change_adopted": false
+    },
+    {
+      "id": "Q4",
+      "status": "UNANSWERED",
+      "change_adopted": false
+    },
+    {
+      "id": "Q5",
+      "status": "UNANSWERED",
+      "change_adopted": false
+    },
+    {
+      "id": "Q6",
+      "status": "UNANSWERED",
+      "change_adopted": false
+    }
+  ],
+  "next_step": "collect teacher interpretation and specific decision points; record proposed changes; obtain next user scope before running",
+  "forbidden_without_new_authorization": [
+    "2023/2024 signals/events/returns",
+    "2009-2016 reads",
+    "fixed small experiment",
+    "full event library",
+    "parameter search",
+    "whole-market backtest"
+  ],
+  "token_policy": "observe_only_no_project_hard_cap_no_recalibration",
+  "sources": {
+    "primary_acceptance": "case_pack_20261008/evidence/primary_acceptance.json",
+    "closed_authorization": "case_pack_20261008/evidence/authorization.json",
+    "completion": "case_pack_20261008/evidence/completion.json",
+    "report": "case_pack_20261008/report.md"
+  }
+}

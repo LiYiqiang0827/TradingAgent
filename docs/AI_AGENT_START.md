@@ -1,5 +1,7 @@
 # AI Agent Start — TradingAgent 项目速读
 
+> **15分钟均线回调任务的当前入口（2026-10-08）：** [统一交接](../policyStudy/docs/ma15_pullback_v21/README.md)、[老师判断清单](../policyStudy/docs/ma15_pullback_v21/TEACHER_REVIEW.md)。七股案例包已交付后停止；只验收受限解释，S0未验收、正式S1未开始、考卷封闭。先核对有效规则与结果，不从旧计划自动恢复计算。
+
 > **目标读者**:刚接触 TradingAgent 项目的 AI Agent(任何 LLM,任何任务)
 > **阅读时间**:5 分钟
 > **作用**:快速理解项目是什么 / 怎么组织的 / 从哪看文档 / 哪些必读

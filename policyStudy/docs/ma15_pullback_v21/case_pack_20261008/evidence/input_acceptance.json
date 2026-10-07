@@ -1,0 +1,32 @@
+{
+  "accepted": true,
+  "purpose": "case_understanding_only",
+  "recorded_at": "2026-10-07T23:11:23.930374+00:00",
+  "authorization_sha256": "cd0276a528c29e19722ccbd68ddeacf365591cc6227a6a0c93c2fcb37f6806b6",
+  "inputs": {
+    "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\case_pack_20261008\\prepared_quality.parquet": "d401dad18b4aab6003b8bb2c169c111eed4ada1d2b5fffd4a2225fb37af2dd64"
+  },
+  "accepted_components": [
+    "raw-normal16 fidelity",
+    "OHLC and visible-factor calculation",
+    "calendar and listing metadata",
+    "causal MA/P*/H and conditional fixed-seed case replay"
+  ],
+  "restrictions": [
+    "annual quality acceptance withheld",
+    "S0 remains false; S1 not started",
+    "unexplained amount reasons retained but not consumed by this seed",
+    "volume-dependent strict-pool conclusions are conditional when dependency window has volume residual",
+    "labels after entry separated; ambiguous entry-bar barrier paths unknown until 1m check",
+    "no aggregate performance inference or fixed small experiment"
+  ],
+  "residual_stock_days": 624,
+  "residual_denominator": 2240,
+  "annual_rate": null,
+  "review_basis": [
+    "new input/opening/scoped gate tests",
+    "raw file equality audit",
+    "E2 inheritance ledger"
+  ],
+  "primary_owner": "Codex /root"
+}

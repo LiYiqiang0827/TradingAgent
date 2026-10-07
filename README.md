@@ -4,6 +4,8 @@
 
 A 股金融数据本地化与策略研究系统。
 
+**2026-10-08 李老师15分钟均线回调策略：** [整合设计、执行结果与AI交接](policyStudy/docs/ma15_pullback_v21/README.md) · [需要李老师判断的点及11张图](policyStudy/docs/ma15_pullback_v21/TEACHER_REVIEW.md)。七股2026局部案例为5个观察事件、0就绪/成交；S0未验收、正式S1未开始、考卷未开，案例包已交付并停止。
+
 ---
 
 ## 1. 目录结构

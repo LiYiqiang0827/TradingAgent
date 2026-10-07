@@ -1,0 +1,102 @@
+{
+  "version": "case-pack-primary-20261008-v1",
+  "recorded_at": "2026-10-07T23:29:08.870462+00:00",
+  "owner": "Codex /root",
+  "status": "ACCEPTED_LIMITED_CASE_PACKAGE",
+  "accepted_scope": [
+    "normal16 raw fidelity and extra0930 exclusion",
+    "daily aggregation and O-only opening proxy contract",
+    "seven-stock 2026 causal case explanation with node-specific quality limits",
+    "five independently checked bear-length counts, refusal/setup-failure/pre-ready-wait charts",
+    "124 related synthetic/unit/regression tests and 16 actual local prefix checks"
+  ],
+  "conditional_scope": [
+    "volume-dependent strict-pool predicates with residual dependency days remain conditional"
+  ],
+  "not_accepted": [
+    "teacher same-point understanding",
+    "real trades/exits/failure cost/returns",
+    "real R16/L48/L25 labels",
+    "real ready-then-no-touch example",
+    "new annual quality rate",
+    "formal >=200-event test",
+    "full S0",
+    "S1 or later stages"
+  ],
+  "teacher_understanding_accepted": false,
+  "real_execution_accepted": false,
+  "s0_accepted": false,
+  "s1_started": false,
+  "exam_opened": false,
+  "events": 5,
+  "ready": 0,
+  "buys": 0,
+  "sells": 0,
+  "charts": 11,
+  "local_quality": {
+    "numerator": 624,
+    "denominator": 2240,
+    "includes_2025_warmup": true,
+    "annual_rate": null
+  },
+  "authorization_executed_sha256": "cd0276a528c29e19722ccbd68ddeacf365591cc6227a6a0c93c2fcb37f6806b6",
+  "stop_bindings": [
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\state\\data_quality_exception.json",
+      "sha256": "3d089355a270c206a0479d6be6465b0ad543aaa01abb8e9022ba2fea16735678"
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\quality\\source_trace_v15\\year_pipeline\\2020\\data_quality_exception.json",
+      "sha256": "3d089355a270c206a0479d6be6465b0ad543aaa01abb8e9022ba2fea16735678"
+    }
+  ],
+  "evidence_sha256": {
+    "input_acceptance.json": "bff98517c98b94a91bee58b30aaf40c6c6ea3adb54c3c8379a2c8f6e20fa87ac",
+    "prepared_quality.parquet": "d401dad18b4aab6003b8bb2c169c111eed4ada1d2b5fffd4a2225fb37af2dd64",
+    "quality_audit_summary.json": "db545315c4f98a609329e6df82b7be98a0e8fa17c99f2debb7a97cccd7a71776",
+    "quality_output_integrity.json": "83ef5faba359d4e74ed0198e01caf2bbc641bc8944a831473750181686ea79cb",
+    "quality_raw_source_receipts.json": "d9b949de13622e15f899c9491b1ac45b955e5022941d4be16977125b877a13e5",
+    "quality_excluded_0930_audit.json": "775eb0b805dd0dc28c7e3c911a2c3481c4dace246cbe78984104c781e88a48a8",
+    "quality_audit_details.json": "31ceed2c52d014158f5522e0ce8399081aa225e3a29c62352fc4db0c6c41082e",
+    "quality_raw_cached_mismatches.json": "a5338d955b09046ec0b16f3a9625b7955c763aae07dc722e474e6078745f932f",
+    "e2_incremental_inheritance.json": "4ea3e71d852f08c021e597e952e560135c7660f78827e6aa1fa3f9e532453c8d",
+    "replay_result.json": "69045c81d5ca6e72053e1fe9346f550de4c84bb81d98dcb0a0c2e269343351c0",
+    "replay_summary.json": "6a61b32598917dca8e74c57b49636194b7b2ca6d2b4ab64d4a793a27840e8b41",
+    "replay_completion.json": "df4c2db4676cf63dac05e9e4906e33c36b028dead82b6e4ece4f1fede514ba23",
+    "actual_prefix_checks.json": "060598ae399138f3488dffb6774afb3ce01349dc38bf61c0eaab49eb194a7bf9",
+    "independent_numeric_checks.json": "a4bc9dcbb8b5c2d43201ef8200b5a6b4b1a82b1506d21699fd77920cd3eb4e66",
+    "test_receipt.json": "1c9e127429c6e85be7ad445deb4d3d8c302465fcbeebbacce65a757eb5ee323f",
+    "teacher_month_checks.json": "f4f2513e3dcc36622182b7aec448d53a161751ad8662b9579ec0d84588dc4181",
+    "chart_selection.json": "489122e98bd3af8f79cee5a2aaf1ca3949c4f80bddc8ad1e7939822191112e0c",
+    "access.jsonl": "8c3fb6d7403879bfaea8baed8c35ec39167fe6460ded9b5cc07e9b6d1a6940e7"
+  },
+  "chart_sha256": {
+    "charts\\event_688137_20260903.png": "9fada7b4788a1d71b8696db77be038334ef54121cab647433f0710c0d9856eb9",
+    "charts\\event_688137_20260903.svg": "00d152531a06e57db1413c96283dfe44a2ac9d3e8bc80e5b2e7b235b6ba3eb01",
+    "charts\\event_002413_20260116.png": "a82d4f544a35e68e4a22a4276370c3294e8c25a43042091d38b38263c2dc84b5",
+    "charts\\event_002413_20260116.svg": "a61d881445685fb0618cb03dc8eb33f5e33122782501c5735d0bdd18892a3f29",
+    "charts\\event_000725_20260612.png": "a7bd47c75a968abdc429403f8631a5093551cd13992568ac3922af894ca56da2",
+    "charts\\event_000725_20260612.svg": "454883709ec6439ec1f07516592d8fe4db1a671983427d45bf395f659bd7d622",
+    "charts\\event_002810_20260303.png": "bd0bc30ce2ae19acb959ac27c66b892e417d843e8a256b38843c6b0d49d07503",
+    "charts\\event_002810_20260303.svg": "724a8b2874b2fca7fd39c4869fad1720a153027568f9869c0237f2df4d1190cc",
+    "charts\\month_688627_202604.png": "e1cd201f5a1942a19ab94044e75e815199a70146484bef62ae44ffe9f5e77a04",
+    "charts\\month_688627_202604.svg": "bcba6842c390510949cfad6249b5152d320d8027774ef211a493ed75acb0c4c4",
+    "charts\\month_688627_202606.png": "46f0d0b58a9cf7e4e1e67695d701be552928d4ff2f97ea71f8766779981f8c42",
+    "charts\\month_688627_202606.svg": "af351aa738f2a71bd980ad99d532bf98e68f4fefa19a41905fb5606f242023b3",
+    "charts\\month_002810_202608.png": "765561eec5e79d4cc54aefb929c3ec267822ab1c8987a0735cc4b7efe77b3ee0",
+    "charts\\month_002810_202608.svg": "3048574e6c927f68721ae078797bf46e5588333accdf705745a5bbd09f95ff69",
+    "charts\\month_600371_202608.png": "56b12ae94018bfca8a2de0ba5acb985281bb8928fbfc08bc74164e83c09b6b6a",
+    "charts\\month_600371_202608.svg": "6a6c97de8a8c9b4721fc9151636edd86ee52f3f71061ed2ce30f57f57b6b4c7e",
+    "charts\\month_300759_202608.png": "72a5bc53baf28ae85348b34f27b76c011b370d740eb7a1d4d34db635a833ca5b",
+    "charts\\month_300759_202608.svg": "e9e302310f641a6d198780ad43b81318fc9e86b31443a8ecd7ce16afe8db88b8",
+    "charts\\event_002810_20260514.png": "b470ea5e0b65d75a8cb123c74bcd255058a042c3b4fb84dad094f86715e7e96e",
+    "charts\\event_002810_20260514.svg": "04e233b51985ef18949217d10e8807527b3996220da3e0d95eee95ba94f15009",
+    "charts\\counter_first_refusal.png": "ad3aff1c782fa280539078cbd03ef0d6ac7b2d3cd4b98b0d5c4953b91a23ab55",
+    "charts\\counter_first_refusal.svg": "4abbcfaaa239addec53615e3b71b858ddf90d2c558056f3299ffdf6dbeda1d61"
+  },
+  "synthetic_fixes_reviewed": [
+    "partial pending order does not freeze second tier",
+    "blocked T+1 open retries at first bar close"
+  ],
+  "review_note": "Bounded static review confirmed fixes; source/summary review confirmed limits. Shandong August ambiguous label corrected before delivery."
+}

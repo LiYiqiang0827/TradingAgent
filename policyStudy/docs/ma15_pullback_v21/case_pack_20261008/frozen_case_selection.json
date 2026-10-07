@@ -1,0 +1,107 @@
+{
+  "version": "case-pack-20261008-v1",
+  "status": "ACTIVE",
+  "source": "direct_user_message",
+  "recorded_at": "2026-10-07T23:01:22.236368+00:00",
+  "instruction": "20261008: minimal exclude-0930/input/opening/quality adaptation plus seven-stock cases and failure/refusal/wait contrasts; primarily 2026 as explicitly clarified. Stop after delivery.",
+  "view": "exclude_extra_0930_v1",
+  "acceptance_path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\case_pack_20261008\\input_acceptance.json",
+  "stop_bindings": [
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\state\\data_quality_exception.json",
+      "sha256": "3d089355a270c206a0479d6be6465b0ad543aaa01abb8e9022ba2fea16735678"
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\quality\\source_trace_v15\\year_pipeline\\2020\\data_quality_exception.json",
+      "sha256": "3d089355a270c206a0479d6be6465b0ad543aaa01abb8e9022ba2fea16735678"
+    }
+  ],
+  "windows": [
+    {
+      "ts_code": "688137.SH",
+      "name": "近岸蛋白",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    },
+    {
+      "ts_code": "002413.SZ",
+      "name": "雷科防务",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    },
+    {
+      "ts_code": "688627.SH",
+      "name": "精智达",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    },
+    {
+      "ts_code": "000725.SZ",
+      "name": "京东方A",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    },
+    {
+      "ts_code": "002810.SZ",
+      "name": "山东赫达",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    },
+    {
+      "ts_code": "600371.SH",
+      "name": "万向德农",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    },
+    {
+      "ts_code": "300759.SZ",
+      "name": "康龙化成",
+      "read_start": 20250601,
+      "read_end": 20260918,
+      "event_start": 20260105,
+      "event_end": 20260918,
+      "prior_2025": "indicator_warmup_only"
+    }
+  ],
+  "selection": "Chronological signal scan of these seven securities only. First qualifying candidate per security and teacher-mentioned month; first chronological failure/refusal/wait per class. Never select by largest rise or change seed.",
+  "seed": {
+    "k": 8,
+    "T": 16,
+    "W": 48,
+    "tol": 0.01,
+    "c": 0.008,
+    "hold_exit": true,
+    "V4": false,
+    "expectation": "乙",
+    "daily_ma30_rising": 10,
+    "daily_alignment_ratio": 0.6,
+    "formal_statistical_values": false
+  },
+  "forbidden": [
+    "2023/2024 signals/events/returns",
+    "2009-2016 reads",
+    "fixed small experiment",
+    "full event library",
+    "parameter search",
+    "whole-market backtest"
+  ],
+  "finish": "deliver case charts/differences/tests/next handoff then stop; S0 false/S1 not started"
+}
