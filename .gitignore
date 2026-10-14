@@ -94,3 +94,13 @@ policyStudy/policy/题材涨停研究/savepic/*
 policyStudy/policy/题材涨停研究/research/
 policyStudy/policy/题材涨停研究/presentations/
 policyStudy/policy/题材涨停研究/watchlist/*.csv
+
+# Canonical MrLi research artifacts (keep generated files local)
+/MrLi/outputs/
+/MrLi/plot/tmp_savepic/*
+!/MrLi/plot/tmp_savepic/.gitkeep
+/MrLi/policyStudy/policy/题材涨停研究/savepic/*
+!/MrLi/policyStudy/policy/题材涨停研究/savepic/.gitkeep
+/MrLi/policyStudy/policy/题材涨停研究/research/
+/MrLi/policyStudy/policy/题材涨停研究/presentations/
+/MrLi/policyStudy/policy/题材涨停研究/watchlist/*.csv
