@@ -1,0 +1,12 @@
+﻿section,group,n,denominator,share_or_rate,interpretation_scope
+all_episode_initial_role_match,Leader1,229,793,0.288776797,all episodes; realized leader is hindsight descriptive
+all_episode_initial_role_match,Leader2,43,793,0.0542244641,all episodes; realized leader is hindsight descriptive
+all_episode_initial_role_match,Leader3,30,793,0.0378310214,all episodes; realized leader is hindsight descriptive
+all_episode_initial_role_match,ActiveRear,43,793,0.0542244641,all episodes; realized leader is hindsight descriptive
+all_episode_initial_role_match,none,448,793,0.5649432535,all episodes; realized leader is hindsight descriptive
+freeze_episode_realized_leader,equals_Leader1,229,407,0.5626535627,407 freeze episodes; hindsight realized leader versus frozen roles
+freeze_episode_realized_leader,within_initial_top3,302,407,0.742014742,407 freeze episodes; hindsight realized leader versus frozen roles
+freeze_episode_realized_leader,ActiveRear,43,407,0.1056511057,407 freeze episodes; hindsight realized leader versus frozen roles
+freeze_episode_realized_leader,not_on_freeze_list,62,407,0.1523341523,407 freeze episodes; hindsight realized leader versus frozen roles
+leader_switch,within_episode,708,1128,0.6276595745,hindsight descriptive daily/episode representative changes
+leader_switch,after_fade,579,656,0.8826219512,hindsight descriptive daily/episode representative changes

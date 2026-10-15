@@ -1,0 +1,33 @@
+﻿initial_role,source_metric,comparison_window,interpretation_note,source_unit,n,mean,median,p25,p75,positive_share
+Leader1,forward_terminal_return,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,224,0.1062204427,0.0979056302,-0.0023480934,0.1716541194,0.7276785714
+Leader2,forward_terminal_return,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,224,0.0824958149,0.0534605297,-0.0228238873,0.1110846720,0.6830357143
+Leader3,forward_terminal_return,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,220,0.0875874821,0.0560394395,0.0025515000,0.1311753549,0.7545454545
+ActiveRear,forward_terminal_return,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,1251,0.0472996568,0.0201440000,-0.0336091408,0.0994405000,0.5827338129
+Leader1,forward_max_drawdown,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,224,-0.0532001039,-0.0172410000,-0.0846717500,0.0000000000,0.0000000000
+Leader2,forward_max_drawdown,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,224,-0.0501819964,-0.0252728127,-0.0800918505,0.0000000000,0.0000000000
+Leader3,forward_max_drawdown,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,220,-0.0421923482,-0.0223275000,-0.0638104413,0.0000000000,0.0000000000
+ActiveRear,forward_max_drawdown,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,1251,-0.0672918462,-0.0410270000,-0.0996605000,-0.0050415000,0.0000000000
+Leader1,forward_mfe,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,224,0.1572849122,0.1000000000,0.0430151938,0.2099891470,0.8616071429
+Leader2,forward_mfe,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,224,0.1292449151,0.0906520956,0.0077664822,0.1562392369,0.7812500000
+Leader3,forward_mfe,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,220,0.1226383924,0.0976614304,0.0129920718,0.1524231684,0.8272727273
+ActiveRear,forward_mfe,pure_forward_after_freeze,primary comparison; strictly after freeze date,decimal_return,1251,0.1074446168,0.0508610000,0.0000000000,0.1251201071,0.7354116707
+Leader1,episode_terminal_return,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,407,0.1683754287,0.1002710000,0.0998680000,0.2098641213,0.9606879607
+Leader2,episode_terminal_return,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,407,0.1604729528,0.1003460000,0.0998095000,0.2002205000,0.9582309582
+Leader3,episode_terminal_return,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,390,0.1671549526,0.1011930000,0.1000000000,0.2004207500,0.9820512821
+ActiveRear,episode_terminal_return,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,1814,0.1506205367,0.1004985000,0.0904319959,0.2000000000,0.9454244763
+Leader1,episode_max_drawdown,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,407,-0.0292796641,0.0000000000,-0.0279525000,0.0000000000,0.0000000000
+Leader2,episode_max_drawdown,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,407,-0.0276185926,0.0000000000,-0.0332416619,0.0000000000,0.0000000000
+Leader3,episode_max_drawdown,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,390,-0.0238079041,0.0000000000,-0.0292922500,0.0000000000,0.0000000000
+ActiveRear,episode_max_drawdown,inclusive_freeze_to_end,descriptive context; includes freeze-day limit-up,decimal_return,1814,-0.0464604126,-0.0096945000,-0.0656557092,0.0000000000,0.0000000000
+Leader1,post5_terminal_return,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,399,-0.0134497513,-0.0306085621,-0.1063776570,0.0519888708,0.3859649123
+Leader2,post5_terminal_return,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,399,-0.0198406337,-0.0326404672,-0.0955411660,0.0358274516,0.3884711779
+Leader3,post5_terminal_return,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,383,-0.0272293629,-0.0375773244,-0.1085719247,0.0245373512,0.3315926893
+ActiveRear,post5_terminal_return,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,1747,-0.0243900063,-0.0297687946,-0.0923032033,0.0280431300,0.3634802519
+Leader1,post5_best_rebound,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,399,0.0782969967,0.0325960000,0.0000000000,0.1093041403,0.6215538847
+Leader2,post5_best_rebound,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,399,0.0604935955,0.0265096039,0.0000000000,0.0947727818,0.6466165414
+Leader3,post5_best_rebound,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,383,0.0552130140,0.0124267448,0.0000000000,0.0681586775,0.5744125326
+ActiveRear,post5_best_rebound,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,1747,0.0455453392,0.0145603327,0.0000000000,0.0599794019,0.5964510590
+Leader1,post5_max_drawdown,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,399,-0.1097171035,-0.0999230000,-0.1549585275,-0.0588272389,0.0000000000
+Leader2,post5_max_drawdown,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,399,-0.0953170559,-0.0855235604,-0.1320300280,-0.0474969050,0.0000000000
+Leader3,post5_max_drawdown,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,383,-0.0985374407,-0.0847466761,-0.1353568790,-0.0428858163,0.0000000000
+ActiveRear,post5_max_drawdown,post5_after_episode_end,descriptive post-fade five-trading-day window,decimal_return,1747,-0.0866124275,-0.0742940000,-0.1178598243,-0.0405375348,0.0000000000
