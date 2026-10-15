@@ -1,0 +1,468 @@
+{
+  "sources": [
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\quality\\exception_2020_v16\\E2\\observed_quality_delta_primary.json",
+      "sha256": "a50e694b43dcad5b90ed9872df1629d3024c23d9131134d14b5a5364175a88a0"
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\quality\\exception_2020_v16\\E2\\observed_quality_delta_primary.parquet",
+      "sha256": "8cd652514e1c803930669c3ce1f4b4e5e6655252b878d849a2b4f917293560e9"
+    }
+  ],
+  "rows": [
+    {
+      "ts_code": "000001.SZ",
+      "trade_date": 20200812,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 12
+      },
+      "unchanged_nonfirst_residuals_minimum": 11
+    },
+    {
+      "ts_code": "000001.SZ",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 12
+      },
+      "unchanged_nonfirst_residuals_minimum": 11
+    },
+    {
+      "ts_code": "000001.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "vol": 1,
+        "amount": 15
+      },
+      "unchanged_nonfirst_residuals_minimum": 14
+    },
+    {
+      "ts_code": "000001.SZ",
+      "trade_date": 20200817,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "vol": 3,
+        "amount": 12
+      },
+      "unchanged_nonfirst_residuals_minimum": 11
+    },
+    {
+      "ts_code": "000002.SZ",
+      "trade_date": 20200812,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "vol": 1,
+        "amount": 13
+      },
+      "unchanged_nonfirst_residuals_minimum": 12
+    },
+    {
+      "ts_code": "000002.SZ",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 10
+      },
+      "unchanged_nonfirst_residuals_minimum": 9
+    },
+    {
+      "ts_code": "000002.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 14
+      },
+      "unchanged_nonfirst_residuals_minimum": 13
+    },
+    {
+      "ts_code": "000002.SZ",
+      "trade_date": 20200817,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "vol": 1,
+        "amount": 11
+      },
+      "unchanged_nonfirst_residuals_minimum": 10
+    },
+    {
+      "ts_code": "000025.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price",
+        "normalized_D01R_mismatch"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 8
+      },
+      "unchanged_nonfirst_residuals_minimum": 7
+    },
+    {
+      "ts_code": "000045.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price",
+        "normalized_D01R_mismatch"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 2
+      },
+      "unchanged_nonfirst_residuals_minimum": 1
+    },
+    {
+      "ts_code": "000514.SZ",
+      "trade_date": 20200102,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "normalized_D01R_mismatch"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 7
+      },
+      "unchanged_nonfirst_residuals_minimum": 6
+    },
+    {
+      "ts_code": "000517.SZ",
+      "trade_date": 20200102,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "normalized_D01R_mismatch"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 8
+      },
+      "unchanged_nonfirst_residuals_minimum": 7
+    },
+    {
+      "ts_code": "001872.SZ",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 5
+      },
+      "unchanged_nonfirst_residuals_minimum": 4
+    },
+    {
+      "ts_code": "001872.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 3
+      },
+      "unchanged_nonfirst_residuals_minimum": 2
+    },
+    {
+      "ts_code": "002001.SZ",
+      "trade_date": 20200812,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 13
+      },
+      "unchanged_nonfirst_residuals_minimum": 12
+    },
+    {
+      "ts_code": "002001.SZ",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 11
+      },
+      "unchanged_nonfirst_residuals_minimum": 10
+    },
+    {
+      "ts_code": "002001.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 13
+      },
+      "unchanged_nonfirst_residuals_minimum": 12
+    },
+    {
+      "ts_code": "002001.SZ",
+      "trade_date": 20200817,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 12
+      },
+      "unchanged_nonfirst_residuals_minimum": 11
+    },
+    {
+      "ts_code": "002003.SZ",
+      "trade_date": 20200812,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 4
+      },
+      "unchanged_nonfirst_residuals_minimum": 3
+    },
+    {
+      "ts_code": "002003.SZ",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 4
+      },
+      "unchanged_nonfirst_residuals_minimum": 3
+    },
+    {
+      "ts_code": "002003.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 6
+      },
+      "unchanged_nonfirst_residuals_minimum": 5
+    },
+    {
+      "ts_code": "002003.SZ",
+      "trade_date": 20200817,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 7
+      },
+      "unchanged_nonfirst_residuals_minimum": 6
+    },
+    {
+      "ts_code": "003816.SZ",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 6
+      },
+      "unchanged_nonfirst_residuals_minimum": 5
+    },
+    {
+      "ts_code": "003816.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [
+        "marker_not_single_price"
+      ],
+      "new_suspect": false,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 3
+      },
+      "unchanged_nonfirst_residuals_minimum": 2
+    },
+    {
+      "ts_code": "300001.SZ",
+      "trade_date": 20200812,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 6
+      },
+      "unchanged_nonfirst_residuals_minimum": 5
+    },
+    {
+      "ts_code": "300001.SZ",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 7
+      },
+      "unchanged_nonfirst_residuals_minimum": 6
+    },
+    {
+      "ts_code": "300001.SZ",
+      "trade_date": 20200817,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 8
+      },
+      "unchanged_nonfirst_residuals_minimum": 7
+    },
+    {
+      "ts_code": "600000.SH",
+      "trade_date": 20200812,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 8
+      },
+      "unchanged_nonfirst_residuals_minimum": 7
+    },
+    {
+      "ts_code": "600000.SH",
+      "trade_date": 20200813,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 4
+      },
+      "unchanged_nonfirst_residuals_minimum": 3
+    },
+    {
+      "ts_code": "600000.SH",
+      "trade_date": 20200814,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 5
+      },
+      "unchanged_nonfirst_residuals_minimum": 4
+    },
+    {
+      "ts_code": "600000.SH",
+      "trade_date": 20200817,
+      "reason": "observed_E2_cross_cycle_amount_residual_unresolved",
+      "old_reasons": [],
+      "new_suspect": true,
+      "raw_comparison_tolerance_mismatch_counts": {
+        "amount": 13
+      },
+      "unchanged_nonfirst_residuals_minimum": 12
+    }
+  ],
+  "reason_rows": 31,
+  "historical_sample_size": 32,
+  "sample_vs_reason_note": "32 historical sampled keys; the saved incremental-reason ledger has 31 keys and 18 newly suspect keys. The remaining sample has no row in this specific ledger; no reason is invented and absence is not certified clean.",
+  "new_keys": [
+    [
+      "000001.SZ",
+      20200812
+    ],
+    [
+      "000001.SZ",
+      20200813
+    ],
+    [
+      "000002.SZ",
+      20200812
+    ],
+    [
+      "000002.SZ",
+      20200813
+    ],
+    [
+      "001872.SZ",
+      20200813
+    ],
+    [
+      "002001.SZ",
+      20200812
+    ],
+    [
+      "002001.SZ",
+      20200813
+    ],
+    [
+      "002003.SZ",
+      20200812
+    ],
+    [
+      "002003.SZ",
+      20200813
+    ],
+    [
+      "002003.SZ",
+      20200817
+    ],
+    [
+      "003816.SZ",
+      20200813
+    ],
+    [
+      "300001.SZ",
+      20200812
+    ],
+    [
+      "300001.SZ",
+      20200814
+    ],
+    [
+      "300001.SZ",
+      20200817
+    ],
+    [
+      "600000.SH",
+      20200812
+    ],
+    [
+      "600000.SH",
+      20200813
+    ],
+    [
+      "600000.SH",
+      20200814
+    ],
+    [
+      "600000.SH",
+      20200817
+    ]
+  ],
+  "all_incremental_reasons_retained": true,
+  "2020_market_source_reads": 0,
+  "annual_new_rate": null,
+  "scope": "historical quality evidence inheritance only; not combined into 2026 case denominator"
+}

@@ -1,0 +1,18 @@
+{
+  "all_nonquality_prepared_fields_unchanged": true,
+  "row_count": 35840,
+  "unresolved": {
+    "vol": {
+      "days": 141,
+      "max_absolute_residual": "107.00",
+      "median_absolute_residual": "6.00",
+      "max_relative_residual": "4.384228430927829220974560931E-8"
+    },
+    "amount": {
+      "days": 526,
+      "max_absolute_residual": "811.2000",
+      "median_absolute_residual": "14.000",
+      "max_relative_residual": "6.141770949685617001542741838E-8"
+    }
+  }
+}

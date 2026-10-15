@@ -1,0 +1,146 @@
+[
+  {
+    "page": 1,
+    "title": "A股接力情绪与周期：2026年1—9月",
+    "source": "sentiment_daily.csv",
+    "N": 181
+  },
+  {
+    "page": 2,
+    "title": "已有数据与复盘资产，现在补齐可计算的市场环境层",
+    "source": "项目检讨v2；背景来源索引",
+    "N": "背景"
+  },
+  {
+    "page": 3,
+    "title": "环境日表为策略研究分组，接在选股与执行之前",
+    "source": "METHOD_AND_DATA.md",
+    "N": "方法"
+  },
+  {
+    "page": 4,
+    "title": "强弱、过程与题材结构需要三条独立信息",
+    "source": "formal_spec.json；CYCLE_SPEC.md",
+    "N": "方法"
+  },
+  {
+    "page": 5,
+    "title": "晋级与强势股反馈合计占正式分的一半",
+    "source": "formal_spec.json；calibration.json",
+    "N": 5
+  },
+  {
+    "page": 6,
+    "title": "正式分覆盖181/181日，数据近似另列质量字段",
+    "source": "quality_daily.csv；data_coverage.csv",
+    "N": 181
+  },
+  {
+    "page": 7,
+    "title": "外部10日对账区分生产样本池与复盘统计口径",
+    "source": "external_reconciliation.csv",
+    "N": 10
+  },
+  {
+    "page": 8,
+    "title": "全期强弱反复切换，档位用于描述当日接力环境",
+    "source": "sentiment_daily.csv",
+    "N": 181
+  },
+  {
+    "page": 9,
+    "title": "01月均分最高，07月最低：月份环境不可互换",
+    "source": "monthly_summary.csv",
+    "N": 181
+  },
+  {
+    "page": 10,
+    "title": "模块拆解显示同一总分可以有不同的形成原因",
+    "source": "monthly_modules.csv",
+    "N": 181
+  },
+  {
+    "page": 11,
+    "title": "C0按当日证据识别过程，保留真实跳变",
+    "source": "cycle_daily.csv；CYCLE_SPEC.md",
+    "N": 181
+  },
+  {
+    "page": 12,
+    "title": "转移与持续长度描述反复程度，不构成择时胜率",
+    "source": "grade_transitions.csv；runs.csv",
+    "N": 180
+  },
+  {
+    "page": 13,
+    "title": "同处50—65分区间，上升与下降日的模块结构仍可不同",
+    "source": "same_score_direction.csv",
+    "N": 35
+  },
+  {
+    "page": 14,
+    "title": "恐慌放量共有18日，分布在15个连续事件簇",
+    "source": "event_windows.csv；event_summary.csv",
+    "N": 18
+  },
+  {
+    "page": 15,
+    "title": "接力分与题材热度相关系数为0.60，两者保留独立解释",
+    "source": "environment_daily.csv",
+    "N": 181
+  },
+  {
+    "page": 16,
+    "title": "主线延续与更替提供题材结构，不能从总分反推出",
+    "source": "monthly_rotation.csv",
+    "N": 181
+  },
+  {
+    "page": 17,
+    "title": "01-06 全期高分案例：98.7分 / 修复",
+    "source": "case_selection.csv；case_windows.csv",
+    "N": 11
+  },
+  {
+    "page": 18,
+    "title": "01-08 改善以后再次走弱：94.1分 / 修复",
+    "source": "case_selection.csv；case_windows.csv",
+    "N": 11
+  },
+  {
+    "page": 19,
+    "title": "05-22 低位改善与启动候选：74.3分 / 启动候选",
+    "source": "case_selection.csv；case_windows.csv",
+    "N": 11
+  },
+  {
+    "page": 20,
+    "title": "人工用语与机械相位的边界需要保留，而非强行对齐",
+    "source": "human_comparison.csv",
+    "N": 11
+  },
+  {
+    "page": 21,
+    "title": "a=2/10只改变收缩强度，主版本保持a=5",
+    "source": "robustness_summary.csv；reference_to_formal_diff.csv",
+    "N": 181
+  },
+  {
+    "page": 22,
+    "title": "收盘环境只能支持下一交易时点，日期连接还须检查可用时间",
+    "source": "environment_daily.csv；REPRODUCE.md",
+    "N": "接口"
+  },
+  {
+    "page": 23,
+    "title": "后续只登记三类实验：先固定策略，再比较环境增量",
+    "source": "NEXT_EXPERIMENTS.md",
+    "N": 3
+  },
+  {
+    "page": 24,
+    "title": "环境层已可复刻，策略增量仍需独立检验",
+    "source": "analysis_summary.json；DELIVERY_MANIFEST.json",
+    "N": 181
+  }
+]

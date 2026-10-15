@@ -1,0 +1,217 @@
+{
+  "task_id": "W01",
+  "status": "ready_for_root_acceptance",
+  "generated_at": "2026-10-05T00:02:34.731497+00:00",
+  "input_version": "INTERFACE_CONTRACT_20261005-01/F1-formal_corrected",
+  "rows": 424,
+  "year_counts": {
+    "2025": 243,
+    "2026": 181
+  },
+  "event_rows": 2406834,
+  "cohort_rows": 32694,
+  "raw_columns": 243,
+  "date_min": "2025-01-02",
+  "date_max": "2026-09-30",
+  "all_old_columns_exact": true,
+  "mapping_checks": {
+    "mkt_eligible_n": {
+      "source": "N",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_up_n": {
+      "source": "U",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_down_n": {
+      "source": "D",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_broken_n": {
+      "source": "Z",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_turnover_cny": {
+      "source": "amount",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_ma20_cny": {
+      "source": "amt_ma20",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_ratio20": {
+      "source": "ratio20",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_log_ratio20": {
+      "source": "lr20",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_udens": {
+      "source": "Udens",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_ddens": {
+      "source": "Ddens",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_m1raw": {
+      "source": "M1raw",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_ladder": {
+      "source": "ladder",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_max_height": {
+      "source": "max_h",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_relay_score": {
+      "source": "score5",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_relay_grade": {
+      "source": "grade5",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_f1_m1": {
+      "source": "M1",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_source_quality": {
+      "source": "quality_status",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_source_reasons": {
+      "source": "quality_reasons",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h1_k": {
+      "source": "k_h1",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h1_n": {
+      "source": "n_h1",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h2_k": {
+      "source": "k_h2",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h2_n": {
+      "source": "n_h2",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h3_k": {
+      "source": "k_h3",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h3_n": {
+      "source": "n_h3",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h4_k": {
+      "source": "k_h4",
+      "exact": true,
+      "compared_rows": 424
+    },
+    "mkt_promo_h4_n": {
+      "source": "n_h4",
+      "exact": true,
+      "compared_rows": 424
+    }
+  },
+  "height_counts_sum_equals_U": true,
+  "advance_n_le_N": true,
+  "source_sha_unchanged": true,
+  "published_daily_bytes_equal": true,
+  "raw_numeric_csv_roundtrip_exact": true,
+  "all_cohorts_independently_hand_checked": 424,
+  "prefix_checks": [
+    {
+      "cutoff": "2026-03-31",
+      "events_rows": 1757457,
+      "cohorts_rows": 23455,
+      "daily_rows": 299,
+      "all_fields_exact": true,
+      "reran_build_raw": true
+    },
+    {
+      "cutoff": "2026-06-30",
+      "events_rows": 2068683,
+      "cohorts_rows": 28109,
+      "daily_rows": 359,
+      "all_fields_exact": true,
+      "reran_build_raw": true
+    },
+    {
+      "cutoff": "2026-09-09",
+      "events_rows": 2333913,
+      "cohorts_rows": 31921,
+      "daily_rows": 410,
+      "all_fields_exact": true,
+      "reran_build_raw": true
+    }
+  ],
+  "adapter_quality_counts": {
+    "OK": 359,
+    "DEGRADED": 65
+  },
+  "local_gaps": {
+    "days": 65,
+    "paused_members": 76,
+    "missing_members": 2,
+    "unobservable_members": 0
+  },
+  "chain_members_above_height4": 452,
+  "tests": {
+    "command": "python -m pytest policyStudy/policy/market_sentiment/tests/test_adapter.py -q -p no:cacheprovider --basetemp <RUN>/adapter/pytest_tmp",
+    "passed": 8,
+    "result": "8 passed in 0.71s",
+    "meaningful_edges": [
+      "integer exact -5%",
+      "Dn and H2L union once",
+      ">=5 chain heights",
+      "today eligible false",
+      "mid_obs vs return_obs",
+      "paused/missing/unobservable partition",
+      "flat excludes advance",
+      "empty ratio missing",
+      "zero events vs absent day",
+      "partial inputs",
+      "mixed date normalization",
+      "unchanged DataFrames",
+      "load_formal float roundtrip"
+    ]
+  },
+  "elapsed_seconds": 25.580691500013927,
+  "known_issues": [
+    "F1's local paused/missing cohort members remain excluded from observed denominators and disclosed; no invented returns.",
+    "Only root may declare final acceptance."
+  ]
+}

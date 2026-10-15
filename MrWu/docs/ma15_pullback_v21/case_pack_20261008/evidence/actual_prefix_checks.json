@@ -1,0 +1,103 @@
+{
+  "checks": [
+    {
+      "ts_code": "688137.SH",
+      "cutoff": "2026-09-04 14:15:00",
+      "nodes": 1,
+      "passed": true
+    },
+    {
+      "ts_code": "688137.SH",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "002413.SZ",
+      "cutoff": "2026-01-19 09:45:00",
+      "nodes": 1,
+      "passed": true
+    },
+    {
+      "ts_code": "002413.SZ",
+      "cutoff": "2026-03-17 09:45:00",
+      "nodes": 5,
+      "passed": true
+    },
+    {
+      "ts_code": "002413.SZ",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 5,
+      "passed": true
+    },
+    {
+      "ts_code": "688627.SH",
+      "cutoff": "2026-03-04 14:45:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "688627.SH",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "000725.SZ",
+      "cutoff": "2026-06-15 10:30:00",
+      "nodes": 1,
+      "passed": true
+    },
+    {
+      "ts_code": "000725.SZ",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "002810.SZ",
+      "cutoff": "2026-03-03 15:00:00",
+      "nodes": 1,
+      "passed": true
+    },
+    {
+      "ts_code": "002810.SZ",
+      "cutoff": "2026-05-15 14:30:00",
+      "nodes": 2,
+      "passed": true
+    },
+    {
+      "ts_code": "002810.SZ",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 2,
+      "passed": true
+    },
+    {
+      "ts_code": "600371.SH",
+      "cutoff": "2026-02-09 09:45:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "600371.SH",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "300759.SZ",
+      "cutoff": "2026-01-21 10:00:00",
+      "nodes": 0,
+      "passed": true
+    },
+    {
+      "ts_code": "300759.SZ",
+      "cutoff": "2026-05-20 09:45:00",
+      "nodes": 0,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "formal_200_event_test": false,
+  "statement": "Local seven-security cuts only; not formal >=200-event acceptance"
+}

@@ -1,0 +1,54 @@
+{
+  "status": "UPLOADED_AND_METADATA_READ_BACK",
+  "folder_id": "1hKYYRGw8NVtVTPxrCt4Y23OaH-UPHjfX",
+  "plugin": "Google Drive",
+  "scope": "Authorized A2 milestone delivery; no permission changes or messages to third parties",
+  "files": [
+    {
+      "id": "1OKo0UWpIqmKUFtpS_NTFPHqX2PbA-Zv6",
+      "title": "李老师策略_2026七股案例核对_20261008.md",
+      "mime_type": "text/markdown",
+      "size": "8721",
+      "url": "https://drive.google.com/file/d/1OKo0UWpIqmKUFtpS_NTFPHqX2PbA-Zv6/view?usp=drivesdk",
+      "display_url": "https://drive.google.com/file/d/1OKo0UWpIqmKUFtpS_NTFPHqX2PbA-Zv6/view?usp=drivesdk",
+      "file_or_folder": "file",
+      "created_time": null,
+      "modified_time": null,
+      "parent_ids": [
+        "1hKYYRGw8NVtVTPxrCt4Y23OaH-UPHjfX"
+      ],
+      "drive_id": null,
+      "current_user_can_share": null,
+      "has_augmented_permissions": null,
+      "shared": null,
+      "permissions": null,
+      "source_visibility_status": "access_not_verified"
+    },
+    {
+      "id": "1OMFgs90ugCY5i8hj4Glz-J1LPWYEvEYd",
+      "title": "李老师策略_2026七股案例图与证据包_20261008.zip",
+      "mime_type": "application/zip",
+      "size": "4023699",
+      "url": "https://drive.google.com/file/d/1OMFgs90ugCY5i8hj4Glz-J1LPWYEvEYd/view?usp=drivesdk",
+      "display_url": "https://drive.google.com/file/d/1OMFgs90ugCY5i8hj4Glz-J1LPWYEvEYd/view?usp=drivesdk",
+      "file_or_folder": "file",
+      "created_time": null,
+      "modified_time": null,
+      "parent_ids": [
+        "1hKYYRGw8NVtVTPxrCt4Y23OaH-UPHjfX"
+      ],
+      "drive_id": null,
+      "current_user_can_share": null,
+      "has_augmented_permissions": null,
+      "shared": null,
+      "permissions": null,
+      "source_visibility_status": "access_not_verified"
+    }
+  ],
+  "local_bundle_sha256": "49b0e5e46fb3faaf5e64c363069412b47e2c516563b4283ef2c3e74dcd2bd867",
+  "verification": "Drive file IDs, names, MIME types, destination and sizes read back. Remote byte hash not supplied by connector; not claimed.",
+  "local_gallery": "C:\\Project Rocket\\worktrees\\tradingagent-ma15-pullback-v21-20261006\\policyStudy\\docs\\ma15_pullback_v21\\case_pack_20261008\\index.html",
+  "s0_accepted": false,
+  "s1_started": false,
+  "stopped_after_delivery": true
+}

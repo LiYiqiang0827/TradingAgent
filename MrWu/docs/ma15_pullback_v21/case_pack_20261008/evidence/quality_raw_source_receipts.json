@@ -1,0 +1,5442 @@
+[
+  {
+    "trade_date": 20250603,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250603_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9153740,
+      "mtime_ns": 1790604347073775700
+    },
+    "after": {
+      "size_bytes": 9153740,
+      "mtime_ns": 1790604347073775700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92553,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1dfb6fda8ed73415edd91c954bb9950305f1f31852242ba219b605d5af3b736b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250604,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250604_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9155814,
+      "mtime_ns": 1790604347104090800
+    },
+    "after": {
+      "size_bytes": 9155814,
+      "mtime_ns": 1790604347104090800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92553,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e908a706647123b71714f56d47326e8105bbf778a3cc58e7d574672a7e98ed6e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250605,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250605_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9170211,
+      "mtime_ns": 1790604347135423000
+    },
+    "after": {
+      "size_bytes": 9170211,
+      "mtime_ns": 1790604347135423000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92587,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a37cb1cd5bba1878f7f007d81b8693c812d76dd2654215488791d1f182431031",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250606,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250606_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9166107,
+      "mtime_ns": 1790604347165546500
+    },
+    "after": {
+      "size_bytes": 9166107,
+      "mtime_ns": 1790604347165546500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92587,
+    "scoped_rows": 119,
+    "selected_records_sha256": "759089e2dca7465d57d9b7915c4d7e41619eaabe430720c08320fd3307a5c45a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250609,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250609_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9173784,
+      "mtime_ns": 1790604347196229600
+    },
+    "after": {
+      "size_bytes": 9173784,
+      "mtime_ns": 1790604347196229600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92587,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7362d971b8c9126d0ac881e26a06006135f3e0c2ec651bea14a44a43cb7f6573",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250610,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250610_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9191679,
+      "mtime_ns": 1790604347227392800
+    },
+    "after": {
+      "size_bytes": 9191679,
+      "mtime_ns": 1790604347227392800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92606,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a4055bffa63f7bd913154e423fdd36708a8a9bfb711ca4a011b1e09614df602e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250611,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250611_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9176754,
+      "mtime_ns": 1790604347258168300
+    },
+    "after": {
+      "size_bytes": 9176754,
+      "mtime_ns": 1790604347258168300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92623,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1e03347d4e83d3ca0132cdefbbedae8f47fc5edadb2a4514210a19bbc5b031c2",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250612,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250612_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9185937,
+      "mtime_ns": 1790604347287860100
+    },
+    "after": {
+      "size_bytes": 9185937,
+      "mtime_ns": 1790604347287860100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92640,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5807fb0ae194b2bf44dbfdd74823bdb279947cddd47928d03d2d4730915f5251",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250613,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250613_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9199722,
+      "mtime_ns": 1790604347317657000
+    },
+    "after": {
+      "size_bytes": 9199722,
+      "mtime_ns": 1790604347317657000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92640,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c589ed573766be354109802ee4b4f6cb1d8cc377e8b83f4d07c834cdaa3d5c28",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250616,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250616_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9180219,
+      "mtime_ns": 1790604347347561300
+    },
+    "after": {
+      "size_bytes": 9180219,
+      "mtime_ns": 1790604347347561300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92640,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5a9e499a8fb90e9c1431a0d1c4d6d79ec19eed6df6ab9684d4a477d8b717e14b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250617,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250617_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9183633,
+      "mtime_ns": 1790604347377896900
+    },
+    "after": {
+      "size_bytes": 9183633,
+      "mtime_ns": 1790604347377896900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92640,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0f2d049b43071364867c5f061dfaf0b13cb55c3a19c87295c8cf6a0fed6f58d5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250618,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250618_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9176615,
+      "mtime_ns": 1790604347407275300
+    },
+    "after": {
+      "size_bytes": 9176615,
+      "mtime_ns": 1790604347407275300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92640,
+    "scoped_rows": 119,
+    "selected_records_sha256": "95a8454ceae7e2b754b34a6e321553f2c35bcc906457cee0590f9645726e0ee7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250619,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250619_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9190327,
+      "mtime_ns": 1790604347437734900
+    },
+    "after": {
+      "size_bytes": 9190327,
+      "mtime_ns": 1790604347437734900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92640,
+    "scoped_rows": 119,
+    "selected_records_sha256": "38d6339bb0bccc42d0dbcc537c787b8a1273ec4a1ca429ab47ca3d8d0d344c5e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250620,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250620_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9170402,
+      "mtime_ns": 1790604347467341800
+    },
+    "after": {
+      "size_bytes": 9170402,
+      "mtime_ns": 1790604347467341800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92674,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c3d773fe2ecbb73063f69b60319331576824f5a713003f2d093dd8384544ca4d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250623,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250623_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9178573,
+      "mtime_ns": 1790604347497688700
+    },
+    "after": {
+      "size_bytes": 9178573,
+      "mtime_ns": 1790604347497688700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92674,
+    "scoped_rows": 119,
+    "selected_records_sha256": "04f857c229ec21561b1f3d553b75b8b7b8311cc1f4c655d0ad251085167e9a18",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250624,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250624_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9203379,
+      "mtime_ns": 1790604347528042800
+    },
+    "after": {
+      "size_bytes": 9203379,
+      "mtime_ns": 1790604347528042800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92674,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e85890977938858ef2da96b1705fec0202b0ddb931ea59ff8bd8f76e73d1a378",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250625,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250625_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9211730,
+      "mtime_ns": 1790604347558664000
+    },
+    "after": {
+      "size_bytes": 9211730,
+      "mtime_ns": 1790604347558664000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92674,
+    "scoped_rows": 119,
+    "selected_records_sha256": "31799721534be2e6732851a8c1faca58b75e305bea39f034d84c0a4611d73520",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250626,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250626_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9214201,
+      "mtime_ns": 1790604347590226400
+    },
+    "after": {
+      "size_bytes": 9214201,
+      "mtime_ns": 1790604347590226400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92693,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0b1c9206b4d5f8a0b9b44ac02dd9729b61220fd829f4f993a114c3efd6819958",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250627,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250627_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9204500,
+      "mtime_ns": 1790604347620669000
+    },
+    "after": {
+      "size_bytes": 9204500,
+      "mtime_ns": 1790604347620669000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92676,
+    "scoped_rows": 119,
+    "selected_records_sha256": "700a044f03f9d9990b503f25aed3cc4d3a413c6f7074fa875c84c90c595fe1a5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250630,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250630_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9211792,
+      "mtime_ns": 1790604347652202600
+    },
+    "after": {
+      "size_bytes": 9211792,
+      "mtime_ns": 1790604347652202600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92676,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fbe1d9bf03b7ba88c9faecad72e09dd6f96ee8e370953544c04aee0117947bbd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250701,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250701_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9214085,
+      "mtime_ns": 1790604347681916400
+    },
+    "after": {
+      "size_bytes": 9214085,
+      "mtime_ns": 1790604347681916400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92693,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a91e4986112bda5a0af0a334c948ed66ba1ecd0bb982b8dcfbaedf59e84b089f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250702,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250702_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9208889,
+      "mtime_ns": 1790604347711654800
+    },
+    "after": {
+      "size_bytes": 9208889,
+      "mtime_ns": 1790604347711654800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92693,
+    "scoped_rows": 119,
+    "selected_records_sha256": "424e8355287b570da63432b0b6ef96372d905eb84845a3a668bf2dcb8e8de22a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250703,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250703_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9202346,
+      "mtime_ns": 1790604347742750600
+    },
+    "after": {
+      "size_bytes": 9202346,
+      "mtime_ns": 1790604347742750600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92659,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b1643345a90dc422f863576cce53fe07a28e952e889c7ea5f3b483c52334b4a2",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250704,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250704_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9206865,
+      "mtime_ns": 1790604347772895000
+    },
+    "after": {
+      "size_bytes": 9206865,
+      "mtime_ns": 1790604347772895000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "916a199d47754dbe1aeddd9499240d99e8a8dad9444d0021a214475fdb1a2027",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250707,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250707_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9193541,
+      "mtime_ns": 1790604347803369700
+    },
+    "after": {
+      "size_bytes": 9193541,
+      "mtime_ns": 1790604347803369700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b83278318036f9a98af0a310837536feebbba1f643330fb10ed8cb73f1a60fa4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250708,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250708_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9209596,
+      "mtime_ns": 1790604347833676800
+    },
+    "after": {
+      "size_bytes": 9209596,
+      "mtime_ns": 1790604347833676800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92659,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6e471573c38354678442b462d16121075dd63817f86e8272ba2c30c1604424df",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250709,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250709_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9217509,
+      "mtime_ns": 1790604347864176200
+    },
+    "after": {
+      "size_bytes": 9217509,
+      "mtime_ns": 1790604347864176200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92659,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1390b5859ab8732635dd1638f4149cf877addc5f1414f14e56e25ed37717e950",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250710,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250710_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9213749,
+      "mtime_ns": 1790604347892816500
+    },
+    "after": {
+      "size_bytes": 9213749,
+      "mtime_ns": 1790604347892816500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92676,
+    "scoped_rows": 119,
+    "selected_records_sha256": "bfb84df74e4d152f5dcbff53724375d2c1d944f5f3e62962834e4c69dd4e4ca9",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250711,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250711_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9000991,
+      "mtime_ns": 1790604347922806900
+    },
+    "after": {
+      "size_bytes": 9000991,
+      "mtime_ns": 1790604347922806900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 90400,
+    "scoped_rows": 119,
+    "selected_records_sha256": "493021aefe3fbc59d1778769345e409700098cd357b171a8f2ff31ede081d174",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250714,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250714_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9215071,
+      "mtime_ns": 1790604347953516300
+    },
+    "after": {
+      "size_bytes": 9215071,
+      "mtime_ns": 1790604347953516300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f525f9ad6ae7271daf1621f5b0ad5349a15df42e24f230fdf4744146e3fc09d8",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250715,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250715_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9219524,
+      "mtime_ns": 1790604347984517500
+    },
+    "after": {
+      "size_bytes": 9219524,
+      "mtime_ns": 1790604347984517500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8698370099153701291f0eaf2876724b7a4108d7d5e53756fd36b6ce6b480c86",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250716,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250716_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9210409,
+      "mtime_ns": 1790604348014784100
+    },
+    "after": {
+      "size_bytes": 9210409,
+      "mtime_ns": 1790604348014784100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "eb14de2860f51543300f06a86d50e4028efe577d613d9cf0c32bf110d611b8a7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250717,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250717_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9217312,
+      "mtime_ns": 1790604348045314800
+    },
+    "after": {
+      "size_bytes": 9217312,
+      "mtime_ns": 1790604348045314800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "256f86b1a7bc57db5e93debca4d62dd1d3828439600122d40c7874dabcc21074",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250718,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250718_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9212792,
+      "mtime_ns": 1790604348075537700
+    },
+    "after": {
+      "size_bytes": 9212792,
+      "mtime_ns": 1790604348075537700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "95418632e1b5c33df5009324ae4d5d36ec00bc56aab79be523c67199ab6f155b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250721,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250721_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9229174,
+      "mtime_ns": 1790604348105614900
+    },
+    "after": {
+      "size_bytes": 9229174,
+      "mtime_ns": 1790604348105614900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92608,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6e88e0d1a78e7f8b6e59f9a20a8a09a107c1f028d8484424ebb04c6cd49b7083",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250722,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250722_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9233269,
+      "mtime_ns": 1790604348136396700
+    },
+    "after": {
+      "size_bytes": 9233269,
+      "mtime_ns": 1790604348136396700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92608,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d6c7dbf07a91b4745d85cbb6f31d45d74538d5229c254a1d400214ca65a98d04",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250723,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250723_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9234893,
+      "mtime_ns": 1790604348166034700
+    },
+    "after": {
+      "size_bytes": 9234893,
+      "mtime_ns": 1790604348166034700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "98003f5b954eb157feb092917c629e98bc07726266ab14d5f9f8b8c776fc1849",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250724,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250724_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9235492,
+      "mtime_ns": 1790604348197727200
+    },
+    "after": {
+      "size_bytes": 9235492,
+      "mtime_ns": 1790604348197727200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ab33f7fea06a90f79794d194e5810cd7cec1cc5edef67e0e06b4daa2762c293e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250725,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250725_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9233079,
+      "mtime_ns": 1790604348228335700
+    },
+    "after": {
+      "size_bytes": 9233079,
+      "mtime_ns": 1790604348228335700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92625,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1712395fdab7cfe3ae99267941966ed05261235de985c4335c95caa4e830d4a5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250728,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250728_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9232418,
+      "mtime_ns": 1790604348257767200
+    },
+    "after": {
+      "size_bytes": 9232418,
+      "mtime_ns": 1790604348257767200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92625,
+    "scoped_rows": 119,
+    "selected_records_sha256": "439b96b680317f60b6f80db4f48214328d36a03ccf86a7fa5b40956a01987ce4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250729,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250729_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9234166,
+      "mtime_ns": 1790604348289327100
+    },
+    "after": {
+      "size_bytes": 9234166,
+      "mtime_ns": 1790604348289327100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92625,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c45d7cc3540f0e8e8db53a8c7c55e894cc8b5d8cb2802fe6a49124d838034645",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250730,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250730_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9236269,
+      "mtime_ns": 1790604348319250800
+    },
+    "after": {
+      "size_bytes": 9236269,
+      "mtime_ns": 1790604348319250800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92642,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e33c0453e59d636fb4aa73c62cea90798eb5fe2e5bc3ac94456831a835747252",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250731,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250731_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9237420,
+      "mtime_ns": 1790604348351450900
+    },
+    "after": {
+      "size_bytes": 9237420,
+      "mtime_ns": 1790604348351450900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92661,
+    "scoped_rows": 119,
+    "selected_records_sha256": "94519344d5bbf4d257b22affd95c47149e23f25df14432c8fe0850437e360010",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250801,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250801_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9224945,
+      "mtime_ns": 1790604348381713100
+    },
+    "after": {
+      "size_bytes": 9224945,
+      "mtime_ns": 1790604348381713100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92661,
+    "scoped_rows": 119,
+    "selected_records_sha256": "892585638056ec7f32091e07b95601c06f577d28c31a1b24096aca818f60e504",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250804,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250804_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9220110,
+      "mtime_ns": 1790604348414172400
+    },
+    "after": {
+      "size_bytes": 9220110,
+      "mtime_ns": 1790604348414172400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92661,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6724a1357592c4eb4c57d33dc3018e526b948f09a86c84da7bdb74ad65d4d2ef",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250805,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250805_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9226207,
+      "mtime_ns": 1790604348444954600
+    },
+    "after": {
+      "size_bytes": 9226207,
+      "mtime_ns": 1790604348444954600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92661,
+    "scoped_rows": 119,
+    "selected_records_sha256": "847132e884a9ee44c69ec3bfdcc2c4dab7c8c437bf8160581a34a69e2b44907a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250806,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250806_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9239046,
+      "mtime_ns": 1790604348475228100
+    },
+    "after": {
+      "size_bytes": 9239046,
+      "mtime_ns": 1790604348475228100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92678,
+    "scoped_rows": 119,
+    "selected_records_sha256": "36fe0cc6972e6a0b3cc76353ecd880872acb7f7c65b2e7abe549812ebfb693c3",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250807,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250807_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9239347,
+      "mtime_ns": 1790604348505836700
+    },
+    "after": {
+      "size_bytes": 9239347,
+      "mtime_ns": 1790604348505836700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92678,
+    "scoped_rows": 119,
+    "selected_records_sha256": "40647eb2ea2ba69977c5fa0363b9506bf48e40aeb10c753c0b80e6146959702a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250808,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250808_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9236738,
+      "mtime_ns": 1790604348536477000
+    },
+    "after": {
+      "size_bytes": 9236738,
+      "mtime_ns": 1790604348536477000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92714,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a0bde12f02ec2fee966462943d65a85662c16b1998c7341d2d0d5db60bf25a01",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250811,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250811_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9251427,
+      "mtime_ns": 1790604348567167400
+    },
+    "after": {
+      "size_bytes": 9251427,
+      "mtime_ns": 1790604348567167400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92714,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c164131bce23ad623991205a2e769d41cdb7d4722debcda7a2b039d809f0c77d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250812,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250812_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9248583,
+      "mtime_ns": 1790604348599373200
+    },
+    "after": {
+      "size_bytes": 9248583,
+      "mtime_ns": 1790604348599373200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92731,
+    "scoped_rows": 119,
+    "selected_records_sha256": "11726fd458b6fcb5ba5cf42a76d953e2b55a8981e89390207d3c74f6a44647ba",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250813,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250813_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9255905,
+      "mtime_ns": 1790604348630634800
+    },
+    "after": {
+      "size_bytes": 9255905,
+      "mtime_ns": 1790604348630634800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92731,
+    "scoped_rows": 119,
+    "selected_records_sha256": "bd4f662c736911eb9a648d20ea91dab74bb874e413e712726e04532722a26fc1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250814,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250814_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9264122,
+      "mtime_ns": 1790604348660980500
+    },
+    "after": {
+      "size_bytes": 9264122,
+      "mtime_ns": 1790604348660980500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92750,
+    "scoped_rows": 119,
+    "selected_records_sha256": "38ea25929853198343b7d3e3ace10888b1fa6b9ed2128b127d1ec1c06aff837e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250815,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250815_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9255621,
+      "mtime_ns": 1790604348691912400
+    },
+    "after": {
+      "size_bytes": 9255621,
+      "mtime_ns": 1790604348691912400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92750,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5643dcafe04ffc21edd77c7aa3a3dba1adb01170ecd55111949c251112676a00",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250818,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250818_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9280489,
+      "mtime_ns": 1790604348722871000
+    },
+    "after": {
+      "size_bytes": 9280489,
+      "mtime_ns": 1790604348722871000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92750,
+    "scoped_rows": 119,
+    "selected_records_sha256": "da33371885e3cda67427f40f66028eb72040d10ec5018222bccbb32fb9eeba36",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250819,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250819_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9273096,
+      "mtime_ns": 1790604348754282500
+    },
+    "after": {
+      "size_bytes": 9273096,
+      "mtime_ns": 1790604348754282500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92750,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e3a1ef6bc3ba6ac194ff09ab70a64bfa15fde1e891d2a883fafabbea33657934",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250820,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250820_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9269400,
+      "mtime_ns": 1790604348785216300
+    },
+    "after": {
+      "size_bytes": 9269400,
+      "mtime_ns": 1790604348785216300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92769,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a0445f7964bed17f6471a90c4bc6d5e4557c39b5348b3870842b0f1638aefb94",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250821,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250821_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9270956,
+      "mtime_ns": 1790604348817864500
+    },
+    "after": {
+      "size_bytes": 9270956,
+      "mtime_ns": 1790604348817864500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92769,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6936f015b55d7c168e7e483fcf0351ae60ab226e05e0c96aafa87f57197da26e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250822,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250822_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9275601,
+      "mtime_ns": 1790604348848569000
+    },
+    "after": {
+      "size_bytes": 9275601,
+      "mtime_ns": 1790604348848569000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92788,
+    "scoped_rows": 119,
+    "selected_records_sha256": "112f7e26302ca6e175e6d2c37dce3a094692ea76fdbe027eac1b1bf8e4aedd73",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250825,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250825_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9293037,
+      "mtime_ns": 1790604348879940300
+    },
+    "after": {
+      "size_bytes": 9293037,
+      "mtime_ns": 1790604348879940300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92788,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2a386f844cb2b357c623fd36a8e0177607f8982fe7700ebaaca00408aa8855ee",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250826,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250826_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9282967,
+      "mtime_ns": 1790604348910509900
+    },
+    "after": {
+      "size_bytes": 9282967,
+      "mtime_ns": 1790604348910509900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92788,
+    "scoped_rows": 119,
+    "selected_records_sha256": "33b3c00a9254810ce848ceafb17a56b7418cf57974e328d10d5049ebbceef6ee",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250827,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250827_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9298304,
+      "mtime_ns": 1790604348942683600
+    },
+    "after": {
+      "size_bytes": 9298304,
+      "mtime_ns": 1790604348942683600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92788,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fc676e40aaab317bb2364a4c3194992ef9b5a5a5f24c09b645b569d45de02a4b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250828,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250828_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9293246,
+      "mtime_ns": 1790604348974026600
+    },
+    "after": {
+      "size_bytes": 9293246,
+      "mtime_ns": 1790604348974026600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92807,
+    "scoped_rows": 119,
+    "selected_records_sha256": "eef5707b9ef6561597caf9e65a62f1b9d06ac322998c92aec97d00b49832cb8a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250829,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250829_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9273548,
+      "mtime_ns": 1790604349005074800
+    },
+    "after": {
+      "size_bytes": 9273548,
+      "mtime_ns": 1790604349005074800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92807,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ce7f19f2697c3466fd6a4192f9aae26f5bbaaacf941b66a31367a3fc94c5a1c5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250901,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250901_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9275779,
+      "mtime_ns": 1790604349035991100
+    },
+    "after": {
+      "size_bytes": 9275779,
+      "mtime_ns": 1790604349035991100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92807,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2cbf3bf6103a4c47ead488b45d8882eaddc592c817f206135c308c9d47a212ac",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250902,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250902_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9278388,
+      "mtime_ns": 1790604349066811200
+    },
+    "after": {
+      "size_bytes": 9278388,
+      "mtime_ns": 1790604349066811200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92807,
+    "scoped_rows": 119,
+    "selected_records_sha256": "675fe4afea74ddbaa49da2e41bf103a5cf75e580d9c073669d87cea07e9a112a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250903,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250903_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 8990244,
+      "mtime_ns": 1790604349098224600
+    },
+    "after": {
+      "size_bytes": 8990244,
+      "mtime_ns": 1790604349098224600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 90052,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b37ad9393eba8fc90280e35f5da793966faf6a5ac934e57237232dd0a4c654ac",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250904,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250904_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9265543,
+      "mtime_ns": 1790604349129084000
+    },
+    "after": {
+      "size_bytes": 9265543,
+      "mtime_ns": 1790604349129084000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92807,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f81d0bcf76475a3620514d905035b625f5b84985465dcdbd1d620c44867db81b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250905,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250905_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9259329,
+      "mtime_ns": 1790604349159695900
+    },
+    "after": {
+      "size_bytes": 9259329,
+      "mtime_ns": 1790604349159695900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92807,
+    "scoped_rows": 119,
+    "selected_records_sha256": "bdcc68017f05923519871556d42d756124d80273d00e544dc97c089dabff1479",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250908,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250908_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9269292,
+      "mtime_ns": 1790604349192284400
+    },
+    "after": {
+      "size_bytes": 9269292,
+      "mtime_ns": 1790604349192284400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92826,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6582f6cdf78f059627a338772ce22e15359cb66b4fe19bce124b04fcaa7bac0a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250909,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250909_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9261294,
+      "mtime_ns": 1790604349223413600
+    },
+    "after": {
+      "size_bytes": 9261294,
+      "mtime_ns": 1790604349223413600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92826,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c9d445e452ae97c6f48374f8fd4fe2ba6cfc23a4aa0071056f233974cf5dcb57",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250910,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250910_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9251441,
+      "mtime_ns": 1790604349255936900
+    },
+    "after": {
+      "size_bytes": 9251441,
+      "mtime_ns": 1790604349255936900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1c3ec1b43fa9bd86c02f11f878f95d48d34a285ef19d25154fee26d2c0955aa1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250911,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250911_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9265682,
+      "mtime_ns": 1790604349287170900
+    },
+    "after": {
+      "size_bytes": 9265682,
+      "mtime_ns": 1790604349287170900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8c082f481161c4455828fda7942c1521dc6e7c3e7b58a6c98dade127fe3b7067",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250912,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250912_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9269821,
+      "mtime_ns": 1790604349321983500
+    },
+    "after": {
+      "size_bytes": 9269821,
+      "mtime_ns": 1790604349321983500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "39f2306cf318e0380c0215dd85648c115aeb0ceb49bbf358cab89ca1d5fbd0e7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250915,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250915_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9260567,
+      "mtime_ns": 1790604349353050800
+    },
+    "after": {
+      "size_bytes": 9260567,
+      "mtime_ns": 1790604349353050800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9c10da6bdcc1d57cec02e19afcb3490db5f62ad364d6af07a3811707c8b16d3f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250916,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250916_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9266288,
+      "mtime_ns": 1790604349384456100
+    },
+    "after": {
+      "size_bytes": 9266288,
+      "mtime_ns": 1790604349384456100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "02805209faa34675b32c837c4a4dffdfbb1b5d340a70e2537e818c4379c18777",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250917,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250917_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9267435,
+      "mtime_ns": 1790604349415509100
+    },
+    "after": {
+      "size_bytes": 9267435,
+      "mtime_ns": 1790604349415509100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6d93724a0ce0f201941e7753886223c2b630354bc17790ed861956e57c44c5d3",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250918,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250918_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9287912,
+      "mtime_ns": 1790604349446442300
+    },
+    "after": {
+      "size_bytes": 9287912,
+      "mtime_ns": 1790604349446442300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92843,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d11f908948bc35b5421bcc3549227e6ca62b776021c24bd44e79777d16862e07",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250919,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250919_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9265452,
+      "mtime_ns": 1790604349476710800
+    },
+    "after": {
+      "size_bytes": 9265452,
+      "mtime_ns": 1790604349476710800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92862,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7bc54e8851aee66465fc60b3634037b520573c1462028bee32d0d221bcb9bb92",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250922,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250922_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9254746,
+      "mtime_ns": 1790604349508437200
+    },
+    "after": {
+      "size_bytes": 9254746,
+      "mtime_ns": 1790604349508437200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92862,
+    "scoped_rows": 119,
+    "selected_records_sha256": "166fdd2e6ec82720f10ae7b44385e1c6ba0fbd6501326fb367d2c80bc065f8cb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250923,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250923_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9267964,
+      "mtime_ns": 1790604349539507100
+    },
+    "after": {
+      "size_bytes": 9267964,
+      "mtime_ns": 1790604349539507100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92879,
+    "scoped_rows": 119,
+    "selected_records_sha256": "50495f84dc43fcd43281d7200e7bb792c206c035f184720e655057d2b651c3ff",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250924,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250924_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9257005,
+      "mtime_ns": 1790604349569624800
+    },
+    "after": {
+      "size_bytes": 9257005,
+      "mtime_ns": 1790604349569624800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92879,
+    "scoped_rows": 119,
+    "selected_records_sha256": "66bde9d4de1bb3a45b360f8f8afeacb381179a373dda543ac02ecefb0eea8bf6",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250925,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250925_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9263534,
+      "mtime_ns": 1790604349600611500
+    },
+    "after": {
+      "size_bytes": 9263534,
+      "mtime_ns": 1790604349600611500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92932,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4abd9b1c1386476e14cbbd6d625e14891b21847e3d1feeca973e038b0db9f9ee",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250926,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250926_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9258261,
+      "mtime_ns": 1790604349632011700
+    },
+    "after": {
+      "size_bytes": 9258261,
+      "mtime_ns": 1790604349632011700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92949,
+    "scoped_rows": 119,
+    "selected_records_sha256": "93c2c79d45c7f59becb2b168baa965af80f5102784c16604fac8ab95fddd49e0",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250929,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250929_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9255614,
+      "mtime_ns": 1790604349662547300
+    },
+    "after": {
+      "size_bytes": 9255614,
+      "mtime_ns": 1790604349662547300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92949,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8368c23b27794b9ff36ea1e60fafa01e07f3c51262986690c628b89ec3070220",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20250930,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20250930_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9038220,
+      "mtime_ns": 1790604349691581400
+    },
+    "after": {
+      "size_bytes": 9038220,
+      "mtime_ns": 1790604349691581400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 90724,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d75b10d2b84cdc931df92c7be692a72e01ddb9e946240c18e4afc060f98ba060",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251009,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251009_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9272073,
+      "mtime_ns": 1790604349723222600
+    },
+    "after": {
+      "size_bytes": 9272073,
+      "mtime_ns": 1790604349723222600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92966,
+    "scoped_rows": 119,
+    "selected_records_sha256": "01a3dd8083fd5f42ca1c407412874dc824627de10c8ae68c712d3e64434792bd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251010,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251010_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9273646,
+      "mtime_ns": 1790604349754443700
+    },
+    "after": {
+      "size_bytes": 9273646,
+      "mtime_ns": 1790604349754443700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92985,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8438948e0dc65620c3d0e52cc85442a61acc2a3a9195310316763c7e345baf2c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251013,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251013_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9270812,
+      "mtime_ns": 1790604349784970600
+    },
+    "after": {
+      "size_bytes": 9270812,
+      "mtime_ns": 1790604349784970600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92985,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fc10c67dcbea8b523c05a1e4a19c4b2942931f9d123471c391cbacfce7fb3484",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251014,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251014_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9278767,
+      "mtime_ns": 1790604349815871500
+    },
+    "after": {
+      "size_bytes": 9278767,
+      "mtime_ns": 1790604349815871500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92968,
+    "scoped_rows": 119,
+    "selected_records_sha256": "cfecac95e1b65d1fb91b205558d081f21b38f4a75f6380253f87927035d05161",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251015,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251015_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9261809,
+      "mtime_ns": 1790604349847368200
+    },
+    "after": {
+      "size_bytes": 9261809,
+      "mtime_ns": 1790604349847368200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92968,
+    "scoped_rows": 119,
+    "selected_records_sha256": "46ebb29faeebff326e22ad861dbc77e713337fe76c67103879d35c41ca9645d4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251016,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251016_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9262511,
+      "mtime_ns": 1790604349879538500
+    },
+    "after": {
+      "size_bytes": 9262511,
+      "mtime_ns": 1790604349879538500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92987,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1269b4ad995cf4e6bc60cf6569105d3f93eb337546cc9b78a640fa39091ba630",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251017,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251017_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9263145,
+      "mtime_ns": 1790604349910885900
+    },
+    "after": {
+      "size_bytes": 9263145,
+      "mtime_ns": 1790604349910885900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93004,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6f1c858e680f744f093d40155e4061ae2e1d20d325dd3a1d9f74f59504c4bff6",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251020,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251020_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9254099,
+      "mtime_ns": 1790604349940653100
+    },
+    "after": {
+      "size_bytes": 9254099,
+      "mtime_ns": 1790604349940653100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93004,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8571bc497f71773ddcfbed7d1e22ff675b0e6f4b74f399662d710d544a12689f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251021,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251021_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9263778,
+      "mtime_ns": 1790604349972515000
+    },
+    "after": {
+      "size_bytes": 9263778,
+      "mtime_ns": 1790604349972515000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93004,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2c717aebc3e66a2e74384d8b185f10ff347eb2d5b80bf2a42a61dde25272d2d8",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251022,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251022_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9259546,
+      "mtime_ns": 1790604350003781400
+    },
+    "after": {
+      "size_bytes": 9259546,
+      "mtime_ns": 1790604350003781400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93021,
+    "scoped_rows": 119,
+    "selected_records_sha256": "00d5313f6508acbd44d91469f348f07aa3ae6d336cea3aa14c6d93cf3418dc73",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251023,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251023_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9258882,
+      "mtime_ns": 1790604350034099900
+    },
+    "after": {
+      "size_bytes": 9258882,
+      "mtime_ns": 1790604350034099900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93021,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b72465f81f144758254dbf944f0c43ac6daf19eca38b2be0abf24be3a8fb4948",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251024,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251024_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9272351,
+      "mtime_ns": 1790604350066146500
+    },
+    "after": {
+      "size_bytes": 9272351,
+      "mtime_ns": 1790604350066146500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93038,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f9a9de7675783178b49bea5b665a7c5d4fead8273cb5fa27fc869fc2dbdeec33",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251027,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251027_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9281326,
+      "mtime_ns": 1790604350096461200
+    },
+    "after": {
+      "size_bytes": 9281326,
+      "mtime_ns": 1790604350096461200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93038,
+    "scoped_rows": 119,
+    "selected_records_sha256": "49b687ccc5a8d237ed0586f9cbafc2f13d49eab088f1f47a97ddac27c9b7c172",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251028,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251028_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9282256,
+      "mtime_ns": 1790604350127146900
+    },
+    "after": {
+      "size_bytes": 9282256,
+      "mtime_ns": 1790604350127146900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93108,
+    "scoped_rows": 119,
+    "selected_records_sha256": "abe1955e55203d3eea1982a9d9ed78f36e7ce493a1caa7cb3a2417af024ac07c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251029,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251029_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9284608,
+      "mtime_ns": 1790604350158735200
+    },
+    "after": {
+      "size_bytes": 9284608,
+      "mtime_ns": 1790604350158735200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93108,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b039d170661feb79296586bcdf49d1ebdd9818be1bb29dcda87c1b56f0741b3f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251030,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251030_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9289772,
+      "mtime_ns": 1790604350190766400
+    },
+    "after": {
+      "size_bytes": 9289772,
+      "mtime_ns": 1790604350190766400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93108,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4a0f49133c5eb96ebb2876dd72f8a6ab738c4f973cefd62afe9489723ed99aa4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251031,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251031_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9237631,
+      "mtime_ns": 1790604350221509600
+    },
+    "after": {
+      "size_bytes": 9237631,
+      "mtime_ns": 1790604350221509600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92548,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e547323e512541c1d7160c636e9fc50bdbf694f9bd93a06906a3fb58993fa6eb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251103,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251103_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9237118,
+      "mtime_ns": 1790604350253602500
+    },
+    "after": {
+      "size_bytes": 9237118,
+      "mtime_ns": 1790604350253602500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92565,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f41692b54584af5cae80b9047b850c481dda820d48e2fe32e340348da9e76ded",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251104,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251104_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9231225,
+      "mtime_ns": 1790604350284549300
+    },
+    "after": {
+      "size_bytes": 9231225,
+      "mtime_ns": 1790604350284549300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92565,
+    "scoped_rows": 119,
+    "selected_records_sha256": "65b0d804d1586e4f276c91757200a45ab53af2ef9855770eabba54b52e7fc26d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251105,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251105_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9231448,
+      "mtime_ns": 1790604350316554200
+    },
+    "after": {
+      "size_bytes": 9231448,
+      "mtime_ns": 1790604350316554200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92582,
+    "scoped_rows": 119,
+    "selected_records_sha256": "258207ef06ef0f6953214298ea1eb2f6790a5c9d1691482f690b3de9aee0b5fa",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251106,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251106_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9233458,
+      "mtime_ns": 1790604350347903000
+    },
+    "after": {
+      "size_bytes": 9233458,
+      "mtime_ns": 1790604350347903000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92599,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e8b229d76a84744ef7e0eb99ee4187a72e0a198f5f12bf29d61c45c09cd00ce2",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251107,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251107_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9236535,
+      "mtime_ns": 1790604350379254500
+    },
+    "after": {
+      "size_bytes": 9236535,
+      "mtime_ns": 1790604350379254500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92633,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7c4458821aa3410fec1f3c643c0e0075d975edd17853a14b0760a85bf332ccdb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251110,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251110_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9242859,
+      "mtime_ns": 1790604350409556500
+    },
+    "after": {
+      "size_bytes": 9242859,
+      "mtime_ns": 1790604350409556500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92633,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5df6045384dfc186d4c3a667485ef299c01c024842a1bb36ba69c8a99d6c69eb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251111,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251111_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9241397,
+      "mtime_ns": 1790604350440870400
+    },
+    "after": {
+      "size_bytes": 9241397,
+      "mtime_ns": 1790604350440870400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92616,
+    "scoped_rows": 119,
+    "selected_records_sha256": "00ca4c918398e409c3c0a3408074e27ac4e3a3602b95ae5c100cfce825a0fe59",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251112,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251112_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9239333,
+      "mtime_ns": 1790604350472467700
+    },
+    "after": {
+      "size_bytes": 9239333,
+      "mtime_ns": 1790604350472467700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92616,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a6dffbb0ab27e2487115768a46e04ecfc122099d32aa067200f484254ece232d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251113,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251113_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9244342,
+      "mtime_ns": 1790604350502777500
+    },
+    "after": {
+      "size_bytes": 9244342,
+      "mtime_ns": 1790604350502777500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92616,
+    "scoped_rows": 119,
+    "selected_records_sha256": "34fe7b0bb2ca81e56f0101bdac0411827fea0eb86bade953c56fe19276af5987",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251114,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251114_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9242918,
+      "mtime_ns": 1790604350534186000
+    },
+    "after": {
+      "size_bytes": 9242918,
+      "mtime_ns": 1790604350534186000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92616,
+    "scoped_rows": 119,
+    "selected_records_sha256": "de4e2084469f45ecf19239c582a06d05048925980189a2e53fabd1984979ae87",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251117,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251117_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9240752,
+      "mtime_ns": 1790604350564528800
+    },
+    "after": {
+      "size_bytes": 9240752,
+      "mtime_ns": 1790604350564528800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92616,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9ac71ba4191617eb00d74446af7ba65028560e71f20eab549d2a68c9cfbbb670",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251118,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251118_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9242809,
+      "mtime_ns": 1790604350592826200
+    },
+    "after": {
+      "size_bytes": 9242809,
+      "mtime_ns": 1790604350592826200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92667,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f5e355f89a3082a721c86b35c97b0ff0e17a82f503f41e0483ebdd46e6182f85",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251119,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251119_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9238904,
+      "mtime_ns": 1790604350623232200
+    },
+    "after": {
+      "size_bytes": 9238904,
+      "mtime_ns": 1790604350623232200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92667,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c9a8e60c4994d6c291634d39156e722fe8e965867b4da7ab378a54e7a12fbd27",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251120,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251120_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9231081,
+      "mtime_ns": 1790604350653467900
+    },
+    "after": {
+      "size_bytes": 9231081,
+      "mtime_ns": 1790604350653467900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92667,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a188f1d52f086626e5b4fbaea30e5da97faa1f0cc2d4de2344b3a85f479f2057",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251121,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251121_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9249139,
+      "mtime_ns": 1790604350684268100
+    },
+    "after": {
+      "size_bytes": 9249139,
+      "mtime_ns": 1790604350684268100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92684,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f508475b4ec795ce2984816b047c03d401934d7da6c60b606b6562658ef48077",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251124,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251124_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9230061,
+      "mtime_ns": 1790604350715555800
+    },
+    "after": {
+      "size_bytes": 9230061,
+      "mtime_ns": 1790604350715555800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92684,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6a995dff836f72361198af4e311e07b6db9c195aa903f558d369cbf3531d0edd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251125,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251125_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9234723,
+      "mtime_ns": 1790604350746892900
+    },
+    "after": {
+      "size_bytes": 9234723,
+      "mtime_ns": 1790604350746892900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92701,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d9cf927eded105c8389e8936a91b183ace5a360510e999b84428b61d45c2f891",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251126,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251126_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9230226,
+      "mtime_ns": 1790604350777190900
+    },
+    "after": {
+      "size_bytes": 9230226,
+      "mtime_ns": 1790604350777190900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92701,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8ed7d0c47aebc668305a84e89e04664eb1e463f943743e4b5d17fb4a0073a152",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251127,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251127_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9224330,
+      "mtime_ns": 1790604350808502700
+    },
+    "after": {
+      "size_bytes": 9224330,
+      "mtime_ns": 1790604350808502700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92718,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b1671c10dc8e350e1134a3026b6e984f8b19b1374fdfc37a61ccdbcb8bddc433",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251128,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251128_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9221893,
+      "mtime_ns": 1790604350839756100
+    },
+    "after": {
+      "size_bytes": 9221893,
+      "mtime_ns": 1790604350839756100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92718,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b3d070e48eef51ed25a0b2630587962e43b1acb5d41414113bef4277425601df",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251201,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251201_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9239065,
+      "mtime_ns": 1790604350871006600
+    },
+    "after": {
+      "size_bytes": 9239065,
+      "mtime_ns": 1790604350871006600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92718,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7e10d9c727b22751f1671bdcc79863c6c7016ad4f730f7060725a1413417b3d6",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251202,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251202_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9225017,
+      "mtime_ns": 1790604350901307600
+    },
+    "after": {
+      "size_bytes": 9225017,
+      "mtime_ns": 1790604350901307600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92735,
+    "scoped_rows": 119,
+    "selected_records_sha256": "df53b9c6824d2717c3c286e41e1c17449ccc20d9a6cb63b4ae5a6ef966ec7f62",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251203,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251203_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9231535,
+      "mtime_ns": 1790604350932615200
+    },
+    "after": {
+      "size_bytes": 9231535,
+      "mtime_ns": 1790604350932615200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92752,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c8f487dbea3adf54c3c81a973be7fb81cf8d6f33aa5def99ec4e0b0d63377fd1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251204,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251204_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9223492,
+      "mtime_ns": 1790604350963991300
+    },
+    "after": {
+      "size_bytes": 9223492,
+      "mtime_ns": 1790604350963991300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92752,
+    "scoped_rows": 119,
+    "selected_records_sha256": "cf844ca8313872e2af6c4225583e27ceea7f18925984a65ed46da0bb823748e4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251205,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251205_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9230519,
+      "mtime_ns": 1790604350994298400
+    },
+    "after": {
+      "size_bytes": 9230519,
+      "mtime_ns": 1790604350994298400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92752,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ae2950723153515d5b1c487d748478159890e771a7e739ac86d80609c6712d83",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251208,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251208_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9243860,
+      "mtime_ns": 1790604351026607100
+    },
+    "after": {
+      "size_bytes": 9243860,
+      "mtime_ns": 1790604351026607100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92752,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ba112526891fdf4129c67053cb362eac1e48eaf2dfb45f9d6169531252d48745",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251209,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251209_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9235205,
+      "mtime_ns": 1790604351056962900
+    },
+    "after": {
+      "size_bytes": 9235205,
+      "mtime_ns": 1790604351056962900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92752,
+    "scoped_rows": 119,
+    "selected_records_sha256": "73cbc62f28130b3a94b7edd35e60fcf67c36dcd850d3aacd6e9ad94e13fe60a7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251210,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251210_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9233068,
+      "mtime_ns": 1790604351088359300
+    },
+    "after": {
+      "size_bytes": 9233068,
+      "mtime_ns": 1790604351088359300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92769,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6b5d9cd649a8044928998d090bc43a6c55c47b272414413591761531d7c6c31f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251211,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251211_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9240668,
+      "mtime_ns": 1790604351118710100
+    },
+    "after": {
+      "size_bytes": 9240668,
+      "mtime_ns": 1790604351118710100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92769,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6649fbf2339b6f042a96dea6fcdd64cd6f13be6c0c752dd89bc44d39685eb856",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251212,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251212_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9246300,
+      "mtime_ns": 1790604351150048100
+    },
+    "after": {
+      "size_bytes": 9246300,
+      "mtime_ns": 1790604351150048100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92769,
+    "scoped_rows": 119,
+    "selected_records_sha256": "31110356cec306b85f6d45c7efa524ef00f87b9ec61a2dbedc914e5c93ad6d19",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251215,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251215_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9233244,
+      "mtime_ns": 1790604351180393500
+    },
+    "after": {
+      "size_bytes": 9233244,
+      "mtime_ns": 1790604351180393500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92769,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e1c07b6a525da236ba0ba8e4b462881b398542835cc5f0f3114fc872a47c51cb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251216,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251216_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9234227,
+      "mtime_ns": 1790604351210735300
+    },
+    "after": {
+      "size_bytes": 9234227,
+      "mtime_ns": 1790604351210735300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92786,
+    "scoped_rows": 119,
+    "selected_records_sha256": "08ea9ea5457a7df52d42788f346d9b5bc2afe9479a8f118fa6524545886a4034",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251217,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251217_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9237396,
+      "mtime_ns": 1790604351242086900
+    },
+    "after": {
+      "size_bytes": 9237396,
+      "mtime_ns": 1790604351242086900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92803,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4c1933c5b5a6cbd79b4dd1ab0e621fc1093a05aaf497ec7bf2d69bc00c405cbd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251218,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251218_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9236612,
+      "mtime_ns": 1790604351272465000
+    },
+    "after": {
+      "size_bytes": 9236612,
+      "mtime_ns": 1790604351272465000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92820,
+    "scoped_rows": 119,
+    "selected_records_sha256": "bb030cbc787c1670b3e14bd016a35114db08e3428693164a75d642e3469b5442",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251219,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251219_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9244749,
+      "mtime_ns": 1790604351303849700
+    },
+    "after": {
+      "size_bytes": 9244749,
+      "mtime_ns": 1790604351303849700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92837,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a0d7a2e31fbefa72786a3b4df014268dc603f53a94a1221423ba267086984170",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251222,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251222_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9244651,
+      "mtime_ns": 1790604351335171800
+    },
+    "after": {
+      "size_bytes": 9244651,
+      "mtime_ns": 1790604351335171800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92837,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a6d730213ba44fe7aacbee4be105be9a8574e8b132320ccc979ec72a16796446",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251223,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251223_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9246809,
+      "mtime_ns": 1790604351366499600
+    },
+    "after": {
+      "size_bytes": 9246809,
+      "mtime_ns": 1790604351366499600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92888,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b86262564713842b8e4565dae1cafdc2cab0493ed241d36d4a1d6717452660ee",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251224,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251224_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9249241,
+      "mtime_ns": 1790604351397832300
+    },
+    "after": {
+      "size_bytes": 9249241,
+      "mtime_ns": 1790604351397832300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92905,
+    "scoped_rows": 119,
+    "selected_records_sha256": "cacd5d01a0896fd27060ecfd75836a34a4fcea035709392760b88e92701f5838",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251225,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251225_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9257315,
+      "mtime_ns": 1790604351427892600
+    },
+    "after": {
+      "size_bytes": 9257315,
+      "mtime_ns": 1790604351427892600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92922,
+    "scoped_rows": 119,
+    "selected_records_sha256": "dc4a39308ebf70a6dc036d2e1a8efda9ef594e4d4a23e2cf6c0bd08d7b43d2c1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251226,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251226_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9264111,
+      "mtime_ns": 1790604351459190700
+    },
+    "after": {
+      "size_bytes": 9264111,
+      "mtime_ns": 1790604351459190700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92922,
+    "scoped_rows": 119,
+    "selected_records_sha256": "dc9fb25de6e87ae421a8c4bf12e99dec250fadbdb22e5c84ada7216a6373f4b6",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251229,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251229_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9262963,
+      "mtime_ns": 1790604351490605800
+    },
+    "after": {
+      "size_bytes": 9262963,
+      "mtime_ns": 1790604351490605800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92922,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c6d5f8e0b3373ac33d4b401f62a0d8d0d536fd6e7b24200b779b50caf91a19c3",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251230,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251230_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9265585,
+      "mtime_ns": 1790604351520906000
+    },
+    "after": {
+      "size_bytes": 9265585,
+      "mtime_ns": 1790604351520906000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92973,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5675be0dbad2ca35e483a989cdf3af75948143d31ba08c2023ce6e13bfbc5853",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20251231,
+    "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\staging\\minutes\\15min\\2025\\20251231_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9264403,
+      "mtime_ns": 1790604351551196700
+    },
+    "after": {
+      "size_bytes": 9264403,
+      "mtime_ns": 1790604351551196700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9a4a47e639ef17efb0c89405131e3eb240fa625704b6b896707d6c860db27d20",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260105,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260105_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9289361,
+      "mtime_ns": 1789957913685449300
+    },
+    "after": {
+      "size_bytes": 9289361,
+      "mtime_ns": 1789957913685449300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92973,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a175193935044cce20a62316b092914dc2145a6c9eaceb0cdaf8261f1421f0bd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260106,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260106_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9296832,
+      "mtime_ns": 1789957911541595800
+    },
+    "after": {
+      "size_bytes": 9296832,
+      "mtime_ns": 1789957911541595800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9fe525303a6496bd743cf41ac46cc95c2a8dd40f1c6978b55b1574e642d636ce",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260107,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260107_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9298081,
+      "mtime_ns": 1789957916474862300
+    },
+    "after": {
+      "size_bytes": 9298081,
+      "mtime_ns": 1789957916474862300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3e518d8852deaf5598f97f9808cf8adfddc5f7d1a44f2be81d6c588bf6b6866a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260108,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260108_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9299484,
+      "mtime_ns": 1789957919434633400
+    },
+    "after": {
+      "size_bytes": 9299484,
+      "mtime_ns": 1789957919434633400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3e4f17fac6bb0f2ceafa845b5a7f3fdd56f4651f295b18909619836e8c051fb9",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260109,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260109_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9310758,
+      "mtime_ns": 1789957913529018400
+    },
+    "after": {
+      "size_bytes": 9310758,
+      "mtime_ns": 1789957913529018400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "880e4d59ebbcafd9182f174ccdc5a3f43c15397f0b2636b723d2966030b6a637",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260112,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260112_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9327080,
+      "mtime_ns": 1789957914778451300
+    },
+    "after": {
+      "size_bytes": 9327080,
+      "mtime_ns": 1789957914778451300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "810f16ff05d51f836f4d7a703978fe1d03f4dde5fe519af4fc17b9ab16c4bef4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260113,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260113_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9323500,
+      "mtime_ns": 1789957914452202700
+    },
+    "after": {
+      "size_bytes": 9323500,
+      "mtime_ns": 1789957914452202700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7eab1dfdabce855b4a0107f3e7c28ae06a6bc0b65b487d01e9ffd09a6a597aeb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260114,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260114_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9334196,
+      "mtime_ns": 1789957914735725600
+    },
+    "after": {
+      "size_bytes": 9334196,
+      "mtime_ns": 1789957914735725600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 92990,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ad706f84c0bd9402acc46a0112ced579f3efe58bb804c711b332d4a5c7279786",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260115,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260115_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9304492,
+      "mtime_ns": 1789957917160428800
+    },
+    "after": {
+      "size_bytes": 9304492,
+      "mtime_ns": 1789957917160428800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93007,
+    "scoped_rows": 119,
+    "selected_records_sha256": "cfb2224b41987c9ce404253532df71d1227631316affbc15d2c3221eebaa2d12",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260116,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260116_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9310788,
+      "mtime_ns": 1789957920594623500
+    },
+    "after": {
+      "size_bytes": 9310788,
+      "mtime_ns": 1789957920594623500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93024,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1a7aaeb248a69822867c5059b397b9ff2ea299097e21141046a9786183aa6f59",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260119,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260119_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9306989,
+      "mtime_ns": 1789957918569257200
+    },
+    "after": {
+      "size_bytes": 9306989,
+      "mtime_ns": 1789957918569257200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93024,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2a5027866dbe62b3bd3f3d22d7034d7997a6f19edfbb97341a34d689378304c9",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260120,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260120_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9309886,
+      "mtime_ns": 1789957921015667400
+    },
+    "after": {
+      "size_bytes": 9309886,
+      "mtime_ns": 1789957921015667400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93024,
+    "scoped_rows": 119,
+    "selected_records_sha256": "dee49fad67dadbdeb492ad8f8b84768da3d0b738c039aa15f3fa9d0cccd18443",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260121,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260121_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9306982,
+      "mtime_ns": 1789957922451478300
+    },
+    "after": {
+      "size_bytes": 9306982,
+      "mtime_ns": 1789957922451478300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93041,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e7b4cc401d942a2e15201d21b3c6688936915f1c2489848daaf99562713fd53c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260122,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260122_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9307337,
+      "mtime_ns": 1789957924198452600
+    },
+    "after": {
+      "size_bytes": 9307337,
+      "mtime_ns": 1789957924198452600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93041,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a2257e4215971d11ed2814d66d85918d8b0d4814a9156c71d9aba98253b011cb",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260123,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260123_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9322542,
+      "mtime_ns": 1789957933018951000
+    },
+    "after": {
+      "size_bytes": 9322542,
+      "mtime_ns": 1789957933018951000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93041,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7b89ecd20aaf67ff185cb7ac11cce4cdca14e8112897d420f274cc8c7b2af8d9",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260126,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260126_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9326935,
+      "mtime_ns": 1789957922601985700
+    },
+    "after": {
+      "size_bytes": 9326935,
+      "mtime_ns": 1789957922601985700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93041,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4dbf34af88158430e370dc30b7aa50abeaacb9d95de01432be7c1f1b0e76d42f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260127,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260127_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9311750,
+      "mtime_ns": 1789957926302469900
+    },
+    "after": {
+      "size_bytes": 9311750,
+      "mtime_ns": 1789957926302469900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93041,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6c1ec1172103b29d9c1b8aeea62d8cd7a8996023692239d48c7d97fcc03fec69",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260128,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260128_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9313984,
+      "mtime_ns": 1789957927260340900
+    },
+    "after": {
+      "size_bytes": 9313984,
+      "mtime_ns": 1789957927260340900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93075,
+    "scoped_rows": 119,
+    "selected_records_sha256": "65786d496746ecd6c3a14dd15cc48304f8359de650a504b4ef9a3a1b21290537",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260129,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260129_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9322790,
+      "mtime_ns": 1789957926803855000
+    },
+    "after": {
+      "size_bytes": 9322790,
+      "mtime_ns": 1789957926803855000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93092,
+    "scoped_rows": 119,
+    "selected_records_sha256": "289205e17c2a3b7671fd6294b64810bc729e823681a5e27297094a2d88544ce7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260130,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260130_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9313939,
+      "mtime_ns": 1789957927212351800
+    },
+    "after": {
+      "size_bytes": 9313939,
+      "mtime_ns": 1789957927212351800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93109,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f749df06f4fba921ae9488c0cf3d9da44fd4f574ba3d4307c58d6c0f24188028",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260202,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260202_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9309497,
+      "mtime_ns": 1789957927195194800
+    },
+    "after": {
+      "size_bytes": 9309497,
+      "mtime_ns": 1789957927195194800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93109,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8321959b17957f3d3773c74420b5edc802b092490d839fdb7e9288faafe7176f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260203,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260203_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9302681,
+      "mtime_ns": 1789957932787063100
+    },
+    "after": {
+      "size_bytes": 9302681,
+      "mtime_ns": 1789957932787063100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93126,
+    "scoped_rows": 119,
+    "selected_records_sha256": "95eab3894608a20b3e12d462be1ee4250292e00e32502de594f09747327b6341",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260204,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260204_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9305868,
+      "mtime_ns": 1789957929044297000
+    },
+    "after": {
+      "size_bytes": 9305868,
+      "mtime_ns": 1789957929044297000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93126,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fd2d077cb8dff8c65bf54bd4ffefadc3d49473f7da76514a1fcce157b746b20b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260205,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260205_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9299219,
+      "mtime_ns": 1789957933368777600
+    },
+    "after": {
+      "size_bytes": 9299219,
+      "mtime_ns": 1789957933368777600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93143,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2d8e95363482efbb20f7f7c8ca89d663c0bcf12f7f20ab68ec4c6c3ec1415821",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260206,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260206_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9300622,
+      "mtime_ns": 1789957934587696500
+    },
+    "after": {
+      "size_bytes": 9300622,
+      "mtime_ns": 1789957934587696500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93143,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fb1b3d8dcd04fc9175efd2da2b162d99de8a911efde1c8e0e0afb41ff6f195fc",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260209,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260209_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9304639,
+      "mtime_ns": 1789957934451966900
+    },
+    "after": {
+      "size_bytes": 9304639,
+      "mtime_ns": 1789957934451966900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93143,
+    "scoped_rows": 119,
+    "selected_records_sha256": "79890a6250c4180a8af2fe0f9589eb44507f4c06e09e8cc656cda650058da204",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260210,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260210_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9302133,
+      "mtime_ns": 1789957934335588400
+    },
+    "after": {
+      "size_bytes": 9302133,
+      "mtime_ns": 1789957934335588400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93194,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9f827232bece7c81d9cedfe2afb971fdf8072c19950b5a3c22ba7c8ad3c78385",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260211,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260211_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9298056,
+      "mtime_ns": 1789957934208681200
+    },
+    "after": {
+      "size_bytes": 9298056,
+      "mtime_ns": 1789957934208681200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93211,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a64b2d7583c889f2cff635b4e4a619c64de04a67a932b2796dfe847de7103f9f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260212,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260212_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9306168,
+      "mtime_ns": 1789957934880708400
+    },
+    "after": {
+      "size_bytes": 9306168,
+      "mtime_ns": 1789957934880708400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93228,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c2dec8cb1ebe575a669ef92f6c3efe4fb9a572798a8c24c70e27943d38beddc2",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260213,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260213_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9300732,
+      "mtime_ns": 1789957939251444600
+    },
+    "after": {
+      "size_bytes": 9300732,
+      "mtime_ns": 1789957939251444600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93228,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d2720196fee97f877cfc2ee027caf3c96d5bb2a75199dcc12dc09879a2ec025a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260224,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260224_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9310786,
+      "mtime_ns": 1789957940590251100
+    },
+    "after": {
+      "size_bytes": 9310786,
+      "mtime_ns": 1789957940590251100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93228,
+    "scoped_rows": 119,
+    "selected_records_sha256": "37c86664792297c6644e482d8b4a6ffcb19c04bf21c8782794630bee3d70da78",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260225,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260225_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9319237,
+      "mtime_ns": 1789957940517350400
+    },
+    "after": {
+      "size_bytes": 9319237,
+      "mtime_ns": 1789957940517350400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93228,
+    "scoped_rows": 119,
+    "selected_records_sha256": "65c30394318af40f47a66ce7957688668b130e9f5b539ada1c2e5cc0579399e0",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260226,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260226_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9319603,
+      "mtime_ns": 1789957939218649600
+    },
+    "after": {
+      "size_bytes": 9319603,
+      "mtime_ns": 1789957939218649600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93245,
+    "scoped_rows": 119,
+    "selected_records_sha256": "bf6af437a91d1d937646a8c7d7eab37a0277b026d055782b8e3f622e2fac34a8",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260227,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260227_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9317919,
+      "mtime_ns": 1789957940902154100
+    },
+    "after": {
+      "size_bytes": 9317919,
+      "mtime_ns": 1789957940902154100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93245,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5731996dd5d491104d51ea64790104c4d2451b476d397b1bf4b5bc874f2e0929",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260302,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260302_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9336793,
+      "mtime_ns": 1789957939586675800
+    },
+    "after": {
+      "size_bytes": 9336793,
+      "mtime_ns": 1789957939586675800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93245,
+    "scoped_rows": 119,
+    "selected_records_sha256": "df42d3362a2e3d9dee5fc9b4e1ef490c23b14d1ebeada81b9a1444e4bbb7d213",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260303,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260303_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9338088,
+      "mtime_ns": 1789957942193622400
+    },
+    "after": {
+      "size_bytes": 9338088,
+      "mtime_ns": 1789957942193622400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93245,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9a82a8f9243a764fa4120e71b47cfb74069cd725f15d03846c3115a41f62b6c1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260304,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260304_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9316007,
+      "mtime_ns": 1789957940360467600
+    },
+    "after": {
+      "size_bytes": 9316007,
+      "mtime_ns": 1789957940360467600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93262,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3380353ed3000025816bf4012561c914a020f3dc806992ab98dcd9d6db004cc8",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260305,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260305_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9317941,
+      "mtime_ns": 1789957946193478600
+    },
+    "after": {
+      "size_bytes": 9317941,
+      "mtime_ns": 1789957946193478600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93279,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d500578965387aac075e8351079e1e08f914a71e62b3dd9632b1e3c32c368d7c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260306,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260306_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9316727,
+      "mtime_ns": 1789957947643718400
+    },
+    "after": {
+      "size_bytes": 9316727,
+      "mtime_ns": 1789957947643718400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93296,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a020d4a289eefaa197d80edd5973aa2c94f3a89564781e640bcce9697c51f976",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260309,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260309_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9327041,
+      "mtime_ns": 1789957948327671200
+    },
+    "after": {
+      "size_bytes": 9327041,
+      "mtime_ns": 1789957948327671200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "37ef3c389ac24dfd3bfbda28f418700b87afb7ba12964299adec9e198f005e16",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260310,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260310_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9320762,
+      "mtime_ns": 1789957947690962200
+    },
+    "after": {
+      "size_bytes": 9320762,
+      "mtime_ns": 1789957947690962200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e821552116fbce9cc5bc9a1537796040847423be4df8b0104f052f2603fd51f0",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260311,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260311_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9323858,
+      "mtime_ns": 1789957947945252000
+    },
+    "after": {
+      "size_bytes": 9323858,
+      "mtime_ns": 1789957947945252000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "78197fd2fe17cfff4e8f213e4379d041bacdf1bc523e16886e429951f860ba96",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260312,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260312_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9323851,
+      "mtime_ns": 1789957947234231600
+    },
+    "after": {
+      "size_bytes": 9323851,
+      "mtime_ns": 1789957947234231600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ec900e3e6a9164e634b7e7b6ac986c891336767d0e92610ee6734a8a6022802a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260313,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260313_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9320584,
+      "mtime_ns": 1789957949278650600
+    },
+    "after": {
+      "size_bytes": 9320584,
+      "mtime_ns": 1789957949278650600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "784f68805646e90e03f2f812621c0103f3e673b6e915d36ab1dd2b4fb5604ab5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260316,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260316_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9315295,
+      "mtime_ns": 1789957947525861000
+    },
+    "after": {
+      "size_bytes": 9315295,
+      "mtime_ns": 1789957947525861000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "55664017e3f8184089ca5af4806e64d2e8d358c927d18caec82429279499c8ea",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260317,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260317_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9318110,
+      "mtime_ns": 1789957954738496400
+    },
+    "after": {
+      "size_bytes": 9318110,
+      "mtime_ns": 1789957954738496400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93313,
+    "scoped_rows": 119,
+    "selected_records_sha256": "17bd14ffbe16a0d5da6b2872b635490a57d5c2ad8bc86af90269148b92ca2e04",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260318,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260318_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9310205,
+      "mtime_ns": 1789957954868728300
+    },
+    "after": {
+      "size_bytes": 9310205,
+      "mtime_ns": 1789957954868728300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93330,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4cf7c841ab35f008fcf196d13efd20695bc67a8f6a6efde8f0a8b00751c3f7c5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260319,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260319_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9314847,
+      "mtime_ns": 1789957954344649600
+    },
+    "after": {
+      "size_bytes": 9314847,
+      "mtime_ns": 1789957954344649600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93330,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9bd59b00b79782e784f7790e194df0a28eb4b9552d05bc610e797a0131960cbf",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260320,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260320_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9317913,
+      "mtime_ns": 1789957954412364100
+    },
+    "after": {
+      "size_bytes": 9317913,
+      "mtime_ns": 1789957954412364100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93347,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0506c76ccc2fa1d9225df85d7c859ce9e30356032912ca1e2dbe52605f1d1087",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260323,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260323_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9327275,
+      "mtime_ns": 1789957954643589000
+    },
+    "after": {
+      "size_bytes": 9327275,
+      "mtime_ns": 1789957954643589000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93347,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e94bac26bcc90af26d5c309b4c0b00a01972d680e4ef85d881abc84be524fbc0",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260324,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260324_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9310846,
+      "mtime_ns": 1789957955126167400
+    },
+    "after": {
+      "size_bytes": 9310846,
+      "mtime_ns": 1789957955126167400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93347,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4344c628fbd04020e118a5a2dbe17ffb1e67fea399940861a25e2c399d6865a7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260325,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260325_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9313436,
+      "mtime_ns": 1789957954718516900
+    },
+    "after": {
+      "size_bytes": 9313436,
+      "mtime_ns": 1789957954718516900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93381,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fb93dc693e163840c0bd9589775af80634751c28f14bee12eb0694cb9e1ff5d6",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260326,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260326_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9304976,
+      "mtime_ns": 1789957956435986800
+    },
+    "after": {
+      "size_bytes": 9304976,
+      "mtime_ns": 1789957956435986800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93381,
+    "scoped_rows": 119,
+    "selected_records_sha256": "38ac64ddcc65f5d61ac47abcb85085f8d6974556af98a60741b9a1fe623d1515",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260327,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260327_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9301141,
+      "mtime_ns": 1789957964235108100
+    },
+    "after": {
+      "size_bytes": 9301141,
+      "mtime_ns": 1789957964235108100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93381,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4afba2ea759e92d566a3a9c98d9d6bd18eee786792a4bf131191a1ca118334b6",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260330,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260330_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9303180,
+      "mtime_ns": 1789957961932453500
+    },
+    "after": {
+      "size_bytes": 9303180,
+      "mtime_ns": 1789957961932453500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93398,
+    "scoped_rows": 119,
+    "selected_records_sha256": "36656400f5b77461ef357494993e6a9cd9acc4d328021dcd518a4ab374edc200",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260331,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260331_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9312877,
+      "mtime_ns": 1789957961932453500
+    },
+    "after": {
+      "size_bytes": 9312877,
+      "mtime_ns": 1789957961932453500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93432,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c3edceb28b80177857aab423df5d4140d7d80c9b74152308a963c245960af109",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260401,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260401_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9314898,
+      "mtime_ns": 1789957961528527600
+    },
+    "after": {
+      "size_bytes": 9314898,
+      "mtime_ns": 1789957961528527600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93449,
+    "scoped_rows": 119,
+    "selected_records_sha256": "575c64b5d94450f13210a51134d4ffd20238b7844930b2880735900277bbdd9d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260402,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260402_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9311701,
+      "mtime_ns": 1789957962444173600
+    },
+    "after": {
+      "size_bytes": 9311701,
+      "mtime_ns": 1789957962444173600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93449,
+    "scoped_rows": 119,
+    "selected_records_sha256": "eba9a0a1bc92f8c4248dda5f758e0a38d6eef1a203667ed7605e71518df8eaae",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260403,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260403_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9299738,
+      "mtime_ns": 1789957962334871900
+    },
+    "after": {
+      "size_bytes": 9299738,
+      "mtime_ns": 1789957962334871900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93449,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b7e06853aa47dabcfbecc22b62e76bc5d921c948a2522ff046966d1198534d72",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260407,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260407_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9296865,
+      "mtime_ns": 1789957963076158500
+    },
+    "after": {
+      "size_bytes": 9296865,
+      "mtime_ns": 1789957963076158500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93449,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4105ed2f45f23019b9026f2a8b6809417c23f09b5e64de7538709fe6eb27793b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260408,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260408_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9334625,
+      "mtime_ns": 1789957962652101800
+    },
+    "after": {
+      "size_bytes": 9334625,
+      "mtime_ns": 1789957962652101800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93483,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7c2024c9df799aa3ee0586c1374d2c59eef4aaa15acc915b8b854104cce1a6d5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260409,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260409_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9319533,
+      "mtime_ns": 1789957969115892900
+    },
+    "after": {
+      "size_bytes": 9319533,
+      "mtime_ns": 1789957969115892900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93483,
+    "scoped_rows": 119,
+    "selected_records_sha256": "947b95d07f6511c0c0617bc11635a46289bbeb7712b29ee1ccb8c461779ecc6a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260410,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260410_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9328998,
+      "mtime_ns": 1789957969044362400
+    },
+    "after": {
+      "size_bytes": 9328998,
+      "mtime_ns": 1789957969044362400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93534,
+    "scoped_rows": 119,
+    "selected_records_sha256": "87ac676b8ad0faaa7b1ef10730667e7ad811a46b1a3756b52c41d36415e32823",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260413,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260413_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9323225,
+      "mtime_ns": 1789957969460452000
+    },
+    "after": {
+      "size_bytes": 9323225,
+      "mtime_ns": 1789957969460452000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93534,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2900f4c70d4bc8ecc3ec1f192ec47dac144b35d671621e02c0326d8917b7a37d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260414,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260414_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9331302,
+      "mtime_ns": 1789957971482091200
+    },
+    "after": {
+      "size_bytes": 9331302,
+      "mtime_ns": 1789957971482091200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93534,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f1591175e05b84505034ce91447e6876c26816856e3b702ce5ae928784457bac",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260415,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260415_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9331590,
+      "mtime_ns": 1789957969218843900
+    },
+    "after": {
+      "size_bytes": 9331590,
+      "mtime_ns": 1789957969218843900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93534,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ab7d8945b1dbb908b92515cb8d4620fce80f922be45f578997c938391433922c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260416,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260416_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9337829,
+      "mtime_ns": 1789957968936744000
+    },
+    "after": {
+      "size_bytes": 9337829,
+      "mtime_ns": 1789957968936744000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93585,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8e56b64588af137372d46d3e78dc85e8f939d3d99f7b0e5810804a2da8980320",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260417,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260417_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9340783,
+      "mtime_ns": 1789957969439520600
+    },
+    "after": {
+      "size_bytes": 9340783,
+      "mtime_ns": 1789957969439520600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93602,
+    "scoped_rows": 119,
+    "selected_records_sha256": "779bd358f7d7c594af21d9ef5bbd6b1352ecbc70e3234367ff53a40718d25996",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260420,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260420_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9346722,
+      "mtime_ns": 1789957977113981100
+    },
+    "after": {
+      "size_bytes": 9346722,
+      "mtime_ns": 1789957977113981100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93619,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3beced371adf01e63df2b94ea8f0e7e9e4e4a7b5df0d0a653a746cf8daec5166",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260421,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260421_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9343532,
+      "mtime_ns": 1789957974801518600
+    },
+    "after": {
+      "size_bytes": 9343532,
+      "mtime_ns": 1789957974801518600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93653,
+    "scoped_rows": 119,
+    "selected_records_sha256": "91016e96fdef660f4517515653722445134ba58bb1dfcaa4cb0165673ced603a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260422,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260422_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9344864,
+      "mtime_ns": 1789957975951939700
+    },
+    "after": {
+      "size_bytes": 9344864,
+      "mtime_ns": 1789957975951939700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93636,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f6788b288e44a51ea02c00ae8c1c935fe4d9fe7cd4f77f3af9cf06062602aa79",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260423,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260423_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9350834,
+      "mtime_ns": 1789957977413469300
+    },
+    "after": {
+      "size_bytes": 9350834,
+      "mtime_ns": 1789957977413469300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93636,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a459ad9c0ccf4a1d533e2091353d1b9bf7fa9da6e97914862e8de8637da70970",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260424,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260424_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9348797,
+      "mtime_ns": 1789957976412211300
+    },
+    "after": {
+      "size_bytes": 9348797,
+      "mtime_ns": 1789957976412211300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93670,
+    "scoped_rows": 119,
+    "selected_records_sha256": "38f85f20ec882f995e625b496ec7aee1e469f7dfec8701bb7c5ec8631d23e34d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260427,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260427_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9352899,
+      "mtime_ns": 1789957975153266600
+    },
+    "after": {
+      "size_bytes": 9352899,
+      "mtime_ns": 1789957975153266600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93670,
+    "scoped_rows": 119,
+    "selected_records_sha256": "60ab001aba8d00a322e82b3ffb4eddb78ba594c3878a2b873008e3ac880ae660",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260428,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260428_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9351514,
+      "mtime_ns": 1789957975756179600
+    },
+    "after": {
+      "size_bytes": 9351514,
+      "mtime_ns": 1789957975756179600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93670,
+    "scoped_rows": 119,
+    "selected_records_sha256": "07e964a03b3e12d26d94fa3540395e02f7ba8a0e2cc264bb7a49fb8770141f9e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260429,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260429_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9350295,
+      "mtime_ns": 1789957976128893800
+    },
+    "after": {
+      "size_bytes": 9350295,
+      "mtime_ns": 1789957976128893800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93687,
+    "scoped_rows": 119,
+    "selected_records_sha256": "37360849613f1b50e5583b1e081fd62b349b23f175a483bb2768e789a96a6533",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260430,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260430_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9350132,
+      "mtime_ns": 1789957986896546200
+    },
+    "after": {
+      "size_bytes": 9350132,
+      "mtime_ns": 1789957986896546200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93704,
+    "scoped_rows": 119,
+    "selected_records_sha256": "93320b12b47c32633376202f20015460399c04bd3a7ab8e259562637bcc85b5d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260506,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260506_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9370011,
+      "mtime_ns": 1789957982766590300
+    },
+    "after": {
+      "size_bytes": 9370011,
+      "mtime_ns": 1789957982766590300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93704,
+    "scoped_rows": 119,
+    "selected_records_sha256": "390b18e0a8359531dd5182d3cce41d6f1d8c9191a27e044e7c5e5b187ce5bfca",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260507,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260507_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9366648,
+      "mtime_ns": 1789957983720020400
+    },
+    "after": {
+      "size_bytes": 9366648,
+      "mtime_ns": 1789957983720020400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93721,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3946ff3a1ab196e30a000de30f6a3454b77cfbdfa2c27f42c1a47f4dccbd7789",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260508,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260508_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9368763,
+      "mtime_ns": 1789957982269509700
+    },
+    "after": {
+      "size_bytes": 9368763,
+      "mtime_ns": 1789957982269509700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93721,
+    "scoped_rows": 119,
+    "selected_records_sha256": "e65eab05c178a57818bab23a73fa4a7336bbeb27eea307aeb52f06c2d02cdff7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260511,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260511_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9384048,
+      "mtime_ns": 1789957985343659800
+    },
+    "after": {
+      "size_bytes": 9384048,
+      "mtime_ns": 1789957985343659800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93755,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9e741f23e04f9c25a5258daad6a1264d077eb0673e453581aa532f7e63d2d8d0",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260512,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260512_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9375307,
+      "mtime_ns": 1789957991768704400
+    },
+    "after": {
+      "size_bytes": 9375307,
+      "mtime_ns": 1789957991768704400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93755,
+    "scoped_rows": 119,
+    "selected_records_sha256": "55887022b7556c0152ef74c15e21cf07350ddfc94c21d058873d31bdae636374",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260513,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260513_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9375070,
+      "mtime_ns": 1789957986131607600
+    },
+    "after": {
+      "size_bytes": 9375070,
+      "mtime_ns": 1789957986131607600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93755,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d2119ced60f3bf2692aa832fb48ff59813681232b400cc87eb0017a7ff4640b7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260514,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260514_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9374496,
+      "mtime_ns": 1789957985818418500
+    },
+    "after": {
+      "size_bytes": 9374496,
+      "mtime_ns": 1789957985818418500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93755,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a148c9671b2de3922aaa7cf4df4059ab1b0517e69f9cdff4f9d538a8a711a0ac",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260515,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260515_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9378717,
+      "mtime_ns": 1789957987561710800
+    },
+    "after": {
+      "size_bytes": 9378717,
+      "mtime_ns": 1789957987561710800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93789,
+    "scoped_rows": 119,
+    "selected_records_sha256": "96ef848f6cacac2742fc290606251ec3b8a1d48c7564e5bd72b231a3c727cba1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260518,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260518_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9371640,
+      "mtime_ns": 1789957986003429600
+    },
+    "after": {
+      "size_bytes": 9371640,
+      "mtime_ns": 1789957986003429600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93823,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f61a1eac83946992eccaa0288a6c3505c7e4574416e583b75e995b8173111b6c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260519,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260519_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9365167,
+      "mtime_ns": 1789957986794300400
+    },
+    "after": {
+      "size_bytes": 9365167,
+      "mtime_ns": 1789957986794300400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93823,
+    "scoped_rows": 119,
+    "selected_records_sha256": "38c38698c3b5c7312a66a5fe43d7dcbab3626387b052d318955ad26c6880389f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260520,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260520_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9365141,
+      "mtime_ns": 1789957988368982400
+    },
+    "after": {
+      "size_bytes": 9365141,
+      "mtime_ns": 1789957988368982400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93823,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ecd8e8ab14d0bafedfeae27850c1ceedfb27f393724977a26bcb6cdb27c7cbc8",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260521,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260521_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9384517,
+      "mtime_ns": 1789957988173929700
+    },
+    "after": {
+      "size_bytes": 9384517,
+      "mtime_ns": 1789957988173929700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93823,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a0de93f2826cc4141185c649e3de424b64f818aa533adc431d0ae5208cc9e0a2",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260522,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260522_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9371579,
+      "mtime_ns": 1789957991411193500
+    },
+    "after": {
+      "size_bytes": 9371579,
+      "mtime_ns": 1789957991411193500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93874,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1db74a45f70e98435da30021afdf296053f3357229d3a1f93ebdb1db010133b5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260525,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260525_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9374018,
+      "mtime_ns": 1789957990392866100
+    },
+    "after": {
+      "size_bytes": 9374018,
+      "mtime_ns": 1789957990392866100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93874,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d7f628dc4ba25c914f330227338bb8260762acdba1c79748766daf93cecbe744",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260526,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260526_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9372577,
+      "mtime_ns": 1789957991256746200
+    },
+    "after": {
+      "size_bytes": 9372577,
+      "mtime_ns": 1789957991256746200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93874,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0747831f5d0a1d114e1f2ee8176fd24eed6019517794967466c11215f6cf78d9",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260527,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260527_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9376857,
+      "mtime_ns": 1789957990754326100
+    },
+    "after": {
+      "size_bytes": 9376857,
+      "mtime_ns": 1789957990754326100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93908,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d775ec6e58a32ade10cbecfa2251e1768fa3dfb8359de54e402a8e71fc51f2da",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260528,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260528_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9367490,
+      "mtime_ns": 1789957991208454000
+    },
+    "after": {
+      "size_bytes": 9367490,
+      "mtime_ns": 1789957991208454000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93908,
+    "scoped_rows": 119,
+    "selected_records_sha256": "71d70c2fb8ad36dc646820cdf7dafdbdb7f45432103271589d8aaee03386b7a9",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260529,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260529_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9378876,
+      "mtime_ns": 1789957992752621100
+    },
+    "after": {
+      "size_bytes": 9378876,
+      "mtime_ns": 1789957992752621100
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93925,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fe7e9ac091e8a09a125848d0cb63d5bf8903be67f061ded33c5c4ec85094c8aa",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260601,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260601_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9372178,
+      "mtime_ns": 1789957992727982900
+    },
+    "after": {
+      "size_bytes": 9372178,
+      "mtime_ns": 1789957992727982900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93925,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6ac0697126f1acf778d10cf6a9dd30349bba4ab1ec63e3b770385519e33bfc6d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260602,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260602_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9365145,
+      "mtime_ns": 1789957995320208500
+    },
+    "after": {
+      "size_bytes": 9365145,
+      "mtime_ns": 1789957995320208500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93925,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f054bdb270bcff0f407b9bf60a7abf4736979987bb531b005aebd3e32e00d715",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260603,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260603_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9366691,
+      "mtime_ns": 1789957992676983400
+    },
+    "after": {
+      "size_bytes": 9366691,
+      "mtime_ns": 1789957992676983400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93908,
+    "scoped_rows": 119,
+    "selected_records_sha256": "18095ed463fe9dbddee1fe1f0e3679987da5506b73d207b155604cab2ab4b3b3",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260604,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260604_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9359181,
+      "mtime_ns": 1789957997522493700
+    },
+    "after": {
+      "size_bytes": 9359181,
+      "mtime_ns": 1789957997522493700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93908,
+    "scoped_rows": 119,
+    "selected_records_sha256": "05e317f45cce8ce31ceea66ddad3b9319766769ba3046b804972405dc0dac2a0",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260605,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260605_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9370095,
+      "mtime_ns": 1789957995795173000
+    },
+    "after": {
+      "size_bytes": 9370095,
+      "mtime_ns": 1789957995795173000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93925,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0a158aa829c1a0eb8fa185d33b1cb56438608fef0a324a7917837a5855622634",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260608,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260608_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9374917,
+      "mtime_ns": 1789957997735495900
+    },
+    "after": {
+      "size_bytes": 9374917,
+      "mtime_ns": 1789957997735495900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93942,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3365ac73998d2631553bca3a1112a01191f9e25408971abdd5849d4bffb9d23a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260609,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260609_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9359373,
+      "mtime_ns": 1789957995540389300
+    },
+    "after": {
+      "size_bytes": 9359373,
+      "mtime_ns": 1789957995540389300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93959,
+    "scoped_rows": 119,
+    "selected_records_sha256": "31a58c18ee938b1cef8705e8a3733a601698ef027120de8526207de67c56fe2e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260610,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260610_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9358590,
+      "mtime_ns": 1789957996877190500
+    },
+    "after": {
+      "size_bytes": 9358590,
+      "mtime_ns": 1789957996877190500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93942,
+    "scoped_rows": 119,
+    "selected_records_sha256": "bad919985f3f10de6f6ec060a5e0d1d150c26d08dee54a0b2a7b34f1aadd6ff5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260611,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260611_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9353918,
+      "mtime_ns": 1789957997101965900
+    },
+    "after": {
+      "size_bytes": 9353918,
+      "mtime_ns": 1789957997101965900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93959,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ef7c9c254389cf8317f5e3b4e7b59c4b24147001f01cf05a6b6416d6dca6cfc7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260612,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260612_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9371952,
+      "mtime_ns": 1789957997611329600
+    },
+    "after": {
+      "size_bytes": 9371952,
+      "mtime_ns": 1789957997611329600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93959,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f451ec4a28bbd6caa2e56e8b1021a3161cbc9d13acacf6061000083fb02a259b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260615,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260615_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9369624,
+      "mtime_ns": 1789957997522493700
+    },
+    "after": {
+      "size_bytes": 9369624,
+      "mtime_ns": 1789957997522493700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "30fb75f40b29beedc285560a6577d4d746dbed4824dd1f6564592731b5e9bd9c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260616,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260616_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9370420,
+      "mtime_ns": 1789957999512372700
+    },
+    "after": {
+      "size_bytes": 9370420,
+      "mtime_ns": 1789957999512372700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ebb822f3ebbff8e203048dc0ea2c105002e735aa50b485d67cc99aac110c57e7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260617,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260617_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9366962,
+      "mtime_ns": 1789958004355191400
+    },
+    "after": {
+      "size_bytes": 9366962,
+      "mtime_ns": 1789958004355191400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4f6621cfbb2f251c63c5eb7ad1c7336873b21aa34805f7d1d311a9593088ccef",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260618,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260618_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9367095,
+      "mtime_ns": 1789958001287571900
+    },
+    "after": {
+      "size_bytes": 9367095,
+      "mtime_ns": 1789958001287571900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "396bd1d0d87b56c5ac7e25b5b302d846647993d6abd5a08bcedfcbe2111e139f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260622,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260622_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9379739,
+      "mtime_ns": 1789958001615138300
+    },
+    "after": {
+      "size_bytes": 9379739,
+      "mtime_ns": 1789958001615138300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b2eae1659aa82f7e164033d4527e560a5aeb11301664d6ef6b78ca180c3992fd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260623,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260623_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9375844,
+      "mtime_ns": 1789958002097082400
+    },
+    "after": {
+      "size_bytes": 9375844,
+      "mtime_ns": 1789958002097082400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1f6fb7c5536f3dcf756d418548351592ef2e6981323ca80988a8f61f0d740473",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260624,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260624_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9372049,
+      "mtime_ns": 1789958003276200800
+    },
+    "after": {
+      "size_bytes": 9372049,
+      "mtime_ns": 1789958003276200800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93993,
+    "scoped_rows": 119,
+    "selected_records_sha256": "cffbcf12ac5f22063b61b1e5967fe022821dc6303d7205c698937c194c2b20bd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260625,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260625_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9369559,
+      "mtime_ns": 1789958005093879400
+    },
+    "after": {
+      "size_bytes": 9369559,
+      "mtime_ns": 1789958005093879400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93993,
+    "scoped_rows": 119,
+    "selected_records_sha256": "76e901e31fd7b8f6079b33d282af05fe147ae0550a6e05aea176ed791721b220",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260626,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260626_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9365035,
+      "mtime_ns": 1789958004652064700
+    },
+    "after": {
+      "size_bytes": 9365035,
+      "mtime_ns": 1789958004652064700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "cdc0e883ded33bd2c3fe96463d457cdeecc165ccdc6d6b9f0516e9660fa4b597",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260629,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260629_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9360018,
+      "mtime_ns": 1789958004074633300
+    },
+    "after": {
+      "size_bytes": 9360018,
+      "mtime_ns": 1789958004074633300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93959,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c8644e4f9342a8b985008fbb74e3fa328fda09bb320ea516d11eb9de697f9d42",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260630,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260630_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9356599,
+      "mtime_ns": 1789958005479845200
+    },
+    "after": {
+      "size_bytes": 9356599,
+      "mtime_ns": 1789958005479845200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "f98e775adf92673a48334ce2bbd874894f45b4c82f502bb4ab0fab025637ace7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260701,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260701_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9374304,
+      "mtime_ns": 1789958004355191400
+    },
+    "after": {
+      "size_bytes": 9374304,
+      "mtime_ns": 1789958004355191400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "89dafbda940c8ae9d9c0438420d78a1bd1495741badc9b4d65f415f8725479b1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260702,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260702_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9377501,
+      "mtime_ns": 1789958006473389400
+    },
+    "after": {
+      "size_bytes": 9377501,
+      "mtime_ns": 1789958006473389400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94010,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9b4c1f749b7d420922738251e663ff2875ac9d5b466ab52390e016b3d7474a21",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260703,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260703_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9372642,
+      "mtime_ns": 1789958006078196000
+    },
+    "after": {
+      "size_bytes": 9372642,
+      "mtime_ns": 1789958006078196000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "216d9273311329c6060b1b0ffa5cf9307e368f1ad7ad1bd4a134dd3ff7f19152",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260706,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260706_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9366107,
+      "mtime_ns": 1789958007147606000
+    },
+    "after": {
+      "size_bytes": 9366107,
+      "mtime_ns": 1789958007147606000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93959,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2766932979633d36e41c79b40234b98294ac946f95cd7ffae9d3b7fe8e697da7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260707,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260707_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9351408,
+      "mtime_ns": 1789958007416365900
+    },
+    "after": {
+      "size_bytes": 9351408,
+      "mtime_ns": 1789958007416365900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93959,
+    "scoped_rows": 119,
+    "selected_records_sha256": "828cb484d0db45110b19a51a96270149efb7efb06d8861e436dbfe4f57bc9fd7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260708,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260708_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9341157,
+      "mtime_ns": 1789958009811334600
+    },
+    "after": {
+      "size_bytes": 9341157,
+      "mtime_ns": 1789958009811334600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8d362e6491c26b0cfdfb2373078e2e5f304cba35ec837cae440339942d714d27",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260709,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260709_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9353420,
+      "mtime_ns": 1789958009835296300
+    },
+    "after": {
+      "size_bytes": 9353420,
+      "mtime_ns": 1789958009835296300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93993,
+    "scoped_rows": 119,
+    "selected_records_sha256": "99340785940b429e8c690d599dbc88636f4415a9737a9f5d8b3c232958ddd39d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260710,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260710_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9370149,
+      "mtime_ns": 1789958009032276900
+    },
+    "after": {
+      "size_bytes": 9370149,
+      "mtime_ns": 1789958009032276900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94010,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a43b7409913ebe459b5df18fe3b200996b014db4e9f7d534c18090a3bbb4804c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260713,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260713_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9358713,
+      "mtime_ns": 1789958009515348400
+    },
+    "after": {
+      "size_bytes": 9358713,
+      "mtime_ns": 1789958009515348400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94010,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d2a33ee458e4c74c11ae69bd4da18d81246e09e9805465bdbe263f0f36eded9e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260714,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260714_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9348668,
+      "mtime_ns": 1789958012360832600
+    },
+    "after": {
+      "size_bytes": 9348668,
+      "mtime_ns": 1789958012360832600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7dadea26ec831d88e5737a2ef4b25a2b2a33594dd94c8bbc81e4efad67c29559",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260715,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260715_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9352837,
+      "mtime_ns": 1789958011920712000
+    },
+    "after": {
+      "size_bytes": 9352837,
+      "mtime_ns": 1789958011920712000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9a63306f8c49d6f3148977bb8aa0447d5d346a72257b3826f0e0c39886209d1b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260716,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260716_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9352565,
+      "mtime_ns": 1789958012510560200
+    },
+    "after": {
+      "size_bytes": 9352565,
+      "mtime_ns": 1789958012510560200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93993,
+    "scoped_rows": 119,
+    "selected_records_sha256": "13f21212e6d5de690aeb1575d9fa22e9a5cab47f55f4881435dfc4d420af7edd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260717,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260717_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9361027,
+      "mtime_ns": 1789958010685303900
+    },
+    "after": {
+      "size_bytes": 9361027,
+      "mtime_ns": 1789958010685303900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2986072c75311ed4b2f585658eb8d05e5331c4d32f791a5ffce8072fd6d72d03",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260720,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260720_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9359053,
+      "mtime_ns": 1789958011901776300
+    },
+    "after": {
+      "size_bytes": 9359053,
+      "mtime_ns": 1789958011901776300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93976,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a3c7fe6347d43b4c529e812fd4755557e172496cb1bae62fdd04b16b1711b7c1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260721,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260721_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9359474,
+      "mtime_ns": 1789958012023523000
+    },
+    "after": {
+      "size_bytes": 9359474,
+      "mtime_ns": 1789958012023523000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 93993,
+    "scoped_rows": 119,
+    "selected_records_sha256": "014fe4a00463c6cc61a72f3e6f472e346dc374470f9d38e5686ecef1c081af5b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260722,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260722_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9344124,
+      "mtime_ns": 1789958016401680800
+    },
+    "after": {
+      "size_bytes": 9344124,
+      "mtime_ns": 1789958016401680800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94010,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a7020f599eed4d702ab24d6ea1c17cf91f3852af29cb783f17c75b1d2fdbbcc1",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260723,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260723_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9335993,
+      "mtime_ns": 1789958016299810700
+    },
+    "after": {
+      "size_bytes": 9335993,
+      "mtime_ns": 1789958016299810700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94010,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b0f240e1bb6b904ef8dabb625fe85876ccefbed0c3096b8137c45d158efa8c29",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260724,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260724_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9328666,
+      "mtime_ns": 1789958015218492400
+    },
+    "after": {
+      "size_bytes": 9328666,
+      "mtime_ns": 1789958015218492400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94027,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ac8835bf66866d543b92c6772935094ea3ff994a6e73e08752aeea297b1d053e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260727,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260727_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9332024,
+      "mtime_ns": 1789958014372197000
+    },
+    "after": {
+      "size_bytes": 9332024,
+      "mtime_ns": 1789958014372197000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94061,
+    "scoped_rows": 119,
+    "selected_records_sha256": "9b63d011f6727734b4dc641db3ec4d1236ee3623e3ca1653a4018e6c0db4e316",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260728,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260728_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9336396,
+      "mtime_ns": 1789958016664927000
+    },
+    "after": {
+      "size_bytes": 9336396,
+      "mtime_ns": 1789958016664927000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94061,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8bd5347bd79753aaf719756e6e6a492dd5e822636e35ec438c428c0b87893920",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260729,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260729_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9351568,
+      "mtime_ns": 1789958016578959900
+    },
+    "after": {
+      "size_bytes": 9351568,
+      "mtime_ns": 1789958016578959900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94078,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2cb369a351cf87fa161f4536b783886afdae36d680891bb048bafa7348a6a326",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260730,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260730_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9358282,
+      "mtime_ns": 1789958017056677900
+    },
+    "after": {
+      "size_bytes": 9358282,
+      "mtime_ns": 1789958017056677900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94078,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5e4706144c1aa3b207e861b8622941403db5835bf8833365eea519e80ebd6f15",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260731,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260731_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9359599,
+      "mtime_ns": 1789958016578959900
+    },
+    "after": {
+      "size_bytes": 9359599,
+      "mtime_ns": 1789958016578959900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94078,
+    "scoped_rows": 119,
+    "selected_records_sha256": "144d8beca2d9a0213fa0a39093e3981ff91ffc3f5ca7d644453f264e2c18c199",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260803,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260803_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9355637,
+      "mtime_ns": 1789958016794243800
+    },
+    "after": {
+      "size_bytes": 9355637,
+      "mtime_ns": 1789958016794243800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94095,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c7bebf52e35671ef10e6c0e132e35ebd1a87011517a85872d87c1fd48af6b1ae",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260804,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260804_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9364608,
+      "mtime_ns": 1789958017168655600
+    },
+    "after": {
+      "size_bytes": 9364608,
+      "mtime_ns": 1789958017168655600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94112,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7588287c72b96ed52ebf6788767636fc7a35d6fd4f3929ae32e230343d96df37",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260805,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260805_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9375489,
+      "mtime_ns": 1789958020926402400
+    },
+    "after": {
+      "size_bytes": 9375489,
+      "mtime_ns": 1789958020926402400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94129,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d4e4f6419167b0dd86d7e3a0dad5089cf4d557ebe51634fa5e0c90e155d42e8f",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260806,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260806_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9376518,
+      "mtime_ns": 1789958021926918500
+    },
+    "after": {
+      "size_bytes": 9376518,
+      "mtime_ns": 1789958021926918500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94146,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c6cc29f9e33dfb8f02699924c14466b982c66d61bb09396e35d3ea6ac6842ad7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260807,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260807_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9378434,
+      "mtime_ns": 1789958021152768400
+    },
+    "after": {
+      "size_bytes": 9378434,
+      "mtime_ns": 1789958021152768400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94163,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7e450f22f8db43696b7f8396e299c9fb9cd03b4f27b35c5dec133171ffccb373",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260810,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260810_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9378441,
+      "mtime_ns": 1789958022133908500
+    },
+    "after": {
+      "size_bytes": 9378441,
+      "mtime_ns": 1789958022133908500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94163,
+    "scoped_rows": 119,
+    "selected_records_sha256": "250e5f84035b09914ea9a397ebaec00a44fd70c4975b34d38b6a7bf64b397ac4",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260811,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260811_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9376659,
+      "mtime_ns": 1789958022482751600
+    },
+    "after": {
+      "size_bytes": 9376659,
+      "mtime_ns": 1789958022482751600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94214,
+    "scoped_rows": 119,
+    "selected_records_sha256": "d1b48848caa74d918af40cb4bcc4e9e6d453daf8cb2a91515d749c483a5df9ea",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260812,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260812_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9375093,
+      "mtime_ns": 1789958022091274800
+    },
+    "after": {
+      "size_bytes": 9375093,
+      "mtime_ns": 1789958022091274800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94231,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0923932e6e7135dbf01f329c6014f1a4383545c2b7c298f72c23de747d84c369",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260813,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260813_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9386265,
+      "mtime_ns": 1789958022710157500
+    },
+    "after": {
+      "size_bytes": 9386265,
+      "mtime_ns": 1789958022710157500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94231,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6f814ea81432575805b5b2577dd4bd77fa1b52a845fa3ca23a1eccf898194028",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260814,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260814_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9374044,
+      "mtime_ns": 1789958022309895600
+    },
+    "after": {
+      "size_bytes": 9374044,
+      "mtime_ns": 1789958022309895600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94231,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6de787a0da5e7f81481f6bf32d6994be55ae2f8afaa0eaaede3fb2b72cd21567",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260817,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260817_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9380771,
+      "mtime_ns": 1789958022827942900
+    },
+    "after": {
+      "size_bytes": 9380771,
+      "mtime_ns": 1789958022827942900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94248,
+    "scoped_rows": 119,
+    "selected_records_sha256": "fef862345f98cc8812260976b2e496f9974f0fedec0d46f82185c7572acb4861",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260818,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260818_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9385910,
+      "mtime_ns": 1789958023094493900
+    },
+    "after": {
+      "size_bytes": 9385910,
+      "mtime_ns": 1789958023094493900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94265,
+    "scoped_rows": 119,
+    "selected_records_sha256": "1099d8bf403ed2a719cea207c10713fe0ec3cfd4d88a8d1bf9dff63297be6f6d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260819,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260819_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9390013,
+      "mtime_ns": 1789958028616010700
+    },
+    "after": {
+      "size_bytes": 9390013,
+      "mtime_ns": 1789958028616010700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94299,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2015b7ac33c62697f1a738feb4084853ed3a57df6e5128876f64615feec20626",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260820,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260820_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9378396,
+      "mtime_ns": 1789958028314825900
+    },
+    "after": {
+      "size_bytes": 9378396,
+      "mtime_ns": 1789958028314825900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94316,
+    "scoped_rows": 119,
+    "selected_records_sha256": "db6c5ebe28e00e4be9b7a96167bbfb193b79844e22782185b849aeaa27aedaae",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260821,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260821_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9370569,
+      "mtime_ns": 1789958028087774700
+    },
+    "after": {
+      "size_bytes": 9370569,
+      "mtime_ns": 1789958028087774700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94333,
+    "scoped_rows": 119,
+    "selected_records_sha256": "963b59c2aba0768b810069c12c9aebb02d099afc46ac76841a3f374e2ab47304",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260824,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260824_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9374644,
+      "mtime_ns": 1789958028583048000
+    },
+    "after": {
+      "size_bytes": 9374644,
+      "mtime_ns": 1789958028583048000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94333,
+    "scoped_rows": 119,
+    "selected_records_sha256": "3f10eec7c4b463265e752b827e6929cd049fde7867f50d587886d98d6fccba0c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260825,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260825_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9379910,
+      "mtime_ns": 1789958030007256200
+    },
+    "after": {
+      "size_bytes": 9379910,
+      "mtime_ns": 1789958030007256200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94350,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7aed357bb2a1e3ccbcbf1317a335974b8a339431f481b3c8c7363c9389084edd",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260826,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260826_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9380263,
+      "mtime_ns": 1789958029259100400
+    },
+    "after": {
+      "size_bytes": 9380263,
+      "mtime_ns": 1789958029259100400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94350,
+    "scoped_rows": 119,
+    "selected_records_sha256": "0d3fe52b9c4e366de149da3ddf058d2dac6a720e46010891a19de72aac393217",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260827,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260827_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9389308,
+      "mtime_ns": 1789958029185299200
+    },
+    "after": {
+      "size_bytes": 9389308,
+      "mtime_ns": 1789958029185299200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94350,
+    "scoped_rows": 119,
+    "selected_records_sha256": "29574a3afb79fc734426e96b23dbba3d7ddd1b30ecc305c52780c3655d82971b",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260828,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260828_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9393176,
+      "mtime_ns": 1789958028054245600
+    },
+    "after": {
+      "size_bytes": 9393176,
+      "mtime_ns": 1789958028054245600
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94367,
+    "scoped_rows": 119,
+    "selected_records_sha256": "eaa13a7675edda2cacdee7d33401e1d6f064ee36a8cda60fae1e5e7a5d7cef1e",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260831,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260831_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9399923,
+      "mtime_ns": 1789958028943562500
+    },
+    "after": {
+      "size_bytes": 9399923,
+      "mtime_ns": 1789958028943562500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94367,
+    "scoped_rows": 119,
+    "selected_records_sha256": "5d1fce2e2390485595b1ce3f5dfd4fbcebb95f56feb78e319c2d9eb458bb4373",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260901,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260901_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9404847,
+      "mtime_ns": 1789958028629629000
+    },
+    "after": {
+      "size_bytes": 9404847,
+      "mtime_ns": 1789958028629629000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94401,
+    "scoped_rows": 119,
+    "selected_records_sha256": "b20ce153f379ff3f5eff712545cb832a6b442fd228460097e84f8b0a2d6f299a",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260902,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260902_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9397233,
+      "mtime_ns": 1789958034910553000
+    },
+    "after": {
+      "size_bytes": 9397233,
+      "mtime_ns": 1789958034910553000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94418,
+    "scoped_rows": 119,
+    "selected_records_sha256": "c9404ad0a1430877d8d74682ccca953456dade99bfc96b592eb84cc3139d05f7",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260903,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260903_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9397770,
+      "mtime_ns": 1789958037250568000
+    },
+    "after": {
+      "size_bytes": 9397770,
+      "mtime_ns": 1789958037250568000
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94435,
+    "scoped_rows": 119,
+    "selected_records_sha256": "ed689fe7884f4ea83f32f909b7607053071a9b7fa6f8b3f6f8c60c88baf8f74c",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260904,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260904_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9409293,
+      "mtime_ns": 1789958048187110700
+    },
+    "after": {
+      "size_bytes": 9409293,
+      "mtime_ns": 1789958048187110700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94452,
+    "scoped_rows": 119,
+    "selected_records_sha256": "095c662d712d00accd433e23b210a1ca96cc8dbcd51bdf51ad06643b3b86d4c5",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260907,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260907_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9422683,
+      "mtime_ns": 1789958036186085800
+    },
+    "after": {
+      "size_bytes": 9422683,
+      "mtime_ns": 1789958036186085800
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94486,
+    "scoped_rows": 119,
+    "selected_records_sha256": "544ccef79d9e28a7374c7ad6ed3136222525fc13278d72c769687607ebf9efca",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260908,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260908_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9425900,
+      "mtime_ns": 1789958035981631300
+    },
+    "after": {
+      "size_bytes": 9425900,
+      "mtime_ns": 1789958035981631300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94486,
+    "scoped_rows": 119,
+    "selected_records_sha256": "aba89bbcd6a2d0e21c4e3734a4e9712fdc688515a36efc10f9204776c9619a16",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260909,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260909_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9422707,
+      "mtime_ns": 1789958033899984400
+    },
+    "after": {
+      "size_bytes": 9422707,
+      "mtime_ns": 1789958033899984400
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94520,
+    "scoped_rows": 119,
+    "selected_records_sha256": "4e62e755958afd928ea3946adf971aac5437db83f7c02ef24fb69f1428143912",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260910,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260910_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9412668,
+      "mtime_ns": 1789958034172788500
+    },
+    "after": {
+      "size_bytes": 9412668,
+      "mtime_ns": 1789958034172788500
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94537,
+    "scoped_rows": 119,
+    "selected_records_sha256": "7f69c609dfdfb26609f6f9d46a7afb9fd0db6ec6c6a9f79a3285daf23a898615",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260911,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260911_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9426782,
+      "mtime_ns": 1789958037151855900
+    },
+    "after": {
+      "size_bytes": 9426782,
+      "mtime_ns": 1789958037151855900
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94554,
+    "scoped_rows": 119,
+    "selected_records_sha256": "964d7c9363994542054e489410b02d27ce6b6db754a2782cc7f820714f5a7d63",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260914,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260914_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9409137,
+      "mtime_ns": 1789958036793557700
+    },
+    "after": {
+      "size_bytes": 9409137,
+      "mtime_ns": 1789958036793557700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94554,
+    "scoped_rows": 119,
+    "selected_records_sha256": "8fcd00fcb7c9dee97fa947a9cde23679f78c0a7aeb27dd74be28a1672d99b6e3",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260915,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260915_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9406198,
+      "mtime_ns": 1789958036893459200
+    },
+    "after": {
+      "size_bytes": 9406198,
+      "mtime_ns": 1789958036893459200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94554,
+    "scoped_rows": 119,
+    "selected_records_sha256": "a67e6022815b4f29b5ed149d8435bc361aced02e1394dacfb0bcc662f3024f25",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260916,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260916_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9415054,
+      "mtime_ns": 1789958039515993700
+    },
+    "after": {
+      "size_bytes": 9415054,
+      "mtime_ns": 1789958039515993700
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94588,
+    "scoped_rows": 119,
+    "selected_records_sha256": "809c2a8a5e109559c8b71f59bd34b42c9d02fd420e176a21aa27aa20e7347d03",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260917,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260917_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9413206,
+      "mtime_ns": 1789958040394674200
+    },
+    "after": {
+      "size_bytes": 9413206,
+      "mtime_ns": 1789958040394674200
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94605,
+    "scoped_rows": 119,
+    "selected_records_sha256": "6cd76a30b33166af207174428b6b2b42bb656c7c4a63b73f7dcab5cf21c0660d",
+    "whole_file_sha256": null
+  },
+  {
+    "trade_date": 20260918,
+    "path": "C:\\Project Rocket\\Trading Agent Database\\A Share Miniutes Data\\15min\\2026\\20260918_A股15分钟K线@余哈哈的数据仓库 原创整理.csv",
+    "before": {
+      "size_bytes": 9427693,
+      "mtime_ns": 1789958039235336300
+    },
+    "after": {
+      "size_bytes": 9427693,
+      "mtime_ns": 1789958039235336300
+    },
+    "schema_version": "fifteen_min_duckdb.v1",
+    "scanned_rows": 94605,
+    "scoped_rows": 119,
+    "selected_records_sha256": "2364e09df414f671f87a5469dbee766588133ebacaf0beb4ae9c7ebfc77cf687",
+    "whole_file_sha256": null
+  }
+]

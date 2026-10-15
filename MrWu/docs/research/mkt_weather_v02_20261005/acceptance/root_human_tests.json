@@ -1,0 +1,20 @@
+{
+  "root_packet_facts_exact": true,
+  "random_unique_days": 15,
+  "each_weather_sample_n": 3,
+  "labels_blank": true,
+  "human_definition_acceptance": "awaiting_labels",
+  "threshold_revision_count": 0,
+  "xml_suites": [
+    {
+      "name": "pytest",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "tests": "40",
+      "time": "1.520",
+      "timestamp": "2026-10-05T09:18:37.074241+09:00",
+      "hostname": "MSI"
+    }
+  ]
+}

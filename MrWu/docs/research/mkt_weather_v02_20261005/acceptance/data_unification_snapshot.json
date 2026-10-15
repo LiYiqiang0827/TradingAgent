@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-10-07",
+  "thread_id": "01a108fb-58aa-7f00-b604-37c9bb24b488",
+  "thread_title": "00-04 | 数据解封去重",
+  "state": "scores_verified_scheduler_disabled",
+  "last_observed": "181-day original-DB score5/grade5 exact equality freshly rechecked; source final_state records scheduler Disabled; original-DB preflight lacks 20261007 calendar",
+  "weather_source": "stable LIVE-derived corrected events and original raw-only cache; no reads of changing original database",
+  "production_switch_done": false,
+  "first_live_day_verified": false
+}

@@ -1,0 +1,209 @@
+{
+  "task_id": "W04R2",
+  "status": "root_accepted_after_portability_repair",
+  "generated_at": "2026-10-05T01:31:25.921887+00:00",
+  "source_days": 424,
+  "reference_days_2025": 243,
+  "quantile_method": "linear",
+  "quantiles": [
+    0.1,
+    0.5,
+    0.9
+  ],
+  "unchanged_source_sample_labels": true,
+  "frozen_fingerprints": {
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\data\\mkt_daily.csv": "2dda56a1ccbe6fdc5b88326faacb91a0f5e4341c77760f3592a385416653c946",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\selection_manifest.csv": "7b99fa3d485ba30ee98b61c66a1aa5d9e16b47ecd33bd2546ee775fe8f837017",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Harry_labels.csv": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Li_labels.csv": "a63d2fe27a91b5f8eb33454b798a22b6a9cfaa84a9e88b95c30978596c8dfe93",
+    "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\nominations_template.csv": "52c3adbf97ca2b95db485b62776b53656b64113999dc1f737a1603a8e3257768"
+  },
+  "seed": 20261005,
+  "sample_count": 15,
+  "pdf_pages": 15,
+  "items_per_card": 10,
+  "reference_metrics": [
+    {
+      "metric": "up",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "down",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "broken",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "height",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "all_k",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "all_n",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "all_pct",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "chain_k",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "chain_n",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "chain_pct",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h1_k",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h1_n",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h1_pct",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h2_k",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h2_n",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h2_pct",
+      "n_valid": 242,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h3_k",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h3_n",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h3_pct",
+      "n_valid": 232,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h4_k",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h4_n",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "h4_pct",
+      "n_valid": 228,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "turnover",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "ratio",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "advance_pct",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "sh",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "sz",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    },
+    {
+      "metric": "cyb",
+      "n_valid": 243,
+      "linear_quantiles_hand_checked": true
+    }
+  ],
+  "reference_csv_roundtrip_exact": true,
+  "raw_rates_not_smoothed": true,
+  "no_missing_font_glyphs": true,
+  "no_text_outside_pages": true,
+  "blind_no_readings_weather_answers_thresholds": true,
+  "rendered": {
+    "first": {
+      "page": 1,
+      "path": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W04R2_first.png"
+    },
+    "dense": {
+      "page": 3,
+      "path": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\acceptance\\W04R2_dense.png"
+    }
+  },
+  "paths": {
+    "cards_html": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\cards.html",
+    "cards_pdf": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\cards.pdf",
+    "reference_2025": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\reference_2025.csv",
+    "facts_csv": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\audit_raw_facts.csv",
+    "Harry_labels": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Harry_labels.csv",
+    "Li_labels": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\Li_labels.csv",
+    "nominations_template": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\packets\\nominations_template.csv",
+    "private_key": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\machine_key.csv",
+    "selection_manifest": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\selection_manifest.csv",
+    "sampling_summary": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\human\\private_key\\sampling_summary.json"
+  },
+  "font_path": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\reproduction\\fonts\\NotoSansSC-card.ttf",
+  "font_license": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mkt_weather_v02_20261005\\reproduction\\fonts\\NotoSansSC-card-OFL.txt",
+  "tests": {
+    "passed": 13,
+    "simulated_files_only": "Retained outside submission; cleanup rejected by tool policy; no alternate deletion used"
+  },
+  "known_issues": [
+    "Both independent labels remain blank; definition acceptance still awaits labels.",
+    "Approximately 15 remembered nominations are still absent."
+  ],
+  "synthetic_test_directory_removed": false,
+  "excluded_from_submission": [
+    "human/private_key/tests/"
+  ],
+  "root_followup": "Cross-drive font relpath failure corrected with embedded HTML font; controller full suite 50+8 passed; root independent 84 quantiles and PDF inspected"
+}

@@ -1,0 +1,111 @@
+{
+  "688137.SH": {
+    "name": "近岸蛋白",
+    "events": 1,
+    "nodes": {
+      "pullback_confirm16": 1
+    },
+    "trades": [],
+    "rejects": {
+      "ma60_not_above_ma120_or_warmup_missing": 2,
+      "no_limit_up_in_prior60": 14,
+      "bull_ratio20_below_seed60pct": 12,
+      "ma30_rise_days_below_seed10": 7
+    },
+    "waits": {
+      "waiting_reversal_evidence": 1
+    }
+  },
+  "002413.SZ": {
+    "name": "雷科防务",
+    "events": 1,
+    "nodes": {
+      "pullback_confirm16": 1,
+      "golden_cross10": 1,
+      "golden_cross20": 1,
+      "golden_cross30": 1,
+      "three_crosses_complete": 1
+    },
+    "trades": [],
+    "rejects": {
+      "ma30_rise_days_below_seed10": 11,
+      "bull_ratio20_below_seed60pct": 11,
+      "no_limit_up_in_prior60": 6,
+      "ma60_not_above_ma120_or_warmup_missing": 5
+    },
+    "waits": {
+      "waiting_reversal_evidence": 1
+    }
+  },
+  "688627.SH": {
+    "name": "精智达",
+    "events": 0,
+    "nodes": {},
+    "trades": [],
+    "rejects": {
+      "no_limit_up_in_prior60": 5,
+      "bull_ratio20_below_seed60pct": 5,
+      "ma30_rise_days_below_seed10": 2
+    },
+    "waits": {}
+  },
+  "000725.SZ": {
+    "name": "京东方A",
+    "events": 1,
+    "nodes": {
+      "pullback_confirm16": 1
+    },
+    "trades": [],
+    "rejects": {
+      "no_limit_up_in_prior60": 6,
+      "bull_ratio20_below_seed60pct": 10,
+      "ma30_rise_days_below_seed10": 9
+    },
+    "waits": {
+      "waiting_reversal_evidence": 1
+    }
+  },
+  "002810.SZ": {
+    "name": "山东赫达",
+    "events": 2,
+    "nodes": {
+      "pullback_confirm16": 2
+    },
+    "trades": [],
+    "rejects": {
+      "ma30_rise_days_below_seed10": 5,
+      "bull_ratio20_below_seed60pct": 5,
+      "ma60_not_above_ma120_or_warmup_missing": 1,
+      "no_limit_up_in_prior60": 1
+    },
+    "waits": {
+      "waiting_reversal_evidence": 2
+    }
+  },
+  "600371.SH": {
+    "name": "万向德农",
+    "events": 0,
+    "nodes": {},
+    "trades": [],
+    "rejects": {
+      "ma30_rise_days_below_seed10": 8,
+      "bull_ratio20_below_seed60pct": 10,
+      "ma60_not_above_ma120_or_warmup_missing": 10,
+      "no_limit_up_in_prior60": 7
+    },
+    "waits": {}
+  },
+  "300759.SZ": {
+    "name": "康龙化成",
+    "events": 0,
+    "nodes": {},
+    "trades": [],
+    "rejects": {
+      "ma60_not_above_ma120_or_warmup_missing": 18,
+      "no_limit_up_in_prior60": 23,
+      "ma30_rise_days_below_seed10": 8,
+      "bull_ratio20_below_seed60pct": 15
+    },
+    "waits": {}
+  }
+}

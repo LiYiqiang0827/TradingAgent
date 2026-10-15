@@ -1,0 +1,91 @@
+{
+  "task_id": "W04R3-EVAL",
+  "status": "root_accepted",
+  "input_version": "user-single-Li-fixed-10-review/20261005",
+  "model_requested": "gpt-6.1-sol",
+  "reasoning_effort_requested": "xhigh",
+  "model_acceptance_evidence": "Root confirmed the native worker session was explicitly accepted; no independent model introspection",
+  "scope": "new li_review.py and its tests; single Li labels over fixed ten dates; observational reference and directional revision eligibility only",
+  "fixed_dates": [
+    "2026-08-27",
+    "2026-08-31",
+    "2026-09-03",
+    "2026-09-07",
+    "2026-09-09",
+    "2025-11-14",
+    "2025-12-03",
+    "2026-05-07",
+    "2026-06-10",
+    "2026-06-11"
+  ],
+  "total_requested": 10,
+  "reference_only": true,
+  "forbidden": [
+    "other module edits",
+    "threshold or score changes",
+    "Harry/two-person denominators",
+    "fixed-10 denominator reduction",
+    "Git",
+    "network",
+    "original data writes",
+    "extra agents"
+  ],
+  "interface": "evaluate_li_labels(daily, li_path, output_dir, threshold_revision_counts=None) -> dict",
+  "output_filenames": [
+    "human_evaluation.json",
+    "agreement_metrics.csv",
+    "disagreements.csv",
+    "README.md"
+  ],
+  "summary_statuses": [
+    "awaiting_labels",
+    "partial_labels",
+    "review_recorded"
+  ],
+  "machine_band_source": "readings.SPEC human_bins: existing global pair, or future hit/cont/act pair dictionary; current thresholds are unchanged",
+  "basic_consistency_policy": "True once seven fixed-ten dates have valid matching observations; False only when all ten comparisons are observable and fewer than seven match; otherwise null. No denominator reduction or final acceptance gate.",
+  "directional_evidence_policy": "Only valid machine/human disagreements count. Higher and lower are separate; either needs at least three dates. eligible_directions records evidence even if revision_used=1; adjustment_allowed also requires that dimension's revision_used=0. Root decides any adjustment; worker changes nothing.",
+  "missing_policy": "Omitted rows, blank and literal skip/跳过 are unlabeled; partial core rows preserve each valid dimension and appear in incomplete_dates. Machine unavailable after a valid human label is disclosed and contributes neither matches nor directional disagreements.",
+  "revision_ledger_policy": "Default all dimensions zero; partial hit/cont/act dictionary fills missing keys with zero; unknown keys, bools, noninteger or values outside 0/1 rejected; input ledger is not mutated.",
+  "changed_files": [
+    "C:/Project Rocket/worktrees/tradingagent-claude-mrwu-20261005/policyStudy/policy/market_sentiment/li_review.py",
+    "C:/Project Rocket/worktrees/tradingagent-claude-mrwu-20261005/policyStudy/policy/market_sentiment/tests/test_li_review.py",
+    "C:/Project Rocket/worktrees/tradingagent-claude-mrwu-20261005/docs/research/mkt_weather_v02_20261005/acceptance/W04R3_eval_contract.json"
+  ],
+  "checks": {
+    "test_command": "python -m pytest policyStudy/policy/market_sentiment/tests/test_li_review.py -q -p no:cacheprovider --basetemp D:/ProjectRocketData/processed/TradingAgent/outputs/market_sentiment/mkt_weather_v02_20261005_01/tests/revision_r3_worker01",
+    "test_result": "21 passed in 2.05s",
+    "test_cases": [
+      "fixed exact dates and order",
+      "empty labels",
+      "optional weather and notes columns",
+      "blank/skip/omitted dates",
+      "partial core labels preserve per-dimension observations",
+      "6/7/8 matches over fixed 10",
+      "partial 6/6 cannot meet 7/10",
+      "3 same-direction disagreements",
+      "opposite 2+2 do not combine",
+      "one revision blocks only its own dimension",
+      "missing machine not directional evidence",
+      "weather supplementary denominator",
+      "duplicate/illegal/outside label dates",
+      "missing fixed daily date error",
+      "invalid revision ledger",
+      "35/65 boundaries",
+      "future per-dimension band dictionary",
+      "input DataFrame and ledger unchanged"
+    ],
+    "simulation_output_only": "D:/ProjectRocketData/processed/TradingAgent/outputs/market_sentiment/mkt_weather_v02_20261005_01/tests/revision_r3_worker01",
+    "real_labels_fabricated": false,
+    "thresholds_changed": false,
+    "machine_scores_changed": false,
+    "other_modules_modified_by_worker": false
+  },
+  "known_issues": [
+    "No real Li observations were provided or filled in this worker task.",
+    "Root owns CLI integration, fixed-order PDF/cards, documentation, actual evaluation and final acceptance.",
+    "basic_consistency=null denotes unresolved observations rather than treating blank or missing as disagreement."
+  ],
+  "next_owner": "root",
+  "root_validation": "Full suite 71 passed + 8 subtests; empty real-label evaluation awaiting_labels; no scores/config/calendar/data writes"
+}

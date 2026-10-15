@@ -1,0 +1,17 @@
+{
+  "status": "LOCAL_DELIVERY_COMPLETE_AND_STOPPED",
+  "recorded_at": "2026-10-07T23:29:08.870462+00:00",
+  "primary_acceptance_sha256": "38bcaf5bcb419cbbc35ac440324376fd6e72cbc9b2e35e5bf4f7553256df811d",
+  "closed_authorization_sha256": "b23a805cb5fd8775369cfc2d697f83f2e8c6057f9afc108befdca90257815331",
+  "current_sha256_at_close": "bce7c6957bb292cc12b889f3eaac396ad4bbb7ffd2447f3a635f7120dfae1720",
+  "closure_checks": {
+    "case_quality_denied_after_close": true,
+    "case_replay_denied_after_close": true
+  },
+  "old_stops_unchanged": true,
+  "s0_accepted": false,
+  "s1_started": false,
+  "project_completed": false,
+  "exam_opened": false,
+  "cloud_delivery_receipt": "D:\\ProjectRocketData\\processed\\TradingAgent\\strategy_research\\ma15_pullback_v21\\case_pack_20261008\\cloud_delivery.json"
+}

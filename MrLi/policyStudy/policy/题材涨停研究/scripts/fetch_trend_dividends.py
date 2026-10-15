@@ -1,0 +1,1 @@
+../../../../../../TradingDataManager/scripts/research_inputs/fetch_trend_dividends.py

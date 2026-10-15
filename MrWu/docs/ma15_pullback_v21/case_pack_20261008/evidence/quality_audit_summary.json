@@ -1,0 +1,150 @@
+{
+  "version": "case-quality-audit-20261008-v1",
+  "view_version": "exclude_extra_0930_v1",
+  "status": "AWAITING_PRIMARY_ACCEPTANCE",
+  "scope": {
+    "codes": [
+      "688137.SH",
+      "002413.SZ",
+      "688627.SH",
+      "000725.SZ",
+      "002810.SZ",
+      "600371.SH",
+      "300759.SZ"
+    ],
+    "start": 20250601,
+    "end": 20260918
+  },
+  "input_sha256": {
+    "prepared_unaccepted.parquet": "65b29e1fd41c76e543a5ec5dfa162276ae8be49c235154a1ef719d8a2235471e",
+    "quality_initial.json": "42e59cacd9d94d750e1da87be1bfd02339d3d0bb8fa2fdf58986b1dd68ceaecb",
+    "catalog_scope.json": "ab32aeb69ec774a27841e6a77826935ba77d7fa59c2071a2affa520c10f8f9a4"
+  },
+  "outputs": {
+    "prepared_quality.parquet": "d401dad18b4aab6003b8bb2c169c111eed4ada1d2b5fffd4a2225fb37af2dd64"
+  },
+  "raw_files": 320,
+  "raw_normal_fidelity_all": true,
+  "counts": {
+    "normal_rows_verified": 35840,
+    "open__match": 606,
+    "high__match": 2057,
+    "low__match": 2077,
+    "close__match": 2240,
+    "vol__explainable_coverage": 2061,
+    "amount__explainable_coverage": 1677,
+    "excluded_extra_rows": 2240,
+    "stock_days_with_extra": 2240,
+    "open__continuous_open_proxy_vs_official_open": 1634,
+    "amount__unexplained_residual": 526,
+    "vol__unexplained_residual": 141,
+    "low__explainable_coverage": 163,
+    "high__explainable_coverage": 183,
+    "vol__match": 38,
+    "amount__match": 37
+  },
+  "securities": [
+    {
+      "ts_code": "688137.SH",
+      "name": "近岸蛋白",
+      "denominator": 320,
+      "suspect_stock_days": 24,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 24
+      }
+    },
+    {
+      "ts_code": "002413.SZ",
+      "name": "雷科防务",
+      "denominator": 320,
+      "suspect_stock_days": 131,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 108,
+        "volume_coverage_residual_unresolved": 35
+      }
+    },
+    {
+      "ts_code": "688627.SH",
+      "name": "精智达",
+      "denominator": 320,
+      "suspect_stock_days": 105,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 105
+      }
+    },
+    {
+      "ts_code": "000725.SZ",
+      "name": "京东方A",
+      "denominator": 320,
+      "suspect_stock_days": 143,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 81,
+        "volume_coverage_residual_unresolved": 79
+      }
+    },
+    {
+      "ts_code": "002810.SZ",
+      "name": "山东赫达",
+      "denominator": 320,
+      "suspect_stock_days": 69,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 67,
+        "volume_coverage_residual_unresolved": 2
+      }
+    },
+    {
+      "ts_code": "600371.SH",
+      "name": "万向德农",
+      "denominator": 320,
+      "suspect_stock_days": 39,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 33,
+        "volume_coverage_residual_unresolved": 11
+      }
+    },
+    {
+      "ts_code": "300759.SZ",
+      "name": "康龙化成",
+      "denominator": 320,
+      "suspect_stock_days": 113,
+      "r3_excluded": 0,
+      "raw_source_union_keys": 320,
+      "extra_keys": [],
+      "reasons": {
+        "amount_coverage_residual_unresolved": 108,
+        "volume_coverage_residual_unresolved": 14
+      }
+    }
+  ],
+  "e2_inheritance": {
+    "reason_rows": 31,
+    "new_keys": 18,
+    "sha256": "4ea3e71d852f08c021e597e952e560135c7660f78827e6aa1fa3f9e532453c8d"
+  },
+  "annual_new_rate": null,
+  "annual_gate_not_evaluated": true,
+  "exam_accesses": 0,
+  "old_stop_unchanged": true,
+  "acceptance_written": false,
+  "coverage_statement": "Arithmetic normal-plus-excluded coverage evidence only; no assignment of excluded extrema to a normal bar or auction.",
+  "normal1m_residuals": "No new 1m scan; all saved E2 nonfirst-bar amount reasons inherited intact.",
+  "seconds": 54.063
+}

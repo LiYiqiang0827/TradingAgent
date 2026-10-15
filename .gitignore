@@ -104,3 +104,21 @@ policyStudy/policy/题材涨停研究/watchlist/*.csv
 /MrLi/policyStudy/policy/题材涨停研究/research/
 /MrLi/policyStudy/policy/题材涨停研究/presentations/
 /MrLi/policyStudy/policy/题材涨停研究/watchlist/*.csv
+
+# Canonical MrLi/MrWu generated review artifacts (keep locally; publish source and review notes only)
+/tmp/pdfs/
+/MrLi/policyStudy/docs/ma30_reactivation_candidates_202605_202608.csv
+/MrWu/docs/ma15_pullback_v21/case_pack_20261008/charts/
+/MrWu/docs/ma15_pullback_v21/case_pack_20261008/evidence/access.jsonl
+/MrWu/docs/research/mkt_weather_v02_20261005/acceptance/*.csv
+/MrWu/docs/research/mkt_weather_v02_20261005/acceptance/*.png
+/MrWu/docs/research/mkt_weather_v02_20261005/figures/*.png
+/MrWu/docs/research/mkt_weather_v02_20261005/figures/*.svg
+/MrWu/docs/research/mkt_weather_v02_20261005/human/
+/MrWu/docs/research/mkt_weather_v02_20261005/reproduction/fonts/*.ttf
+/MrWu/docs/research/mrwu_theme_lifecycle_20260921/deliverables/*.pdf
+/MrWu/docs/research/mrwu_theme_lifecycle_20260921/deliverables/*.pptx
+/MrWu/docs/research/mrwu_theme_lifecycle_20260921/deliverables/data_tables_v0.2/*.csv
+/MrWu/docs/research/mrwu_sentiment_cycle_20261005/deliverables/*.pdf
+/MrWu/docs/research/mrwu_sentiment_cycle_20261005/reproduction/fonts/*.ttf
+/MrWu/docs/research/mkt_weather_v02_20261005/reproduction/MktSansSC.ttf

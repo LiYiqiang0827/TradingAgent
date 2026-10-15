@@ -1,0 +1,48 @@
+{
+  "input_version": "INTERFACE_CONTRACT_20261005-01/F1-formal_corrected",
+  "inputs": [
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\speculation_sentiment\\sentiment_cycle_20261005_01\\formal_corrected\\events.parquet",
+      "sha256_before": "a39b412b4da6da8c4445d6997344082ba3f89bb7267f566926809b44843f08ea",
+      "sha256_after": "a39b412b4da6da8c4445d6997344082ba3f89bb7267f566926809b44843f08ea",
+      "unchanged": true,
+      "rows": 2406834,
+      "size_bytes": 133454514
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\speculation_sentiment\\sentiment_cycle_20261005_01\\formal_corrected\\cohorts.parquet",
+      "sha256_before": "030ce93fbf0167fa7597c474b0c1e7cd1484c657572a5afe1310a717974af895",
+      "sha256_after": "030ce93fbf0167fa7597c474b0c1e7cd1484c657572a5afe1310a717974af895",
+      "unchanged": true,
+      "rows": 32694,
+      "size_bytes": 822341
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\speculation_sentiment\\sentiment_cycle_20261005_01\\formal_corrected\\sentiment_daily.csv",
+      "sha256_before": "a1f990a21f101ccea90043c210180b363f4f1725c70a7b57e345ddec8913d3ad",
+      "sha256_after": "a1f990a21f101ccea90043c210180b363f4f1725c70a7b57e345ddec8913d3ad",
+      "unchanged": true,
+      "rows": 424,
+      "size_bytes": 722702
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\speculation_sentiment\\sentiment_cycle_20261005_01\\formal_corrected\\calibration.json",
+      "sha256_before": "10e1b558a9e2fd80bd710b95e45b00f1df41566047a67b271efecb41ce6c97ee",
+      "sha256_after": "10e1b558a9e2fd80bd710b95e45b00f1df41566047a67b271efecb41ce6c97ee",
+      "unchanged": true,
+      "rows": null,
+      "size_bytes": 2072
+    },
+    {
+      "path": "D:\\ProjectRocketData\\processed\\TradingAgent\\outputs\\speculation_sentiment\\sentiment_cycle_20261005_01\\formal_corrected\\input_manifest.json",
+      "sha256_before": "f53e3b831cb61e24523d2ab67bc81680709e5166610f4e36620fb256bbae5f05",
+      "sha256_after": "f53e3b831cb61e24523d2ab67bc81680709e5166610f4e36620fb256bbae5f05",
+      "unchanged": true,
+      "rows": null,
+      "size_bytes": 10839
+    }
+  ],
+  "published_daily_path": "C:\\Project Rocket\\worktrees\\tradingagent-claude-mrwu-20261005\\docs\\research\\mrwu_sentiment_cycle_20261005\\data\\formal_daily_2025_2026.csv",
+  "published_daily_sha256": "a1f990a21f101ccea90043c210180b363f4f1725c70a7b57e345ddec8913d3ad",
+  "published_daily_bytes_equal": true
+}

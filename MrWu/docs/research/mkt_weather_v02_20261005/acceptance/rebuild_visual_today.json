@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "derived_rebuild_all_scientific_columns_exact": true,
+  "live_today_core_columns_equal": true,
+  "figure_checks": [
+    {
+      "file": "01_weather_calendar.png",
+      "sha256": "37adf1e21a33ff8f766086ab8118cdb50c6a5e19d5ba046cf852b6e509998e80",
+      "independent_rebuild_bytes_equal": true
+    },
+    {
+      "file": "02_monthly_weather.png",
+      "sha256": "bbd1c310dbcb767fc4d1cbf51b973f6aadf5b1a3f83ba70da2c3dd60116953c8",
+      "independent_rebuild_bytes_equal": true
+    },
+    {
+      "file": "03_transition_frequencies.png",
+      "sha256": "d9447dd5a00c2264c5bdd6e196cef9609add180aa79fae8e8f3305dae70352df",
+      "independent_rebuild_bytes_equal": true
+    },
+    {
+      "file": "04_reading_distributions.png",
+      "sha256": "bcc7009da94d3fc8a9a6f9890ae70747c5915999bb939ece1caf2ef83097c317",
+      "independent_rebuild_bytes_equal": true
+    },
+    {
+      "file": "05_weather_relay.png",
+      "sha256": "acfabf5ec568b077ff86989e46312782685529d743787c702bf5a6930df4d264",
+      "independent_rebuild_bytes_equal": true
+    }
+  ],
+  "five_figures_visually_reviewed_by_controller": true,
+  "visual_review": "All five actual PNGs opened: Chinese text, titles, axes, colors, counts, whitespace and legends readable; no cropping observed.",
+  "report_number_checks": [
+    "424",
+    "181",
+    "43.09%",
+    "40.88%",
+    "28.18%",
+    "38.12%",
+    "63.78",
+    "68.68",
+    "62.19",
+    "awaiting_labels",
+    "ready_not_enabled"
+  ],
+  "summary_tables_equal": true,
+  "today_receipt": {
+    "status": "calendar_horizon_insufficient_latest_snapshot",
+    "latest_completed_date": "2026-09-30",
+    "source_state": {
+      "basic": {
+        "path": "D:\\ProjectRocketData\\live\\db_cn_basic.db",
+        "bytes": 13726412800,
+        "mtime_ns": 1791135763949589600
+      },
+      "kpl": {
+        "path": "D:\\ProjectRocketData\\live\\db_cn_kpl.db",
+        "bytes": 2002710528,
+        "mtime_ns": 1791131888717055700
+      },
+      "index": {
+        "path": "D:\\ProjectRocketData\\live\\db_cn_index.db",
+        "bytes": 13119488,
+        "mtime_ns": 1791131836002612400
+      }
+    },
+    "calibration_sha256": "cc3d0898686ced275740a3bb71eebd4b0002f6b7f754088663ebb712b8369a56",
+    "elapsed_seconds": 1.0027348999865353,
+    "changed_historical_dates": [],
+    "row_count": 424,
+    "duplicates": 0,
+    "recompute_policy": "on upstream snapshot change recompute affected history and successors conservatively as full prefix; frozen calibration"
+  },
+  "new_pdf_or_ppt_created": false
+}
