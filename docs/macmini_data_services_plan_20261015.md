@@ -44,8 +44,33 @@ Mac mini可能拥有本机没有的近期在线记录，不能用本机副本直
 - Mac mini数据初传进入独立staging并标记未冻结/不可用于服务。远端dirty文件51项共6.6GB已另存并逐文件校验；其较大的tick历史必须保留，不能被本机28KB的空/小库覆盖。
 - Mac mini原Homebrew Redis当前连接来自TradingAgent，但不能证明其他应用未来不会共用；新TDM使用独立端口/目录，旧实例及文件保留，不flushall。
 - 初传完成：10:59:55–11:35:37，35分42秒，发送约39.08GB；rsync exit24因活跃Redis rewrite时旧AOF消失，SQLite/Parquet也未经冻结。暂存数据不得作为正式有效快照或直接恢复Redis。
-- 11:35以后自动审批曾拒绝停止Mac mini现役采集服务；用户随后明确授权按计划范围停写、切换和恢复。Deployment 已继续受控freeze；本计划更新时仍等待其报告writer清零、checkpoint与source fingerprint READY，之后才能执行正式数据切换或生产修复事务。此前本机scheduler标签已卸载但曾有孤儿worker；Mac mini原scheduler及worker的清理状态以deployment最终回执为准。隔离源核对、定向测试和临时staging可继续。
+- 11:35以后停写审批受阻：自动审批拒绝停止Mac mini现役采集服务，要求用户直接授权该具体中断窗口，禁止替代路径绕过。已向用户异步请求明确授权；当前本机scheduler标签已卸载但仍有归属online的孤儿worker，Mac mini原scheduler及worker仍在。不是freeze READY；未checkpoint、未开展生产修复事务。源核对、隔离测试和暂存资料工作可继续。
+- 用户随后已直接回复“授权按上述范围停写、切换和恢复”；根agent已要求部署执行者继续同一受控流程，仍须实际证明writer退出和checkpoint完成后才进入生产修复。12:40为下午单链恢复准备检查点，授权不等于切换已完成。
 - 源解码补证：真实包的volume/amount uint32为0时，pytdx误解为精确`2^-127`，批准对这一已证明哨兵纠为0；全Parquet发现amount哨兵4580454行，另24667行是volume=0而普通正amount。后一类可能涉及源端量化/零股精度，不能擅自改字段或删除整根OHLC；需保留可信价格、原始字段和可查询的质量异常记录。
 - 原生9/22三只股票样本证实SH/SZ/BJ都有返回；强拒绝zero-volume/nonzero-amount会丢BJ一根bar，样本719/720暂不完整，不得promotion。待质量标记方案完成后重验。
 
 完成记录和最终分母以执行回执更新，不能仅凭本计划判定完成。
+
+## 2026-10-15 午休切换进度（12:26更新）
+
+- 用户已明确授权停写、切换和恢复。两端旧调度器及确认归属的worker已退出，SQLite完成checkpoint；新采集链尚未启动。Mac mini共享Redis 6379保持原样，新TDM使用独立6380，禁止恢复旧分钟Redis载荷。
+- 交易日历沿用 `db_cn_basic.tbl_cn_tradecal`，已通过既有Tushare配置补至2015-01-01—2026-12-31，SSE/SZSE共8764行；10月15、16日均开市。新增调度器日历防护与滚动刷新工具，缺失或无效日历时停止采集，20项隔离测试通过，等待发布部署。
+- 9月22日全市场一分钟回补已正式晋升：5554只、1332960根，240根/股，键与时间格完整；manifest、质量sidecar及catalog已登记。4只首根09:31开盘与日线开盘差异单列口径；2只北交所股票的TDX日/分钟量额与Tushare日线有差异，另9只TDX日/分钟金额合计不一致，均保留原值和来源证据，不宣称所有字段跨源一致。
+- 在线历史分钟表已在完整备份和逐表逻辑哈希一致后按日事务重建多数开市日期，休市日分钟表清空并保留原始档案。9月22日与10月15日仍待可信源补齐；少量历史观察码无源，记录缺口，不回灌旧解码值。
+- Mac mini初传仍是未验收staging。最终增量、独有数据合并、正式路径切换、真实远程接口验收及服务启动均待完成；过去迁移指纹不能代替本次验收。
+- Mini现有环境未发现Tushare token。复制本机指定token到Mini ignored `.env` 被自动审批拒绝，现已向用户就这一项凭据及具体目标路径请求明确授权；授权前不复制。在线不依赖该凭据的链路可以继续准备。
+- 优先在12:40前具备一条经过修复的下午在线采集链。历史Parquet精确零哨兵清洗、所有SQLite/DuckDB逐表深审与legacy tick查询可随后继续，不能因此延迟下午采集，也不能提前标记整体完成。
+
+## 午后实际接管与尚未完成项（13:20更新）
+
+- Mac mini正式数据根目录已切至 `/Users/nickzhang/TradingDatabase`。10月在线库以Mini原库保留非分钟数据，再替换本机已修复的分钟表；9月初传副本暂隔离，尚待同样合并，不作为可用历史在线库。
+- 新在线调度器13:01:06首次启动。分钟模块因Mini私有配置的 `TDX_HISTORY_BAR_IP_POOL` 为空，首次连接的quote服务器没有原生K线返回；没有恢复旧分时decoder，而是以只读实测成功的 `shtdx.gtjas.com:7709` 补齐公开端点配置，再通过父调度器优雅重启受管子进程。
+- 首次成功分钟采集为13:07:10，此后多轮为73/73只。Mini新Redis 6380与共享6379分离；抽样原生bar→Redis→SQLite的价格、股数成交量、分钟标签相同。分钟存储为ZSET，不能误用stream cursor规则解释它。
+- 13:00至首次实际采集存在缺口。之后获取历史bar是回补，不把采集时间改写为当时已采；其他在线family也以各自首个有效capture时间记录缺口。启动成功不等于全交易日采集覆盖通过。
+- 本机自属 `com.tradingagent.redis` 已停止、禁用自启，6379无监听，原持久化文件保留；本机旧offline/online调度器仍禁用。Mini共享6379未停止或修改。
+- 根agent从本机经SSH Arrow接口真实查询Mini正式库：9月22日000001.SZ日线1行、完整1分钟240行、15分钟16行，均为 `database_only`，分钟质量元信息保留。该接口验收不能代替全库源正确性验收。
+- 9月22日canonical分钟分区已正式晋升至 `TradingDatabase/offline/oneMinute/parquet/schema_v2/year=2026/month=09/trade_date=20260922/part-000.parquet`，5554只、1332960根、每股240根，manifest、sidecar和catalog均已登记。4只首根09:31 open与Tushare日open差0.01—0.07；2只北交所Tushare日量额与TDX聚合明显不同，但TDX category-9日线与分钟聚合接近；另9只北交所分钟amount比TDX日线高398—1913元（约0.012%—0.025%），原因未定，需作为day/code级质量项提供查询。原值保留，不推断为逐bar损坏。sidecar原始值哈希匹配；251条volume=0且amount为普通正值的bar保留OHLC和源值，不补0、不删bar。质量分项、历史428日sidecar coverage仍需持续审计，manifest `ok`不代表所有经济字段均已跨源确认。
+- Mini独有legacy tick与minute原件已保护到 `offline/legacy/policy_ticks_v1.db`（5,242,372,096字节）和 `policy_minute_v1.db`（1,373,429,760字节），原备份保留。TradingAgent旧dirty树完整保留为 `TradingAgent.archive_20261015_pre_cutover`，clean stage已接为正式TradingAgent，旧输出与报告通过本机私有链接继续可用。
+- 离线调度器仍暂停，等待特定Tushare凭据复制授权。分钟健康、15:01–15:06收盘补齐窗口及父进程内子服务存活检查已通过定向隔离测试，TDM提交 8844cf4 与开盘首根等待修正 40f51e8 已形成，等待Mini拉取、受管重启及运行态核验；提交本身不代表已部署。健康状态区分09:29/09:31等待首根完成与09:32后全空降级。
+- 深审进度：7个持久DuckDB共63表、103812018行完成结构与已定义关系扫描；39个offline SQLite实际表已列清单并完成计数，basic完整性检查ok。旧CSV15m有短组，题材图有股票维表引用缺口；旧policy分时与原生OHLC存在量纲/采样差异，不能等同处理。这些问题尚待分类解决，不能标记整体数据质量通过。
+- 正在准备107个Parquet分区的精确零哨兵纠正及质量sidecar覆盖；只修已证明字段，不改普通正金额/零成交量bar。全部完成后再补同步Mini并更新每表接受状态。
